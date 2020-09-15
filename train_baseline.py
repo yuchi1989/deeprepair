@@ -1,5 +1,5 @@
 # original code: https://github.com/dyhan0920/PyramidNet-PyTorch/blob/master/train.py
-
+# python3 train_baseline.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname DeepInspect_1 --epochs 300 --beta 1.0 --cutmix_prob 1
 import argparse
 import os
 import shutil
@@ -29,7 +29,8 @@ model_names = sorted(name for name in models.__dict__
                      if name.islower() and not name.startswith("__")
                      and callable(models.__dict__[name]))
 
-parser = argparse.ArgumentParser(description='Cutmix PyTorch CIFAR-10, CIFAR-100 and ImageNet-1k Training')
+parser = argparse.ArgumentParser(
+    description='Cutmix PyTorch CIFAR-10, CIFAR-100 and ImageNet-1k Training')
 parser.add_argument('--net_type', default='pyramidnet', type=str,
                     help='networktype: resnet, and pyamidnet')
 parser.add_argument('-j', '--workers', default=4, type=int, metavar='N',
@@ -62,7 +63,8 @@ parser.add_argument('--beta', default=0, type=float,
                     help='hyperparameter beta')
 parser.add_argument('--cutmix_prob', default=0, type=float,
                     help='cutmix probability')
-parser.add_argument('--pretrained', default='/set/your/model/path', type=str, metavar='PATH')
+parser.add_argument(
+    '--pretrained', default='/set/your/model/path', type=str, metavar='PATH')
 parser.add_argument('--count', default="0", type=str, help='count')
 
 parser.set_defaults(bottleneck=True)
@@ -71,6 +73,7 @@ parser.set_defaults(verbose=True)
 best_err1 = 100
 best_err5 = 100
 global_epoch_confusion = []
+
 
 def main():
     global args, best_err1, best_err5, global_epoch_confusion
@@ -94,18 +97,22 @@ def main():
 
         if args.dataset == 'cifar100':
             train_loader = torch.utils.data.DataLoader(
-                datasets.CIFAR100('../data', train=True, download=True, transform=transform_train),
+                datasets.CIFAR100('../data', train=True,
+                                  download=True, transform=transform_train),
                 batch_size=args.batch_size, shuffle=True, num_workers=args.workers, pin_memory=True)
             val_loader = torch.utils.data.DataLoader(
-                datasets.CIFAR100('../data', train=False, transform=transform_test),
+                datasets.CIFAR100('../data', train=False,
+                                  transform=transform_test),
                 batch_size=args.batch_size, shuffle=True, num_workers=args.workers, pin_memory=True)
             numberofclass = 100
         elif args.dataset == 'cifar10':
             train_loader = torch.utils.data.DataLoader(
-                datasets.CIFAR10('../data', train=True, download=True, transform=transform_train),
+                datasets.CIFAR10('../data', train=True,
+                                 download=True, transform=transform_train),
                 batch_size=args.batch_size, shuffle=True, num_workers=args.workers, pin_memory=True)
             val_loader = torch.utils.data.DataLoader(
-                datasets.CIFAR10('../data', train=False, transform=transform_test),
+                datasets.CIFAR10('../data', train=False,
+                                 transform=transform_test),
                 batch_size=args.batch_size, shuffle=True, num_workers=args.workers, pin_memory=True)
             numberofclass = 10
         else:
@@ -139,7 +146,8 @@ def main():
         train_sampler = None
 
         train_loader = torch.utils.data.DataLoader(
-            train_dataset, batch_size=args.batch_size, shuffle=(train_sampler is None),
+            train_dataset, batch_size=args.batch_size, shuffle=(
+                train_sampler is None),
             num_workers=args.workers, pin_memory=True, sampler=train_sampler)
 
         val_loader = torch.utils.data.DataLoader(
@@ -158,12 +166,14 @@ def main():
 
     print("=> creating model '{}'".format(args.net_type))
     if args.net_type == 'resnet':
-        model = RN.ResNet(args.dataset, args.depth, numberofclass, args.bottleneck)  # for ResNet
+        model = RN.ResNet(args.dataset, args.depth,
+                          numberofclass, args.bottleneck)  # for ResNet
     elif args.net_type == 'pyramidnet':
         model = PYRM.PyramidNet(args.dataset, args.depth, args.alpha, numberofclass,
                                 args.bottleneck)
     else:
-        raise Exception('unknown network architecture: {}'.format(args.net_type))
+        raise Exception(
+            'unknown network architecture: {}'.format(args.net_type))
 
     model = torch.nn.DataParallel(model).cuda()
 
@@ -174,7 +184,8 @@ def main():
         print("=> loaded checkpoint '{}'".format(args.pretrained))
 
     print(model)
-    print('the number of model parameters: {}'.format(sum([p.data.nelement() for p in model.parameters()])))
+    print('the number of model parameters: {}'.format(
+        sum([p.data.nelement() for p in model.parameters()])))
 
     # define loss function (criterion) and optimizer
     criterion = nn.CrossEntropyLoss(reduction='none').cuda()
@@ -212,11 +223,12 @@ def main():
             'optimizer': optimizer.state_dict(),
         }, is_best)
 
-        #if is_best:
+        # if is_best:
         get_confusion(val_loader, model, criterion, epoch)
 
     print('Best accuracy (top-1 and 5 error):', best_err1, best_err5)
     np.save('global_epoch_confusion', global_epoch_confusion)
+
 
 def train(train_loader, model, criterion, optimizer, epoch):
     batch_time = AverageMeter()
@@ -245,12 +257,15 @@ def train(train_loader, model, criterion, optimizer, epoch):
             target_a = target
             target_b = target[rand_index]
             bbx1, bby1, bbx2, bby2 = rand_bbox(input.size(), lam)
-            input[:, :, bbx1:bbx2, bby1:bby2] = input[rand_index, :, bbx1:bbx2, bby1:bby2]
+            input[:, :, bbx1:bbx2, bby1:bby2] = input[rand_index,
+                                                      :, bbx1:bbx2, bby1:bby2]
             # adjust lambda to exactly match pixel ratio
-            lam = 1 - ((bbx2 - bbx1) * (bby2 - bby1) / (input.size()[-1] * input.size()[-2]))
+            lam = 1 - ((bbx2 - bbx1) * (bby2 - bby1) /
+                       (input.size()[-1] * input.size()[-2]))
             # compute output
             output = model(input)
-            loss = criterion(output, target_a) * lam + criterion(output, target_b) * (1. - lam)
+            loss = criterion(output, target_a) * lam + \
+                criterion(output, target_b) * (1. - lam)
         else:
             # compute output
             output = model(input)
@@ -280,8 +295,8 @@ def train(train_loader, model, criterion, optimizer, epoch):
                   'Loss {loss.val:.4f} ({loss.avg:.4f})\t'
                   'Top 1-err {top1.val:.4f} ({top1.avg:.4f})\t'
                   'Top 5-err {top5.val:.4f} ({top5.avg:.4f})'.format(
-                epoch, args.epochs, i, len(train_loader), LR=current_LR, batch_time=batch_time,
-                data_time=data_time, loss=losses, top1=top1, top5=top5))
+                      epoch, args.epochs, i, len(train_loader), LR=current_LR, batch_time=batch_time,
+                      data_time=data_time, loss=losses, top1=top1, top5=top5))
 
     print('* Epoch: [{0}/{1}]\t Top 1-err {top1.avg:.3f}  Top 5-err {top5.avg:.3f}\t Train Loss {loss.avg:.3f}'.format(
         epoch, args.epochs, top1=top1, top5=top5, loss=losses))
@@ -342,12 +357,13 @@ def validate(val_loader, model, criterion, epoch):
                   'Loss {loss.val:.4f} ({loss.avg:.4f})\t'
                   'Top 1-err {top1.val:.4f} ({top1.avg:.4f})\t'
                   'Top 5-err {top5.val:.4f} ({top5.avg:.4f})'.format(
-                epoch, args.epochs, i, len(val_loader), batch_time=batch_time, loss=losses,
-                top1=top1, top5=top5))
+                      epoch, args.epochs, i, len(val_loader), batch_time=batch_time, loss=losses,
+                      top1=top1, top5=top5))
 
     print('* Epoch: [{0}/{1}]\t Top 1-err {top1.avg:.3f}  Top 5-err {top5.avg:.3f}\t Test Loss {loss.avg:.3f}'.format(
         epoch, args.epochs, top1=top1, top5=top5, loss=losses))
     return top1.avg, top5.avg, losses.avg
+
 
 def get_confusion(val_loader, model, criterion, epoch=-1):
     global global_epoch_confusion
@@ -393,15 +409,15 @@ def get_confusion(val_loader, model, criterion, epoch=-1):
                   'Loss {loss.val:.4f} ({loss.avg:.4f})\t'
                   'Top 1-err {top1.val:.4f} ({top1.avg:.4f})\t'
                   'Top 5-err {top5.val:.4f} ({top5.avg:.4f})'.format(
-                epoch, args.epochs, i, len(val_loader), batch_time=batch_time, loss=losses,
-                top1=top1, top5=top5))
+                      epoch, args.epochs, i, len(val_loader), batch_time=batch_time, loss=losses,
+                      top1=top1, top5=top5))
 
         for i in range(len(input)):
             yhats.append(int(top1_output[i].cpu().data.numpy()))
             labels.append(int(target[i].cpu().data.numpy()))
     print('* Epoch: [{0}/{1}]\t Top 1-err {top1.avg:.3f}  Top 5-err {top5.avg:.3f}\t Test Loss {loss.avg:.3f}'.format(
         epoch, args.epochs, top1=top1, top5=top5, loss=losses))
-    
+
     acc = 100.*correct/total
     print(acc)
 
@@ -411,11 +427,9 @@ def get_confusion(val_loader, model, criterion, epoch=-1):
             correct += 1
     print(correct*1.0/len(labels))
 
-
     labels_list = []
     for i in range(10):
         labels_list.append(i)
-
 
     type1confusion = {}
 
@@ -426,21 +440,22 @@ def get_confusion(val_loader, model, criterion, epoch=-1):
             c = 0
             subcount = 0
             for i in range(len(yhats)):
-                
+
                 if l1 == labels[i] and l2 == yhats[i]:
                     c = c + 1
-                
+
                 if l1 == labels[i]:
                     subcount = subcount + 1
-    
+
             if subcount < 10:
                 continue
-            
-            type1confusion[(l1,l2)] = c*1.0/subcount
+
+            type1confusion[(l1, l2)] = c*1.0/subcount
     global_epoch_confusion[-1]["confusion"] = type1confusion
     global_epoch_confusion[-1]["accuracy"] = acc
 
     return top1.avg, top5.avg, losses.avg
+
 
 def save_checkpoint(state, is_best, filename='checkpoint.pth.tar'):
     directory = "runs/%s/" % (args.expname)
@@ -449,7 +464,8 @@ def save_checkpoint(state, is_best, filename='checkpoint.pth.tar'):
     filename = directory + filename
     torch.save(state, filename)
     if is_best:
-        shutil.copyfile(filename, 'runs/%s/' % (args.expname) + '_' + str(args.cutmix_prob) +'_' + 'model_best.pth.tar')
+        shutil.copyfile(filename, 'runs/%s/' %
+                        (args.expname) + 'model_best.pth.tar')
 
 
 class AverageMeter(object):
@@ -475,7 +491,8 @@ def adjust_learning_rate(optimizer, epoch):
     """Sets the learning rate to the initial LR decayed by 10 every 30 epochs"""
     global global_epoch_confusion
     if args.dataset.startswith('cifar'):
-        lr = args.lr * (0.1 ** (epoch // (args.epochs * 0.5))) * (0.1 ** (epoch // (args.epochs * 0.75)))
+        lr = args.lr * (0.1 ** (epoch // (args.epochs * 0.5))) * \
+            (0.1 ** (epoch // (args.epochs * 0.75)))
     elif args.dataset == ('imagenet'):
         if args.epochs == 300:
             lr = args.lr * (0.1 ** (epoch // 75))
@@ -485,6 +502,7 @@ def adjust_learning_rate(optimizer, epoch):
     for param_group in optimizer.param_groups:
         param_group['lr'] = lr
     global_epoch_confusion[-1]["lr"] = lr
+
 
 def get_learning_rate(optimizer):
     lr = []
