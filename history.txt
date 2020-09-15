@@ -7,15 +7,25 @@
 experiment1:
     Decide baseline and proposed approach.
     # table1_3
-    python3 repair_retrain_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname table1_3 --epochs 30 --beta 1.0 --cutmix_prob 1.0 --pretrained ./runs/DeepInspect_1/model_best.pth.tar --expid 0
-    python3 repair_retrain_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname table1_3 --epochs 30 --beta 1.0 --cutmix_prob 1.0 --pretrained ./runs/table1_3/model_best.pth.tar --checkmodel
-    # table2_3
-    python3 repair_retrain_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname table2_3 --epochs 30 --beta 1.0 --cutmix_prob 1.0 --pretrained ./runs/DeepInspect_0/model_best.pth.tar --expid 0
-    python3 repair_retrain_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname table2_3 --epochs 30 --beta 1.0 --cutmix_prob 1.0 --pretrained ./runs/table2_3/model_best.pth.tar --checkmodel
+    python3 repair_retrain_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname table1_3 --epochs 60 --beta 1.0 --cutmix_prob 1.0 --pretrained ./runs/DeepInspect_1/model_best.pth.tar --expid 0
+    python3 repair_retrain_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname table1_3 --epochs 60 --beta 1.0 --cutmix_prob 1.0 --pretrained ./runs/table1_3/model_best.pth.tar --checkmodel
+    # 0.9371; dog->cat:0.068;cat->dog: 0.06
     
+    
+    # table2_3
+    python3 repair_retrain_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname table2_3 --epochs 60 --beta 1.0 --cutmix_prob 1.0 --pretrained ./runs/DeepInspect_0/model_best.pth.tar --expid 0
+    python3 repair_retrain_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname table2_3 --epochs 60 --beta 1.0 --cutmix_prob 1.0 --pretrained ./runs/table2_3/model_best.pth.tar --checkmodel
+    # 0.9264; dog->cat:0.068;cat->dog: 0.056
+
+
+
     # table1_1
-    python3 regular_retrain_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname table1_1 --epochs 30 --beta 1.0 --cutmix_prob 1.0 --pretrained ./runs/DeepInspect_1/model_best.pth.tar --expid 0
-    python3 regular_retrain_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname table1_1 --epochs 30 --beta 1.0 --cutmix_prob 1.0 --pretrained ./runs/table1_1/model_best.pth.tar --checkmodel
+    python3 regular_retrain_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname table1_1 --epochs 60 --beta 1.0 --cutmix_prob 1.0 --pretrained ./runs/DeepInspect_1/model_best.pth.tar --expid 0
+    python3 regular_retrain_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname table1_1 --epochs 60 --beta 1.0 --cutmix_prob 1.0 --pretrained ./runs/table1_1/model_best.pth.tar --checkmodel
     # table2_1
-    python3 regular_retrain_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname table2_1 --epochs 30 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/DeepInspect_0/model_best.pth.tar --expid 0
-    python3 regular_retrain_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname table2_1 --epochs 30 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/table2_1/model_best.pth.tar --checkmodel
+    python3 regular_retrain_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname table2_1 --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/DeepInspect_0/model_best.pth.tar --expid 0
+    python3 regular_retrain_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname table2_1 --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/table2_1/model_best.pth.tar --checkmodel
+
+     # table2_5
+    python3 repair_retrain_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname table2_5 --epochs 60 --beta 1.0 --cutmix_prob 0.0 --pretrained ./runs/DeepInspect_0/model_best.pth.tar --expid 0
+    python3 repair_retrain_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname table2_5 --epochs 60 --beta 1.0 --cutmix_prob 0.0 --pretrained ./runs/table2_5/model_best.pth.tar --checkmodel
