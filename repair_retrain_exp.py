@@ -237,8 +237,12 @@ def main():
             'optimizer': optimizer.state_dict(),
         }, is_best)
 
-        # if is_best:
-        #get_confusion(val_loader, model, criterion, epoch)
+        if is_best:
+            get_confusion(val_loader, model, criterion, epoch)
+            # dog->cat confusion
+            print(global_epoch_confusion[-1]["confusion"][(5, 3)])
+            # cat->dog confusion
+            print(global_epoch_confusion[-1]["confusion"][(3, 5)])
 
     print('Best accuracy (top-1 and 5 error):', best_err1, best_err5)
     directory = "runs/%s/" % (args.expname)
@@ -521,7 +525,7 @@ def save_checkpoint(state, is_best, filename='checkpoint.pth.tar'):
     torch.save(state, filename)
     if is_best:
         shutil.copyfile(filename, 'runs/%s/' % (args.expname) +
-                        '_' + str(args.cutmix_prob) + '_' + 'model_best.pth.tar')
+                         'model_best.pth.tar')
 
 
 class AverageMeter(object):

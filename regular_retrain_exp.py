@@ -484,7 +484,7 @@ def save_checkpoint(state, is_best, filename='checkpoint.pth.tar'):
     torch.save(state, filename)
     if is_best:
         shutil.copyfile(filename, 'runs/%s/' % (args.expname) +
-                        '_' + str(args.cutmix_prob) + '_' + 'model_best.pth.tar')
+                         'model_best.pth.tar')
 
 
 class AverageMeter(object):
