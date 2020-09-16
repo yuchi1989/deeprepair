@@ -280,16 +280,16 @@ def train(train_loader, model, criterion, optimizer, epoch):
             lam = np.random.beta(args.beta, args.beta)
             #rand_index = torch.randperm(input.size()[0]).cuda()
             specific_index = []
-            for i in range(len(target_copy)):
-                if target_copy[i] not in target_classes:
-                    specific_index.append(i)
+            for j in range(len(target_copy)):
+                if target_copy[j] not in target_classes:
+                    specific_index.append(j)
             sample_index = random.sample(range(len(target_copy)), len(specific_index)) 
             rand_index = []
-            for i in range(len(target_copy)):
-                if target_copy[i] not in target_classes:
+            for j in range(len(target_copy)):
+                if target_copy[j] not in target_classes:
                     rand_index.append(sample_index.pop())
                 else:
-                    rand_index.append(i)
+                    rand_index.append(j)
             target_a = target
             target_b = target[rand_index]
             bbx1, bby1, bbx2, bby2 = rand_bbox(input.size(), lam)
