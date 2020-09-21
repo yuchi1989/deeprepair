@@ -22,10 +22,17 @@ import resnet as RN
 import pyramidnet as PYRM
 import utils
 import numpy as np
-
+import random
 import warnings
 
 warnings.filterwarnings("ignore")
+
+torch.manual_seed(123)
+torch.cuda.manual_seed(123)
+np.ranom.seed(123)
+random.seed(123)
+torch.backends.cudnn.enabled=False
+torch.backends.cudnn.deterministic=True
 
 model_names = sorted(name for name in models.__dict__
                      if name.islower() and not name.startswith("__")
