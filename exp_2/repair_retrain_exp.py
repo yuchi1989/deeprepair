@@ -27,10 +27,10 @@ import warnings
 
 warnings.filterwarnings("ignore")
 
-torch.manual_seed(123)
-torch.cuda.manual_seed(123)
-np.ranom.seed(123)
-random.seed(123)
+torch.manual_seed(124)
+torch.cuda.manual_seed(124)
+np.random.seed(124)
+random.seed(124)
 torch.backends.cudnn.enabled=False
 torch.backends.cudnn.deterministic=True
 

@@ -27,10 +27,10 @@ warnings.filterwarnings("ignore")
 
 torch.manual_seed(123)
 torch.cuda.manual_seed(123)
-np.ranom.seed(123)
+np.random.seed(123)
 random.seed(123)
-torch.backends.cudnn.enabled=False
-torch.backends.cudnn.deterministic=True
+#torch.backends.cudnn.enabled=False
+#torch.backends.cudnn.deterministic=True
 
 model_names = sorted(name for name in models.__dict__
                      if name.islower() and not name.startswith("__")
@@ -238,7 +238,7 @@ def main():
     if not os.path.exists(directory):
         os.makedirs(directory)
     epoch_confusions = 'runs/%s/' % (args.expname) + \
-        'epoch_confusion_' + args.expid
+        'epoch_confusion'
     np.save(epoch_confusions, global_epoch_confusion)
 
 
