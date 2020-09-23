@@ -100,5 +100,5 @@ def draw_graph():
 
 
 if __name__ == '__main__':
-    top_confusions("./log/cifar10_resnet_2_2_epoch_confusion.npy", 3)
+    top_confusions("./log/cifar10_resnet_2_4_epoch_confusion.npy", 3)
     #draw_graph()

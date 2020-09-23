@@ -77,7 +77,8 @@ parser.add_argument(
 parser.add_argument('--expid', default="0", type=str, help='experiment id')
 parser.add_argument('--checkmodel', help='Check model accuracy',
     action='store_true')
-
+parser.add_argument('--lam', default=0.5, type=float,
+                    help='hyperparameter lambda')
 parser.set_defaults(bottleneck=True)
 parser.set_defaults(verbose=True)
 
@@ -309,7 +310,7 @@ def train(train_loader, model, criterion, optimizer, epoch):
 
             p_dist = torch.dist(torch.mean(
                 m(output)[id3], 0), torch.mean(m(output)[id5], 0), 2)
-            loss2 = loss - 0.5*p_dist
+            loss2 = loss - args.lam*p_dist
         else:
             # compute output
             output = model(input)
