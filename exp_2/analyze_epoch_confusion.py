@@ -78,6 +78,36 @@ def draw_graph():
     plt.show()
 
 
+def draw_dog_cat_0_confusion(pretrain, repair):
+    information = np.load(pretrain, allow_pickle=True)
+    information2 = np.load(repair, allow_pickle=True)
+    nature_accuracy = []
+    dogcat_confusion = []
+
+    for i in information:
+        acc = i["accuracy"]/100
+        nature_accuracy.append(acc)
+        dogcat_confusion.append((i["confusion"][(5, 3)] + i["confusion"][(3, 5)])/2)
+    
+    for i in information2:
+        acc = i["accuracy"]/100
+        nature_accuracy.append(acc)
+        dogcat_confusion.append((i["confusion"][(5, 3)] + i["confusion"][(3, 5)])/2)
+            
+    import matplotlib.pyplot as plt
+    plt.rcParams.update({'font.size': 12})
+    fig, ax = plt.subplots()
+    x = range(len(nature_accuracy))
+    ax.plot(x, nature_accuracy, 'r-', label="accuracy")
+    ax.plot(x, dogcat_confusion, 'g-', label="dog/cat confusion")
+    plt.ylabel("accuracy/confusion")
+    plt.xlabel("epoch")
+    legend = ax.legend(loc='best', shadow=True, fontsize=14)
+    plt.savefig("cifar10_twophase.pdf", bbox_inches='tight')
+    plt.show()
+
+
 if __name__ == '__main__':
     #top_confusions("./log/cifar10_resnet_2_4_epoch_confusion.npy", 3)
-    draw_graph()
+    #draw_graph()
+    draw_dog_cat_0_confusion("./log/cifar10_resnet_2_4_epoch_confusion.npy", "./log/cifar10_resnet_2_4_dogcat_2_epoch_confusion.npy")

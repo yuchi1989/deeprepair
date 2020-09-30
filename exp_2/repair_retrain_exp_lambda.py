@@ -1,6 +1,6 @@
 # original code: https://github.com/dyhan0920/PyramidNet-PyTorch/blob/master/train.py
 # python3 repair_retrain_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --pretrained ./runs/DeepInspect_1/model_best.pth.tar --expid 0 --checkmodel
-# python3 repair_retrain_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname ResNet50 --epochs 60 --beta 1.0 --cutmix_prob 1.0 --pretrained ./runs/DeepInspect_1/model_best.pth.tar --expid 0 --first 3 --second 5
+# python3 repair_retrain_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname ResNet50 --epochs 30 --beta 1.0 --cutmix_prob 1.0 --pretrained ./runs/DeepInspect_1/model_best.pth.tar --expid 0
 
 import argparse
 import os
@@ -79,21 +79,16 @@ parser.add_argument('--checkmodel', help='Check model accuracy',
     action='store_true')
 parser.add_argument('--lam', default=0.5, type=float,
                     help='hyperparameter lambda')
-parser.add_argument('--first', default=3, type=int,
-                    help='first object index')
-parser.add_argument('--second', default=5, type=int,
-                    help='second object index')
 parser.set_defaults(bottleneck=True)
 parser.set_defaults(verbose=True)
-
 best_loss = 100
 best_err1 = 100
 best_err5 = 100
 global_epoch_confusion = []
-
+g_dist = 0
 
 def main():
-    global args, best_err1, best_err5, global_epoch_confusion
+    global args, best_err1, best_err5, global_epoch_confusion, best_loss
     args = parser.parse_args()
 
     if args.dataset.startswith('cifar'):
@@ -218,16 +213,16 @@ def main():
     if args.checkmodel:
         global_epoch_confusion.append({})
         get_confusion(val_loader, model, criterion)
-        # cat->dog confusion
-        print(global_epoch_confusion[-1]["confusion"][(args.first, args.second)])
         # dog->cat confusion
-        print(global_epoch_confusion[-1]["confusion"][(args.second, args.first)])
+        print(global_epoch_confusion[-1]["confusion"][(5, 3)])
+        # cat->dog confusion
+        print(global_epoch_confusion[-1]["confusion"][(3, 5)])
         exit()
 
     for epoch in range(0, args.epochs):
         global_epoch_confusion.append({})
         adjust_learning_rate(optimizer, epoch)
-
+        g_dist = 0
         # train for one epoch
         train_loss = train(train_loader, model, criterion, optimizer, epoch)
 
@@ -235,12 +230,12 @@ def main():
         err1, err5, val_loss = validate(val_loader, model, criterion, epoch)
 
         # remember best prec@1 and save checkpoint
-        
         is_best = val_loss <= best_loss
         best_loss = min(val_loss, best_loss)
         if is_best:
             best_err5 = err5
             best_err1 = err1
+
 
         print('Current best accuracy (top-1 and 5 error):', best_err1, best_err5)
         save_checkpoint({
@@ -254,10 +249,10 @@ def main():
 
 
         get_confusion(val_loader, model, criterion, epoch)
-        # cat->dog confusion
-        print(global_epoch_confusion[-1]["confusion"][(args.first, args.second)])
         # dog->cat confusion
-        print(global_epoch_confusion[-1]["confusion"][(args.second, args.first)])
+        print(global_epoch_confusion[-1]["confusion"][(5, 3)])
+        # cat->dog confusion
+        print(global_epoch_confusion[-1]["confusion"][(3, 5)])
 
     print('Best accuracy (top-1 and 5 error):', best_err1, best_err5)
     directory = "runs/%s/" % (args.expname)
@@ -267,20 +262,9 @@ def main():
         'epoch_confusion_' + args.expid
     np.save(epoch_confusions, global_epoch_confusion)
 
-    # output best model accuracy and confusion
-    if os.path.isfile(args.pretrained):
-        print("=> loading checkpoint '{}'".format(args.pretrained))
-        checkpoint = torch.load(args.pretrained)
-        model.load_state_dict(checkpoint['state_dict'])
-        print("=> loaded checkpoint '{}'".format(args.pretrained))
-        get_confusion(val_loader, model, criterion)
-        # dog->cat confusion
-        print(global_epoch_confusion[-1]["confusion"][(args.first, args.second)])
-        # cat->dog confusion
-        print(global_epoch_confusion[-1]["confusion"][(args.second, args.first)])
-
 
 def train(train_loader, model, criterion, optimizer, epoch):
+    global g_dist
     batch_time = AverageMeter()
     data_time = AverageMeter()
     losses = AverageMeter()
@@ -320,9 +304,9 @@ def train(train_loader, model, criterion, optimizer, epoch):
             id3 = []
             id5 = []
             for j in range(len(input)):
-                if (target_copy[j]) == args.first:
+                if (target_copy[j]) == 3:
                     id3.append(j)
-                elif (target_copy[j]) == args.second:
+                elif (target_copy[j]) == 5:
                     id5.append(j)
 
             m = nn.Softmax(dim=1)
@@ -339,9 +323,9 @@ def train(train_loader, model, criterion, optimizer, epoch):
             id3 = []
             id5 = []
             for j in range(len(input)):
-                if (target_copy[j]) == args.first:
+                if (target_copy[j]) == 3:
                     id3.append(j)
-                elif (target_copy[j]) == args.second:
+                elif (target_copy[j]) == 5:
                     id5.append(j)
             # print(output.shape)
             # print(output[id3].shape)
@@ -357,8 +341,9 @@ def train(train_loader, model, criterion, optimizer, epoch):
 
             #loss2 = criterion(output, target).mean() + p_dist
             #loss2 = criterion(output, target).mean()
-            loss2 = criterion(output, target).mean() - args.lam**p_dist
+            loss2 = criterion(output, target).mean() - args.lam*p_dist
         # measure accuracy and record loss
+        # g_dist += p_dist
         err1, err5 = accuracy(output.data, target, topk=(1, 5))
 
         losses.update(loss2.item(), input.size(0))
@@ -428,9 +413,9 @@ def validate(val_loader, model, criterion, epoch):
         id3 = []
         id5 = []
         for j in range(len(input)):
-            if (target_copy[j]) == args.first:
+            if (target_copy[j]) == 3:
                 id3.append(j)
-            elif (target_copy[j]) == args.second:
+            elif (target_copy[j]) == 5:
                 id5.append(j)
         # print(output.shape)
         # print(output[id3].shape)

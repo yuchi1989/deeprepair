@@ -177,6 +177,9 @@ experiment2:
                 python3 repair_retrain_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_1 --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4_dogcat_1/model_best.pth.tar --checkmodel
                 # accuracy: 0.9231; dog->cat 0.057; cat->dog 0.069;
 
+                python3 repair_retrain_exp_lambda.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_2 --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4/model_best.pth.tar --expid 1 --lam 10
+                python3 repair_retrain_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_1 --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4_dogcat_2/model_best.pth.tar --checkmodel
+
             (1,9)
                 python3 repair_retrain_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_autotruck_1 --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4/model_best.pth.tar --expid 0
                 python3 repair_retrain_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_autotruck_1 --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4_autotruck_1/model_best.pth.tar --checkmodel
@@ -186,3 +189,127 @@ experiment2:
                 python3 repair_retrain_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_airship_1 --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4/model_best.pth.tar --expid 0
                 python3 repair_retrain_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_airship_1 --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4_airship_1/model_best.pth.tar --checkmodel
                 # accuracy: 0.93; air->ship 0.018; ship->air 0.017
+
+    # step3: update of step2
+            python3 train_baseline.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_2 --epochs 300 --beta 1.0 --cutmix_prob 1
+            python3 repair_retrain_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_2 --epochs 60 --beta 1.0 --cutmix_prob 1.0 --pretrained ./runs/cifar10_resnet_2_2/model_best.pth.tar --checkmodel
+            # accuracy: 0.9483; dog->cat 0.062; cat->dog 0.067
+
+            python3 analyze_epoch_confusion.py 
+            (3, 5) avg: 0.0645
+            (3, 5): 0.067
+            (5, 3): 0.062
+
+            (1, 9) avg: 0.0165
+            (1, 9): 0.016
+            (9, 1): 0.017
+
+            (0, 8) avg: 0.014499999999999999
+            (0, 8): 0.01
+            (8, 0): 0.019
+            
+            (3,5)
+                python3 repair_retrain_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_2_dogcat --epochs 60 --beta 1.0 --cutmix_prob 1.0 --pretrained ./runs/cifar10_resnet_2_2/model_best.pth.tar --expid 0 --first 3 --second 5
+               
+
+
+                # accuracy: 0.9367: dog->cat 0.069; cat->dog 0.057;  lambda 0.5
+
+            (1,9)
+                python3 repair_retrain_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_2_autotruck --epochs 60 --beta 1.0 --cutmix_prob 1.0 --pretrained ./runs/cifar10_resnet_2_2/model_best.pth.tar --expid 0  --first 1 --second 9
+                
+                # accuracy: 0.9395; auto->truck 0.012; truck->auto 0.022;
+
+            (0,8)
+                python3 repair_retrain_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_2_airship --epochs 60 --beta 1.0 --cutmix_prob 1.0 --pretrained ./runs/cifar10_resnet_2_2/model_best.pth.tar --expid 0 --first 0 --second 8
+                
+                # accuracy: 0.9401; air->ship 0.016; ship->air 0.011;
+
+
+
+
+
+            python3 train_baseline.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4 --epochs 300 --beta 1.0 --cutmix_prob 0
+            python3 repair_retrain_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4 --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4/model_best.pth.tar --checkmodel
+            # accuracy: 0.9293; dog->cat 0.066; cat->dog 0.069
+
+            (3, 5) avg: 0.0675
+            (3, 5): 0.069
+            (5, 3): 0.066
+
+            (1, 9) avg: 0.025
+            (1, 9): 0.024
+            (9, 1): 0.026
+
+            (0, 8) avg: 0.0215
+            (0, 8): 0.019
+            (8, 0): 0.024
+
+            (3,5)
+                python3 repair_retrain_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_dogcat --epochs 60 --beta 1.0 --cutmix_prob 1.0 --pretrained ./runs/cifar10_resnet_2_4/model_best.pth.tar --expid 0 --first 3 --second 5
+                
+                # accuracy: 0.9235; dog->cat 0.056; cat->dog 0.066;
+
+            (1,9)
+                python3 repair_retrain_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_autotruck --epochs 60 --beta 1.0 --cutmix_prob 1.0 --pretrained ./runs/cifar10_resnet_2_4/model_best.pth.tar --expid 0 --first 1 --second 9
+
+                # accuracy: 0.9257; auto->truck 0.013; truck->auto 0.032;
+
+            (0,8)
+                python3 repair_retrain_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_airship --epochs 60 --beta 1.0 --cutmix_prob 1.0 --pretrained ./runs/cifar10_resnet_2_4/model_best.pth.tar --expid 0 --first 0 --second 8
+
+                # accuracy: 0.9248; air->ship 0.023; ship->air 0.011
+
+
+            (3,5)
+                python3 repair_retrain_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_1 --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4/model_best.pth.tar --expid 0 --first 3 --second 5
+
+                # accuracy: 0.9231; dog->cat 0.057; cat->dog 0.069;
+
+                python3 repair_retrain_exp_lambda.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_2 --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4/model_best.pth.tar --expid 1 --lam 10
+                python3 repair_retrain_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_1 --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4_dogcat_2/model_best.pth.tar --checkmodel
+
+            (1,9)
+                python3 repair_retrain_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_autotruck_1 --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4/model_best.pth.tar --expid 0 --first 1 --second 9
+
+                # accuracy: 0.9271; auto->truck 0.018; truck->auto 0.016;
+
+            (0,8)
+                python3 repair_retrain_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_airship_1 --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4/model_best.pth.tar --expid 0 --first 0 --second 8
+
+                # accuracy: 0.93; air->ship 0.018; ship->air 0.017
+
+
+experiment3: 
+    '''
+    cifar100
+    '''
+    #step1: Train baseline models, with accuracy and confusion recorded in each epochs.
+        python3 train_baseline_cifar100.py --net_type resnet --dataset cifar100 --depth 50 --batch_size 256 --lr 0.1 --expname cifar100_resnet_1 --epochs 300 --beta 1.0 --cutmix_prob 1
+        python3 repair_retrain_exp_cifar100.py --net_type resnet --dataset cifar100 --depth 50 --batch_size 256 --lr 0.1 --expname cifar100_resnet_1 --epochs 60 --beta 1.0 --cutmix_prob 1.0 --pretrained ./runs/cifar100_resnet_1/model_best.pth.tar --checkmodel
+
+        0.7418
+
+        (35, 98) avg: 0.18
+        (35, 98): 0.24
+        (98, 35): 0.12
+
+        (47, 52) avg: 0.16
+        (47, 52): 0.19
+        (52, 47): 0.13
+
+        (11, 46) avg: 0.155
+        (11, 46): 0.19
+        (46, 11): 0.12
+
+        python3 repair_retrain_exp_cifar100.py --net_type resnet --dataset cifar100 --depth 50 --batch_size 256 --lr 0.1 --expname cifar100_resnet_1_35_98 --epochs 60 --beta 1.0 --cutmix_prob 1 --pretrained ./runs/cifar100_resnet_1/model_best.pth.tar --expid 0
+        python3 repair_retrain_exp_cifar100.py --net_type resnet --dataset cifar100 --depth 50 --batch_size 256 --lr 0.1 --expname cifar100_resnet_1_35_98 --epochs 60 --beta 1.0 --cutmix_prob 1.0 --pretrained ./runs/cifar100_resnet_1_35_98/model_best.pth.tar --checkmodel
+        # accuracy: 0.7099; girl->woman: 0.17; woman -> girl 0.15;
+
+        python3 repair_retrain_exp_cifar100.py --net_type resnet --dataset cifar100 --depth 50 --batch_size 256 --lr 0.1 --expname cifar100_resnet_1_47_52 --epochs 60 --beta 1.0 --cutmix_prob 1 --pretrained ./runs/cifar100_resnet_1/model_best.pth.tar --expid 0
+        python3 repair_retrain_exp_cifar100.py --net_type resnet --dataset cifar100 --depth 50 --batch_size 256 --lr 0.1 --expname cifar100_resnet_1_47_52 --epochs 60 --beta 1.0 --cutmix_prob 1.0 --pretrained ./runs/cifar100_resnet_1_47_52/model_best.pth.tar --checkmodel
+        # accuracy: 0.7158; maple->oak: 0.2; oak -> maple 0.15;
+
+        python3 repair_retrain_exp_cifar100.py --net_type resnet --dataset cifar100 --depth 50 --batch_size 256 --lr 0.1 --expname cifar100_resnet_1_11_46 --epochs 60 --beta 1.0 --cutmix_prob 1 --pretrained ./runs/cifar100_resnet_1/model_best.pth.tar --expid 0
+        python3 repair_retrain_exp_cifar100.py --net_type resnet --dataset cifar100 --depth 50 --batch_size 256 --lr 0.1 --expname cifar100_resnet_1_11_46 --epochs 60 --beta 1.0 --cutmix_prob 1.0 --pretrained ./runs/cifar100_resnet_1_11_46/model_best.pth.tar --checkmodel
+        # accuracy 0.7074; boy->man 0.14; man->boy 0.12
