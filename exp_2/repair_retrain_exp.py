@@ -83,6 +83,8 @@ parser.add_argument('--first', default=3, type=int,
                     help='first object index')
 parser.add_argument('--second', default=5, type=int,
                     help='second object index')
+parser.add_argument('--keeplr', help='set lr 0.001 ',
+    action='store_true')
 parser.set_defaults(bottleneck=True)
 parser.set_defaults(verbose=True)
 
@@ -93,7 +95,7 @@ global_epoch_confusion = []
 
 
 def main():
-    global args, best_err1, best_err5, global_epoch_confusion
+    global args, best_err1, best_err5, global_epoch_confusion, best_loss
     args = parser.parse_args()
 
     if args.dataset.startswith('cifar'):
@@ -268,11 +270,11 @@ def main():
     np.save(epoch_confusions, global_epoch_confusion)
 
     # output best model accuracy and confusion
-    if os.path.isfile(args.pretrained):
-        print("=> loading checkpoint '{}'".format(args.pretrained))
-        checkpoint = torch.load(args.pretrained)
+    repaired_model = 'runs/%s/' % (args.expname) + 'model_best.pth.tar'
+    if os.path.isfile(repaired_model):
+        print("=> loading checkpoint '{}'".format(repaired_model))
+        checkpoint = torch.load(repaired_model)
         model.load_state_dict(checkpoint['state_dict'])
-        print("=> loaded checkpoint '{}'".format(args.pretrained))
         get_confusion(val_loader, model, criterion)
         # dog->cat confusion
         print(global_epoch_confusion[-1]["confusion"][(args.first, args.second)])
@@ -299,6 +301,7 @@ def train(train_loader, model, criterion, optimizer, epoch):
         input = input.cuda()
         target = target.cuda()
         target_copy = target.cpu().numpy()
+        output2 = model(input)
         r = np.random.rand(1)
         if args.beta > 0 and r < args.cutmix_prob:
             # generate mixed sample
@@ -328,7 +331,7 @@ def train(train_loader, model, criterion, optimizer, epoch):
             m = nn.Softmax(dim=1)
 
             p_dist = torch.dist(torch.mean(
-                m(output)[id3], 0), torch.mean(m(output)[id5], 0), 2)
+                m(output2)[id3], 0), torch.mean(m(output2)[id5], 0), 2)
             loss2 = loss - args.lam*p_dist
         else:
             # compute output
@@ -357,7 +360,7 @@ def train(train_loader, model, criterion, optimizer, epoch):
 
             #loss2 = criterion(output, target).mean() + p_dist
             #loss2 = criterion(output, target).mean()
-            loss2 = criterion(output, target).mean() - args.lam**p_dist
+            loss2 = criterion(output, target).mean() - args.lam*p_dist
         # measure accuracy and record loss
         err1, err5 = accuracy(output.data, target, topk=(1, 5))
 
@@ -564,6 +567,7 @@ def save_checkpoint(state, is_best, filename='checkpoint.pth.tar'):
     filename = directory + filename
     torch.save(state, filename)
     if is_best:
+        print("saving best model...")
         shutil.copyfile(filename, 'runs/%s/' % (args.expname) +
                          'model_best.pth.tar')
 
@@ -593,6 +597,8 @@ def adjust_learning_rate(optimizer, epoch):
     if args.dataset.startswith('cifar'):
         lr = args.lr * (0.1 ** (epoch // (args.epochs * 0.5))) * \
             (0.1 ** (epoch // (args.epochs * 0.75)))
+        if args.keeplr:
+            lr = 0.001
     elif args.dataset == ('imagenet'):
         if args.epochs == 300:
             lr = args.lr * (0.1 ** (epoch // 75))

@@ -79,16 +79,21 @@ parser.add_argument('--checkmodel', help='Check model accuracy',
     action='store_true')
 parser.add_argument('--lam', default=0.5, type=float,
                     help='hyperparameter lambda')
+parser.add_argument('--first', default=35, type=int,
+                    help='first object index')
+parser.add_argument('--second', default=98, type=int,
+                    help='second object index')
 parser.set_defaults(bottleneck=True)
 parser.set_defaults(verbose=True)
 
+best_loss = 100
 best_err1 = 100
 best_err5 = 100
 global_epoch_confusion = []
 
 
 def main():
-    global args, best_err1, best_err5, global_epoch_confusion
+    global args, best_err1, best_err5, global_epoch_confusion, best_loss
     args = parser.parse_args()
 
     if args.dataset.startswith('cifar'):
@@ -214,9 +219,9 @@ def main():
         global_epoch_confusion.append({})
         get_confusion(val_loader, model, criterion)
         # dog->cat confusion
-        print(global_epoch_confusion[-1]["confusion"][(11, 46)])
+        print(global_epoch_confusion[-1]["confusion"][(args.first, args.second)])
         # cat->dog confusion
-        print(global_epoch_confusion[-1]["confusion"][(46, 11)])
+        print(global_epoch_confusion[-1]["confusion"][(args.second, args.first)])
         exit()
 
     for epoch in range(0, args.epochs):
@@ -230,10 +235,11 @@ def main():
         err1, err5, val_loss = validate(val_loader, model, criterion, epoch)
 
         # remember best prec@1 and save checkpoint
-        is_best = err1 <= best_err1
-        best_err1 = min(err1, best_err1)
+        is_best = val_loss <= best_loss
+        best_loss = min(val_loss, best_loss)
         if is_best:
             best_err5 = err5
+            best_err1 = err1
 
         print('Current best accuracy (top-1 and 5 error):', best_err1, best_err5)
         save_checkpoint({
@@ -248,9 +254,9 @@ def main():
 
         get_confusion(val_loader, model, criterion, epoch)
         # dog->cat confusion
-        print(global_epoch_confusion[-1]["confusion"][(35, 98)])
+        print(global_epoch_confusion[-1]["confusion"][(args.first, args.second)])
         # cat->dog confusion
-        print(global_epoch_confusion[-1]["confusion"][(98, 35)])
+        print(global_epoch_confusion[-1]["confusion"][(args.second, args.first)])
 
     print('Best accuracy (top-1 and 5 error):', best_err1, best_err5)
     directory = "runs/%s/" % (args.expname)
@@ -259,7 +265,17 @@ def main():
     epoch_confusions = 'runs/%s/' % (args.expname) + \
         'epoch_confusion_' + args.expid
     np.save(epoch_confusions, global_epoch_confusion)
-
+    # output best model accuracy and confusion
+    repaired_model = 'runs/%s/' % (args.expname) + 'model_best.pth.tar'
+    if os.path.isfile(repaired_model):
+        print("=> loading checkpoint '{}'".format(repaired_model))
+        checkpoint = torch.load(repaired_model)
+        model.load_state_dict(checkpoint['state_dict'])
+        get_confusion(val_loader, model, criterion)
+        # dog->cat confusion
+        print(global_epoch_confusion[-1]["confusion"][(args.first, args.second)])
+        # cat->dog confusion
+        print(global_epoch_confusion[-1]["confusion"][(args.second, args.first)])
 
 def train(train_loader, model, criterion, optimizer, epoch):
     batch_time = AverageMeter()
@@ -278,6 +294,7 @@ def train(train_loader, model, criterion, optimizer, epoch):
         data_time.update(time.time() - end)
 
         input = input.cuda()
+        output2 = model(input)
         target = target.cuda()
         target_copy = target.cpu().numpy()
         r = np.random.rand(1)
@@ -301,9 +318,9 @@ def train(train_loader, model, criterion, optimizer, epoch):
             id3 = []
             id5 = []
             for j in range(len(input)):
-                if (target_copy[j]) == 11:
+                if (target_copy[j]) == args.first:
                     id3.append(j)
-                elif (target_copy[j]) == 46:
+                elif (target_copy[j]) == args.second:
                     id5.append(j)
 
             m = nn.Softmax(dim=1)
@@ -311,7 +328,7 @@ def train(train_loader, model, criterion, optimizer, epoch):
                 p_dist = 0
             else:
                 p_dist = torch.dist(torch.mean(
-                    m(output)[id3], 0), torch.mean(m(output)[id5], 0), 2)
+                    m(output2)[id3], 0), torch.mean(m(output2)[id5], 0), 2)
             loss2 = loss - args.lam*p_dist
         else:
             # compute output
@@ -322,9 +339,9 @@ def train(train_loader, model, criterion, optimizer, epoch):
             id3 = []
             id5 = []
             for j in range(len(input)):
-                if (target_copy[j]) == 11:
+                if (target_copy[j]) == args.first:
                     id3.append(j)
-                elif (target_copy[j]) == 46:
+                elif (target_copy[j]) == args.second:
                     id5.append(j)
             # print(output.shape)
             # print(output[id3].shape)
@@ -340,7 +357,7 @@ def train(train_loader, model, criterion, optimizer, epoch):
 
             #loss2 = criterion(output, target).mean() + p_dist
             #loss2 = criterion(output, target).mean()
-            loss2 = criterion(output, target).mean() - 0.5*p_dist
+            loss2 = criterion(output, target).mean() - args.lam*p_dist
         # measure accuracy and record loss
         err1, err5 = accuracy(output.data, target, topk=(1, 5))
 
@@ -405,14 +422,28 @@ def validate(val_loader, model, criterion, epoch):
     end = time.time()
     for i, (input, target) in enumerate(val_loader):
         target = target.cuda()
-
+        target_copy = target.cpu().numpy()
         output = model(input)
-        loss = criterion(output, target)
+        id3 = []
+        id5 = []
+        for j in range(len(input)):
+            if (target_copy[j]) == args.first:
+                id3.append(j)
+            elif (target_copy[j]) == args.second:
+                id5.append(j)
+        m = nn.Softmax(dim=1)
+        if len(id3) == 0 or len(id5) == 0:
+            p_dist = 0
+        else:
+            p_dist = torch.dist(torch.mean(
+                m(output)[id3], 0), torch.mean(m(output)[id5], 0), 2)
+        
+        loss2 = criterion(output, target).mean() - args.lam*p_dist
 
         # measure accuracy and record loss
         err1, err5 = accuracy(output.data, target, topk=(1, 5))
 
-        losses.update(loss.mean().item(), input.size(0))
+        losses.update(loss2.item(), input.size(0))
 
         top1.update(err1.item(), input.size(0))
         top5.update(err5.item(), input.size(0))

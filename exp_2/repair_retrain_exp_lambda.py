@@ -81,14 +81,14 @@ parser.add_argument('--lam', default=0.5, type=float,
                     help='hyperparameter lambda')
 parser.set_defaults(bottleneck=True)
 parser.set_defaults(verbose=True)
-best_loss = 100
+
 best_err1 = 100
 best_err5 = 100
 global_epoch_confusion = []
 g_dist = 0
 
 def main():
-    global args, best_err1, best_err5, global_epoch_confusion, best_loss
+    global args, best_err1, best_err5, global_epoch_confusion, g_dist
     args = parser.parse_args()
 
     if args.dataset.startswith('cifar'):
@@ -230,12 +230,10 @@ def main():
         err1, err5, val_loss = validate(val_loader, model, criterion, epoch)
 
         # remember best prec@1 and save checkpoint
-        is_best = val_loss <= best_loss
-        best_loss = min(val_loss, best_loss)
+        is_best = val_loss <= best_err1
+        best_err1 = min(err1, best_err1)
         if is_best:
             best_err5 = err5
-            best_err1 = err1
-
 
         print('Current best accuracy (top-1 and 5 error):', best_err1, best_err5)
         save_checkpoint({
