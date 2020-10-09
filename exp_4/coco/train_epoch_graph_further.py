@@ -30,15 +30,25 @@ def main():
                         help='path for annotation json file')
     parser.add_argument('--image_dir', default = '/media/data/dataset/coco')
 
-    parser.add_argument('--resume', default=0, type=int, help='whether to resume from log_dir if existent')
+    parser.add_argument('--resume', default=1, type=int, help='whether to resume from log_dir if existent')
     parser.add_argument('--finetune', default=0, type=int)
-    parser.add_argument('--num_epochs', type=int, default=15)
+    parser.add_argument('--num_epochs', type=int, default=20)
     parser.add_argument('--start_epoch', type=int, default=1)
     parser.add_argument('--batch_size', type=int, default=64) # batch size should be smaller if use text
     parser.add_argument('--crop_size', type=int, default=224)
     parser.add_argument('--image_size', type=int, default=256)
     parser.add_argument('--seed', type=int, default=1)
     parser.add_argument('--learning_rate', type=float, default=0.1)
+    parser.add_argument('--lam', default=0.5, type=float,
+                    help='hyperparameter lambda')
+    parser.add_argument('--first', default="baseball bat", type=str,
+                        help='first object index')
+    parser.add_argument('--second', default="bicycle", type=str,
+                        help='second object index')
+    parser.add_argument('--third', default="baseball glove", type=str,
+                        help='third object index')
+    parser.add_argument(
+    '--pretrained', default='/set/your/model/path', type=str, metavar='PATH')
     args = parser.parse_args()
 
     torch.manual_seed(args.seed)
@@ -86,7 +96,7 @@ def main():
 
     # Build the models
     model = MultilabelObject(args, 80).cuda()
-    criterion = nn.BCEWithLogitsLoss(weight = torch.FloatTensor(train_data.getObjectWeights()), size_average = True).cuda()
+    criterion = nn.BCEWithLogitsLoss(weight = torch.FloatTensor(train_data.getObjectWeights()), size_average = True, reduction='None').cuda()
 
     def trainable_params():
         for param in model.parameters():
@@ -96,30 +106,24 @@ def main():
     optimizer = torch.optim.Adam(trainable_params(), args.learning_rate, weight_decay = 1e-5)
 
     best_performance = 0
-    if args.resume:
-        train_F = open(os.path.join(args.log_dir, 'train.csv'), 'a')
-        val_F = open(os.path.join(args.log_dir, 'val.csv'), 'a')
-        score_F = open(os.path.join(args.log_dir, 'score.csv'), 'a')
-        if os.path.isfile(os.path.join(args.log_dir, 'checkpoint.pth.tar')):
-            print("=> loading checkpoint '{}'".format(args.log_dir))
-            checkpoint = torch.load(os.path.join(args.log_dir, 'checkpoint.pth.tar'))
-            args.start_epoch = checkpoint['epoch']
-            best_performance = checkpoint['best_performance']
-            model.load_state_dict(checkpoint['state_dict'])
-            print("=> loaded checkpoint (epoch {})".format(checkpoint['epoch']))
-        else:
-            print("=> no checkpoint found at '{}'".format(args.log_dir))
-    else:
+    if os.path.isfile(args.pretrained):
         train_F = open(os.path.join(args.log_dir, 'train.csv'), 'w')
         val_F = open(os.path.join(args.log_dir, 'val.csv'), 'w')
         score_F = open(os.path.join(args.log_dir, 'score.csv'), 'w')
+        print("=> loading checkpoint '{}'".format(args.pretrained))
+        checkpoint = torch.load(args.pretrained)
+        args.start_epoch = checkpoint['epoch']
+        best_performance = checkpoint['best_performance']
+        model.load_state_dict(checkpoint['state_dict'])
+        print("=> loaded checkpoint (epoch {})".format(checkpoint['epoch']))
+    else:
+        exit()
 
 
     for epoch in range(args.start_epoch, args.num_epochs + 1):
         global_epoch_confusion.append({})
         adjust_learning_rate(optimizer, epoch)
-        train(args, epoch, model, criterion, train_loader, optimizer, train_F, score_F)
-        #current_performance = test(args, epoch, model, criterion, val_loader, optimizer, val_F, score_F)
+        train(args, epoch, model, criterion, train_loader, optimizer, train_F, score_F, train_data)
         current_performance = get_confusion(args, epoch, model, criterion, val_loader, optimizer, val_F, score_F, val_data)
         is_best = current_performance > best_performance
         best_performance = max(current_performance, best_performance)
@@ -128,20 +132,48 @@ def main():
             'state_dict': model.state_dict(),
             'best_performance': best_performance}
         save_checkpoint(args, model_state, is_best, os.path.join(args.log_dir, 'checkpoint.pth.tar'))
-        os.system('python plot.py {} &'.format(args.log_dir))
+        confusion_matrix = global_epoch_confusion[-1]["confusion"]
+        first_second = compute_confusion(confusion_matrix, args.first, args.second)
+        first_third = compute_confusion(confusion_matrix, args.first, args.third)
+        print(str((args.first, args.second, args.third)) + " triplet: " + 
+            str(compute_bias(confusion_matrix, args.first, args.second, args.third)))
+        print(str((args.first, args.second)) + ": " + str(first_second))
+        print(str((args.first, args.third)) + ": " + str(first_third))
+        #os.system('python plot.py {} &'.format(args.log_dir))
 
     train_F.close()
     val_F.close()
     score_F.close()
-    np.save('global_epoch_confusion', global_epoch_confusion)
+    np.save(os.path.join(args.log_dir, 'global_epoch_confusion.npy'), global_epoch_confusion)
 
 def save_checkpoint(args, state, is_best, filename):
+    print("saving best model")
     torch.save(state, filename)
     if is_best:
-        shutil.copyfile(filename, os.path.join(args.log_dir, 'model_best.pth.tar'))
+        shutil.copyfile(filename, os.path.join(args.log_dir, 'model_best_further.pth.tar'))
 
+
+def compute_confusion(confusion_matrix, first, second):
+    confusion = 0
+    if (first, second) in confusion_matrix:
+        confusion += confusion_matrix[(first, second)]
     
-def train(args, epoch, model, criterion, train_loader, optimizer, train_F, score_F):
+    if (second, first) in confusion_matrix:
+        confusion += confusion_matrix[(second, first)]
+    return confusion/2
+
+def compute_bias(confusion_matrix, first, second, third):
+    return abs(compute_confusion(confusion_matrix, first, second) - compute_confusion(confusion_matrix, first, third))
+
+def train(args, epoch, model, criterion, train_loader, optimizer, train_F, score_F, train_data):
+    id2labels = train_data.id2labels
+    
+    image_ids = train_data.image_ids
+    image_path_map = train_data.image_path_map
+    #80 objects
+    id2object = train_data.id2object
+    id2labels = train_data.id2labels
+
     model.train()
     batch_time = AverageMeter()
     data_time = AverageMeter()
@@ -153,6 +185,11 @@ def train(args, epoch, model, criterion, train_loader, optimizer, train_F, score
     t = tqdm(train_loader, desc = 'Train %d' % epoch)
     for batch_idx, (images, objects, image_ids) in enumerate(t):
         # if batch_idx == 100: break # constrain epoch size
+        labels = []
+        for i in range(len(image_ids)):
+            yhat = []
+            label = id2labels[image_ids.cpu().numpy()[i]]
+            labels.append(label)
 
         data_time.update(time.time() - end)
         # Set mini-batch dataset
@@ -162,16 +199,38 @@ def train(args, epoch, model, criterion, train_loader, optimizer, train_F, score
         optimizer.zero_grad()
 
         object_preds = model(images)
-        loss = criterion(object_preds, objects)
-        loss_logger.update(loss.item())
+        loss = criterion(object_preds, objects).mean()
+        
+        m = nn.Softmax(dim=1)
+        firstid = []
+        secondid = []
+        thirdid = []
 
+        for j in range(len(labels)):
+            if args.first in (labels[j]):# and "bus" not in (labels[j]):
+                firstid.append(j)
+            elif args.second in (labels[j]):# and "person" not in (labels[j]):
+                secondid.append(j)
+            elif args.third in (labels[j]):# and "person" not in (labels[j]):
+                thirdid.append(j)
+        #print(len(labels))
+        #print(object_preds.shape)
+        if len(firstid) == 0 or len(secondid) == 0 or len(thirdid) == 0:
+            diff_dist = 0
+        else:
+            p_dist1 = torch.dist(torch.mean(m(object_preds)[firstid],0), torch.mean(m(object_preds)[secondid],0),2)
+            p_dist2 = torch.dist(torch.mean(m(object_preds)[firstid],0), torch.mean(m(object_preds)[thirdid],0),2)
+            diff_dist = torch.abs(p_dist1 - p_dist2)
+        #print(p_dist)
+        loss2 = loss + args.lam * diff_dist
+        loss_logger.update(loss2.item())
         object_preds_max = object_preds.data.max(1, keepdim=True)[1]
         object_correct = torch.gather(objects.data, 1, object_preds_max).cpu().sum()
         correct_logger.update(object_correct)
 
         res.append((image_ids, object_preds.data.cpu(), objects.data.cpu()))
 
-        loss.backward()
+        loss2.backward()
         optimizer.step()
 
         batch_time.update(time.time() - end)
@@ -191,56 +250,6 @@ def train(args, epoch, model, criterion, train_loader, optimizer, train_F, score
     score_F.write('{},{},{}\n'.format(epoch, 'train', eval_score_object))
     score_F.flush()
 
-def test(args, epoch, model, criterion, val_loader, optimizer, val_F, score_F):
-    model.eval()
-    batch_time = AverageMeter()
-    data_time = AverageMeter()
-    loss_logger = AverageMeter()
-    correct_logger = AverageMeter()
-
-    res = list()
-    end = time.time()
-    t = tqdm(val_loader, desc = 'Val %d' % epoch)
-    for batch_idx, (images, objects, image_ids) in enumerate(t):
-        # if batch_idx == 100: break # constrain epoch size
-
-        data_time.update(time.time() - end)
-        # Set mini-batch dataset
-        images = Variable(images).cuda()
-        objects = Variable(objects).cuda()
-
-        object_preds = model(images)
-        '''
-        m = nn.Sigmoid()
-        object_preds_r = m(object_preds)
-        '''
-        loss = criterion(object_preds, objects)
-        loss_logger.update(loss.item())
-
-        object_preds_max = object_preds.data.max(1, keepdim=True)[1]
-        object_correct = torch.gather(objects.data, 1, object_preds_max).cpu().sum()
-        correct_logger.update(object_correct)
-
-        res.append((image_ids, object_preds.data.cpu(), objects.data.cpu()))
-
-        batch_time.update(time.time() - end)
-        end = time.time()
-
-        # Print log info
-        t.set_postfix(loss = loss_logger.avg)
-
-    val_F.write('{},{},{}\n'.format(epoch, loss_logger.avg, correct_logger.avg))
-    val_F.flush()
-
-    # compute mean average precision score for object classifier
-    preds_object   = torch.cat([entry[1] for entry in res], 0)
-    targets_object = torch.cat([entry[2] for entry in res], 0)
-    eval_score_object = average_precision_score(targets_object.numpy(), preds_object.numpy())
-    print('\nmean average precision of object classifier on val data is {}\n'.format(eval_score_object))
-    score_F.write('{},{},{}\n'.format(epoch, 'test', eval_score_object))
-    score_F.flush()
-
-    return eval_score_object
 
 def get_confusion(args, epoch, model, criterion, val_loader, optimizer, val_F, score_F, test_data):
     global global_epoch_confusion
@@ -288,7 +297,7 @@ def get_confusion(args, epoch, model, criterion, val_loader, optimizer, val_F, s
         m = nn.Sigmoid()
         object_preds_r = m(object_preds)
         '''
-        loss = criterion(object_preds, objects)
+        loss = criterion(object_preds, objects).mean()
         loss_logger.update(loss.item())
 
         object_preds_max = object_preds.data.max(1, keepdim=True)[1]
@@ -317,6 +326,8 @@ def get_confusion(args, epoch, model, criterion, val_loader, optimizer, val_F, s
     object_list = []
     for i in range(80):
         object_list.append(id2object[i])
+    type2confusion = {}
+
     pair_count = {}
     confusion_count = {}
     type2confusion = {}
@@ -336,17 +347,15 @@ def get_confusion(args, epoch, model, criterion, val_loader, optimizer, val_F, s
                         confusion_count[(i, j)] += 1
                     else:
                         confusion_count[(i, j)] = 1
-    
 
     for i in object_list:
         for j in object_list:
             if i == j or (i, j) not in confusion_count or pair_count[(i, j)] < 10:
                 continue
             type2confusion[(i, j)] = confusion_count[(i, j)]*1.0 / pair_count[(i, j)]
-
     global_epoch_confusion[-1]["confusion"] = type2confusion
     global_epoch_confusion[-1]["accuracy"] = eval_score_object
-    
+
     return eval_score_object
 
 class AverageMeter(object):
@@ -367,10 +376,9 @@ class AverageMeter(object):
         self.avg = self.sum / self.count
 
 def adjust_learning_rate(optimizer, epoch):
+    """Sets the learning rate to the initial LR decayed by 10 every 30 epochs"""
     global global_epoch_confusion
-    if epoch <= 5:
-        lr = 0.001
-    elif epoch <= 10:
+    if epoch <= 16:
         lr = 0.0001
     else:
         lr = 0.00001
