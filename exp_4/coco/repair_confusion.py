@@ -218,24 +218,25 @@ def train(args, epoch, model, criterion, train_loader, optimizer, train_F, score
         #print(len(firstid))
         #print(len(secondid))
         #print(len(thirdid))
+        '''
         if len(firstid) == 0 or len(secondid) == 0 or len(thirdid) == 0:
             diff_dist = 0
         else:
             p_dist1 = torch.dist(torch.mean(m(object_preds)[firstid],0), torch.mean(m(object_preds)[secondid],0),2)
             p_dist2 = torch.dist(torch.mean(m(object_preds)[firstid],0), torch.mean(m(object_preds)[thirdid],0),2)
             diff_dist = torch.abs(p_dist1 - p_dist2)
-
+        '''
         #print(len(firstid))
         #print(len(thirdid))
-        '''
+
         if len(firstid) == 0 or len(thirdid) == 0:
             p_dist2 = 0
         else:
             p_dist2 = torch.dist(torch.mean(m(object_preds)[firstid],0), torch.mean(m(object_preds)[thirdid],0),2)
-        '''
+
 
         #print(p_dist)
-        loss2 = loss + args.lam * diff_dist
+        loss2 = loss - args.lam * p_dist2
         loss_logger.update(loss2.item())
         object_preds_max = object_preds.data.max(1, keepdim=True)[1]
         object_correct = torch.gather(objects.data, 1, object_preds_max).cpu().sum()

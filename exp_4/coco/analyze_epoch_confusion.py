@@ -92,7 +92,7 @@ def compute_bias(confusion_matrix, first, second, third):
 
 def draw_bias_graph(pretrain, repair, first='baseball bat', second='bicycle', third='baseball glove'):
     information = np.load(pretrain, allow_pickle=True, encoding = 'latin1')
-    #information2 = np.load(repair, allow_pickle=True, encoding = 'latin1')
+    information2 = np.load(repair, allow_pickle=True, encoding = 'latin1')
     nature_accuracy = []
     bias = []
 
@@ -112,12 +112,13 @@ def draw_bias_graph(pretrain, repair, first='baseball bat', second='bicycle', th
     fig, ax = plt.subplots()
     x = range(len(nature_accuracy))
     ax.plot(x, nature_accuracy, 'r-', label="accuracy")
-    ax.plot(x, bias, 'g-', label="baseball bat -> bicycle/baseball glove")
+    legend2 = first + " -> " + second + " / " + third
+    ax.plot(x, bias, 'g-', label=legend2)
     #ax.plot(x, extra_info, 'b-', label="dog->cat confusion")
     plt.ylabel("accuracy/bias")
     plt.xlabel("epoch")
     legend = ax.legend(loc='best', shadow=True, fontsize=14)
-    plt.savefig("coco_twophase_bias.pdf", bbox_inches='tight')
+    plt.savefig("coco_twophase_bias_confusion.pdf", bbox_inches='tight')
     plt.show()
 
 def top_bias(epoch_confusion_file, n = 5):
@@ -179,5 +180,5 @@ if __name__ == '__main__':
     #top_confusions("./log/cifar10_resnet_2_4_epoch_confusion.npy", 3)
     #draw_graph()
     #draw_dog_cat_0_confusion("./log/cifar10_resnet_2_4_epoch_confusion.npy", "./log/cifar10_resnet_2_4_dogcat_2_epoch_confusion6.npy")
-    #top_bias("./log/coco_epoch_confusion.npy", 6)
-    draw_bias_graph("./log/coco_epoch_confusion.npy", "./log/coco_epoch_confusion_further.npy")
+    #top_bias("./log/coco_epoch_confusion.npy", 10)
+    #draw_bias_graph("./log/coco_epoch_confusion.npy", "./log/coco_epoch_confusion_further_confusion.npy", "person", "clock", "bus")
