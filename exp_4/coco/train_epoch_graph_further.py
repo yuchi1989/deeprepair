@@ -49,6 +49,8 @@ def main():
                         help='third object index')
     parser.add_argument(
     '--pretrained', default='/set/your/model/path', type=str, metavar='PATH')
+    parser.add_argument('--debug', help='Check model accuracy',
+    action='store_true')
     args = parser.parse_args()
 
     torch.manual_seed(args.seed)
@@ -215,9 +217,10 @@ def train(args, epoch, model, criterion, train_loader, optimizer, train_F, score
                 thirdid.append(j)
         #print(len(labels))
         #print(object_preds.shape)
-        #print(len(firstid))
-        #print(len(secondid))
-        #print(len(thirdid))
+        if args.debug:
+            print(len(firstid))
+            print(len(secondid))
+            print(len(thirdid))
         if len(firstid) == 0 or len(secondid) == 0 or len(thirdid) == 0:
             diff_dist = 0
         else:
