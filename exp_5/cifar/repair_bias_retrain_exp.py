@@ -24,6 +24,7 @@ import utils
 import numpy as np
 import random
 import warnings
+from collections import Counter
 
 warnings.filterwarnings("ignore")
 
@@ -223,10 +224,11 @@ def main():
         global_epoch_confusion.append({})
         get_confusion(val_loader, model, criterion)
         confusion_matrix = global_epoch_confusion[-1]["confusion"]
-        print(str((args.first, args.second, args.third)) + " triplet: " + 
-            str(abs(confusion_matrix[(args.first, args.second)] - confusion_matrix[(args.first, args.third)])))
-        print(str((args.first, args.second)) + ": " + str(confusion_matrix[(args.first, args.second)]))
-        print(str((args.first, args.third)) + ": " + str(confusion_matrix[(args.first, args.third)]))
+        print("loss: " + str(global_epoch_confusion[-1]["loss"]))
+        bias_matrix = global_epoch_confusion[-1]["bias"]
+        print("loss: " + str(global_epoch_confusion[-1]["loss"]))
+        print(str((args.second, args.third)) + " bias: " + 
+            str(bias_matrix[(args.second, args.third)]))
         exit()
 
     for epoch in range(0, args.epochs):
@@ -261,12 +263,10 @@ def main():
         get_confusion(val_loader, model, criterion, epoch)
         confusion_matrix = global_epoch_confusion[-1]["confusion"]
         print("loss: " + str(global_epoch_confusion[-1]["loss"]))
-        first_second = compute_confusion(confusion_matrix, args.first, args.second)
-        first_third = compute_confusion(confusion_matrix, args.first, args.third)
-        print(str((args.first, args.second, args.third)) + " triplet: " + 
-            str(compute_bias(confusion_matrix, args.first, args.second, args.third)))
-        print(str((args.first, args.second)) + ": " + str(first_second))
-        print(str((args.first, args.third)) + ": " + str(first_third))
+        bias_matrix = global_epoch_confusion[-1]["bias"]
+        print("loss: " + str(global_epoch_confusion[-1]["loss"]))
+        print(str((args.second, args.third)) + " bias: " + 
+            str(bias_matrix[(args.second, args.third)]))
 
 
     print('Best accuracy (top-1 and 5 error):', best_err1, best_err5)
@@ -284,15 +284,10 @@ def main():
         checkpoint = torch.load(repaired_model)
         model.load_state_dict(checkpoint['state_dict'])
         get_confusion(val_loader, model, criterion)
-        confusion_matrix = global_epoch_confusion[-1]["confusion"]
+        bias_matrix = global_epoch_confusion[-1]["bias"]
         print("loss: " + str(global_epoch_confusion[-1]["loss"]))
-        first_second = compute_confusion(confusion_matrix, args.first, args.second)
-        first_third = compute_confusion(confusion_matrix, args.first, args.third)
-        print(str((args.first, args.second, args.third)) + " triplet: " + 
-            str(compute_bias(confusion_matrix, args.first, args.second, args.third)))
-        print(str((args.first, args.second)) + ": " + str(first_second))
-        print(str((args.first, args.third)) + ": " + str(first_third))
-
+        print(str((args.second, args.third)) + " bias: " + 
+            str(bias_matrix[(args.second, args.third)]))
 
 def compute_confusion(confusion_matrix, first, second):
     confusion = 0
@@ -366,35 +361,38 @@ def train(train_loader, model, criterion, optimizer, epoch):
         else:
             # compute output
             output = model(input)
+            loss = criterion(output, target)
             #_, top1_output = output.max(1)
             #yhats = top1_output.cpu().data.numpy()
             # print(yhats[:5])
             id3 = []
             id5 = []
             id1 = []
+
+            filered_target = [id for id in target_copy if id != args.second]
+            filered_target = [id for id in filered_target if id != args.third]
+            first = Counter(filered_target).most_common(1)[0][0] 
             for j in range(len(input)):
-                if (target_copy[j]) == args.first:
+                if (target_copy[j]) == first:
                     id3.append(j)
                 elif (target_copy[j]) == args.second:
                     id5.append(j)
                 elif (target_copy[j]) == args.third:
                     id1.append(j)
-
             m = nn.Softmax(dim=1)
-            if len(id3) == 0 or len(id5) == 0 or len(id1) == 0:
+            if len(id5) == 0 or len(id1) == 0:
                 diff_dist = 0
+                p_dist1 = 0
+                p_dist2 = 0
             else:
                 p_dist1 = torch.dist(torch.mean(
                     m(output)[id3], 0), torch.mean(m(output)[id5], 0), 2)
                 p_dist2 = torch.dist(torch.mean(
                     m(output)[id3], 0), torch.mean(m(output)[id1], 0), 2)
-                diff_dist = torch.square(p_dist1 - p_dist2)
-            #print(criterion(output, target).mean())
-            # print(p_dist)
+                diff_dist = torch.abs(p_dist1 - p_dist2)
+            #loss2 = loss.mean() + args.lam * diff_dist
+            loss2 = loss.mean() - args.lam * (p_dist1  + p_dist2)
 
-            #loss2 = criterion(output, target).mean() + p_dist
-            #loss2 = criterion(output, target).mean()
-            loss2 = criterion(output, target).mean() + args.lam*diff_dist
         # measure accuracy and record loss
         err1, err5 = accuracy(output.data, target, topk=(1, 5))
 
@@ -465,23 +463,30 @@ def validate(val_loader, model, criterion, epoch):
         id3 = []
         id5 = []
         id1 = []
+        filered_target = [id for id in target_copy if id != args.second]
+        filered_target = [id for id in filered_target if id != args.third]
+        first = Counter(filered_target).most_common(1)[0][0] 
+
         for j in range(len(input)):
-            if (target_copy[j]) == args.first:
+            if (target_copy[j]) == first:
                 id3.append(j)
             elif (target_copy[j]) == args.second:
                 id5.append(j)
             elif (target_copy[j]) == args.third:
                 id1.append(j)
         m = nn.Softmax(dim=1)
-        if len(id3) == 0 or len(id5) == 0 or len(id1) == 0:
+        if len(id5) == 0 or len(id1) == 0:
             diff_dist = 0
+            p_dist1 = 0
+            p_dist2 = 0
         else:
             p_dist1 = torch.dist(torch.mean(
                 m(output)[id3], 0), torch.mean(m(output)[id5], 0), 2)
             p_dist2 = torch.dist(torch.mean(
                 m(output)[id3], 0), torch.mean(m(output)[id1], 0), 2)
-            diff_dist = torch.square(p_dist1 - p_dist2)
-        loss2 = loss.mean() + args.lam * diff_dist
+            diff_dist = torch.abs(p_dist1 - p_dist2)
+        #loss2 = loss.mean() + args.lam * diff_dist
+        loss2 = loss.mean() - args.lam * (p_dist1  + p_dist2)
         # measure accuracy and record loss
         err1, err5 = accuracy(output.data, target, topk=(1, 5))
 
@@ -536,23 +541,31 @@ def get_confusion(val_loader, model, criterion, epoch=-1):
         id3 = []
         id5 = []
         id1 = []
+
+        filered_target = [id for id in target_copy if id != args.second]
+        filered_target = [id for id in filered_target if id != args.third]
+        first = Counter(filered_target).most_common(1)[0][0] 
+
         for j in range(len(input)):
-            if (target_copy[j]) == args.first:
+            if (target_copy[j]) == first:
                 id3.append(j)
             elif (target_copy[j]) == args.second:
                 id5.append(j)
             elif (target_copy[j]) == args.third:
                 id1.append(j)
         m = nn.Softmax(dim=1)
-        if len(id3) == 0 or len(id5) == 0 or len(id1) == 0:
+        if len(id5) == 0 or len(id1) == 0:
             diff_dist = 0
+            p_dist1 = 0
+            p_dist2 = 0
         else:
             p_dist1 = torch.dist(torch.mean(
                 m(output)[id3], 0), torch.mean(m(output)[id5], 0), 2)
             p_dist2 = torch.dist(torch.mean(
                 m(output)[id3], 0), torch.mean(m(output)[id1], 0), 2)
-            diff_dist = torch.square(p_dist1 - p_dist2)
-        loss2 = loss.mean() + args.lam * diff_dist
+            diff_dist = torch.abs(p_dist1 - p_dist2)
+        #loss2 = loss.mean() + args.lam * diff_dist
+        loss2 = loss.mean() - args.lam * (p_dist1  + p_dist2)
         # measure accuracy and record loss
         err1, err5 = accuracy(output.data, target, topk=(1, 5))
 
@@ -610,7 +623,34 @@ def get_confusion(val_loader, model, criterion, epoch=-1):
                     subcount = subcount + 1
 
             type1confusion[(l1, l2)] = c*1.0/subcount
+    avg_pair_confusion = {}
+    bias = {}
+    for i in range(10):
+        for j in range(i + 1, 10):
+            avg_pair_confusion[(i,j)] = (type1confusion[(i, j)] + type1confusion[(j, i)])/2
+            avg_pair_confusion[(j,i)] = (type1confusion[(i, j)] + type1confusion[(j, i)])/2
+
+    triplet_bias = {}
+    for i in range(10):
+        for j in range(10):
+            for k in range(10):
+                if i == j or j == k or i ==k:
+                    continue
+                triplet_bias[(i, j, k)] = abs(avg_pair_confusion[(i, j)] - avg_pair_confusion[(i, k)])
+
+    pairwise_bias = {}
+    for i in range(10):
+        for j in range(10):
+            if i == j:
+                continue
+            pairwise_bias[(i, j)] = 0
+            for k in range(10):
+                if j == k or i ==k:
+                    continue
+                pairwise_bias[(i, j)] += triplet_bias[(k, i, j)]
+
     global_epoch_confusion[-1]["confusion"] = type1confusion
+    global_epoch_confusion[-1]["bias"] = pairwise_bias
     global_epoch_confusion[-1]["accuracy"] = acc
     global_epoch_confusion[-1]["loss"] = losses.avg
 

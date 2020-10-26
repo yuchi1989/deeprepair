@@ -268,7 +268,6 @@ def main():
         print(str((args.first, args.second)) + ": " + str(first_second))
         print(str((args.first, args.third)) + ": " + str(first_third))
 
-
     print('Best accuracy (top-1 and 5 error):', best_err1, best_err5)
     directory = "runs/%s/" % (args.expname)
     if not os.path.exists(directory):
@@ -383,6 +382,7 @@ def train(train_loader, model, criterion, optimizer, epoch):
             m = nn.Softmax(dim=1)
             if len(id3) == 0 or len(id5) == 0 or len(id1) == 0:
                 diff_dist = 0
+                p_dist1 = 0
             else:
                 p_dist1 = torch.dist(torch.mean(
                     m(output)[id3], 0), torch.mean(m(output)[id5], 0), 2)
@@ -394,7 +394,7 @@ def train(train_loader, model, criterion, optimizer, epoch):
 
             #loss2 = criterion(output, target).mean() + p_dist
             #loss2 = criterion(output, target).mean()
-            loss2 = criterion(output, target).mean() + args.lam*diff_dist
+            loss2 = criterion(output, target).mean() - args.lam * p_dist1
         # measure accuracy and record loss
         err1, err5 = accuracy(output.data, target, topk=(1, 5))
 
@@ -475,13 +475,14 @@ def validate(val_loader, model, criterion, epoch):
         m = nn.Softmax(dim=1)
         if len(id3) == 0 or len(id5) == 0 or len(id1) == 0:
             diff_dist = 0
+            p_dist1 = 0
         else:
             p_dist1 = torch.dist(torch.mean(
                 m(output)[id3], 0), torch.mean(m(output)[id5], 0), 2)
             p_dist2 = torch.dist(torch.mean(
                 m(output)[id3], 0), torch.mean(m(output)[id1], 0), 2)
             diff_dist = torch.square(p_dist1 - p_dist2)
-        loss2 = loss.mean() + args.lam * diff_dist
+        loss2 = loss.mean() - args.lam * p_dist1
         # measure accuracy and record loss
         err1, err5 = accuracy(output.data, target, topk=(1, 5))
 
@@ -546,13 +547,14 @@ def get_confusion(val_loader, model, criterion, epoch=-1):
         m = nn.Softmax(dim=1)
         if len(id3) == 0 or len(id5) == 0 or len(id1) == 0:
             diff_dist = 0
+            p_dist1 = 0
         else:
             p_dist1 = torch.dist(torch.mean(
                 m(output)[id3], 0), torch.mean(m(output)[id5], 0), 2)
             p_dist2 = torch.dist(torch.mean(
                 m(output)[id3], 0), torch.mean(m(output)[id1], 0), 2)
             diff_dist = torch.square(p_dist1 - p_dist2)
-        loss2 = loss.mean() + args.lam * diff_dist
+        loss2 = loss.mean() - args.lam * p_dist1
         # measure accuracy and record loss
         err1, err5 = accuracy(output.data, target, topk=(1, 5))
 

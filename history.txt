@@ -333,26 +333,180 @@ experiment4:
     ln -s /media/yuchi/fcc884b3-8bc4-4686-8860-27754245721e/ /media/data
     # bias
         coco:
-            python2 train_epoch_graph.py --log_dir coco_bias
+            python2 train_epoch_graph.py --log_dir coco_bias_1
+            0.660980437152288
+            ('baseball bat', 'bicycle', 'baseball glove') triplet: 0.349291823159419
+            ('baseball bat', 'bicycle'): 0.0
+            ('baseball bat', 'baseball glove'): 0.349291823159419
+
+            ('person', 'bus', 'clock') triplet: 0.22682636137556308
+            ('person', 'bus'): 0.25214369320199376
+            ('person', 'clock'): 0.025317331826430662
+
+            ('sports ball', 'truck', 'tennis racket') triplet: 0.18798295923757843
+            ('sports ball', 'truck'): 0.0
+            ('sports ball', 'tennis racket'): 0.18798295923757843
 
 
+            python2 train_epoch_graph_further.py --pretrained coco_bias_1/model_best.pth.tar --log_dir coco_bias_repair
+            ('baseball bat', 'bicycle', 'baseball glove') triplet: 0.386103443595
+            ('baseball bat', 'bicycle'): 0
+            ('baseball bat', 'baseball glove'): 0.386103443595
+            
+            python2 train_epoch_graph_further.py --pretrained coco_bias_1/model_best.pth.tar --log_dir coco_bias_repair_confusion_based
+            # object too few in each batch
 
+            python2 train_epoch_graph_further.py --pretrained coco_bias_1/model_best.pth.tar --log_dir coco_bias_repair_confusion_based --first "person" --second "clock" --third "bus"
+
+            mean average precision of object classifier on test data is 0.66075789272
+
+            saving best model
+            ('person', 'clock', 'bus') triplet: 0.0678969001549
+            ('person', 'clock'): 0.100694216249
+            ('person', 'bus'): 0.0327973160936
+
+            python2 train_epoch_graph_further.py --pretrained coco_bias_1/model_best.pth.tar --log_dir coco_bias_repair_bias_based --first "person" --second "clock" --third "bus"
+
+            mean average precision of object classifier on test data is 0.661176637001
+
+            saving best model
+            ('person', 'clock', 'bus') triplet: 0.0323769157965
+            ('person', 'clock'): 0.000254597558232
+            ('person', 'bus'): 0.0326315133547
+
+                        
+            python2 train_epoch_graph_further.py --pretrained coco_bias_1/model_best.pth.tar --log_dir coco_bias_repair_bias_sports --first "sports ball" --second "truck" --third "tennis racket"
+
+            python2 train_epoch_graph_further.py --pretrained coco_bias_1/model_best.pth.tar --log_dir coco_bias_repair_bias_sports_lam1 --first "sports ball" --second "truck" --third "tennis racket" --lam 1
+            mean average precision of object classifier on test data is 0.661348185932
+            saving best model
+            ('sports ball', 'truck', 'tennis racket') triplet: 0.150845923317
+            ('sports ball', 'truck'): 0
+            ('sports ball', 'tennis racket'): 0.150845923317
 
 
         cifar:
             python3 analyze_epoch_confusion.py 
-            (3, 1, 5) triplet: 0.068
-            (3, 1): 0.001
-            (3, 5): 0.069
 
-            (3, 5, 9) triplet: 0.067
-            (3, 5): 0.069
-            (3, 9): 0.002
+            (5, 3, 1) triplet: 0.067
+            (5, 3): 0.0675
+            (5, 1): 0.0005
 
-            (3, 5, 8) triplet: 0.066
-            (3, 5): 0.069
-            (3, 8): 0.003
+            (1, 2, 9) triplet: 0.025
+            (1, 2): 0.0
+            (1, 9): 0.025
+
+            (5, 0, 3) triplet: 0.065
+            (5, 0): 0.0025
+            (5, 3): 0.0675
 
             python3 repair_bias_retrain.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_bias_351 --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4/model_best.pth.tar --expid 0 --first 3 --second 5 --third 1 --lam 1
+            91.73
+            0.9173
+            (3, 5, 1) triplet: 0.063
+            (3, 5): 0.063
+            (3, 1): 0.0
+
+           
+            
+            python3 repair_bias_retrain.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_bias_351 --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4/model_best.pth.tar --expid 0 --first 5 --second 0 --third 3 --lam 1
 
 
+            python3 repair_bias_retrain.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_bias_351 --epochs 15 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4/model_best.pth.tar --expid 1 --first 3 --second 5 --third 1 --lam 20
+
+            9.99
+            0.0999
+            loss: 2.3026566917419435
+            (3, 5, 1) triplet: 0.0
+            (3, 5): 0.0
+            (3, 1): 0.0
+
+            python3 repair_bias_retrain.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_bias_129 --epochs 15 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4/model_best.pth.tar --expid 1 --first 1 --second 2 --third 9 --lam 5
+
+            original model:
+            (5, 3, 1) triplet: 0.067
+            (5, 3): 0.0675
+            (5, 1): 0.0005
+
+            (1, 2, 9) triplet: 0.025
+            (1, 2): 0.0
+            (1, 9): 0.025
+
+            python3 repair_bias_retrain_confusion.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_bias_531 --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4/model_best.pth.tar --expid 0 --first 5 --second 3 --third 1 --lam 5
+
+            69.7
+            0.697
+            loss: -4.03870160522461
+            (5, 3, 1) triplet: 0.048999999999999995
+            (5, 3): 0.052
+            (5, 1): 0.003
+
+
+            python3 repair_bias_retrain.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_bias_531_bias --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4/model_best.pth.tar --expid 0 --first 5 --second 3 --third 1 --lam 10
+
+
+            python3 repair_bias_retrain_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_bias_531_bias_exp --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4/model_best.pth.tar --expid 0 --first 5 --second 3 --third 1 --lam 1
+
+            91.16
+            0.9116
+            loss: -2.1218951473236083
+            (5, 3, 1) triplet: 0.0595
+            (5, 3): 0.06
+            (5, 1): 0.0005
+
+            python3 repair_bias_retrain_exp2.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_bias_531_bias_exp2 --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4/model_best.pth.tar --expid 0 --first 5 --second 3 --third 1 --lam 1
+
+            81.37
+            0.8137
+            loss: -0.4096843803405762
+            (5, 3, 1) triplet: 0.4135
+            (5, 3): 0.07
+            (5, 1): 0.4835
+
+            python3 repair_bias_retrain_exp2.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_bias_531_bias_exp2_5 --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4/model_best.pth.tar --expid 0 --first 5 --second 3 --third 1 --lam 0.5
+
+
+
+            python3 repair_bias_retrain_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_bias_129_bias_exp --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4/model_best.pth.tar --expid 0 --first 1 --second 2 --third 9 --lam 1
+
+            91.65
+            0.9165
+            loss: -2.3634717472076416
+            (1, 2, 9) triplet: 0.024
+            (1, 2): 0.0005
+            (1, 9): 0.0245
+
+
+experiment5:
+
+
+
+python3 repair_bias_retrain_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_bias_13_bias_exp_2 --epochs 30 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4/model_best.pth.tar --expid 0 --second 1 --third 3 --lam 2
+
+
+91.0
+0.91
+loss: 0.4133942325592041
+(1, 3) bias: 0.225
+
+
+
+
+
+python3 repair_bias_retrain_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_bias_13_bias_exp_4 --epochs 30 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4/model_best.pth.tar --expid 0 --second 1 --third 3 --lam 4
+
+
+
+
+original: 
+92.93
+0.9293
+(1, 3) bias: 0.157
+
+
+
+coco
+
+python2 train_epoch_graph_further.py --pretrained coco_bias_1/model_best.pth.tar --log_dir coco_bias_repair_pairbias_1  --second "book" --third "bird" --lam 1
+original:
+('book', 'bird') triplet: 0.7412713618926299

@@ -78,33 +78,37 @@ def draw_graph():
     plt.show()
 
 
-def draw_bias_graph(pretrain, repair, first, second, third):
+def draw_bias_graph(pretrain, repair, second, third):
     information = np.load(pretrain, allow_pickle=True)
     information2 = np.load(repair, allow_pickle=True)
     nature_accuracy = []
     bias = []
     extra_info = []
+    loss = []
     for i in information:
         acc = i["accuracy"]/100
         nature_accuracy.append(acc)
-        bias.append(abs(i["confusion"][(first, second)] + i["confusion"][(second, first)] - i["confusion"][(first, third)] - i["confusion"][(third, first)]))
+        loss.append(0)
+        bias.append(compute_pairwise_bias(i["confusion"], second, third))
     
     for i in information2:
         acc = i["accuracy"]/100
         nature_accuracy.append(acc)
-        bias.append(abs(i["confusion"][(first, second)] + i["confusion"][(second, first)] - i["confusion"][(first, third)] - i["confusion"][(third, first)]))
-    
+        loss.append(i["loss"]/10+1)
+        bias.append(compute_pairwise_bias(i["confusion"], second, third))
+    print(bias)
     import matplotlib.pyplot as plt
     plt.rcParams.update({'font.size': 12})
     fig, ax = plt.subplots()
     x = range(len(nature_accuracy))
     ax.plot(x, nature_accuracy, 'r-', label="accuracy")
-    ax.plot(x, bias, 'g-', label="dog -> cat/airplane bias")
+    ax.plot(x, loss, 'b-', label="loss")
+    ax.plot(x, bias, 'g-', label="airplane, cat bias")
     #ax.plot(x, extra_info, 'b-', label="dog->cat confusion")
     plt.ylabel("accuracy/bias")
     plt.xlabel("epoch")
     legend = ax.legend(loc='best', shadow=True, fontsize=14)
-    plt.savefig("cifar10_twophase_bias_1.pdf", bbox_inches='tight')
+    plt.savefig("cifar10_twophase_pairwise.pdf", bbox_inches='tight')
     plt.show()
 
 
@@ -120,6 +124,17 @@ def compute_confusion(confusion_matrix, first, second):
 def compute_bias(confusion_matrix, first, second, third):
     return abs(compute_confusion(confusion_matrix, first, second) - compute_confusion(confusion_matrix, first, third))
 
+
+def compute_pairwise_bias(confusion_matrix, second, third):
+    object_list = []
+    for i in range(10):
+        object_list.append(i)
+    bias = 0
+    for o in object_list:
+        if second == o or third == o:
+            continue
+        bias += compute_bias(confusion_matrix, o, second, third)
+    return bias
 
 def top_bias(epoch_confusion_file, n = 5):
     information = np.load(epoch_confusion_file, allow_pickle=True)
@@ -160,19 +175,33 @@ def top_bias(epoch_confusion_file, n = 5):
                 if i == j or j == k or i ==k:
                     continue
                 triplet_bias[(i, j, k)] = abs(avg_pair_confusion[(i, j)] - avg_pair_confusion[(i, k)])
-    keys = sorted(triplet_bias, key=triplet_bias.get, reverse=True)[:n]
+
+    pairwise_bias = {}
+    for i in range(10):
+        for j in range(10):
+            if i == j:
+                continue
+            pairwise_bias[(i, j)] = 0
+            for k in range(10):
+                if j == k or i ==k:
+                    continue
+                pairwise_bias[(i, j)] += triplet_bias[(k, i, j)]
+
+    keys = sorted(pairwise_bias, key=pairwise_bias.get, reverse=True)[:n]
     for i in range(n):
         print("")
-        print(str(keys[i]) + " triplet: " + str(triplet_bias[keys[i]]))
-        print(str((keys[i][0],keys[i][1])) + ": " + str(avg_pair_confusion[(keys[i][0], keys[i][1])]))
-        print(str((keys[i][0],keys[i][2])) + ": " + str(avg_pair_confusion[(keys[i][0], keys[i][2])]))
+        print(str(keys[i]) + " triplet: " + str(pairwise_bias[keys[i]]))
+        #print(str((keys[i][0],keys[i][1])) + ": " + str(avg_pair_confusion[(keys[i][0], keys[i][1])]))
+        #print(str((keys[i][0],keys[i][2])) + ": " + str(avg_pair_confusion[(keys[i][0], keys[i][2])]))
 
     #print(top_natural_confusion[max_index])
+    print(pairwise_bias[(1,3)])
 
 if __name__ == '__main__':
     #top_confusions("./log/cifar10_resnet_2_4_epoch_confusion.npy", 3)
     #draw_graph()
     #draw_dog_cat_0_confusion("./log/cifar10_resnet_2_4_epoch_confusion.npy", "./log/cifar10_resnet_2_4_dogcat_2_epoch_confusion6.npy")
-    top_bias("../../exp_2/log/cifar10_resnet_2_4_epoch_confusion.npy", 100)
+    #top_bias("../../exp_2/log/cifar10_resnet_2_4_epoch_confusion.npy", 10)
     #draw_bias_graph("../../exp_2/log/cifar10_resnet_2_4_epoch_confusion.npy", "./log/cifar10_resnet_2_4_bias_351_epoch_confusion_5.npy")
-    #draw_bias_graph("../../exp_2/log/cifar10_resnet_2_4_epoch_confusion.npy", "./log/cifar10_resnet_2_4_bias_503_epoch_confusion_0.npy", 5, 0, 3)
+    draw_bias_graph("../../exp_2/log/cifar10_resnet_2_4_epoch_confusion.npy", "./log/epoch_confusion_2.npy", 1, 3)
+    #draw_bias_graph("../../exp_2/log/cifar10_resnet_2_4_epoch_confusion.npy", "./log/epoch_confusion_4.npy", 3, 1)
