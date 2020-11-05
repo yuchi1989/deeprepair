@@ -510,3 +510,53 @@ coco
 python2 train_epoch_graph_further.py --pretrained coco_bias_1/model_best.pth.tar --log_dir coco_bias_repair_pairbias_1  --second "book" --third "bird" --lam 1
 original:
 ('book', 'bird') triplet: 0.7412713618926299
+
+
+
+
+exp_6:
+
+python3 repair_retrain_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4/model_best.pth.tar --expid 0 --checkmodel
+92.93
+0.9293
+0.069
+0.066
+after repair..
+88.92
+0.8892
+0.046
+0.064
+
+lambada 0
+;ogging filter: 92.99
+logging filter: 0.9299
+logging filter: 3 -> 5
+logging filter: 0.061
+logging filter: 5 -> 3
+logging filter: 0.069
+
+lambda 0.5
+logging filter: 92.5
+logging filter: 0.925
+logging filter: 3 -> 5
+logging filter: 0.057
+logging filter: 5 -> 3
+logging filter: 0.058
+
+
+
+cifar10_confusion:
+
+python3 repair_retrain_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4/model_best.pth.tar --expid 0 --lam 0.5
+
+cifar10 bias:
+ (5, 3, 1) triplet: 0.067
+            (5, 3): 0.0675
+            (5, 1): 0.0005
+
+ python3 repair_bias_retrain_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_bias_531_bias_exp --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4/model_best.pth.tar --expid 0 --first 5 --second 3 --third 1 --lam 1
+
+cifar100 bias:
+(35, 0, 98) triplet: 0.18
+(35, 0): 0.0
+(35, 98): 0.18
