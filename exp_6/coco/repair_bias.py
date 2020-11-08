@@ -98,7 +98,7 @@ def main():
 
     # Data loaders / batch assemblers.
     train_loader = torch.utils.data.DataLoader(train_data, batch_size = args.batch_size, 
-                                              shuffle = True, num_workers = 2,
+                                              shuffle = True, num_workers = 1,
                                               pin_memory = True)
     
     first_loader = torch.utils.data.DataLoader(first_data, batch_size = 3, 
@@ -112,7 +112,7 @@ def main():
                                               pin_memory = True)
 
     val_loader = torch.utils.data.DataLoader(val_data, batch_size = args.batch_size, 
-                                            shuffle = False, num_workers = 2,
+                                            shuffle = False, num_workers = 1,
                                             pin_memory = True)
 
     # Build the models
@@ -192,8 +192,6 @@ def train(args, epoch, model, criterion, train_loader, optimizer, train_F, score
     image_ids = train_data.image_ids
     image_path_map = train_data.image_path_map
     #80 objects
-    id2object = train_data.id2object
-    id2labels = train_data.id2labels
 
     model.train()
     batch_time = AverageMeter()

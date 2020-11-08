@@ -57,7 +57,12 @@ class CocoObject(data.Dataset):
             self.image_ids = [self.image_ids[i] for i in sample_idx]
             self.object_ann = [self.object_ann[i] for i in sample_idx]
 
-
+        del self.data
+        del self.cocoAPI
+        if self.split == 'train':
+            del self.id2object
+            del self.object2id
+            
 
     def __getitem__(self, index):
         image_id = self.image_ids[index]

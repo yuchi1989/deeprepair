@@ -79,22 +79,20 @@ def main():
         transforms.CenterCrop(args.crop_size), 
         transforms.ToTensor(), 
         normalize])
-
     # Data samplers.
     train_data = CocoObject(ann_dir = args.ann_dir, image_dir = args.image_dir, 
         split = 'train', transform = train_transform)
+    val_data = CocoObject(ann_dir = args.ann_dir, image_dir = args.image_dir, 
+        split = 'val', transform = val_transform)
     first_data = CocoObject(ann_dir = args.ann_dir, image_dir = args.image_dir, 
         split = 'train', transform = train_transform, filter=args.first)
     second_data = CocoObject(ann_dir = args.ann_dir, image_dir = args.image_dir, 
         split = 'train', transform = train_transform, filter=args.second)
 
-    val_data = CocoObject(ann_dir = args.ann_dir, image_dir = args.image_dir, 
-        split = 'val', transform = val_transform)
-
 
     # Data loaders / batch assemblers.
     train_loader = torch.utils.data.DataLoader(train_data, batch_size = args.batch_size, 
-                                              shuffle = True, num_workers = 2,
+                                              shuffle = True, num_workers = 1,
                                               pin_memory = True)
     
     first_loader = torch.utils.data.DataLoader(first_data, batch_size = 3, 
@@ -105,9 +103,8 @@ def main():
                                               pin_memory = True)
 
     val_loader = torch.utils.data.DataLoader(val_data, batch_size = args.batch_size, 
-                                            shuffle = False, num_workers = 2,
+                                            shuffle = False, num_workers = 1,
                                             pin_memory = True)
-
     # Build the models
     model = MultilabelObject(args, 80).cuda()
     criterion = nn.BCEWithLogitsLoss(weight = torch.FloatTensor(train_data.getObjectWeights()), size_average = True, reduction='None').cuda()
@@ -132,7 +129,6 @@ def main():
         print("=> loaded checkpoint (epoch {})".format(checkpoint['epoch']))
     else:
         exit()
-
 
     for epoch in range(args.start_epoch, args.num_epochs + 1):
         global_epoch_confusion.append({})
@@ -181,8 +177,6 @@ def train(args, epoch, model, criterion, train_loader, optimizer, train_F, score
     image_ids = train_data.image_ids
     image_path_map = train_data.image_path_map
     #80 objects
-    id2object = train_data.id2object
-    id2labels = train_data.id2labels
 
     model.train()
     batch_time = AverageMeter()
