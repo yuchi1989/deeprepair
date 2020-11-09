@@ -1,0 +1,8 @@
+# deeprepair
+exp_6/coco/coco_confusion_repair/*
+exp_6/coco/new_model/*
+exp_6/coco/*.pyc
+exp_6/coco/id2object.pickle
+exp_6/coco/object2id.pickle
+exp_6/coco/global_epoch_confusion.npy
+exp_6/coco/pycocotools/*.pyc
