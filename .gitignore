@@ -6,3 +6,4 @@ exp_6/coco/id2object.pickle
 exp_6/coco/object2id.pickle
 exp_6/coco/global_epoch_confusion.npy
 exp_6/coco/pycocotools/*.pyc
+exp_6/coco/coco_bias_repair/*

@@ -50,6 +50,7 @@ class CocoObject(data.Dataset):
             for encoding_id in encoding_ids:
                 self.object_ann[idx, encoding_id] = 1
         sample_idx = []
+        print(filter)
         if filter is not None:
             for idx, image_id in enumerate(self.image_ids):
                 if filter in self.id2labels[image_id]:

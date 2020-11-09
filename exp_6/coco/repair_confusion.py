@@ -96,14 +96,14 @@ def main():
                                               pin_memory = True)
 
     first_loader = torch.utils.data.DataLoader(first_data, batch_size = 3,
-                                              shuffle = True, num_workers = 1,
-                                              pin_memory = True)
+                                              shuffle = True, num_workers = 0,
+                                              pin_memory = False)
     second_loader = torch.utils.data.DataLoader(second_data, batch_size = 3,
-                                              shuffle = True, num_workers = 1,
-                                              pin_memory = True)
+                                              shuffle = True, num_workers = 0,
+                                              pin_memory = False)
 
     val_loader = torch.utils.data.DataLoader(val_data, batch_size = args.batch_size,
-                                            shuffle = False, num_workers = 1,
+                                            shuffle = False, num_workers = 0,
                                             pin_memory = True)
     # Build the models
     model = MultilabelObject(args, 80).cuda()
@@ -186,8 +186,23 @@ def train(args, epoch, model, criterion, train_loader, optimizer, train_F, score
 
     res = list()
     end = time.time()
-    t = tqdm(zip(train_loader, cycle(first_loader), cycle(second_loader)), desc = 'Train %d' % epoch)
-    for batch_idx, ((images, objects, image_ids), (images1, objects1, image_ids1),(images2, objects2, image_ids2)) in enumerate(t):
+    first_iterator = iter(first_loader)
+    second_iterator = iter(second_loader)
+
+    t = tqdm(train_loader, desc = 'Train %d' % epoch)
+    for batch_idx, (images, objects, image_ids) in enumerate(t):
+        try:
+            (images1, objects1, image_ids1) = next(first_iterator)
+        except StopIteration:
+            first_iterator = iter(first_loader)
+            (images1, objects1, image_ids1) = next(first_iterator)
+
+        try:
+            (images2, objects2, image_ids2) = next(second_iterator)
+        except StopIteration:
+            second_iterator = iter(second_loader)
+            (images2, objects2, image_ids2) = next(second_iterator)
+
         images = torch.cat([images, images1, images2])
         objects = torch.cat([objects, objects1, objects2])
         image_ids = torch.cat([image_ids, image_ids1, image_ids2])
@@ -216,7 +231,7 @@ def train(args, epoch, model, criterion, train_loader, optimizer, train_F, score
         for j in range(len(labels)):
             if args.first in (labels[j]):# and "bus" not in (labels[j]):
                 firstid.append(j)
-            elif args.second in (labels[j]):# and "person" not in (labels[j]):
+            if args.second in (labels[j]):# and "person" not in (labels[j]):
                 secondid.append(j)
         #print(len(labels))
         #print(object_preds.shape)
@@ -228,7 +243,7 @@ def train(args, epoch, model, criterion, train_loader, optimizer, train_F, score
             p_dist2 = 0
             print("not enough sample")
         else:
-            p_dist2 = torch.dist(torch.mean(m(object_preds)[firstid],0), torch.mean(m(object_preds)[thirdid],0),2)
+            p_dist2 = torch.dist(torch.mean(m(object_preds)[firstid],0), torch.mean(m(object_preds)[secondid],0),2)
 
         loss2 = loss - args.lam * p_dist2
         loss_logger.update(loss2.item())
