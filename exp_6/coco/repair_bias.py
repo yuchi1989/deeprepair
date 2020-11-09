@@ -102,17 +102,17 @@ def main():
                                               pin_memory = True)
     
     first_loader = torch.utils.data.DataLoader(first_data, batch_size = 3, 
-                                              shuffle = True, num_workers = 1,
-                                              pin_memory = True)
+                                              shuffle = True, num_workers = 0,
+                                              pin_memory = False)
     second_loader = torch.utils.data.DataLoader(second_data, batch_size = 3, 
-                                              shuffle = True, num_workers = 1,
-                                              pin_memory = True)
+                                              shuffle = True, num_workers = 0,
+                                              pin_memory = False)
     third_loader = torch.utils.data.DataLoader(third_data, batch_size = 3, 
-                                              shuffle = True, num_workers = 1,
-                                              pin_memory = True)
+                                              shuffle = True, num_workers = 0,
+                                              pin_memory = False)
 
     val_loader = torch.utils.data.DataLoader(val_data, batch_size = args.batch_size, 
-                                            shuffle = False, num_workers = 1,
+                                            shuffle = False, num_workers = 0,
                                             pin_memory = True)
 
     # Build the models
@@ -201,8 +201,28 @@ def train(args, epoch, model, criterion, train_loader, optimizer, train_F, score
 
     res = list()
     end = time.time()
-    t = tqdm(zip(train_loader, cycle(first_loader), cycle(second_loader), cycle(third_loader)), desc = 'Train %d' % epoch)
-    for batch_idx, ((images, objects, image_ids), (images1, objects1, image_ids1),(images2, objects2, image_ids2), (images3, objects3, image_ids3)) in enumerate(t):
+    first_iterator = iter(first_loader)
+    second_iterator = iter(second_loader)
+    third_iterator = iter(third_loader)
+    t = tqdm(train_loader, desc = 'Train %d' % epoch)
+    for batch_idx, (images, objects, image_ids) in enumerate(t):
+        try:
+            (images1, objects1, image_ids1) = next(first_iterator)
+        except StopIteration:
+            first_iterator = iter(first_loader)
+            (images1, objects1, image_ids1) = next(first_iterator)
+
+        try:
+            (images2, objects2, image_ids2) = next(second_iterator)
+        except StopIteration:
+            second_iterator = iter(second_loader)
+            (images2, objects2, image_ids2) = next(second_iterator)
+        
+        try:
+            (images3, objects3, image_ids3) = next(third_iterator)
+        except StopIteration:
+            third_iterator = iter(third_loader)
+            (images3, objects3, image_ids3) = next(third_iterator)
         images = torch.cat([images, images1, images2, images3])
         objects = torch.cat([objects, objects1, objects2, objects3])
         image_ids = torch.cat([image_ids, image_ids1, image_ids2, image_ids3])
@@ -231,9 +251,9 @@ def train(args, epoch, model, criterion, train_loader, optimizer, train_F, score
         for j in range(len(labels)):
             if args.first in (labels[j]):# and "bus" not in (labels[j]):
                 firstid.append(j)
-            elif args.second in (labels[j]):# and "person" not in (labels[j]):
+            if args.second in (labels[j]):# and "person" not in (labels[j]):
                 secondid.append(j)
-            elif args.third in (labels[j]):# and "person" not in (labels[j]):
+            if args.third in (labels[j]):# and "person" not in (labels[j]):
                 thirdid.append(j)
         #print(len(labels))
         #print(object_preds.shape)
