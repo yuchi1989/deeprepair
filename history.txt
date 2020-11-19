@@ -300,7 +300,7 @@ experiment3:
     cifar100
     '''
     #step1: Train baseline models, with accuracy and confusion recorded in each epochs.
-        python3 train_baseline_cifar100.py --net_type resnet --dataset cifar100 --depth 50 --batch_size 256 --lr 0.1 --expname cifar100_resnet_1 --epochs 300 --beta 1.0 --cutmix_prob 1
+        python3 train_baseline_cifar100.py --net_type resnet --dataset cifar100 --depth 50 --batch_size 256 --lr 0.1 --expname cifar100_resnet_2 --epochs 300 --beta 1.0 --cutmix_prob 1
         python3 repair_retrain_exp_cifar100.py --net_type resnet --dataset cifar100 --depth 50 --batch_size 256 --lr 0.1 --expname cifar100_resnet_1 --epochs 60 --beta 1.0 --cutmix_prob 1.0 --pretrained ./runs/cifar100_resnet_1/model_best.pth.tar --checkmodel
 
         0.7418
@@ -560,3 +560,71 @@ cifar100 bias:
 (35, 0, 98) triplet: 0.18
 (35, 0): 0.0
 (35, 98): 0.18
+
+
+cifar100 confusion:
+0.7418
+
+(35, 98) avg: 0.18
+(35, 98): 0.24
+(98, 35): 0.12
+python2 repair_bias.py --pretrained coco_bias_1/model_best.pth.tar --log_dir coco_bias_repair --first "person" --second "clock" --third "bus"
+python2 repair_confusion.py --pretrained coco_bias_1/model_best.pth.tar --log_dir coco_confusion_repair --first "person" --second "bus"
+
+
+
+
+
+python3 train_baseline_cifar100.py --net_type resnet --dataset cifar100 --depth 50 --batch_size 256 --lr 0.1 --expname cifar100_resnet_2 --epochs 300 --beta 1.0 --cutmix_prob 0
+
+
+python3 repair_confusion_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4/model_best.pth.tar --expid 0 --lam 0
+
+
+exp6.2:
+      normalization forward pass:  repair_confusion_exp.py
+      python3 repair_confusion_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4/model_best.pth.tar --expid 0 --lam 0
+1
+        logging filter: 90.74
+        logging filter: 0.9074
+        logging filter: 3 -> 5
+        logging filter: 0.041
+        logging filter: 5 -> 3
+        logging filter: 0.035
+
+
+2    
+        logging filter: 88.74
+        logging filter: 0.8874
+        logging filter: 3 -> 5
+        logging filter: 0.042
+        logging filter: 5 -> 3
+        logging filter: 0.03
+
+3
+        logging filter: 87.47
+        logging filter: 0.8747
+        logging filter: 3 -> 5
+        logging filter: 0.022
+        logging filter: 5 -> 3
+        logging filter: 0.025
+
+
+4       
+        logging filter: 86.4
+        logging filter: 0.864
+        logging filter: 3 -> 5
+        logging filter: 0.02
+        logging filter: 5 -> 3
+        logging filter: 0.025
+
+5        
+        logging filter: 85.68
+        logging filter: 0.8568
+        logging filter: 3 -> 5
+        logging filter: 0.01
+        logging filter: 5 -> 3
+        logging filter: 0.035
+
+
+
