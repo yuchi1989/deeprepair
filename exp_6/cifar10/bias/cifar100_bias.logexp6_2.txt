@@ -1,0 +1,18 @@
+python3 cifar100_repair_bias.py --net_type resnet --dataset cifar100 --depth 50 --batch_size 256 --lr 0.1 --expname cifar100_resnet_1 --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar100_resnet_1/model_best.pth.tar --expid 0 --first 35 --second 0 --third 98 --lam 0
+Files already downloaded and verified
+Files already downloaded and verified
+Files already downloaded and verified
+=> creating model 'resnet'
+True
+=> loading checkpoint './runs/cifar100_resnet_1/model_best.pth.tar'
+=> loaded checkpoint './runs/cifar100_resnet_1/model_best.pth.tar'
+the number of model parameters: 521716
+* Epoch: [0/60]	 Top 1-err 94.545  Top 5-err 80.944	 Train Loss 4.269
+* Epoch: [0/60]	 Top 1-err 96.450  Top 5-err 82.500	 Test Loss 4.273
+* Epoch: [0/60]	 Top 1-err 96.450  Top 5-err 82.500	 Test Loss 4.273
+3.55
+0.0355
+loss: 4.272500730133056
+(35, 0, 98) triplet: 0.32
+(35, 0): 0.07
+(35, 98): 0.39

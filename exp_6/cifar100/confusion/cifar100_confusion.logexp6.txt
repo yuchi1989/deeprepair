@@ -1,0 +1,3968 @@
+python3 cifar100_repair_confusion.py --net_type resnet --dataset cifar100 --depth 50 --batch_size 256 --lr 0.1 --expname cifar100_resnet_1_35_98_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar100_resnet_1_35_98/model_best.pth.tar --lam 0
+Files already downloaded and verified
+Files already downloaded and verified
+Files already downloaded and verified
+=> creating model 'resnet'
+True
+=> loading checkpoint './runs/cifar100_resnet_1_35_98/model_best.pth.tar'
+=> loaded checkpoint './runs/cifar100_resnet_1_35_98/model_best.pth.tar'
+the number of model parameters: 521716
+* Epoch: [0/60]	 Top 1-err 22.454  Top 5-err 4.098	 Train Loss 0.761
+* Epoch: [0/60]	 Top 1-err 33.660  Top 5-err 8.720	 Test Loss 1.201
+Current best accuracy (top-1 and 5 error): 33.66 100
+* Epoch: [0/60]	 Top 1-err 33.660  Top 5-err 8.720	 Test Loss 1.201
+66.34
+0.6634
+0.28
+0.15
+* Epoch: [1/60]	 Top 1-err 20.641  Top 5-err 3.628	 Train Loss 0.694
+* Epoch: [1/60]	 Top 1-err 34.300  Top 5-err 9.280	 Test Loss 1.269
+Current best accuracy (top-1 and 5 error): 33.66 100
+* Epoch: [1/60]	 Top 1-err 34.300  Top 5-err 9.280	 Test Loss 1.269
+65.7
+0.657
+0.32
+0.12
+* Epoch: [2/60]	 Top 1-err 19.505  Top 5-err 3.222	 Train Loss 0.651
+* Epoch: [2/60]	 Top 1-err 32.200  Top 5-err 8.600	 Test Loss 1.206
+Current best accuracy (top-1 and 5 error): 32.2 100
+* Epoch: [2/60]	 Top 1-err 32.200  Top 5-err 8.600	 Test Loss 1.206
+67.8
+0.678
+0.22
+0.28
+* Epoch: [3/60]	 Top 1-err 19.086  Top 5-err 2.996	 Train Loss 0.630
+* Epoch: [3/60]	 Top 1-err 34.390  Top 5-err 9.530	 Test Loss 1.304
+Current best accuracy (top-1 and 5 error): 32.2 100
+* Epoch: [3/60]	 Top 1-err 34.390  Top 5-err 9.530	 Test Loss 1.304
+65.61
+0.6561
+0.29
+0.08
+* Epoch: [4/60]	 Top 1-err 18.306  Top 5-err 2.763	 Train Loss 0.602
+* Epoch: [4/60]	 Top 1-err 34.010  Top 5-err 9.570	 Test Loss 1.310
+Current best accuracy (top-1 and 5 error): 32.2 100
+* Epoch: [4/60]	 Top 1-err 34.010  Top 5-err 9.570	 Test Loss 1.310
+65.99
+0.6599
+0.3
+0.2
+* Epoch: [5/60]	 Top 1-err 17.852  Top 5-err 2.632	 Train Loss 0.587
+* Epoch: [5/60]	 Top 1-err 34.750  Top 5-err 9.750	 Test Loss 1.370
+Current best accuracy (top-1 and 5 error): 32.2 100
+* Epoch: [5/60]	 Top 1-err 34.750  Top 5-err 9.750	 Test Loss 1.370
+65.25
+0.6525
+0.38
+0.16
+* Epoch: [6/60]	 Top 1-err 17.350  Top 5-err 2.532	 Train Loss 0.568
+* Epoch: [6/60]	 Top 1-err 34.210  Top 5-err 9.960	 Test Loss 1.335
+Current best accuracy (top-1 and 5 error): 32.2 100
+* Epoch: [6/60]	 Top 1-err 34.210  Top 5-err 9.960	 Test Loss 1.335
+65.79
+0.6579
+0.05
+0.4
+* Epoch: [7/60]	 Top 1-err 17.102  Top 5-err 2.390	 Train Loss 0.560
+* Epoch: [7/60]	 Top 1-err 36.770  Top 5-err 10.900	 Test Loss 1.462
+Current best accuracy (top-1 and 5 error): 32.2 100
+* Epoch: [7/60]	 Top 1-err 36.770  Top 5-err 10.900	 Test Loss 1.462
+63.23
+0.6323
+0.1
+0.3
+* Epoch: [8/60]	 Top 1-err 16.665  Top 5-err 2.311	 Train Loss 0.541
+* Epoch: [8/60]	 Top 1-err 32.640  Top 5-err 9.060	 Test Loss 1.292
+Current best accuracy (top-1 and 5 error): 32.2 100
+* Epoch: [8/60]	 Top 1-err 32.640  Top 5-err 9.060	 Test Loss 1.292
+67.36
+0.6736
+0.2
+0.2
+* Epoch: [9/60]	 Top 1-err 16.384  Top 5-err 2.250	 Train Loss 0.532
+* Epoch: [9/60]	 Top 1-err 33.230  Top 5-err 9.480	 Test Loss 1.265
+Current best accuracy (top-1 and 5 error): 32.2 100
+* Epoch: [9/60]	 Top 1-err 33.230  Top 5-err 9.480	 Test Loss 1.265
+66.77
+0.6677
+0.16
+0.27
+* Epoch: [10/60]	 Top 1-err 16.146  Top 5-err 2.164	 Train Loss 0.525
+* Epoch: [10/60]	 Top 1-err 35.220  Top 5-err 9.860	 Test Loss 1.371
+Current best accuracy (top-1 and 5 error): 32.2 100
+* Epoch: [10/60]	 Top 1-err 35.220  Top 5-err 9.860	 Test Loss 1.371
+64.78
+0.6478
+0.1
+0.38
+* Epoch: [11/60]	 Top 1-err 15.515  Top 5-err 2.031	 Train Loss 0.508
+* Epoch: [11/60]	 Top 1-err 35.560  Top 5-err 10.400	 Test Loss 1.491
+Current best accuracy (top-1 and 5 error): 32.2 100
+* Epoch: [11/60]	 Top 1-err 35.560  Top 5-err 10.400	 Test Loss 1.491
+64.44
+0.6444
+0.18
+0.22
+* Epoch: [12/60]	 Top 1-err 15.761  Top 5-err 2.036	 Train Loss 0.509
+* Epoch: [12/60]	 Top 1-err 34.420  Top 5-err 9.770	 Test Loss 1.350
+Current best accuracy (top-1 and 5 error): 32.2 100
+* Epoch: [12/60]	 Top 1-err 34.420  Top 5-err 9.770	 Test Loss 1.350
+65.58
+0.6558
+0.2
+0.07
+* Epoch: [13/60]	 Top 1-err 15.457  Top 5-err 1.947	 Train Loss 0.500
+* Epoch: [13/60]	 Top 1-err 36.800  Top 5-err 10.820	 Test Loss 1.498
+Current best accuracy (top-1 and 5 error): 32.2 100
+* Epoch: [13/60]	 Top 1-err 36.800  Top 5-err 10.820	 Test Loss 1.498
+63.2
+0.632
+0.39
+0.02
+* Epoch: [14/60]	 Top 1-err 15.448  Top 5-err 1.905	 Train Loss 0.497
+* Epoch: [14/60]	 Top 1-err 35.510  Top 5-err 10.470	 Test Loss 1.446
+Current best accuracy (top-1 and 5 error): 32.2 100
+* Epoch: [14/60]	 Top 1-err 35.510  Top 5-err 10.470	 Test Loss 1.446
+64.49
+0.6449
+0.38
+0.06
+* Epoch: [15/60]	 Top 1-err 15.264  Top 5-err 1.843	 Train Loss 0.490
+* Epoch: [15/60]	 Top 1-err 34.700  Top 5-err 10.170	 Test Loss 1.424
+Current best accuracy (top-1 and 5 error): 32.2 100
+* Epoch: [15/60]	 Top 1-err 34.700  Top 5-err 10.170	 Test Loss 1.424
+65.3
+0.653
+0.18
+0.22
+* Epoch: [16/60]	 Top 1-err 15.233  Top 5-err 1.827	 Train Loss 0.487
+* Epoch: [16/60]	 Top 1-err 34.040  Top 5-err 10.410	 Test Loss 1.419
+Current best accuracy (top-1 and 5 error): 32.2 100
+* Epoch: [16/60]	 Top 1-err 34.040  Top 5-err 10.410	 Test Loss 1.419
+65.96
+0.6596
+0.19
+0.17
+* Epoch: [17/60]	 Top 1-err 15.118  Top 5-err 1.747	 Train Loss 0.481
+* Epoch: [17/60]	 Top 1-err 35.150  Top 5-err 10.700	 Test Loss 1.523
+Current best accuracy (top-1 and 5 error): 32.2 100
+* Epoch: [17/60]	 Top 1-err 35.150  Top 5-err 10.700	 Test Loss 1.523
+64.85
+0.6485
+0.27
+0.14
+* Epoch: [18/60]	 Top 1-err 14.668  Top 5-err 1.668	 Train Loss 0.471
+* Epoch: [18/60]	 Top 1-err 33.630  Top 5-err 9.840	 Test Loss 1.378
+Current best accuracy (top-1 and 5 error): 32.2 100
+* Epoch: [18/60]	 Top 1-err 33.630  Top 5-err 9.840	 Test Loss 1.378
+66.37
+0.6637
+0.14
+0.14
+* Epoch: [19/60]	 Top 1-err 14.825  Top 5-err 1.718	 Train Loss 0.474
+* Epoch: [19/60]	 Top 1-err 34.920  Top 5-err 10.110	 Test Loss 1.451
+Current best accuracy (top-1 and 5 error): 32.2 100
+* Epoch: [19/60]	 Top 1-err 34.920  Top 5-err 10.110	 Test Loss 1.451
+65.08
+0.6508
+0.21
+0.14
+* Epoch: [20/60]	 Top 1-err 14.738  Top 5-err 1.561	 Train Loss 0.466
+* Epoch: [20/60]	 Top 1-err 35.580  Top 5-err 10.320	 Test Loss 1.504
+Current best accuracy (top-1 and 5 error): 32.2 100
+* Epoch: [20/60]	 Top 1-err 35.580  Top 5-err 10.320	 Test Loss 1.504
+64.42
+0.6442
+0.11
+0.23
+* Epoch: [21/60]	 Top 1-err 14.392  Top 5-err 1.534	 Train Loss 0.457
+* Epoch: [21/60]	 Top 1-err 34.860  Top 5-err 11.000	 Test Loss 1.559
+Current best accuracy (top-1 and 5 error): 32.2 100
+* Epoch: [21/60]	 Top 1-err 34.860  Top 5-err 11.000	 Test Loss 1.559
+65.14
+0.6514
+0.19
+0.32
+* Epoch: [22/60]	 Top 1-err 14.326  Top 5-err 1.605	 Train Loss 0.455
+* Epoch: [22/60]	 Top 1-err 36.630  Top 5-err 11.160	 Test Loss 1.530
+Current best accuracy (top-1 and 5 error): 32.2 100
+* Epoch: [22/60]	 Top 1-err 36.630  Top 5-err 11.160	 Test Loss 1.530
+63.37
+0.6337
+0.2
+0.16
+* Epoch: [23/60]	 Top 1-err 14.362  Top 5-err 1.554	 Train Loss 0.452
+* Epoch: [23/60]	 Top 1-err 36.270  Top 5-err 10.820	 Test Loss 1.523
+Current best accuracy (top-1 and 5 error): 32.2 100
+* Epoch: [23/60]	 Top 1-err 36.270  Top 5-err 10.820	 Test Loss 1.523
+63.73
+0.6373
+0.03
+0.35
+* Epoch: [24/60]	 Top 1-err 14.452  Top 5-err 1.530	 Train Loss 0.455
+* Epoch: [24/60]	 Top 1-err 34.930  Top 5-err 10.530	 Test Loss 1.422
+Current best accuracy (top-1 and 5 error): 32.2 100
+* Epoch: [24/60]	 Top 1-err 34.930  Top 5-err 10.530	 Test Loss 1.422
+65.07
+0.6507
+0.27
+0.09
+* Epoch: [25/60]	 Top 1-err 14.182  Top 5-err 1.430	 Train Loss 0.449
+* Epoch: [25/60]	 Top 1-err 35.570  Top 5-err 10.760	 Test Loss 1.568
+Current best accuracy (top-1 and 5 error): 32.2 100
+* Epoch: [25/60]	 Top 1-err 35.570  Top 5-err 10.760	 Test Loss 1.568
+64.43
+0.6443
+0.6
+0.02
+* Epoch: [26/60]	 Top 1-err 14.066  Top 5-err 1.430	 Train Loss 0.445
+* Epoch: [26/60]	 Top 1-err 34.550  Top 5-err 10.010	 Test Loss 1.473
+Current best accuracy (top-1 and 5 error): 32.2 100
+* Epoch: [26/60]	 Top 1-err 34.550  Top 5-err 10.010	 Test Loss 1.473
+65.45
+0.6545
+0.08
+0.43
+* Epoch: [27/60]	 Top 1-err 14.093  Top 5-err 1.417	 Train Loss 0.441
+* Epoch: [27/60]	 Top 1-err 36.440  Top 5-err 11.050	 Test Loss 1.670
+Current best accuracy (top-1 and 5 error): 32.2 100
+* Epoch: [27/60]	 Top 1-err 36.440  Top 5-err 11.050	 Test Loss 1.670
+63.56
+0.6356
+0.35
+0.13
+* Epoch: [28/60]	 Top 1-err 13.909  Top 5-err 1.463	 Train Loss 0.439
+* Epoch: [28/60]	 Top 1-err 35.670  Top 5-err 10.920	 Test Loss 1.510
+Current best accuracy (top-1 and 5 error): 32.2 100
+* Epoch: [28/60]	 Top 1-err 35.670  Top 5-err 10.920	 Test Loss 1.510
+64.33
+0.6433
+0.04
+0.23
+* Epoch: [29/60]	 Top 1-err 13.399  Top 5-err 1.421	 Train Loss 0.430
+* Epoch: [29/60]	 Top 1-err 34.710  Top 5-err 9.920	 Test Loss 1.496
+Current best accuracy (top-1 and 5 error): 32.2 100
+* Epoch: [29/60]	 Top 1-err 34.710  Top 5-err 9.920	 Test Loss 1.496
+65.29
+0.6529
+0.35
+0.13
+* Epoch: [30/60]	 Top 1-err 7.809  Top 5-err 0.574	 Train Loss 0.261
+* Epoch: [30/60]	 Top 1-err 26.970  Top 5-err 6.950	 Test Loss 1.087
+Current best accuracy (top-1 and 5 error): 26.97 100
+* Epoch: [30/60]	 Top 1-err 26.970  Top 5-err 6.950	 Test Loss 1.087
+73.03
+0.7303
+0.15
+0.09
+* Epoch: [31/60]	 Top 1-err 5.554  Top 5-err 0.341	 Train Loss 0.195
+* Epoch: [31/60]	 Top 1-err 26.600  Top 5-err 6.920	 Test Loss 1.087
+Current best accuracy (top-1 and 5 error): 26.6 100
+* Epoch: [31/60]	 Top 1-err 26.600  Top 5-err 6.920	 Test Loss 1.087
+73.4
+0.734
+0.17
+0.08
+* Epoch: [32/60]	 Top 1-err 4.954  Top 5-err 0.244	 Train Loss 0.177
+* Epoch: [32/60]	 Top 1-err 26.600  Top 5-err 6.910	 Test Loss 1.094
+Current best accuracy (top-1 and 5 error): 26.6 100
+* Epoch: [32/60]	 Top 1-err 26.600  Top 5-err 6.910	 Test Loss 1.094
+73.4
+0.734
+0.16
+0.09
+* Epoch: [33/60]	 Top 1-err 4.461  Top 5-err 0.246	 Train Loss 0.164
+* Epoch: [33/60]	 Top 1-err 26.540  Top 5-err 6.970	 Test Loss 1.111
+Current best accuracy (top-1 and 5 error): 26.54 100
+* Epoch: [33/60]	 Top 1-err 26.540  Top 5-err 6.970	 Test Loss 1.111
+73.46
+0.7346
+0.15
+0.08
+* Epoch: [34/60]	 Top 1-err 4.209  Top 5-err 0.204	 Train Loss 0.155
+* Epoch: [34/60]	 Top 1-err 26.750  Top 5-err 7.020	 Test Loss 1.113
+Current best accuracy (top-1 and 5 error): 26.54 100
+* Epoch: [34/60]	 Top 1-err 26.750  Top 5-err 7.020	 Test Loss 1.113
+73.25
+0.7325
+0.13
+0.09
+* Epoch: [35/60]	 Top 1-err 3.803  Top 5-err 0.151	 Train Loss 0.144
+* Epoch: [35/60]	 Top 1-err 26.530  Top 5-err 7.000	 Test Loss 1.127
+Current best accuracy (top-1 and 5 error): 26.53 100
+* Epoch: [35/60]	 Top 1-err 26.530  Top 5-err 7.000	 Test Loss 1.127
+73.47
+0.7347
+0.18
+0.09
+* Epoch: [36/60]	 Top 1-err 3.687  Top 5-err 0.173	 Train Loss 0.141
+* Epoch: [36/60]	 Top 1-err 26.600  Top 5-err 7.080	 Test Loss 1.134
+Current best accuracy (top-1 and 5 error): 26.53 100
+* Epoch: [36/60]	 Top 1-err 26.600  Top 5-err 7.080	 Test Loss 1.134
+73.4
+0.734
+0.16
+0.09
+* Epoch: [37/60]	 Top 1-err 3.534  Top 5-err 0.137	 Train Loss 0.134
+* Epoch: [37/60]	 Top 1-err 26.590  Top 5-err 6.760	 Test Loss 1.134
+Current best accuracy (top-1 and 5 error): 26.53 100
+* Epoch: [37/60]	 Top 1-err 26.590  Top 5-err 6.760	 Test Loss 1.134
+73.41
+0.7341
+0.17
+0.09
+* Epoch: [38/60]	 Top 1-err 3.297  Top 5-err 0.122	 Train Loss 0.128
+* Epoch: [38/60]	 Top 1-err 26.910  Top 5-err 7.170	 Test Loss 1.156
+Current best accuracy (top-1 and 5 error): 26.53 100
+* Epoch: [38/60]	 Top 1-err 26.910  Top 5-err 7.170	 Test Loss 1.156
+73.09
+0.7309
+0.17
+0.09
+* Epoch: [39/60]	 Top 1-err 3.206  Top 5-err 0.122	 Train Loss 0.125
+* Epoch: [39/60]	 Top 1-err 26.760  Top 5-err 7.230	 Test Loss 1.164
+Current best accuracy (top-1 and 5 error): 26.53 100
+* Epoch: [39/60]	 Top 1-err 26.760  Top 5-err 7.230	 Test Loss 1.164
+73.24
+0.7324
+0.14
+0.09
+* Epoch: [40/60]	 Top 1-err 3.075  Top 5-err 0.106	 Train Loss 0.119
+* Epoch: [40/60]	 Top 1-err 26.650  Top 5-err 7.090	 Test Loss 1.164
+Current best accuracy (top-1 and 5 error): 26.53 100
+* Epoch: [40/60]	 Top 1-err 26.650  Top 5-err 7.090	 Test Loss 1.164
+73.35
+0.7335
+0.13
+0.09
+* Epoch: [41/60]	 Top 1-err 2.880  Top 5-err 0.098	 Train Loss 0.115
+* Epoch: [41/60]	 Top 1-err 26.850  Top 5-err 7.170	 Test Loss 1.163
+Current best accuracy (top-1 and 5 error): 26.53 100
+* Epoch: [41/60]	 Top 1-err 26.850  Top 5-err 7.170	 Test Loss 1.163
+73.15
+0.7315
+0.13
+0.09
+* Epoch: [42/60]	 Top 1-err 2.745  Top 5-err 0.087	 Train Loss 0.112
+* Epoch: [42/60]	 Top 1-err 27.000  Top 5-err 7.060	 Test Loss 1.181
+Current best accuracy (top-1 and 5 error): 26.53 100
+* Epoch: [42/60]	 Top 1-err 27.000  Top 5-err 7.060	 Test Loss 1.181
+73.0
+0.73
+0.18
+0.09
+* Epoch: [43/60]	 Top 1-err 2.685  Top 5-err 0.082	 Train Loss 0.108
+* Epoch: [43/60]	 Top 1-err 26.890  Top 5-err 7.090	 Test Loss 1.194
+Current best accuracy (top-1 and 5 error): 26.53 100
+* Epoch: [43/60]	 Top 1-err 26.890  Top 5-err 7.090	 Test Loss 1.194
+73.11
+0.7311
+0.17
+0.09
+* Epoch: [44/60]	 Top 1-err 2.523  Top 5-err 0.084	 Train Loss 0.104
+* Epoch: [44/60]	 Top 1-err 26.800  Top 5-err 7.040	 Test Loss 1.193
+Current best accuracy (top-1 and 5 error): 26.53 100
+* Epoch: [44/60]	 Top 1-err 26.800  Top 5-err 7.040	 Test Loss 1.193
+73.2
+0.732
+0.21
+0.09
+* Epoch: [45/60]	 Top 1-err 2.281  Top 5-err 0.060	 Train Loss 0.096
+* Epoch: [45/60]	 Top 1-err 26.590  Top 5-err 7.150	 Test Loss 1.194
+Current best accuracy (top-1 and 5 error): 26.53 100
+* Epoch: [45/60]	 Top 1-err 26.590  Top 5-err 7.150	 Test Loss 1.194
+73.41
+0.7341
+0.17
+0.09
+* Epoch: [46/60]	 Top 1-err 2.217  Top 5-err 0.075	 Train Loss 0.095
+* Epoch: [46/60]	 Top 1-err 26.590  Top 5-err 7.040	 Test Loss 1.192
+Current best accuracy (top-1 and 5 error): 26.53 100
+* Epoch: [46/60]	 Top 1-err 26.590  Top 5-err 7.040	 Test Loss 1.192
+73.41
+0.7341
+0.19
+0.09
+* Epoch: [47/60]	 Top 1-err 2.158  Top 5-err 0.067	 Train Loss 0.095
+* Epoch: [47/60]	 Top 1-err 26.520  Top 5-err 7.090	 Test Loss 1.193
+Current best accuracy (top-1 and 5 error): 26.52 7.09
+* Epoch: [47/60]	 Top 1-err 26.520  Top 5-err 7.090	 Test Loss 1.193
+73.48
+0.7348
+0.17
+0.09
+* Epoch: [48/60]	 Top 1-err 2.133  Top 5-err 0.064	 Train Loss 0.094
+* Epoch: [48/60]	 Top 1-err 26.530  Top 5-err 6.940	 Test Loss 1.189
+Current best accuracy (top-1 and 5 error): 26.52 7.09
+* Epoch: [48/60]	 Top 1-err 26.530  Top 5-err 6.940	 Test Loss 1.189
+73.47
+0.7347
+0.18
+0.09
+* Epoch: [49/60]	 Top 1-err 2.138  Top 5-err 0.067	 Train Loss 0.095
+* Epoch: [49/60]	 Top 1-err 26.690  Top 5-err 7.120	 Test Loss 1.199
+Current best accuracy (top-1 and 5 error): 26.52 7.09
+* Epoch: [49/60]	 Top 1-err 26.690  Top 5-err 7.120	 Test Loss 1.199
+73.31
+0.7331
+0.15
+0.09
+* Epoch: [50/60]	 Top 1-err 2.186  Top 5-err 0.064	 Train Loss 0.093
+* Epoch: [50/60]	 Top 1-err 26.660  Top 5-err 7.130	 Test Loss 1.192
+Current best accuracy (top-1 and 5 error): 26.52 7.09
+* Epoch: [50/60]	 Top 1-err 26.660  Top 5-err 7.130	 Test Loss 1.192
+73.34
+0.7334
+0.16
+0.09
+* Epoch: [51/60]	 Top 1-err 2.078  Top 5-err 0.062	 Train Loss 0.092
+* Epoch: [51/60]	 Top 1-err 26.620  Top 5-err 7.130	 Test Loss 1.190
+Current best accuracy (top-1 and 5 error): 26.52 7.09
+* Epoch: [51/60]	 Top 1-err 26.620  Top 5-err 7.130	 Test Loss 1.190
+73.38
+0.7338
+0.17
+0.09
+* Epoch: [52/60]	 Top 1-err 2.018  Top 5-err 0.049	 Train Loss 0.091
+* Epoch: [52/60]	 Top 1-err 26.630  Top 5-err 7.080	 Test Loss 1.193
+Current best accuracy (top-1 and 5 error): 26.52 7.09
+* Epoch: [52/60]	 Top 1-err 26.630  Top 5-err 7.080	 Test Loss 1.193
+73.37
+0.7337
+0.16
+0.09
+* Epoch: [53/60]	 Top 1-err 2.002  Top 5-err 0.058	 Train Loss 0.090
+* Epoch: [53/60]	 Top 1-err 26.690  Top 5-err 7.060	 Test Loss 1.194
+Current best accuracy (top-1 and 5 error): 26.52 7.09
+* Epoch: [53/60]	 Top 1-err 26.690  Top 5-err 7.060	 Test Loss 1.194
+73.31
+0.7331
+0.17
+0.09
+* Epoch: [54/60]	 Top 1-err 2.002  Top 5-err 0.062	 Train Loss 0.091
+* Epoch: [54/60]	 Top 1-err 26.610  Top 5-err 7.040	 Test Loss 1.197
+Current best accuracy (top-1 and 5 error): 26.52 7.09
+* Epoch: [54/60]	 Top 1-err 26.610  Top 5-err 7.040	 Test Loss 1.197
+73.39
+0.7339
+0.19
+0.09
+* Epoch: [55/60]	 Top 1-err 1.987  Top 5-err 0.053	 Train Loss 0.089
+* Epoch: [55/60]	 Top 1-err 26.660  Top 5-err 7.200	 Test Loss 1.199
+Current best accuracy (top-1 and 5 error): 26.52 7.09
+* Epoch: [55/60]	 Top 1-err 26.660  Top 5-err 7.200	 Test Loss 1.199
+73.34
+0.7334
+0.17
+0.09
+* Epoch: [56/60]	 Top 1-err 1.882  Top 5-err 0.049	 Train Loss 0.088
+* Epoch: [56/60]	 Top 1-err 26.620  Top 5-err 7.110	 Test Loss 1.199
+Current best accuracy (top-1 and 5 error): 26.52 7.09
+* Epoch: [56/60]	 Top 1-err 26.620  Top 5-err 7.110	 Test Loss 1.199
+73.38
+0.7338
+0.16
+0.09
+* Epoch: [57/60]	 Top 1-err 1.903  Top 5-err 0.056	 Train Loss 0.089
+* Epoch: [57/60]	 Top 1-err 26.570  Top 5-err 7.070	 Test Loss 1.197
+Current best accuracy (top-1 and 5 error): 26.52 7.09
+* Epoch: [57/60]	 Top 1-err 26.570  Top 5-err 7.070	 Test Loss 1.197
+73.43
+0.7343
+0.17
+0.09
+* Epoch: [58/60]	 Top 1-err 2.002  Top 5-err 0.056	 Train Loss 0.089
+* Epoch: [58/60]	 Top 1-err 26.710  Top 5-err 7.220	 Test Loss 1.196
+Current best accuracy (top-1 and 5 error): 26.52 7.09
+* Epoch: [58/60]	 Top 1-err 26.710  Top 5-err 7.220	 Test Loss 1.196
+73.29
+0.7329
+0.17
+0.09
+* Epoch: [59/60]	 Top 1-err 1.965  Top 5-err 0.062	 Train Loss 0.089
+* Epoch: [59/60]	 Top 1-err 26.670  Top 5-err 7.220	 Test Loss 1.199
+Current best accuracy (top-1 and 5 error): 26.52 7.09
+* Epoch: [59/60]	 Top 1-err 26.670  Top 5-err 7.220	 Test Loss 1.199
+73.33
+0.7333
+0.17
+0.09
+Best accuracy (top-1 and 5 error): 26.52 7.09
+=> loading checkpoint 'runs/cifar100_resnet_1_35_98_test/model_best.pth.tar'
+* Epoch: [-1/60]	 Top 1-err 26.520  Top 5-err 7.090	 Test Loss 1.193
+73.48
+0.7348
+0.17
+0.09
+python3 cifar100_repair_confusion.py --net_type resnet --dataset cifar100 --depth 50 --batch_size 256 --lr 0.1 --expname cifar100_resnet_1_35_98_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar100_resnet_1_35_98/model_best.pth.tar --lam 0.5
+Files already downloaded and verified
+Files already downloaded and verified
+Files already downloaded and verified
+=> creating model 'resnet'
+True
+=> loading checkpoint './runs/cifar100_resnet_1_35_98/model_best.pth.tar'
+=> loaded checkpoint './runs/cifar100_resnet_1_35_98/model_best.pth.tar'
+the number of model parameters: 521716
+* Epoch: [0/60]	 Top 1-err 24.965  Top 5-err 4.993	 Train Loss 0.315
+* Epoch: [0/60]	 Top 1-err 36.110  Top 5-err 10.250	 Test Loss 1.377
+Current best accuracy (top-1 and 5 error): 36.11 100
+* Epoch: [0/60]	 Top 1-err 36.110  Top 5-err 10.250	 Test Loss 1.377
+63.89
+0.6389
+0.49
+0.08
+* Epoch: [1/60]	 Top 1-err 23.900  Top 5-err 4.911	 Train Loss 0.208
+* Epoch: [1/60]	 Top 1-err 39.360  Top 5-err 11.490	 Test Loss 1.615
+Current best accuracy (top-1 and 5 error): 36.11 100
+* Epoch: [1/60]	 Top 1-err 39.360  Top 5-err 11.490	 Test Loss 1.615
+60.64
+0.6064
+0.42
+0.15
+* Epoch: [2/60]	 Top 1-err 23.281  Top 5-err 4.395	 Train Loss 0.142
+* Epoch: [2/60]	 Top 1-err 35.850  Top 5-err 10.790	 Test Loss 1.357
+Current best accuracy (top-1 and 5 error): 35.85 100
+* Epoch: [2/60]	 Top 1-err 35.850  Top 5-err 10.790	 Test Loss 1.357
+64.15
+0.6415
+0.29
+0.06
+* Epoch: [3/60]	 Top 1-err 21.978  Top 5-err 4.093	 Train Loss 0.087
+* Epoch: [3/60]	 Top 1-err 36.150  Top 5-err 10.760	 Test Loss 1.383
+Current best accuracy (top-1 and 5 error): 35.85 100
+* Epoch: [3/60]	 Top 1-err 36.150  Top 5-err 10.760	 Test Loss 1.383
+63.85
+0.6385
+0.1
+0.33
+* Epoch: [4/60]	 Top 1-err 21.934  Top 5-err 3.962	 Train Loss 0.079
+* Epoch: [4/60]	 Top 1-err 34.920  Top 5-err 9.910	 Test Loss 1.327
+Current best accuracy (top-1 and 5 error): 34.92 100
+* Epoch: [4/60]	 Top 1-err 34.920  Top 5-err 9.910	 Test Loss 1.327
+65.08
+0.6508
+0.39
+0.17
+* Epoch: [5/60]	 Top 1-err 20.581  Top 5-err 3.566	 Train Loss 0.009
+* Epoch: [5/60]	 Top 1-err 35.620  Top 5-err 9.920	 Test Loss 1.437
+Current best accuracy (top-1 and 5 error): 34.92 100
+* Epoch: [5/60]	 Top 1-err 35.620  Top 5-err 9.920	 Test Loss 1.437
+64.38
+0.6438
+0.27
+0.26
+* Epoch: [6/60]	 Top 1-err 20.204  Top 5-err 3.510	 Train Loss 0.002
+* Epoch: [6/60]	 Top 1-err 37.260  Top 5-err 11.590	 Test Loss 1.555
+Current best accuracy (top-1 and 5 error): 34.92 100
+* Epoch: [6/60]	 Top 1-err 37.260  Top 5-err 11.590	 Test Loss 1.555
+62.74
+0.6274
+0.03
+0.46
+* Epoch: [7/60]	 Top 1-err 19.257  Top 5-err 3.253	 Train Loss -0.039
+* Epoch: [7/60]	 Top 1-err 34.930  Top 5-err 9.650	 Test Loss 1.362
+Current best accuracy (top-1 and 5 error): 34.92 100
+* Epoch: [7/60]	 Top 1-err 34.930  Top 5-err 9.650	 Test Loss 1.362
+65.07
+0.6507
+0.28
+0.1
+* Epoch: [8/60]	 Top 1-err 19.863  Top 5-err 3.288	 Train Loss -0.013
+* Epoch: [8/60]	 Top 1-err 45.490  Top 5-err 16.970	 Test Loss 2.174
+Current best accuracy (top-1 and 5 error): 34.92 100
+* Epoch: [8/60]	 Top 1-err 45.490  Top 5-err 16.970	 Test Loss 2.174
+54.51
+0.5451
+0.71
+0.01
+* Epoch: [9/60]	 Top 1-err 19.647  Top 5-err 3.251	 Train Loss -0.022
+* Epoch: [9/60]	 Top 1-err 36.100  Top 5-err 10.580	 Test Loss 1.367
+Current best accuracy (top-1 and 5 error): 34.92 100
+* Epoch: [9/60]	 Top 1-err 36.100  Top 5-err 10.580	 Test Loss 1.367
+63.9
+0.639
+0.14
+0.25
+* Epoch: [10/60]	 Top 1-err 19.055  Top 5-err 3.220	 Train Loss -0.042
+* Epoch: [10/60]	 Top 1-err 35.880  Top 5-err 10.060	 Test Loss 1.451
+Current best accuracy (top-1 and 5 error): 34.92 100
+* Epoch: [10/60]	 Top 1-err 35.880  Top 5-err 10.060	 Test Loss 1.451
+64.12
+0.6412
+0.11
+0.36
+* Epoch: [11/60]	 Top 1-err 19.107  Top 5-err 3.011	 Train Loss -0.049
+* Epoch: [11/60]	 Top 1-err 34.350  Top 5-err 10.000	 Test Loss 1.342
+Current best accuracy (top-1 and 5 error): 34.35 100
+* Epoch: [11/60]	 Top 1-err 34.350  Top 5-err 10.000	 Test Loss 1.342
+65.65
+0.6565
+0.15
+0.22
+* Epoch: [12/60]	 Top 1-err 17.736  Top 5-err 2.696	 Train Loss -0.105
+* Epoch: [12/60]	 Top 1-err 34.240  Top 5-err 10.170	 Test Loss 1.406
+Current best accuracy (top-1 and 5 error): 34.24 100
+* Epoch: [12/60]	 Top 1-err 34.240  Top 5-err 10.170	 Test Loss 1.406
+65.76
+0.6576
+0.43
+0.01
+* Epoch: [13/60]	 Top 1-err 17.769  Top 5-err 2.712	 Train Loss -0.097
+* Epoch: [13/60]	 Top 1-err 37.150  Top 5-err 11.320	 Test Loss 1.488
+Current best accuracy (top-1 and 5 error): 34.24 100
+* Epoch: [13/60]	 Top 1-err 37.150  Top 5-err 11.320	 Test Loss 1.488
+62.85
+0.6285
+0.2
+0.06
+* Epoch: [14/60]	 Top 1-err 18.104  Top 5-err 2.725	 Train Loss -0.090
+* Epoch: [14/60]	 Top 1-err 36.300  Top 5-err 10.300	 Test Loss 1.477
+Current best accuracy (top-1 and 5 error): 34.24 100
+* Epoch: [14/60]	 Top 1-err 36.300  Top 5-err 10.300	 Test Loss 1.477
+63.7
+0.637
+0.2
+0.27
+* Epoch: [15/60]	 Top 1-err 17.579  Top 5-err 2.563	 Train Loss -0.114
+* Epoch: [15/60]	 Top 1-err 33.570  Top 5-err 9.240	 Test Loss 1.327
+Current best accuracy (top-1 and 5 error): 33.57 100
+* Epoch: [15/60]	 Top 1-err 33.570  Top 5-err 9.240	 Test Loss 1.327
+66.43
+0.6643
+0.24
+0.14
+* Epoch: [16/60]	 Top 1-err 16.448  Top 5-err 2.224	 Train Loss -0.156
+* Epoch: [16/60]	 Top 1-err 34.710  Top 5-err 10.090	 Test Loss 1.425
+Current best accuracy (top-1 and 5 error): 33.57 100
+* Epoch: [16/60]	 Top 1-err 34.710  Top 5-err 10.090	 Test Loss 1.425
+65.29
+0.6529
+0.26
+0.1
+* Epoch: [17/60]	 Top 1-err 18.279  Top 5-err 2.617	 Train Loss -0.079
+* Epoch: [17/60]	 Top 1-err 36.070  Top 5-err 10.270	 Test Loss 1.545
+Current best accuracy (top-1 and 5 error): 33.57 100
+* Epoch: [17/60]	 Top 1-err 36.070  Top 5-err 10.270	 Test Loss 1.545
+63.93
+0.6393
+0.31
+0.19
+* Epoch: [18/60]	 Top 1-err 17.115  Top 5-err 2.470	 Train Loss -0.125
+* Epoch: [18/60]	 Top 1-err 37.260  Top 5-err 10.850	 Test Loss 1.569
+Current best accuracy (top-1 and 5 error): 33.57 100
+* Epoch: [18/60]	 Top 1-err 37.260  Top 5-err 10.850	 Test Loss 1.569
+62.74
+0.6274
+0.19
+0.15
+* Epoch: [19/60]	 Top 1-err 18.579  Top 5-err 2.701	 Train Loss -0.074
+* Epoch: [19/60]	 Top 1-err 34.020  Top 5-err 9.920	 Test Loss 1.373
+Current best accuracy (top-1 and 5 error): 33.57 100
+* Epoch: [19/60]	 Top 1-err 34.020  Top 5-err 9.920	 Test Loss 1.373
+65.98
+0.6598
+0.09
+0.15
+* Epoch: [20/60]	 Top 1-err 16.075  Top 5-err 2.202	 Train Loss -0.170
+* Epoch: [20/60]	 Top 1-err 37.560  Top 5-err 11.010	 Test Loss 1.711
+Current best accuracy (top-1 and 5 error): 33.57 100
+* Epoch: [20/60]	 Top 1-err 37.560  Top 5-err 11.010	 Test Loss 1.711
+62.44
+0.6244
+0.57
+0.01
+* Epoch: [21/60]	 Top 1-err 16.346  Top 5-err 2.189	 Train Loss -0.163
+* Epoch: [21/60]	 Top 1-err 35.700  Top 5-err 10.010	 Test Loss 1.494
+Current best accuracy (top-1 and 5 error): 33.57 100
+* Epoch: [21/60]	 Top 1-err 35.700  Top 5-err 10.010	 Test Loss 1.494
+64.3
+0.643
+0.07
+0.43
+* Epoch: [22/60]	 Top 1-err 16.607  Top 5-err 2.271	 Train Loss -0.152
+* Epoch: [22/60]	 Top 1-err 36.530  Top 5-err 10.990	 Test Loss 1.529
+Current best accuracy (top-1 and 5 error): 33.57 100
+* Epoch: [22/60]	 Top 1-err 36.530  Top 5-err 10.990	 Test Loss 1.529
+63.47
+0.6347
+0.24
+0.23
+* Epoch: [23/60]	 Top 1-err 16.237  Top 5-err 2.049	 Train Loss -0.169
+* Epoch: [23/60]	 Top 1-err 34.570  Top 5-err 10.220	 Test Loss 1.412
+Current best accuracy (top-1 and 5 error): 33.57 100
+* Epoch: [23/60]	 Top 1-err 34.570  Top 5-err 10.220	 Test Loss 1.412
+65.43
+0.6543
+0.14
+0.29
+* Epoch: [24/60]	 Top 1-err 16.464  Top 5-err 2.151	 Train Loss -0.157
+* Epoch: [24/60]	 Top 1-err 36.020  Top 5-err 10.690	 Test Loss 1.446
+Current best accuracy (top-1 and 5 error): 33.57 100
+* Epoch: [24/60]	 Top 1-err 36.020  Top 5-err 10.690	 Test Loss 1.446
+63.98
+0.6398
+0.11
+0.14
+* Epoch: [25/60]	 Top 1-err 16.046  Top 5-err 1.993	 Train Loss -0.177
+* Epoch: [25/60]	 Top 1-err 36.140  Top 5-err 10.790	 Test Loss 1.491
+Current best accuracy (top-1 and 5 error): 33.57 100
+* Epoch: [25/60]	 Top 1-err 36.140  Top 5-err 10.790	 Test Loss 1.491
+63.86
+0.6386
+0.18
+0.13
+* Epoch: [26/60]	 Top 1-err 15.929  Top 5-err 2.022	 Train Loss -0.176
+* Epoch: [26/60]	 Top 1-err 36.620  Top 5-err 10.810	 Test Loss 1.587
+Current best accuracy (top-1 and 5 error): 33.57 100
+* Epoch: [26/60]	 Top 1-err 36.620  Top 5-err 10.810	 Test Loss 1.587
+63.38
+0.6338
+0.07
+0.27
+* Epoch: [27/60]	 Top 1-err 17.556  Top 5-err 2.408	 Train Loss -0.113
+* Epoch: [27/60]	 Top 1-err 37.560  Top 5-err 11.040	 Test Loss 1.608
+Current best accuracy (top-1 and 5 error): 33.57 100
+* Epoch: [27/60]	 Top 1-err 37.560  Top 5-err 11.040	 Test Loss 1.608
+62.44
+0.6244
+0.25
+0.15
+* Epoch: [28/60]	 Top 1-err 15.155  Top 5-err 1.834	 Train Loss -0.209
+* Epoch: [28/60]	 Top 1-err 34.510  Top 5-err 10.070	 Test Loss 1.484
+Current best accuracy (top-1 and 5 error): 33.57 100
+* Epoch: [28/60]	 Top 1-err 34.510  Top 5-err 10.070	 Test Loss 1.484
+65.49
+0.6549
+0.48
+0.06
+* Epoch: [29/60]	 Top 1-err 14.475  Top 5-err 1.654	 Train Loss -0.234
+* Epoch: [29/60]	 Top 1-err 35.140  Top 5-err 10.360	 Test Loss 1.487
+Current best accuracy (top-1 and 5 error): 33.57 100
+* Epoch: [29/60]	 Top 1-err 35.140  Top 5-err 10.360	 Test Loss 1.487
+64.86
+0.6486
+0.19
+0.19
+* Epoch: [30/60]	 Top 1-err 9.517  Top 5-err 0.845	 Train Loss -0.391
+* Epoch: [30/60]	 Top 1-err 27.880  Top 5-err 7.410	 Test Loss 1.106
+Current best accuracy (top-1 and 5 error): 27.88 100
+* Epoch: [30/60]	 Top 1-err 27.880  Top 5-err 7.410	 Test Loss 1.106
+72.12
+0.7212
+0.14
+0.16
+* Epoch: [31/60]	 Top 1-err 7.346  Top 5-err 0.594	 Train Loss -0.456
+* Epoch: [31/60]	 Top 1-err 27.460  Top 5-err 7.340	 Test Loss 1.106
+Current best accuracy (top-1 and 5 error): 27.46 100
+* Epoch: [31/60]	 Top 1-err 27.460  Top 5-err 7.340	 Test Loss 1.106
+72.54
+0.7254
+0.13
+0.13
+* Epoch: [32/60]	 Top 1-err 6.623  Top 5-err 0.521	 Train Loss -0.477
+* Epoch: [32/60]	 Top 1-err 27.350  Top 5-err 7.020	 Test Loss 1.115
+Current best accuracy (top-1 and 5 error): 27.35 100
+* Epoch: [32/60]	 Top 1-err 27.350  Top 5-err 7.020	 Test Loss 1.115
+72.65
+0.7265
+0.14
+0.11
+* Epoch: [33/60]	 Top 1-err 6.073  Top 5-err 0.459	 Train Loss -0.492
+* Epoch: [33/60]	 Top 1-err 26.910  Top 5-err 7.100	 Test Loss 1.119
+Current best accuracy (top-1 and 5 error): 26.91 100
+* Epoch: [33/60]	 Top 1-err 26.910  Top 5-err 7.100	 Test Loss 1.119
+73.09
+0.7309
+0.13
+0.11
+* Epoch: [34/60]	 Top 1-err 5.858  Top 5-err 0.415	 Train Loss -0.501
+* Epoch: [34/60]	 Top 1-err 27.200  Top 5-err 6.960	 Test Loss 1.121
+Current best accuracy (top-1 and 5 error): 26.91 100
+* Epoch: [34/60]	 Top 1-err 27.200  Top 5-err 6.960	 Test Loss 1.121
+72.8
+0.728
+0.13
+0.1
+* Epoch: [35/60]	 Top 1-err 5.758  Top 5-err 0.355	 Train Loss -0.510
+* Epoch: [35/60]	 Top 1-err 26.880  Top 5-err 7.040	 Test Loss 1.136
+Current best accuracy (top-1 and 5 error): 26.88 100
+* Epoch: [35/60]	 Top 1-err 26.880  Top 5-err 7.040	 Test Loss 1.136
+73.12
+0.7312
+0.14
+0.09
+* Epoch: [36/60]	 Top 1-err 5.350  Top 5-err 0.362	 Train Loss -0.517
+* Epoch: [36/60]	 Top 1-err 26.800  Top 5-err 7.040	 Test Loss 1.137
+Current best accuracy (top-1 and 5 error): 26.8 100
+* Epoch: [36/60]	 Top 1-err 26.800  Top 5-err 7.040	 Test Loss 1.137
+73.2
+0.732
+0.13
+0.08
+* Epoch: [37/60]	 Top 1-err 5.124  Top 5-err 0.306	 Train Loss -0.523
+* Epoch: [37/60]	 Top 1-err 27.010  Top 5-err 6.970	 Test Loss 1.148
+Current best accuracy (top-1 and 5 error): 26.8 100
+* Epoch: [37/60]	 Top 1-err 27.010  Top 5-err 6.970	 Test Loss 1.148
+72.99
+0.7299
+0.14
+0.09
+* Epoch: [38/60]	 Top 1-err 4.940  Top 5-err 0.297	 Train Loss -0.530
+* Epoch: [38/60]	 Top 1-err 27.000  Top 5-err 7.160	 Test Loss 1.158
+Current best accuracy (top-1 and 5 error): 26.8 100
+* Epoch: [38/60]	 Top 1-err 27.000  Top 5-err 7.160	 Test Loss 1.158
+73.0
+0.73
+0.13
+0.1
+* Epoch: [39/60]	 Top 1-err 4.860  Top 5-err 0.291	 Train Loss -0.532
+* Epoch: [39/60]	 Top 1-err 27.110  Top 5-err 7.180	 Test Loss 1.170
+Current best accuracy (top-1 and 5 error): 26.8 100
+* Epoch: [39/60]	 Top 1-err 27.110  Top 5-err 7.180	 Test Loss 1.170
+72.89
+0.7289
+0.14
+0.09
+* Epoch: [40/60]	 Top 1-err 4.537  Top 5-err 0.257	 Train Loss -0.540
+* Epoch: [40/60]	 Top 1-err 27.260  Top 5-err 7.390	 Test Loss 1.169
+Current best accuracy (top-1 and 5 error): 26.8 100
+* Epoch: [40/60]	 Top 1-err 27.260  Top 5-err 7.390	 Test Loss 1.169
+72.74
+0.7274
+0.14
+0.08
+* Epoch: [41/60]	 Top 1-err 4.346  Top 5-err 0.251	 Train Loss -0.545
+* Epoch: [41/60]	 Top 1-err 27.060  Top 5-err 7.340	 Test Loss 1.168
+Current best accuracy (top-1 and 5 error): 26.8 100
+* Epoch: [41/60]	 Top 1-err 27.060  Top 5-err 7.340	 Test Loss 1.168
+72.94
+0.7294
+0.13
+0.09
+* Epoch: [42/60]	 Top 1-err 4.342  Top 5-err 0.251	 Train Loss -0.548
+* Epoch: [42/60]	 Top 1-err 27.040  Top 5-err 7.150	 Test Loss 1.171
+Current best accuracy (top-1 and 5 error): 26.8 100
+* Epoch: [42/60]	 Top 1-err 27.040  Top 5-err 7.150	 Test Loss 1.171
+72.96
+0.7296
+0.12
+0.09
+* Epoch: [43/60]	 Top 1-err 4.264  Top 5-err 0.200	 Train Loss -0.552
+* Epoch: [43/60]	 Top 1-err 26.970  Top 5-err 7.250	 Test Loss 1.189
+Current best accuracy (top-1 and 5 error): 26.8 100
+* Epoch: [43/60]	 Top 1-err 26.970  Top 5-err 7.250	 Test Loss 1.189
+73.03
+0.7303
+0.13
+0.07
+* Epoch: [44/60]	 Top 1-err 3.976  Top 5-err 0.226	 Train Loss -0.558
+* Epoch: [44/60]	 Top 1-err 27.190  Top 5-err 7.220	 Test Loss 1.193
+Current best accuracy (top-1 and 5 error): 26.8 100
+* Epoch: [44/60]	 Top 1-err 27.190  Top 5-err 7.220	 Test Loss 1.193
+72.81
+0.7281
+0.13
+0.08
+* Epoch: [45/60]	 Top 1-err 3.667  Top 5-err 0.164	 Train Loss -0.568
+* Epoch: [45/60]	 Top 1-err 27.130  Top 5-err 7.190	 Test Loss 1.184
+Current best accuracy (top-1 and 5 error): 26.8 100
+* Epoch: [45/60]	 Top 1-err 27.130  Top 5-err 7.190	 Test Loss 1.184
+72.87
+0.7287
+0.13
+0.08
+* Epoch: [46/60]	 Top 1-err 3.577  Top 5-err 0.191	 Train Loss -0.569
+* Epoch: [46/60]	 Top 1-err 27.010  Top 5-err 7.160	 Test Loss 1.184
+Current best accuracy (top-1 and 5 error): 26.8 100
+* Epoch: [46/60]	 Top 1-err 27.010  Top 5-err 7.160	 Test Loss 1.184
+72.99
+0.7299
+0.13
+0.08
+* Epoch: [47/60]	 Top 1-err 3.510  Top 5-err 0.184	 Train Loss -0.569
+* Epoch: [47/60]	 Top 1-err 26.990  Top 5-err 7.130	 Test Loss 1.190
+Current best accuracy (top-1 and 5 error): 26.8 100
+* Epoch: [47/60]	 Top 1-err 26.990  Top 5-err 7.130	 Test Loss 1.190
+73.01
+0.7301
+0.13
+0.08
+* Epoch: [48/60]	 Top 1-err 3.505  Top 5-err 0.164	 Train Loss -0.571
+* Epoch: [48/60]	 Top 1-err 27.020  Top 5-err 7.200	 Test Loss 1.184
+Current best accuracy (top-1 and 5 error): 26.8 100
+* Epoch: [48/60]	 Top 1-err 27.020  Top 5-err 7.200	 Test Loss 1.184
+72.98
+0.7298
+0.13
+0.08
+* Epoch: [49/60]	 Top 1-err 3.408  Top 5-err 0.195	 Train Loss -0.571
+* Epoch: [49/60]	 Top 1-err 27.160  Top 5-err 7.210	 Test Loss 1.197
+Current best accuracy (top-1 and 5 error): 26.8 100
+* Epoch: [49/60]	 Top 1-err 27.160  Top 5-err 7.210	 Test Loss 1.197
+72.84
+0.7284
+0.13
+0.08
+* Epoch: [50/60]	 Top 1-err 3.395  Top 5-err 0.164	 Train Loss -0.572
+* Epoch: [50/60]	 Top 1-err 27.040  Top 5-err 7.110	 Test Loss 1.187
+Current best accuracy (top-1 and 5 error): 26.8 100
+* Epoch: [50/60]	 Top 1-err 27.040  Top 5-err 7.110	 Test Loss 1.187
+72.96
+0.7296
+0.13
+0.09
+* Epoch: [51/60]	 Top 1-err 3.324  Top 5-err 0.171	 Train Loss -0.574
+* Epoch: [51/60]	 Top 1-err 27.040  Top 5-err 7.110	 Test Loss 1.188
+Current best accuracy (top-1 and 5 error): 26.8 100
+* Epoch: [51/60]	 Top 1-err 27.040  Top 5-err 7.110	 Test Loss 1.188
+72.96
+0.7296
+0.12
+0.08
+* Epoch: [52/60]	 Top 1-err 3.290  Top 5-err 0.137	 Train Loss -0.576
+* Epoch: [52/60]	 Top 1-err 27.100  Top 5-err 7.050	 Test Loss 1.189
+Current best accuracy (top-1 and 5 error): 26.8 100
+* Epoch: [52/60]	 Top 1-err 27.100  Top 5-err 7.050	 Test Loss 1.189
+72.9
+0.729
+0.12
+0.08
+* Epoch: [53/60]	 Top 1-err 3.477  Top 5-err 0.168	 Train Loss -0.573
+* Epoch: [53/60]	 Top 1-err 26.860  Top 5-err 7.150	 Test Loss 1.190
+Current best accuracy (top-1 and 5 error): 26.8 100
+* Epoch: [53/60]	 Top 1-err 26.860  Top 5-err 7.150	 Test Loss 1.190
+73.14
+0.7314
+0.13
+0.08
+* Epoch: [54/60]	 Top 1-err 3.304  Top 5-err 0.179	 Train Loss -0.574
+* Epoch: [54/60]	 Top 1-err 26.920  Top 5-err 7.270	 Test Loss 1.191
+Current best accuracy (top-1 and 5 error): 26.8 100
+* Epoch: [54/60]	 Top 1-err 26.920  Top 5-err 7.270	 Test Loss 1.191
+73.08
+0.7308
+0.13
+0.08
+* Epoch: [55/60]	 Top 1-err 3.279  Top 5-err 0.144	 Train Loss -0.576
+* Epoch: [55/60]	 Top 1-err 27.110  Top 5-err 7.210	 Test Loss 1.195
+Current best accuracy (top-1 and 5 error): 26.8 100
+* Epoch: [55/60]	 Top 1-err 27.110  Top 5-err 7.210	 Test Loss 1.195
+72.89
+0.7289
+0.13
+0.09
+* Epoch: [56/60]	 Top 1-err 3.228  Top 5-err 0.142	 Train Loss -0.578
+* Epoch: [56/60]	 Top 1-err 26.970  Top 5-err 7.210	 Test Loss 1.194
+Current best accuracy (top-1 and 5 error): 26.8 100
+* Epoch: [56/60]	 Top 1-err 26.970  Top 5-err 7.210	 Test Loss 1.194
+73.03
+0.7303
+0.12
+0.09
+* Epoch: [57/60]	 Top 1-err 3.352  Top 5-err 0.162	 Train Loss -0.575
+* Epoch: [57/60]	 Top 1-err 27.030  Top 5-err 7.200	 Test Loss 1.195
+Current best accuracy (top-1 and 5 error): 26.8 100
+* Epoch: [57/60]	 Top 1-err 27.030  Top 5-err 7.200	 Test Loss 1.195
+72.97
+0.7297
+0.12
+0.09
+* Epoch: [58/60]	 Top 1-err 3.384  Top 5-err 0.162	 Train Loss -0.576
+* Epoch: [58/60]	 Top 1-err 27.070  Top 5-err 7.150	 Test Loss 1.196
+Current best accuracy (top-1 and 5 error): 26.8 100
+* Epoch: [58/60]	 Top 1-err 27.070  Top 5-err 7.150	 Test Loss 1.196
+72.93
+0.7293
+0.13
+0.09
+* Epoch: [59/60]	 Top 1-err 3.372  Top 5-err 0.158	 Train Loss -0.575
+* Epoch: [59/60]	 Top 1-err 26.820  Top 5-err 7.220	 Test Loss 1.197
+Current best accuracy (top-1 and 5 error): 26.8 100
+* Epoch: [59/60]	 Top 1-err 26.820  Top 5-err 7.220	 Test Loss 1.197
+73.18
+0.7318
+0.12
+0.09
+Best accuracy (top-1 and 5 error): 26.8 100
+=> loading checkpoint 'runs/cifar100_resnet_1_35_98_test/model_best.pth.tar'
+* Epoch: [-1/60]	 Top 1-err 26.520  Top 5-err 7.090	 Test Loss 1.193
+73.48
+0.7348
+0.17
+0.09
+python3 cifar100_repair_confusion.py --net_type resnet --dataset cifar100 --depth 50 --batch_size 256 --lr 0.1 --expname cifar100_resnet_1_35_98_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar100_resnet_1_35_98/model_best.pth.tar --lam 1
+Files already downloaded and verified
+Files already downloaded and verified
+Files already downloaded and verified
+=> creating model 'resnet'
+True
+=> loading checkpoint './runs/cifar100_resnet_1_35_98/model_best.pth.tar'
+=> loaded checkpoint './runs/cifar100_resnet_1_35_98/model_best.pth.tar'
+the number of model parameters: 521716
+* Epoch: [0/60]	 Top 1-err 31.366  Top 5-err 7.366	 Train Loss 0.165
+* Epoch: [0/60]	 Top 1-err 44.020  Top 5-err 14.770	 Test Loss 1.750
+Current best accuracy (top-1 and 5 error): 44.02 100
+* Epoch: [0/60]	 Top 1-err 44.020  Top 5-err 14.770	 Test Loss 1.750
+55.98
+0.5598
+0.63
+0.06
+* Epoch: [1/60]	 Top 1-err 31.095  Top 5-err 7.634	 Train Loss 0.009
+* Epoch: [1/60]	 Top 1-err 45.470  Top 5-err 15.170	 Test Loss 1.816
+Current best accuracy (top-1 and 5 error): 44.02 100
+* Epoch: [1/60]	 Top 1-err 45.470  Top 5-err 15.170	 Test Loss 1.816
+54.53
+0.5453
+0.46
+0.1
+* Epoch: [2/60]	 Top 1-err 29.208  Top 5-err 6.770	 Train Loss -0.187
+* Epoch: [2/60]	 Top 1-err 39.270  Top 5-err 12.330	 Test Loss 1.537
+Current best accuracy (top-1 and 5 error): 39.27 100
+* Epoch: [2/60]	 Top 1-err 39.270  Top 5-err 12.330	 Test Loss 1.537
+60.73
+0.6073
+0.31
+0.22
+* Epoch: [3/60]	 Top 1-err 26.973  Top 5-err 5.978	 Train Loss -0.347
+* Epoch: [3/60]	 Top 1-err 49.810  Top 5-err 18.270	 Test Loss 2.384
+Current best accuracy (top-1 and 5 error): 39.27 100
+* Epoch: [3/60]	 Top 1-err 49.810  Top 5-err 18.270	 Test Loss 2.384
+50.19
+0.5019
+0.44
+0.11
+* Epoch: [4/60]	 Top 1-err 27.302  Top 5-err 6.111	 Train Loss -0.335
+* Epoch: [4/60]	 Top 1-err 41.200  Top 5-err 13.020	 Test Loss 1.627
+Current best accuracy (top-1 and 5 error): 39.27 100
+* Epoch: [4/60]	 Top 1-err 41.200  Top 5-err 13.020	 Test Loss 1.627
+58.8
+0.588
+0.36
+0.18
+* Epoch: [5/60]	 Top 1-err 24.856  Top 5-err 5.120	 Train Loss -0.493
+* Epoch: [5/60]	 Top 1-err 37.690  Top 5-err 11.010	 Test Loss 1.478
+Current best accuracy (top-1 and 5 error): 37.69 100
+* Epoch: [5/60]	 Top 1-err 37.690  Top 5-err 11.010	 Test Loss 1.478
+62.31
+0.6231
+0.17
+0.21
+* Epoch: [6/60]	 Top 1-err 24.550  Top 5-err 4.993	 Train Loss -0.502
+* Epoch: [6/60]	 Top 1-err 38.910  Top 5-err 12.310	 Test Loss 1.546
+Current best accuracy (top-1 and 5 error): 37.69 100
+* Epoch: [6/60]	 Top 1-err 38.910  Top 5-err 12.310	 Test Loss 1.546
+61.09
+0.6109
+0.1
+0.4
+* Epoch: [7/60]	 Top 1-err 25.603  Top 5-err 5.448	 Train Loss -0.439
+* Epoch: [7/60]	 Top 1-err 34.890  Top 5-err 10.100	 Test Loss 1.309
+Current best accuracy (top-1 and 5 error): 34.89 100
+* Epoch: [7/60]	 Top 1-err 34.890  Top 5-err 10.100	 Test Loss 1.309
+65.11
+0.6511
+0.31
+0.11
+* Epoch: [8/60]	 Top 1-err 21.710  Top 5-err 4.018	 Train Loss -0.646
+* Epoch: [8/60]	 Top 1-err 35.760  Top 5-err 10.750	 Test Loss 1.420
+Current best accuracy (top-1 and 5 error): 34.89 100
+* Epoch: [8/60]	 Top 1-err 35.760  Top 5-err 10.750	 Test Loss 1.420
+64.24
+0.6424
+0.19
+0.16
+* Epoch: [9/60]	 Top 1-err 20.645  Top 5-err 3.807	 Train Loss -0.682
+* Epoch: [9/60]	 Top 1-err 40.180  Top 5-err 13.240	 Test Loss 1.717
+Current best accuracy (top-1 and 5 error): 34.89 100
+* Epoch: [9/60]	 Top 1-err 40.180  Top 5-err 13.240	 Test Loss 1.717
+59.82
+0.5982
+0.17
+0.34
+* Epoch: [10/60]	 Top 1-err 24.506  Top 5-err 4.936	 Train Loss -0.497
+* Epoch: [10/60]	 Top 1-err 35.740  Top 5-err 10.420	 Test Loss 1.379
+Current best accuracy (top-1 and 5 error): 34.89 100
+* Epoch: [10/60]	 Top 1-err 35.740  Top 5-err 10.420	 Test Loss 1.379
+64.26
+0.6426
+0.23
+0.11
+* Epoch: [11/60]	 Top 1-err 22.517  Top 5-err 4.186	 Train Loss -0.600
+* Epoch: [11/60]	 Top 1-err 37.000  Top 5-err 10.720	 Test Loss 1.439
+Current best accuracy (top-1 and 5 error): 34.89 100
+* Epoch: [11/60]	 Top 1-err 37.000  Top 5-err 10.720	 Test Loss 1.439
+63.0
+0.63
+0.21
+0.18
+* Epoch: [12/60]	 Top 1-err 21.801  Top 5-err 3.984	 Train Loss -0.635
+* Epoch: [12/60]	 Top 1-err 35.950  Top 5-err 10.740	 Test Loss 1.465
+Current best accuracy (top-1 and 5 error): 34.89 100
+* Epoch: [12/60]	 Top 1-err 35.950  Top 5-err 10.740	 Test Loss 1.465
+64.05
+0.6405
+0.09
+0.28
+* Epoch: [13/60]	 Top 1-err 19.177  Top 5-err 3.233	 Train Loss -0.752
+* Epoch: [13/60]	 Top 1-err 32.810  Top 5-err 9.020	 Test Loss 1.258
+Current best accuracy (top-1 and 5 error): 32.81 100
+* Epoch: [13/60]	 Top 1-err 32.810  Top 5-err 9.020	 Test Loss 1.258
+67.19
+0.6719
+0.23
+0.14
+* Epoch: [14/60]	 Top 1-err 17.587  Top 5-err 2.661	 Train Loss -0.834
+* Epoch: [14/60]	 Top 1-err 33.120  Top 5-err 8.960	 Test Loss 1.312
+Current best accuracy (top-1 and 5 error): 32.81 100
+* Epoch: [14/60]	 Top 1-err 33.120  Top 5-err 8.960	 Test Loss 1.312
+66.88
+0.6688
+0.13
+0.23
+* Epoch: [15/60]	 Top 1-err 22.689  Top 5-err 4.404	 Train Loss -0.536
+* Epoch: [15/60]	 Top 1-err 42.210  Top 5-err 13.960	 Test Loss 1.746
+Current best accuracy (top-1 and 5 error): 32.81 100
+* Epoch: [15/60]	 Top 1-err 42.210  Top 5-err 13.960	 Test Loss 1.746
+57.79
+0.5779
+0.35
+0.3
+* Epoch: [16/60]	 Top 1-err 23.117  Top 5-err 4.324	 Train Loss -0.567
+* Epoch: [16/60]	 Top 1-err 36.780  Top 5-err 11.060	 Test Loss 1.483
+Current best accuracy (top-1 and 5 error): 32.81 100
+* Epoch: [16/60]	 Top 1-err 36.780  Top 5-err 11.060	 Test Loss 1.483
+63.22
+0.6322
+0.42
+0.06
+* Epoch: [17/60]	 Top 1-err 20.459  Top 5-err 3.528	 Train Loss -0.689
+* Epoch: [17/60]	 Top 1-err 37.140  Top 5-err 10.890	 Test Loss 1.544
+Current best accuracy (top-1 and 5 error): 32.81 100
+* Epoch: [17/60]	 Top 1-err 37.140  Top 5-err 10.890	 Test Loss 1.544
+62.86
+0.6286
+0.14
+0.37
+* Epoch: [18/60]	 Top 1-err 22.854  Top 5-err 4.279	 Train Loss -0.561
+* Epoch: [18/60]	 Top 1-err 35.770  Top 5-err 10.340	 Test Loss 1.435
+Current best accuracy (top-1 and 5 error): 32.81 100
+* Epoch: [18/60]	 Top 1-err 35.770  Top 5-err 10.340	 Test Loss 1.435
+64.23
+0.6423
+0.27
+0.2
+* Epoch: [19/60]	 Top 1-err 22.253  Top 5-err 4.040	 Train Loss -0.611
+* Epoch: [19/60]	 Top 1-err 36.220  Top 5-err 10.590	 Test Loss 1.451
+Current best accuracy (top-1 and 5 error): 32.81 100
+* Epoch: [19/60]	 Top 1-err 36.220  Top 5-err 10.590	 Test Loss 1.451
+63.78
+0.6378
+0.32
+0.11
+* Epoch: [20/60]	 Top 1-err 19.936  Top 5-err 3.448	 Train Loss -0.714
+* Epoch: [20/60]	 Top 1-err 41.710  Top 5-err 13.190	 Test Loss 1.820
+Current best accuracy (top-1 and 5 error): 32.81 100
+* Epoch: [20/60]	 Top 1-err 41.710  Top 5-err 13.190	 Test Loss 1.820
+58.29
+0.5829
+0.31
+0.1
+* Epoch: [21/60]	 Top 1-err 21.215  Top 5-err 3.752	 Train Loss -0.651
+* Epoch: [21/60]	 Top 1-err 38.920  Top 5-err 11.350	 Test Loss 1.532
+Current best accuracy (top-1 and 5 error): 32.81 100
+* Epoch: [21/60]	 Top 1-err 38.920  Top 5-err 11.350	 Test Loss 1.532
+61.08
+0.6108
+0.25
+0.22
+* Epoch: [22/60]	 Top 1-err 21.146  Top 5-err 3.727	 Train Loss -0.650
+* Epoch: [22/60]	 Top 1-err 34.600  Top 5-err 9.410	 Test Loss 1.343
+Current best accuracy (top-1 and 5 error): 32.81 100
+* Epoch: [22/60]	 Top 1-err 34.600  Top 5-err 9.410	 Test Loss 1.343
+65.4
+0.654
+0.26
+0.08
+* Epoch: [23/60]	 Top 1-err 18.016  Top 5-err 2.814	 Train Loss -0.796
+* Epoch: [23/60]	 Top 1-err 33.860  Top 5-err 9.600	 Test Loss 1.339
+Current best accuracy (top-1 and 5 error): 32.81 100
+* Epoch: [23/60]	 Top 1-err 33.860  Top 5-err 9.600	 Test Loss 1.339
+66.14
+0.6614
+0.11
+0.27
+* Epoch: [24/60]	 Top 1-err 16.740  Top 5-err 2.472	 Train Loss -0.851
+* Epoch: [24/60]	 Top 1-err 35.790  Top 5-err 10.430	 Test Loss 1.469
+Current best accuracy (top-1 and 5 error): 32.81 100
+* Epoch: [24/60]	 Top 1-err 35.790  Top 5-err 10.430	 Test Loss 1.469
+64.21
+0.6421
+0.36
+0.08
+* Epoch: [25/60]	 Top 1-err 17.872  Top 5-err 2.612	 Train Loss -0.807
+* Epoch: [25/60]	 Top 1-err 37.550  Top 5-err 11.160	 Test Loss 1.572
+Current best accuracy (top-1 and 5 error): 32.81 100
+* Epoch: [25/60]	 Top 1-err 37.550  Top 5-err 11.160	 Test Loss 1.572
+62.45
+0.6245
+0.31
+0.07
+* Epoch: [26/60]	 Top 1-err 17.390  Top 5-err 2.464	 Train Loss -0.823
+* Epoch: [26/60]	 Top 1-err 37.580  Top 5-err 10.790	 Test Loss 1.589
+Current best accuracy (top-1 and 5 error): 32.81 100
+* Epoch: [26/60]	 Top 1-err 37.580  Top 5-err 10.790	 Test Loss 1.589
+62.42
+0.6242
+0.39
+0.1
+* Epoch: [27/60]	 Top 1-err 16.155  Top 5-err 2.179	 Train Loss -0.878
+* Epoch: [27/60]	 Top 1-err 34.090  Top 5-err 9.320	 Test Loss 1.446
+Current best accuracy (top-1 and 5 error): 32.81 100
+* Epoch: [27/60]	 Top 1-err 34.090  Top 5-err 9.320	 Test Loss 1.446
+65.91
+0.6591
+0.33
+0.07
+* Epoch: [28/60]	 Top 1-err 14.791  Top 5-err 2.002	 Train Loss -0.928
+* Epoch: [28/60]	 Top 1-err 33.880  Top 5-err 9.610	 Test Loss 1.354
+Current best accuracy (top-1 and 5 error): 32.81 100
+* Epoch: [28/60]	 Top 1-err 33.880  Top 5-err 9.610	 Test Loss 1.354
+66.12
+0.6612
+0.28
+0.09
+* Epoch: [29/60]	 Top 1-err 20.821  Top 5-err 3.412	 Train Loss -0.639
+* Epoch: [29/60]	 Top 1-err 45.560  Top 5-err 15.430	 Test Loss 2.118
+Current best accuracy (top-1 and 5 error): 32.81 100
+* Epoch: [29/60]	 Top 1-err 45.560  Top 5-err 15.430	 Test Loss 2.118
+54.44
+0.5444
+0.18
+0.39
+* Epoch: [30/60]	 Top 1-err 15.838  Top 5-err 2.113	 Train Loss -0.877
+* Epoch: [30/60]	 Top 1-err 29.500  Top 5-err 7.570	 Test Loss 1.114
+Current best accuracy (top-1 and 5 error): 29.5 100
+* Epoch: [30/60]	 Top 1-err 29.500  Top 5-err 7.570	 Test Loss 1.114
+70.5
+0.705
+0.1
+0.12
+* Epoch: [31/60]	 Top 1-err 12.222  Top 5-err 1.499	 Train Loss -1.002
+* Epoch: [31/60]	 Top 1-err 28.990  Top 5-err 7.180	 Test Loss 1.091
+Current best accuracy (top-1 and 5 error): 28.99 100
+* Epoch: [31/60]	 Top 1-err 28.990  Top 5-err 7.180	 Test Loss 1.091
+71.01
+0.7101
+0.13
+0.09
+* Epoch: [32/60]	 Top 1-err 11.151  Top 5-err 1.251	 Train Loss -1.040
+* Epoch: [32/60]	 Top 1-err 28.820  Top 5-err 7.170	 Test Loss 1.091
+Current best accuracy (top-1 and 5 error): 28.82 100
+* Epoch: [32/60]	 Top 1-err 28.820  Top 5-err 7.170	 Test Loss 1.091
+71.18
+0.7118
+0.14
+0.1
+* Epoch: [33/60]	 Top 1-err 10.310  Top 5-err 1.129	 Train Loss -1.065
+* Epoch: [33/60]	 Top 1-err 28.550  Top 5-err 7.040	 Test Loss 1.094
+Current best accuracy (top-1 and 5 error): 28.55 100
+* Epoch: [33/60]	 Top 1-err 28.550  Top 5-err 7.040	 Test Loss 1.094
+71.45
+0.7145
+0.14
+0.11
+* Epoch: [34/60]	 Top 1-err 9.736  Top 5-err 0.942	 Train Loss -1.087
+* Epoch: [34/60]	 Top 1-err 28.420  Top 5-err 6.990	 Test Loss 1.094
+Current best accuracy (top-1 and 5 error): 28.42 100
+* Epoch: [34/60]	 Top 1-err 28.420  Top 5-err 6.990	 Test Loss 1.094
+71.58
+0.7158
+0.1
+0.09
+* Epoch: [35/60]	 Top 1-err 9.304  Top 5-err 0.922	 Train Loss -1.098
+* Epoch: [35/60]	 Top 1-err 27.970  Top 5-err 6.910	 Test Loss 1.095
+Current best accuracy (top-1 and 5 error): 27.97 100
+* Epoch: [35/60]	 Top 1-err 27.970  Top 5-err 6.910	 Test Loss 1.095
+72.03
+0.7203
+0.12
+0.08
+* Epoch: [36/60]	 Top 1-err 8.969  Top 5-err 0.898	 Train Loss -1.111
+* Epoch: [36/60]	 Top 1-err 27.860  Top 5-err 6.750	 Test Loss 1.095
+Current best accuracy (top-1 and 5 error): 27.86 100
+* Epoch: [36/60]	 Top 1-err 27.860  Top 5-err 6.750	 Test Loss 1.095
+72.14
+0.7214
+0.1
+0.1
+* Epoch: [37/60]	 Top 1-err 8.692  Top 5-err 0.820	 Train Loss -1.119
+* Epoch: [37/60]	 Top 1-err 27.920  Top 5-err 6.760	 Test Loss 1.099
+Current best accuracy (top-1 and 5 error): 27.86 100
+* Epoch: [37/60]	 Top 1-err 27.920  Top 5-err 6.760	 Test Loss 1.099
+72.08
+0.7208
+0.13
+0.06
+* Epoch: [38/60]	 Top 1-err 8.224  Top 5-err 0.778	 Train Loss -1.132
+* Epoch: [38/60]	 Top 1-err 27.840  Top 5-err 6.740	 Test Loss 1.107
+Current best accuracy (top-1 and 5 error): 27.84 100
+* Epoch: [38/60]	 Top 1-err 27.840  Top 5-err 6.740	 Test Loss 1.107
+72.16
+0.7216
+0.1
+0.1
+* Epoch: [39/60]	 Top 1-err 8.168  Top 5-err 0.738	 Train Loss -1.137
+* Epoch: [39/60]	 Top 1-err 27.790  Top 5-err 6.880	 Test Loss 1.122
+Current best accuracy (top-1 and 5 error): 27.79 100
+* Epoch: [39/60]	 Top 1-err 27.790  Top 5-err 6.880	 Test Loss 1.122
+72.21
+0.7221
+0.1
+0.07
+* Epoch: [40/60]	 Top 1-err 7.639  Top 5-err 0.718	 Train Loss -1.148
+* Epoch: [40/60]	 Top 1-err 28.330  Top 5-err 6.990	 Test Loss 1.128
+Current best accuracy (top-1 and 5 error): 27.79 100
+* Epoch: [40/60]	 Top 1-err 28.330  Top 5-err 6.990	 Test Loss 1.128
+71.67
+0.7167
+0.14
+0.1
+* Epoch: [41/60]	 Top 1-err 7.685  Top 5-err 0.659	 Train Loss -1.154
+* Epoch: [41/60]	 Top 1-err 27.800  Top 5-err 6.880	 Test Loss 1.122
+Current best accuracy (top-1 and 5 error): 27.79 100
+* Epoch: [41/60]	 Top 1-err 27.800  Top 5-err 6.880	 Test Loss 1.122
+72.2
+0.722
+0.11
+0.08
+* Epoch: [42/60]	 Top 1-err 7.353  Top 5-err 0.612	 Train Loss -1.162
+* Epoch: [42/60]	 Top 1-err 27.960  Top 5-err 6.890	 Test Loss 1.126
+Current best accuracy (top-1 and 5 error): 27.79 100
+* Epoch: [42/60]	 Top 1-err 27.960  Top 5-err 6.890	 Test Loss 1.126
+72.04
+0.7204
+0.13
+0.08
+* Epoch: [43/60]	 Top 1-err 7.189  Top 5-err 0.577	 Train Loss -1.169
+* Epoch: [43/60]	 Top 1-err 27.640  Top 5-err 6.870	 Test Loss 1.137
+Current best accuracy (top-1 and 5 error): 27.64 100
+* Epoch: [43/60]	 Top 1-err 27.640  Top 5-err 6.870	 Test Loss 1.137
+72.36
+0.7236
+0.13
+0.09
+* Epoch: [44/60]	 Top 1-err 6.872  Top 5-err 0.559	 Train Loss -1.176
+* Epoch: [44/60]	 Top 1-err 28.100  Top 5-err 6.870	 Test Loss 1.141
+Current best accuracy (top-1 and 5 error): 27.64 100
+* Epoch: [44/60]	 Top 1-err 28.100  Top 5-err 6.870	 Test Loss 1.141
+71.9
+0.719
+0.13
+0.07
+* Epoch: [45/60]	 Top 1-err 6.408  Top 5-err 0.485	 Train Loss -1.189
+* Epoch: [45/60]	 Top 1-err 27.960  Top 5-err 6.850	 Test Loss 1.131
+Current best accuracy (top-1 and 5 error): 27.64 100
+* Epoch: [45/60]	 Top 1-err 27.960  Top 5-err 6.850	 Test Loss 1.131
+72.04
+0.7204
+0.13
+0.08
+* Epoch: [46/60]	 Top 1-err 6.384  Top 5-err 0.515	 Train Loss -1.191
+* Epoch: [46/60]	 Top 1-err 27.770  Top 5-err 6.880	 Test Loss 1.133
+Current best accuracy (top-1 and 5 error): 27.64 100
+* Epoch: [46/60]	 Top 1-err 27.770  Top 5-err 6.880	 Test Loss 1.133
+72.23
+0.7223
+0.14
+0.1
+* Epoch: [47/60]	 Top 1-err 6.326  Top 5-err 0.475	 Train Loss -1.192
+* Epoch: [47/60]	 Top 1-err 27.790  Top 5-err 6.960	 Test Loss 1.137
+Current best accuracy (top-1 and 5 error): 27.64 100
+* Epoch: [47/60]	 Top 1-err 27.790  Top 5-err 6.960	 Test Loss 1.137
+72.21
+0.7221
+0.13
+0.09
+* Epoch: [48/60]	 Top 1-err 6.275  Top 5-err 0.497	 Train Loss -1.192
+* Epoch: [48/60]	 Top 1-err 27.820  Top 5-err 6.900	 Test Loss 1.133
+Current best accuracy (top-1 and 5 error): 27.64 100
+* Epoch: [48/60]	 Top 1-err 27.820  Top 5-err 6.900	 Test Loss 1.133
+72.18
+0.7218
+0.13
+0.08
+* Epoch: [49/60]	 Top 1-err 6.321  Top 5-err 0.481	 Train Loss -1.192
+* Epoch: [49/60]	 Top 1-err 27.760  Top 5-err 6.870	 Test Loss 1.144
+Current best accuracy (top-1 and 5 error): 27.64 100
+* Epoch: [49/60]	 Top 1-err 27.760  Top 5-err 6.870	 Test Loss 1.144
+72.24
+0.7224
+0.12
+0.08
+* Epoch: [50/60]	 Top 1-err 6.206  Top 5-err 0.474	 Train Loss -1.195
+* Epoch: [50/60]	 Top 1-err 27.770  Top 5-err 6.940	 Test Loss 1.134
+Current best accuracy (top-1 and 5 error): 27.64 100
+* Epoch: [50/60]	 Top 1-err 27.770  Top 5-err 6.940	 Test Loss 1.134
+72.23
+0.7223
+0.13
+0.09
+* Epoch: [51/60]	 Top 1-err 6.244  Top 5-err 0.450	 Train Loss -1.195
+* Epoch: [51/60]	 Top 1-err 27.820  Top 5-err 6.930	 Test Loss 1.137
+Current best accuracy (top-1 and 5 error): 27.64 100
+* Epoch: [51/60]	 Top 1-err 27.820  Top 5-err 6.930	 Test Loss 1.137
+72.18
+0.7218
+0.13
+0.07
+* Epoch: [52/60]	 Top 1-err 6.164  Top 5-err 0.483	 Train Loss -1.197
+* Epoch: [52/60]	 Top 1-err 27.760  Top 5-err 6.880	 Test Loss 1.136
+Current best accuracy (top-1 and 5 error): 27.64 100
+* Epoch: [52/60]	 Top 1-err 27.760  Top 5-err 6.880	 Test Loss 1.136
+72.24
+0.7224
+0.12
+0.09
+* Epoch: [53/60]	 Top 1-err 6.228  Top 5-err 0.474	 Train Loss -1.198
+* Epoch: [53/60]	 Top 1-err 27.760  Top 5-err 6.890	 Test Loss 1.137
+Current best accuracy (top-1 and 5 error): 27.64 100
+* Epoch: [53/60]	 Top 1-err 27.760  Top 5-err 6.890	 Test Loss 1.137
+72.24
+0.7224
+0.12
+0.08
+* Epoch: [54/60]	 Top 1-err 6.146  Top 5-err 0.466	 Train Loss -1.197
+* Epoch: [54/60]	 Top 1-err 27.780  Top 5-err 6.970	 Test Loss 1.139
+Current best accuracy (top-1 and 5 error): 27.64 100
+* Epoch: [54/60]	 Top 1-err 27.780  Top 5-err 6.970	 Test Loss 1.139
+72.22
+0.7222
+0.12
+0.08
+* Epoch: [55/60]	 Top 1-err 6.097  Top 5-err 0.439	 Train Loss -1.199
+* Epoch: [55/60]	 Top 1-err 27.800  Top 5-err 6.980	 Test Loss 1.140
+Current best accuracy (top-1 and 5 error): 27.64 100
+* Epoch: [55/60]	 Top 1-err 27.800  Top 5-err 6.980	 Test Loss 1.140
+72.2
+0.722
+0.12
+0.08
+* Epoch: [56/60]	 Top 1-err 6.115  Top 5-err 0.434	 Train Loss -1.199
+* Epoch: [56/60]	 Top 1-err 27.720  Top 5-err 6.920	 Test Loss 1.140
+Current best accuracy (top-1 and 5 error): 27.64 100
+* Epoch: [56/60]	 Top 1-err 27.720  Top 5-err 6.920	 Test Loss 1.140
+72.28
+0.7228
+0.11
+0.09
+* Epoch: [57/60]	 Top 1-err 6.077  Top 5-err 0.463	 Train Loss -1.200
+* Epoch: [57/60]	 Top 1-err 27.900  Top 5-err 6.940	 Test Loss 1.142
+Current best accuracy (top-1 and 5 error): 27.64 100
+* Epoch: [57/60]	 Top 1-err 27.900  Top 5-err 6.940	 Test Loss 1.142
+72.1
+0.721
+0.1
+0.09
+* Epoch: [58/60]	 Top 1-err 6.129  Top 5-err 0.450	 Train Loss -1.198
+* Epoch: [58/60]	 Top 1-err 27.910  Top 5-err 6.980	 Test Loss 1.141
+Current best accuracy (top-1 and 5 error): 27.64 100
+* Epoch: [58/60]	 Top 1-err 27.910  Top 5-err 6.980	 Test Loss 1.141
+72.09
+0.7209
+0.12
+0.07
+* Epoch: [59/60]	 Top 1-err 6.009  Top 5-err 0.390	 Train Loss -1.201
+* Epoch: [59/60]	 Top 1-err 27.750  Top 5-err 6.940	 Test Loss 1.144
+Current best accuracy (top-1 and 5 error): 27.64 100
+* Epoch: [59/60]	 Top 1-err 27.750  Top 5-err 6.940	 Test Loss 1.144
+72.25
+0.7225
+0.12
+0.09
+Best accuracy (top-1 and 5 error): 27.64 100
+=> loading checkpoint 'runs/cifar100_resnet_1_35_98_test/model_best.pth.tar'
+* Epoch: [-1/60]	 Top 1-err 26.520  Top 5-err 7.090	 Test Loss 1.193
+73.48
+0.7348
+0.17
+0.09
+python3 cifar100_repair_confusion.py --net_type resnet --dataset cifar100 --depth 50 --batch_size 256 --lr 0.1 --expname cifar100_resnet_1_35_98_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar100_resnet_1_35_98/model_best.pth.tar --lam 2
+Files already downloaded and verified
+Files already downloaded and verified
+Files already downloaded and verified
+=> creating model 'resnet'
+True
+=> loading checkpoint './runs/cifar100_resnet_1_35_98/model_best.pth.tar'
+=> loaded checkpoint './runs/cifar100_resnet_1_35_98/model_best.pth.tar'
+the number of model parameters: 521716
+* Epoch: [0/60]	 Top 1-err 46.239  Top 5-err 16.220	 Train Loss 0.400
+* Epoch: [0/60]	 Top 1-err 67.630  Top 5-err 36.020	 Test Loss 3.137
+Current best accuracy (top-1 and 5 error): 67.63 100
+* Epoch: [0/60]	 Top 1-err 67.630  Top 5-err 36.020	 Test Loss 3.137
+32.37
+0.3237
+0.64
+0.01
+* Epoch: [1/60]	 Top 1-err 45.945  Top 5-err 15.991	 Train Loss 0.096
+* Epoch: [1/60]	 Top 1-err 55.510  Top 5-err 23.100	 Test Loss 2.385
+Current best accuracy (top-1 and 5 error): 55.51 100
+* Epoch: [1/60]	 Top 1-err 55.510  Top 5-err 23.100	 Test Loss 2.385
+44.49
+0.4449
+0.17
+0.32
+* Epoch: [2/60]	 Top 1-err 45.118  Top 5-err 15.359	 Train Loss -0.126
+* Epoch: [2/60]	 Top 1-err 54.940  Top 5-err 22.800	 Test Loss 2.353
+Current best accuracy (top-1 and 5 error): 54.94 100
+* Epoch: [2/60]	 Top 1-err 54.940  Top 5-err 22.800	 Test Loss 2.353
+45.06
+0.4506
+0.07
+0.57
+* Epoch: [3/60]	 Top 1-err 40.971  Top 5-err 13.027	 Train Loss -0.651
+* Epoch: [3/60]	 Top 1-err 52.720  Top 5-err 17.630	 Test Loss 2.280
+Current best accuracy (top-1 and 5 error): 52.72 100
+* Epoch: [3/60]	 Top 1-err 52.720  Top 5-err 17.630	 Test Loss 2.280
+47.28
+0.4728
+0.36
+0.14
+* Epoch: [4/60]	 Top 1-err 38.732  Top 5-err 11.572	 Train Loss -0.900
+* Epoch: [4/60]	 Top 1-err 49.360  Top 5-err 18.200	 Test Loss 2.030
+Current best accuracy (top-1 and 5 error): 49.36 100
+* Epoch: [4/60]	 Top 1-err 49.360  Top 5-err 18.200	 Test Loss 2.030
+50.64
+0.5064
+0.44
+0.09
+* Epoch: [5/60]	 Top 1-err 38.536  Top 5-err 11.472	 Train Loss -0.973
+* Epoch: [5/60]	 Top 1-err 49.320  Top 5-err 17.750	 Test Loss 2.100
+Current best accuracy (top-1 and 5 error): 49.32 100
+* Epoch: [5/60]	 Top 1-err 49.320  Top 5-err 17.750	 Test Loss 2.100
+50.68
+0.5068
+0.31
+0.21
+* Epoch: [6/60]	 Top 1-err 35.749  Top 5-err 10.035	 Train Loss -1.208
+* Epoch: [6/60]	 Top 1-err 49.840  Top 5-err 17.870	 Test Loss 2.178
+Current best accuracy (top-1 and 5 error): 49.32 100
+* Epoch: [6/60]	 Top 1-err 49.840  Top 5-err 17.870	 Test Loss 2.178
+50.16
+0.5016
+0.5
+0.1
+* Epoch: [7/60]	 Top 1-err 35.430  Top 5-err 10.016	 Train Loss -1.236
+* Epoch: [7/60]	 Top 1-err 48.730  Top 5-err 17.100	 Test Loss 2.137
+Current best accuracy (top-1 and 5 error): 48.73 100
+* Epoch: [7/60]	 Top 1-err 48.730  Top 5-err 17.100	 Test Loss 2.137
+51.27
+0.5127
+0.56
+0.06
+* Epoch: [8/60]	 Top 1-err 33.918  Top 5-err 9.173	 Train Loss -1.389
+* Epoch: [8/60]	 Top 1-err 46.690  Top 5-err 16.440	 Test Loss 1.858
+Current best accuracy (top-1 and 5 error): 46.69 100
+* Epoch: [8/60]	 Top 1-err 46.690  Top 5-err 16.440	 Test Loss 1.858
+53.31
+0.5331
+0.39
+0.04
+* Epoch: [9/60]	 Top 1-err 32.107  Top 5-err 8.444	 Train Loss -1.532
+* Epoch: [9/60]	 Top 1-err 46.470  Top 5-err 15.630	 Test Loss 2.001
+Current best accuracy (top-1 and 5 error): 46.47 100
+* Epoch: [9/60]	 Top 1-err 46.470  Top 5-err 15.630	 Test Loss 2.001
+53.53
+0.5353
+0.22
+0.31
+* Epoch: [10/60]	 Top 1-err 30.909  Top 5-err 7.936	 Train Loss -1.598
+* Epoch: [10/60]	 Top 1-err 41.880  Top 5-err 13.190	 Test Loss 1.673
+Current best accuracy (top-1 and 5 error): 41.88 100
+* Epoch: [10/60]	 Top 1-err 41.880  Top 5-err 13.190	 Test Loss 1.673
+58.12
+0.5812
+0.41
+0.1
+* Epoch: [11/60]	 Top 1-err 28.284  Top 5-err 6.616	 Train Loss -1.751
+* Epoch: [11/60]	 Top 1-err 37.410  Top 5-err 11.010	 Test Loss 1.426
+Current best accuracy (top-1 and 5 error): 37.41 100
+* Epoch: [11/60]	 Top 1-err 37.410  Top 5-err 11.010	 Test Loss 1.426
+62.59
+0.6259
+0.23
+0.15
+* Epoch: [12/60]	 Top 1-err 27.982  Top 5-err 6.486	 Train Loss -1.775
+* Epoch: [12/60]	 Top 1-err 36.140  Top 5-err 10.920	 Test Loss 1.420
+Current best accuracy (top-1 and 5 error): 36.14 100
+* Epoch: [12/60]	 Top 1-err 36.140  Top 5-err 10.920	 Test Loss 1.420
+63.86
+0.6386
+0.14
+0.17
+* Epoch: [13/60]	 Top 1-err 24.834  Top 5-err 5.430	 Train Loss -1.950
+* Epoch: [13/60]	 Top 1-err 33.370  Top 5-err 9.490	 Test Loss 1.245
+Current best accuracy (top-1 and 5 error): 33.37 100
+* Epoch: [13/60]	 Top 1-err 33.370  Top 5-err 9.490	 Test Loss 1.245
+66.63
+0.6663
+0.19
+0.04
+* Epoch: [14/60]	 Top 1-err 22.175  Top 5-err 4.415	 Train Loss -2.066
+* Epoch: [14/60]	 Top 1-err 34.210  Top 5-err 9.140	 Test Loss 1.267
+Current best accuracy (top-1 and 5 error): 33.37 100
+* Epoch: [14/60]	 Top 1-err 34.210  Top 5-err 9.140	 Test Loss 1.267
+65.79
+0.6579
+0.2
+0.18
+* Epoch: [15/60]	 Top 1-err 21.071  Top 5-err 4.005	 Train Loss -2.100
+* Epoch: [15/60]	 Top 1-err 34.300  Top 5-err 9.130	 Test Loss 1.298
+Current best accuracy (top-1 and 5 error): 33.37 100
+* Epoch: [15/60]	 Top 1-err 34.300  Top 5-err 9.130	 Test Loss 1.298
+65.7
+0.657
+0.15
+0.15
+* Epoch: [16/60]	 Top 1-err 27.361  Top 5-err 6.291	 Train Loss -1.676
+* Epoch: [16/60]	 Top 1-err 46.100  Top 5-err 16.140	 Test Loss 1.871
+Current best accuracy (top-1 and 5 error): 33.37 100
+* Epoch: [16/60]	 Top 1-err 46.100  Top 5-err 16.140	 Test Loss 1.871
+53.9
+0.539
+0.24
+0.11
+* Epoch: [17/60]	 Top 1-err 34.228  Top 5-err 9.213	 Train Loss -1.273
+* Epoch: [17/60]	 Top 1-err 46.410  Top 5-err 16.930	 Test Loss 1.900
+Current best accuracy (top-1 and 5 error): 33.37 100
+* Epoch: [17/60]	 Top 1-err 46.410  Top 5-err 16.930	 Test Loss 1.900
+53.59
+0.5359
+0.2
+0.3
+* Epoch: [18/60]	 Top 1-err 32.475  Top 5-err 8.430	 Train Loss -1.457
+* Epoch: [18/60]	 Top 1-err 40.790  Top 5-err 13.410	 Test Loss 1.626
+Current best accuracy (top-1 and 5 error): 33.37 100
+* Epoch: [18/60]	 Top 1-err 40.790  Top 5-err 13.410	 Test Loss 1.626
+59.21
+0.5921
+0.14
+0.35
+* Epoch: [19/60]	 Top 1-err 27.098  Top 5-err 6.118	 Train Loss -1.819
+* Epoch: [19/60]	 Top 1-err 35.790  Top 5-err 10.310	 Test Loss 1.352
+Current best accuracy (top-1 and 5 error): 33.37 100
+* Epoch: [19/60]	 Top 1-err 35.790  Top 5-err 10.310	 Test Loss 1.352
+64.21
+0.6421
+0.22
+0.15
+* Epoch: [20/60]	 Top 1-err 22.750  Top 5-err 4.468	 Train Loss -2.034
+* Epoch: [20/60]	 Top 1-err 33.840  Top 5-err 9.670	 Test Loss 1.297
+Current best accuracy (top-1 and 5 error): 33.37 100
+* Epoch: [20/60]	 Top 1-err 33.840  Top 5-err 9.670	 Test Loss 1.297
+66.16
+0.6616
+0.2
+0.12
+* Epoch: [21/60]	 Top 1-err 21.022  Top 5-err 3.918	 Train Loss -2.115
+* Epoch: [21/60]	 Top 1-err 33.930  Top 5-err 9.500	 Test Loss 1.312
+Current best accuracy (top-1 and 5 error): 33.37 100
+* Epoch: [21/60]	 Top 1-err 33.930  Top 5-err 9.500	 Test Loss 1.312
+66.07
+0.6607
+0.17
+0.16
+* Epoch: [22/60]	 Top 1-err 19.947  Top 5-err 3.475	 Train Loss -2.152
+* Epoch: [22/60]	 Top 1-err 33.550  Top 5-err 9.270	 Test Loss 1.306
+Current best accuracy (top-1 and 5 error): 33.37 100
+* Epoch: [22/60]	 Top 1-err 33.550  Top 5-err 9.270	 Test Loss 1.306
+66.45
+0.6645
+0.26
+0.07
+* Epoch: [23/60]	 Top 1-err 28.233  Top 5-err 6.721	 Train Loss -1.583
+* Epoch: [23/60]	 Top 1-err 55.440  Top 5-err 18.990	 Test Loss 2.628
+Current best accuracy (top-1 and 5 error): 33.37 100
+* Epoch: [23/60]	 Top 1-err 55.440  Top 5-err 18.990	 Test Loss 2.628
+44.56
+0.4456
+0.01
+0.69
+* Epoch: [24/60]	 Top 1-err 33.798  Top 5-err 8.818	 Train Loss -1.304
+* Epoch: [24/60]	 Top 1-err 46.330  Top 5-err 17.720	 Test Loss 1.911
+Current best accuracy (top-1 and 5 error): 33.37 100
+* Epoch: [24/60]	 Top 1-err 46.330  Top 5-err 17.720	 Test Loss 1.911
+53.67
+0.5367
+0.4
+0.1
+* Epoch: [25/60]	 Top 1-err 33.406  Top 5-err 8.734	 Train Loss -1.342
+* Epoch: [25/60]	 Top 1-err 46.610  Top 5-err 17.330	 Test Loss 1.901
+Current best accuracy (top-1 and 5 error): 33.37 100
+* Epoch: [25/60]	 Top 1-err 46.610  Top 5-err 17.330	 Test Loss 1.901
+53.39
+0.5339
+0.49
+0.04
+* Epoch: [26/60]	 Top 1-err 28.412  Top 5-err 6.483	 Train Loss -1.749
+* Epoch: [26/60]	 Top 1-err 36.110  Top 5-err 10.270	 Test Loss 1.371
+Current best accuracy (top-1 and 5 error): 33.37 100
+* Epoch: [26/60]	 Top 1-err 36.110  Top 5-err 10.270	 Test Loss 1.371
+63.89
+0.6389
+0.24
+0.17
+* Epoch: [27/60]	 Top 1-err 21.953  Top 5-err 4.337	 Train Loss -2.069
+* Epoch: [27/60]	 Top 1-err 34.280  Top 5-err 9.580	 Test Loss 1.348
+Current best accuracy (top-1 and 5 error): 33.37 100
+* Epoch: [27/60]	 Top 1-err 34.280  Top 5-err 9.580	 Test Loss 1.348
+65.72
+0.6572
+0.3
+0.04
+* Epoch: [28/60]	 Top 1-err 20.264  Top 5-err 3.619	 Train Loss -2.138
+* Epoch: [28/60]	 Top 1-err 32.790  Top 5-err 9.370	 Test Loss 1.254
+Current best accuracy (top-1 and 5 error): 32.79 100
+* Epoch: [28/60]	 Top 1-err 32.790  Top 5-err 9.370	 Test Loss 1.254
+67.21
+0.6721
+0.16
+0.12
+* Epoch: [29/60]	 Top 1-err 18.654  Top 5-err 3.100	 Train Loss -2.200
+* Epoch: [29/60]	 Top 1-err 32.820  Top 5-err 9.020	 Test Loss 1.260
+Current best accuracy (top-1 and 5 error): 32.79 100
+* Epoch: [29/60]	 Top 1-err 32.820  Top 5-err 9.020	 Test Loss 1.260
+67.18
+0.6718
+0.22
+0.08
+* Epoch: [30/60]	 Top 1-err 15.282  Top 5-err 2.228	 Train Loss -2.314
+* Epoch: [30/60]	 Top 1-err 29.450  Top 5-err 7.790	 Test Loss 1.123
+Current best accuracy (top-1 and 5 error): 29.45 100
+* Epoch: [30/60]	 Top 1-err 29.450  Top 5-err 7.790	 Test Loss 1.123
+70.55
+0.7055
+0.14
+0.07
+* Epoch: [31/60]	 Top 1-err 14.222  Top 5-err 1.989	 Train Loss -2.348
+* Epoch: [31/60]	 Top 1-err 29.310  Top 5-err 7.850	 Test Loss 1.120
+Current best accuracy (top-1 and 5 error): 29.31 100
+* Epoch: [31/60]	 Top 1-err 29.310  Top 5-err 7.850	 Test Loss 1.120
+70.69
+0.7069
+0.13
+0.05
+* Epoch: [32/60]	 Top 1-err 13.913  Top 5-err 1.971	 Train Loss -2.359
+* Epoch: [32/60]	 Top 1-err 29.290  Top 5-err 7.720	 Test Loss 1.122
+Current best accuracy (top-1 and 5 error): 29.29 100
+* Epoch: [32/60]	 Top 1-err 29.290  Top 5-err 7.720	 Test Loss 1.122
+70.71
+0.7071
+0.13
+0.06
+* Epoch: [33/60]	 Top 1-err 13.732  Top 5-err 1.914	 Train Loss -2.368
+* Epoch: [33/60]	 Top 1-err 29.280  Top 5-err 7.830	 Test Loss 1.129
+Current best accuracy (top-1 and 5 error): 29.28 100
+* Epoch: [33/60]	 Top 1-err 29.280  Top 5-err 7.830	 Test Loss 1.129
+70.72
+0.7072
+0.13
+0.05
+* Epoch: [34/60]	 Top 1-err 13.656  Top 5-err 1.905	 Train Loss -2.375
+* Epoch: [34/60]	 Top 1-err 29.240  Top 5-err 7.820	 Test Loss 1.129
+Current best accuracy (top-1 and 5 error): 29.24 100
+* Epoch: [34/60]	 Top 1-err 29.240  Top 5-err 7.820	 Test Loss 1.129
+70.76
+0.7076
+0.13
+0.04
+* Epoch: [35/60]	 Top 1-err 13.246  Top 5-err 1.769	 Train Loss -2.383
+* Epoch: [35/60]	 Top 1-err 29.010  Top 5-err 7.890	 Test Loss 1.136
+Current best accuracy (top-1 and 5 error): 29.01 100
+* Epoch: [35/60]	 Top 1-err 29.010  Top 5-err 7.890	 Test Loss 1.136
+70.99
+0.7099
+0.13
+0.04
+* Epoch: [36/60]	 Top 1-err 13.224  Top 5-err 1.803	 Train Loss -2.386
+* Epoch: [36/60]	 Top 1-err 29.410  Top 5-err 7.710	 Test Loss 1.135
+Current best accuracy (top-1 and 5 error): 29.01 100
+* Epoch: [36/60]	 Top 1-err 29.410  Top 5-err 7.710	 Test Loss 1.135
+70.59
+0.7059
+0.13
+0.05
+* Epoch: [37/60]	 Top 1-err 12.907  Top 5-err 1.741	 Train Loss -2.394
+* Epoch: [37/60]	 Top 1-err 29.230  Top 5-err 7.750	 Test Loss 1.141
+Current best accuracy (top-1 and 5 error): 29.01 100
+* Epoch: [37/60]	 Top 1-err 29.230  Top 5-err 7.750	 Test Loss 1.141
+70.77
+0.7077
+0.13
+0.04
+* Epoch: [38/60]	 Top 1-err 12.701  Top 5-err 1.750	 Train Loss -2.399
+* Epoch: [38/60]	 Top 1-err 29.170  Top 5-err 7.770	 Test Loss 1.143
+Current best accuracy (top-1 and 5 error): 29.01 100
+* Epoch: [38/60]	 Top 1-err 29.170  Top 5-err 7.770	 Test Loss 1.143
+70.83
+0.7083
+0.13
+0.04
+* Epoch: [39/60]	 Top 1-err 12.922  Top 5-err 1.597	 Train Loss -2.402
+* Epoch: [39/60]	 Top 1-err 29.550  Top 5-err 7.870	 Test Loss 1.156
+Current best accuracy (top-1 and 5 error): 29.01 100
+* Epoch: [39/60]	 Top 1-err 29.550  Top 5-err 7.870	 Test Loss 1.156
+70.45
+0.7045
+0.13
+0.04
+* Epoch: [40/60]	 Top 1-err 12.506  Top 5-err 1.639	 Train Loss -2.409
+* Epoch: [40/60]	 Top 1-err 29.340  Top 5-err 7.790	 Test Loss 1.157
+Current best accuracy (top-1 and 5 error): 29.01 100
+* Epoch: [40/60]	 Top 1-err 29.340  Top 5-err 7.790	 Test Loss 1.157
+70.66
+0.7066
+0.13
+0.05
+* Epoch: [41/60]	 Top 1-err 12.353  Top 5-err 1.588	 Train Loss -2.415
+* Epoch: [41/60]	 Top 1-err 29.310  Top 5-err 7.850	 Test Loss 1.153
+Current best accuracy (top-1 and 5 error): 29.01 100
+* Epoch: [41/60]	 Top 1-err 29.310  Top 5-err 7.850	 Test Loss 1.153
+70.69
+0.7069
+0.13
+0.04
+* Epoch: [42/60]	 Top 1-err 12.352  Top 5-err 1.517	 Train Loss -2.418
+* Epoch: [42/60]	 Top 1-err 29.390  Top 5-err 7.770	 Test Loss 1.157
+Current best accuracy (top-1 and 5 error): 29.01 100
+* Epoch: [42/60]	 Top 1-err 29.390  Top 5-err 7.770	 Test Loss 1.157
+70.61
+0.7061
+0.13
+0.04
+* Epoch: [43/60]	 Top 1-err 12.087  Top 5-err 1.486	 Train Loss -2.424
+* Epoch: [43/60]	 Top 1-err 29.540  Top 5-err 7.750	 Test Loss 1.162
+Current best accuracy (top-1 and 5 error): 29.01 100
+* Epoch: [43/60]	 Top 1-err 29.540  Top 5-err 7.750	 Test Loss 1.162
+70.46
+0.7046
+0.13
+0.04
+* Epoch: [44/60]	 Top 1-err 11.996  Top 5-err 1.415	 Train Loss -2.431
+* Epoch: [44/60]	 Top 1-err 29.410  Top 5-err 7.790	 Test Loss 1.167
+Current best accuracy (top-1 and 5 error): 29.01 100
+* Epoch: [44/60]	 Top 1-err 29.410  Top 5-err 7.790	 Test Loss 1.167
+70.59
+0.7059
+0.13
+0.05
+* Epoch: [45/60]	 Top 1-err 11.434  Top 5-err 1.444	 Train Loss -2.444
+* Epoch: [45/60]	 Top 1-err 29.280  Top 5-err 7.720	 Test Loss 1.161
+Current best accuracy (top-1 and 5 error): 29.01 100
+* Epoch: [45/60]	 Top 1-err 29.280  Top 5-err 7.720	 Test Loss 1.161
+70.72
+0.7072
+0.13
+0.05
+* Epoch: [46/60]	 Top 1-err 11.477  Top 5-err 1.355	 Train Loss -2.444
+* Epoch: [46/60]	 Top 1-err 29.350  Top 5-err 7.760	 Test Loss 1.162
+Current best accuracy (top-1 and 5 error): 29.01 100
+* Epoch: [46/60]	 Top 1-err 29.350  Top 5-err 7.760	 Test Loss 1.162
+70.65
+0.7065
+0.13
+0.05
+* Epoch: [47/60]	 Top 1-err 11.415  Top 5-err 1.361	 Train Loss -2.445
+* Epoch: [47/60]	 Top 1-err 29.210  Top 5-err 7.720	 Test Loss 1.163
+Current best accuracy (top-1 and 5 error): 29.01 100
+* Epoch: [47/60]	 Top 1-err 29.210  Top 5-err 7.720	 Test Loss 1.163
+70.79
+0.7079
+0.13
+0.05
+* Epoch: [48/60]	 Top 1-err 11.293  Top 5-err 1.399	 Train Loss -2.446
+* Epoch: [48/60]	 Top 1-err 29.160  Top 5-err 7.790	 Test Loss 1.161
+Current best accuracy (top-1 and 5 error): 29.01 100
+* Epoch: [48/60]	 Top 1-err 29.160  Top 5-err 7.790	 Test Loss 1.161
+70.84
+0.7084
+0.13
+0.05
+* Epoch: [49/60]	 Top 1-err 11.463  Top 5-err 1.335	 Train Loss -2.445
+* Epoch: [49/60]	 Top 1-err 29.210  Top 5-err 7.810	 Test Loss 1.167
+Current best accuracy (top-1 and 5 error): 29.01 100
+* Epoch: [49/60]	 Top 1-err 29.210  Top 5-err 7.810	 Test Loss 1.167
+70.79
+0.7079
+0.13
+0.05
+* Epoch: [50/60]	 Top 1-err 11.430  Top 5-err 1.373	 Train Loss -2.447
+* Epoch: [50/60]	 Top 1-err 29.340  Top 5-err 7.670	 Test Loss 1.160
+Current best accuracy (top-1 and 5 error): 29.01 100
+* Epoch: [50/60]	 Top 1-err 29.340  Top 5-err 7.670	 Test Loss 1.160
+70.66
+0.7066
+0.13
+0.05
+* Epoch: [51/60]	 Top 1-err 11.342  Top 5-err 1.383	 Train Loss -2.447
+* Epoch: [51/60]	 Top 1-err 29.340  Top 5-err 7.760	 Test Loss 1.166
+Current best accuracy (top-1 and 5 error): 29.01 100
+* Epoch: [51/60]	 Top 1-err 29.340  Top 5-err 7.760	 Test Loss 1.166
+70.66
+0.7066
+0.14
+0.05
+* Epoch: [52/60]	 Top 1-err 11.233  Top 5-err 1.332	 Train Loss -2.451
+* Epoch: [52/60]	 Top 1-err 29.290  Top 5-err 7.680	 Test Loss 1.163
+Current best accuracy (top-1 and 5 error): 29.01 100
+* Epoch: [52/60]	 Top 1-err 29.290  Top 5-err 7.680	 Test Loss 1.163
+70.71
+0.7071
+0.13
+0.05
+* Epoch: [53/60]	 Top 1-err 11.359  Top 5-err 1.313	 Train Loss -2.451
+* Epoch: [53/60]	 Top 1-err 29.320  Top 5-err 7.690	 Test Loss 1.165
+Current best accuracy (top-1 and 5 error): 29.01 100
+* Epoch: [53/60]	 Top 1-err 29.320  Top 5-err 7.690	 Test Loss 1.165
+70.68
+0.7068
+0.13
+0.05
+* Epoch: [54/60]	 Top 1-err 11.166  Top 5-err 1.375	 Train Loss -2.450
+* Epoch: [54/60]	 Top 1-err 29.300  Top 5-err 7.760	 Test Loss 1.163
+Current best accuracy (top-1 and 5 error): 29.01 100
+* Epoch: [54/60]	 Top 1-err 29.300  Top 5-err 7.760	 Test Loss 1.163
+70.7
+0.707
+0.13
+0.05
+* Epoch: [55/60]	 Top 1-err 11.233  Top 5-err 1.288	 Train Loss -2.453
+* Epoch: [55/60]	 Top 1-err 29.280  Top 5-err 7.670	 Test Loss 1.165
+Current best accuracy (top-1 and 5 error): 29.01 100
+* Epoch: [55/60]	 Top 1-err 29.280  Top 5-err 7.670	 Test Loss 1.165
+70.72
+0.7072
+0.13
+0.05
+* Epoch: [56/60]	 Top 1-err 11.328  Top 5-err 1.319	 Train Loss -2.450
+* Epoch: [56/60]	 Top 1-err 29.350  Top 5-err 7.720	 Test Loss 1.165
+Current best accuracy (top-1 and 5 error): 29.01 100
+* Epoch: [56/60]	 Top 1-err 29.350  Top 5-err 7.720	 Test Loss 1.165
+70.65
+0.7065
+0.13
+0.05
+* Epoch: [57/60]	 Top 1-err 11.260  Top 5-err 1.341	 Train Loss -2.451
+* Epoch: [57/60]	 Top 1-err 29.380  Top 5-err 7.730	 Test Loss 1.167
+Current best accuracy (top-1 and 5 error): 29.01 100
+* Epoch: [57/60]	 Top 1-err 29.380  Top 5-err 7.730	 Test Loss 1.167
+70.62
+0.7062
+0.13
+0.05
+* Epoch: [58/60]	 Top 1-err 11.146  Top 5-err 1.313	 Train Loss -2.451
+* Epoch: [58/60]	 Top 1-err 29.180  Top 5-err 7.710	 Test Loss 1.163
+Current best accuracy (top-1 and 5 error): 29.01 100
+* Epoch: [58/60]	 Top 1-err 29.180  Top 5-err 7.710	 Test Loss 1.163
+70.82
+0.7082
+0.13
+0.05
+* Epoch: [59/60]	 Top 1-err 11.197  Top 5-err 1.342	 Train Loss -2.453
+* Epoch: [59/60]	 Top 1-err 29.330  Top 5-err 7.730	 Test Loss 1.167
+Current best accuracy (top-1 and 5 error): 29.01 100
+* Epoch: [59/60]	 Top 1-err 29.330  Top 5-err 7.730	 Test Loss 1.167
+70.67
+0.7067
+0.13
+0.04
+Best accuracy (top-1 and 5 error): 29.01 100
+=> loading checkpoint 'runs/cifar100_resnet_1_35_98_test/model_best.pth.tar'
+* Epoch: [-1/60]	 Top 1-err 26.520  Top 5-err 7.090	 Test Loss 1.193
+73.48
+0.7348
+0.17
+0.09
+python3 cifar100_repair_confusion.py --net_type resnet --dataset cifar100 --depth 50 --batch_size 256 --lr 0.1 --expname cifar100_resnet_1_35_98_test --epochs 60 --beta 1.0 --cutmix_prob 1 --pretrained ./runs/cifar100_resnet_1_35_98/model_best.pth.tar --lam 0
+Files already downloaded and verified
+Files already downloaded and verified
+Files already downloaded and verified
+=> creating model 'resnet'
+True
+=> loading checkpoint './runs/cifar100_resnet_1_35_98/model_best.pth.tar'
+=> loaded checkpoint './runs/cifar100_resnet_1_35_98/model_best.pth.tar'
+the number of model parameters: 521716
+* Epoch: [0/60]	 Top 1-err 45.452  Top 5-err 19.297	 Train Loss 2.081
+* Epoch: [0/60]	 Top 1-err 31.920  Top 5-err 8.910	 Test Loss 1.178
+Current best accuracy (top-1 and 5 error): 31.92 100
+* Epoch: [0/60]	 Top 1-err 31.920  Top 5-err 8.910	 Test Loss 1.178
+68.08
+0.6808
+0.14
+0.31
+* Epoch: [1/60]	 Top 1-err 49.069  Top 5-err 22.444	 Train Loss 2.153
+* Epoch: [1/60]	 Top 1-err 31.610  Top 5-err 8.810	 Test Loss 1.168
+Current best accuracy (top-1 and 5 error): 31.61 100
+* Epoch: [1/60]	 Top 1-err 31.610  Top 5-err 8.810	 Test Loss 1.168
+68.39
+0.6839
+0.41
+0.06
+* Epoch: [2/60]	 Top 1-err 45.894  Top 5-err 19.674	 Train Loss 2.078
+* Epoch: [2/60]	 Top 1-err 33.520  Top 5-err 9.530	 Test Loss 1.213
+Current best accuracy (top-1 and 5 error): 31.61 100
+* Epoch: [2/60]	 Top 1-err 33.520  Top 5-err 9.530	 Test Loss 1.213
+66.48
+0.6648
+0.31
+0.12
+* Epoch: [3/60]	 Top 1-err 46.796  Top 5-err 20.095	 Train Loss 2.081
+* Epoch: [3/60]	 Top 1-err 31.210  Top 5-err 8.870	 Test Loss 1.222
+Current best accuracy (top-1 and 5 error): 31.21 100
+* Epoch: [3/60]	 Top 1-err 31.210  Top 5-err 8.870	 Test Loss 1.222
+68.79
+0.6879
+0.2
+0.12
+* Epoch: [4/60]	 Top 1-err 47.541  Top 5-err 20.160	 Train Loss 2.127
+* Epoch: [4/60]	 Top 1-err 32.650  Top 5-err 9.520	 Test Loss 1.281
+Current best accuracy (top-1 and 5 error): 31.21 100
+* Epoch: [4/60]	 Top 1-err 32.650  Top 5-err 9.520	 Test Loss 1.281
+67.35
+0.6735
+0.19
+0.21
+* Epoch: [5/60]	 Top 1-err 43.100  Top 5-err 17.470	 Train Loss 2.015
+* Epoch: [5/60]	 Top 1-err 32.580  Top 5-err 9.130	 Test Loss 1.218
+Current best accuracy (top-1 and 5 error): 31.21 100
+* Epoch: [5/60]	 Top 1-err 32.580  Top 5-err 9.130	 Test Loss 1.218
+67.42
+0.6742
+0.18
+0.21
+* Epoch: [6/60]	 Top 1-err 44.785  Top 5-err 18.769	 Train Loss 2.060
+* Epoch: [6/60]	 Top 1-err 31.860  Top 5-err 8.970	 Test Loss 1.238
+Current best accuracy (top-1 and 5 error): 31.21 100
+* Epoch: [6/60]	 Top 1-err 31.860  Top 5-err 8.970	 Test Loss 1.238
+68.14
+0.6814
+0.28
+0.24
+* Epoch: [7/60]	 Top 1-err 44.286  Top 5-err 18.264	 Train Loss 1.978
+* Epoch: [7/60]	 Top 1-err 32.810  Top 5-err 9.180	 Test Loss 1.241
+Current best accuracy (top-1 and 5 error): 31.21 100
+* Epoch: [7/60]	 Top 1-err 32.810  Top 5-err 9.180	 Test Loss 1.241
+67.19
+0.6719
+0.25
+0.22
+* Epoch: [8/60]	 Top 1-err 45.022  Top 5-err 18.953	 Train Loss 1.997
+* Epoch: [8/60]	 Top 1-err 33.710  Top 5-err 9.340	 Test Loss 1.237
+Current best accuracy (top-1 and 5 error): 31.21 100
+* Epoch: [8/60]	 Top 1-err 33.710  Top 5-err 9.340	 Test Loss 1.237
+66.29
+0.6629
+0.25
+0.19
+* Epoch: [9/60]	 Top 1-err 45.883  Top 5-err 19.417	 Train Loss 2.046
+* Epoch: [9/60]	 Top 1-err 32.030  Top 5-err 8.780	 Test Loss 1.177
+Current best accuracy (top-1 and 5 error): 31.21 100
+* Epoch: [9/60]	 Top 1-err 32.030  Top 5-err 8.780	 Test Loss 1.177
+67.97
+0.6797
+0.2
+0.2
+* Epoch: [10/60]	 Top 1-err 45.661  Top 5-err 18.699	 Train Loss 2.052
+* Epoch: [10/60]	 Top 1-err 32.700  Top 5-err 9.280	 Test Loss 1.222
+Current best accuracy (top-1 and 5 error): 31.21 100
+* Epoch: [10/60]	 Top 1-err 32.700  Top 5-err 9.280	 Test Loss 1.222
+67.3
+0.673
+0.17
+0.15
+* Epoch: [11/60]	 Top 1-err 46.179  Top 5-err 19.151	 Train Loss 2.097
+* Epoch: [11/60]	 Top 1-err 32.580  Top 5-err 8.990	 Test Loss 1.207
+Current best accuracy (top-1 and 5 error): 31.21 100
+* Epoch: [11/60]	 Top 1-err 32.580  Top 5-err 8.990	 Test Loss 1.207
+67.42
+0.6742
+0.27
+0.12
+* Epoch: [12/60]	 Top 1-err 47.266  Top 5-err 20.169	 Train Loss 2.085
+* Epoch: [12/60]	 Top 1-err 33.270  Top 5-err 9.210	 Test Loss 1.242
+Current best accuracy (top-1 and 5 error): 31.21 100
+* Epoch: [12/60]	 Top 1-err 33.270  Top 5-err 9.210	 Test Loss 1.242
+66.73
+0.6673
+0.26
+0.13
+* Epoch: [13/60]	 Top 1-err 45.965  Top 5-err 19.253	 Train Loss 2.075
+* Epoch: [13/60]	 Top 1-err 33.360  Top 5-err 9.890	 Test Loss 1.261
+Current best accuracy (top-1 and 5 error): 31.21 100
+* Epoch: [13/60]	 Top 1-err 33.360  Top 5-err 9.890	 Test Loss 1.261
+66.64
+0.6664
+0.11
+0.32
+* Epoch: [14/60]	 Top 1-err 45.842  Top 5-err 19.330	 Train Loss 2.073
+* Epoch: [14/60]	 Top 1-err 32.150  Top 5-err 8.830	 Test Loss 1.197
+Current best accuracy (top-1 and 5 error): 31.21 100
+* Epoch: [14/60]	 Top 1-err 32.150  Top 5-err 8.830	 Test Loss 1.197
+67.85
+0.6785
+0.39
+0.07
+* Epoch: [15/60]	 Top 1-err 49.652  Top 5-err 21.566	 Train Loss 2.125
+* Epoch: [15/60]	 Top 1-err 32.600  Top 5-err 9.330	 Test Loss 1.225
+Current best accuracy (top-1 and 5 error): 31.21 100
+* Epoch: [15/60]	 Top 1-err 32.600  Top 5-err 9.330	 Test Loss 1.225
+67.4
+0.674
+0.17
+0.21
+* Epoch: [16/60]	 Top 1-err 44.550  Top 5-err 18.066	 Train Loss 2.055
+* Epoch: [16/60]	 Top 1-err 32.600  Top 5-err 9.320	 Test Loss 1.261
+Current best accuracy (top-1 and 5 error): 31.21 100
+* Epoch: [16/60]	 Top 1-err 32.600  Top 5-err 9.320	 Test Loss 1.261
+67.4
+0.674
+0.15
+0.21
+* Epoch: [17/60]	 Top 1-err 46.208  Top 5-err 19.805	 Train Loss 2.031
+* Epoch: [17/60]	 Top 1-err 33.270  Top 5-err 9.500	 Test Loss 1.246
+Current best accuracy (top-1 and 5 error): 31.21 100
+* Epoch: [17/60]	 Top 1-err 33.270  Top 5-err 9.500	 Test Loss 1.246
+66.73
+0.6673
+0.14
+0.28
+* Epoch: [18/60]	 Top 1-err 47.080  Top 5-err 19.552	 Train Loss 2.068
+* Epoch: [18/60]	 Top 1-err 32.430  Top 5-err 8.890	 Test Loss 1.208
+Current best accuracy (top-1 and 5 error): 31.21 100
+* Epoch: [18/60]	 Top 1-err 32.430  Top 5-err 8.890	 Test Loss 1.208
+67.57
+0.6757
+0.3
+0.15
+* Epoch: [19/60]	 Top 1-err 45.858  Top 5-err 19.678	 Train Loss 2.019
+* Epoch: [19/60]	 Top 1-err 33.860  Top 5-err 9.550	 Test Loss 1.275
+Current best accuracy (top-1 and 5 error): 31.21 100
+* Epoch: [19/60]	 Top 1-err 33.860  Top 5-err 9.550	 Test Loss 1.275
+66.14
+0.6614
+0.28
+0.1
+* Epoch: [20/60]	 Top 1-err 43.084  Top 5-err 17.133	 Train Loss 1.972
+* Epoch: [20/60]	 Top 1-err 32.340  Top 5-err 9.740	 Test Loss 1.214
+Current best accuracy (top-1 and 5 error): 31.21 100
+* Epoch: [20/60]	 Top 1-err 32.340  Top 5-err 9.740	 Test Loss 1.214
+67.66
+0.6766
+0.14
+0.19
+* Epoch: [21/60]	 Top 1-err 47.011  Top 5-err 20.306	 Train Loss 2.057
+* Epoch: [21/60]	 Top 1-err 32.940  Top 5-err 9.140	 Test Loss 1.207
+Current best accuracy (top-1 and 5 error): 31.21 100
+* Epoch: [21/60]	 Top 1-err 32.940  Top 5-err 9.140	 Test Loss 1.207
+67.06
+0.6706
+0.19
+0.26
+* Epoch: [22/60]	 Top 1-err 42.840  Top 5-err 16.740	 Train Loss 2.016
+* Epoch: [22/60]	 Top 1-err 34.510  Top 5-err 10.350	 Test Loss 1.286
+Current best accuracy (top-1 and 5 error): 31.21 100
+* Epoch: [22/60]	 Top 1-err 34.510  Top 5-err 10.350	 Test Loss 1.286
+65.49
+0.6549
+0.16
+0.2
+* Epoch: [23/60]	 Top 1-err 44.923  Top 5-err 18.423	 Train Loss 2.017
+* Epoch: [23/60]	 Top 1-err 33.180  Top 5-err 9.620	 Test Loss 1.249
+Current best accuracy (top-1 and 5 error): 31.21 100
+* Epoch: [23/60]	 Top 1-err 33.180  Top 5-err 9.620	 Test Loss 1.249
+66.82
+0.6682
+0.25
+0.1
+* Epoch: [24/60]	 Top 1-err 45.140  Top 5-err 18.561	 Train Loss 2.044
+* Epoch: [24/60]	 Top 1-err 34.170  Top 5-err 9.960	 Test Loss 1.277
+Current best accuracy (top-1 and 5 error): 31.21 100
+* Epoch: [24/60]	 Top 1-err 34.170  Top 5-err 9.960	 Test Loss 1.277
+65.83
+0.6583
+0.59
+0.02
+* Epoch: [25/60]	 Top 1-err 44.689  Top 5-err 18.282	 Train Loss 2.056
+* Epoch: [25/60]	 Top 1-err 34.650  Top 5-err 10.720	 Test Loss 1.322
+Current best accuracy (top-1 and 5 error): 31.21 100
+* Epoch: [25/60]	 Top 1-err 34.650  Top 5-err 10.720	 Test Loss 1.322
+65.35
+0.6535
+0.24
+0.16
+* Epoch: [26/60]	 Top 1-err 44.470  Top 5-err 17.965	 Train Loss 2.060
+* Epoch: [26/60]	 Top 1-err 34.680  Top 5-err 9.720	 Test Loss 1.286
+Current best accuracy (top-1 and 5 error): 31.21 100
+* Epoch: [26/60]	 Top 1-err 34.680  Top 5-err 9.720	 Test Loss 1.286
+65.32
+0.6532
+0.06
+0.48
+* Epoch: [27/60]	 Top 1-err 45.328  Top 5-err 18.412	 Train Loss 2.070
+* Epoch: [27/60]	 Top 1-err 35.210  Top 5-err 10.920	 Test Loss 1.344
+Current best accuracy (top-1 and 5 error): 31.21 100
+* Epoch: [27/60]	 Top 1-err 35.210  Top 5-err 10.920	 Test Loss 1.344
+64.79
+0.6479
+0.1
+0.37
+* Epoch: [28/60]	 Top 1-err 46.601  Top 5-err 19.658	 Train Loss 2.060
+* Epoch: [28/60]	 Top 1-err 38.070  Top 5-err 12.090	 Test Loss 1.458
+Current best accuracy (top-1 and 5 error): 31.21 100
+* Epoch: [28/60]	 Top 1-err 38.070  Top 5-err 12.090	 Test Loss 1.458
+61.93
+0.6193
+0.07
+0.41
+* Epoch: [29/60]	 Top 1-err 45.038  Top 5-err 18.102	 Train Loss 2.039
+* Epoch: [29/60]	 Top 1-err 36.060  Top 5-err 10.800	 Test Loss 1.363
+Current best accuracy (top-1 and 5 error): 31.21 100
+* Epoch: [29/60]	 Top 1-err 36.060  Top 5-err 10.800	 Test Loss 1.363
+63.94
+0.6394
+0.03
+0.53
+* Epoch: [30/60]	 Top 1-err 42.319  Top 5-err 17.013	 Train Loss 1.932
+* Epoch: [30/60]	 Top 1-err 26.900  Top 5-err 6.730	 Test Loss 1.004
+Current best accuracy (top-1 and 5 error): 26.9 100
+* Epoch: [30/60]	 Top 1-err 26.900  Top 5-err 6.730	 Test Loss 1.004
+73.1
+0.731
+0.19
+0.13
+* Epoch: [31/60]	 Top 1-err 41.004  Top 5-err 16.417	 Train Loss 1.838
+* Epoch: [31/60]	 Top 1-err 26.380  Top 5-err 6.710	 Test Loss 1.006
+Current best accuracy (top-1 and 5 error): 26.38 100
+* Epoch: [31/60]	 Top 1-err 26.380  Top 5-err 6.710	 Test Loss 1.006
+73.62
+0.7362
+0.2
+0.18
+* Epoch: [32/60]	 Top 1-err 37.982  Top 5-err 14.368	 Train Loss 1.832
+* Epoch: [32/60]	 Top 1-err 26.520  Top 5-err 6.520	 Test Loss 1.012
+Current best accuracy (top-1 and 5 error): 26.38 100
+* Epoch: [32/60]	 Top 1-err 26.520  Top 5-err 6.520	 Test Loss 1.012
+73.48
+0.7348
+0.22
+0.15
+* Epoch: [33/60]	 Top 1-err 41.222  Top 5-err 15.528	 Train Loss 1.862
+* Epoch: [33/60]	 Top 1-err 26.530  Top 5-err 6.380	 Test Loss 1.024
+Current best accuracy (top-1 and 5 error): 26.38 100
+* Epoch: [33/60]	 Top 1-err 26.530  Top 5-err 6.380	 Test Loss 1.024
+73.47
+0.7347
+0.24
+0.16
+* Epoch: [34/60]	 Top 1-err 38.120  Top 5-err 14.235	 Train Loss 1.802
+* Epoch: [34/60]	 Top 1-err 26.450  Top 5-err 6.510	 Test Loss 1.019
+Current best accuracy (top-1 and 5 error): 26.38 100
+* Epoch: [34/60]	 Top 1-err 26.450  Top 5-err 6.510	 Test Loss 1.019
+73.55
+0.7355
+0.22
+0.15
+* Epoch: [35/60]	 Top 1-err 41.226  Top 5-err 15.525	 Train Loss 1.856
+* Epoch: [35/60]	 Top 1-err 26.490  Top 5-err 6.510	 Test Loss 1.005
+Current best accuracy (top-1 and 5 error): 26.38 100
+* Epoch: [35/60]	 Top 1-err 26.490  Top 5-err 6.510	 Test Loss 1.005
+73.51
+0.7351
+0.23
+0.15
+* Epoch: [36/60]	 Top 1-err 37.035  Top 5-err 13.448	 Train Loss 1.775
+* Epoch: [36/60]	 Top 1-err 26.190  Top 5-err 6.600	 Test Loss 1.025
+Current best accuracy (top-1 and 5 error): 26.19 100
+* Epoch: [36/60]	 Top 1-err 26.190  Top 5-err 6.600	 Test Loss 1.025
+73.81
+0.7381
+0.16
+0.19
+* Epoch: [37/60]	 Top 1-err 36.607  Top 5-err 13.321	 Train Loss 1.755
+* Epoch: [37/60]	 Top 1-err 26.010  Top 5-err 6.600	 Test Loss 0.980
+Current best accuracy (top-1 and 5 error): 26.01 100
+* Epoch: [37/60]	 Top 1-err 26.010  Top 5-err 6.600	 Test Loss 0.980
+73.99
+0.7399
+0.19
+0.13
+* Epoch: [38/60]	 Top 1-err 38.698  Top 5-err 14.337	 Train Loss 1.797
+* Epoch: [38/60]	 Top 1-err 25.870  Top 5-err 6.410	 Test Loss 0.993
+Current best accuracy (top-1 and 5 error): 25.87 100
+* Epoch: [38/60]	 Top 1-err 25.870  Top 5-err 6.410	 Test Loss 0.993
+74.13
+0.7413
+0.17
+0.16
+* Epoch: [39/60]	 Top 1-err 40.599  Top 5-err 15.208	 Train Loss 1.851
+* Epoch: [39/60]	 Top 1-err 26.150  Top 5-err 6.410	 Test Loss 0.997
+Current best accuracy (top-1 and 5 error): 25.87 100
+* Epoch: [39/60]	 Top 1-err 26.150  Top 5-err 6.410	 Test Loss 0.997
+73.85
+0.7385
+0.15
+0.15
+* Epoch: [40/60]	 Top 1-err 38.965  Top 5-err 14.599	 Train Loss 1.810
+* Epoch: [40/60]	 Top 1-err 26.040  Top 5-err 6.430	 Test Loss 1.019
+Current best accuracy (top-1 and 5 error): 25.87 100
+* Epoch: [40/60]	 Top 1-err 26.040  Top 5-err 6.430	 Test Loss 1.019
+73.96
+0.7396
+0.23
+0.17
+* Epoch: [41/60]	 Top 1-err 38.375  Top 5-err 13.725	 Train Loss 1.792
+* Epoch: [41/60]	 Top 1-err 26.010  Top 5-err 6.410	 Test Loss 0.977
+Current best accuracy (top-1 and 5 error): 25.87 100
+* Epoch: [41/60]	 Top 1-err 26.010  Top 5-err 6.410	 Test Loss 0.977
+73.99
+0.7399
+0.14
+0.18
+* Epoch: [42/60]	 Top 1-err 37.889  Top 5-err 14.406	 Train Loss 1.764
+* Epoch: [42/60]	 Top 1-err 25.890  Top 5-err 6.350	 Test Loss 0.974
+Current best accuracy (top-1 and 5 error): 25.87 100
+* Epoch: [42/60]	 Top 1-err 25.890  Top 5-err 6.350	 Test Loss 0.974
+74.11
+0.7411
+0.17
+0.16
+* Epoch: [43/60]	 Top 1-err 37.949  Top 5-err 13.885	 Train Loss 1.762
+* Epoch: [43/60]	 Top 1-err 25.970  Top 5-err 6.290	 Test Loss 0.982
+Current best accuracy (top-1 and 5 error): 25.87 100
+* Epoch: [43/60]	 Top 1-err 25.970  Top 5-err 6.290	 Test Loss 0.982
+74.03
+0.7403
+0.17
+0.19
+* Epoch: [44/60]	 Top 1-err 39.126  Top 5-err 14.745	 Train Loss 1.767
+* Epoch: [44/60]	 Top 1-err 26.320  Top 5-err 6.350	 Test Loss 0.990
+Current best accuracy (top-1 and 5 error): 25.87 100
+* Epoch: [44/60]	 Top 1-err 26.320  Top 5-err 6.350	 Test Loss 0.990
+73.68
+0.7368
+0.19
+0.17
+* Epoch: [45/60]	 Top 1-err 36.419  Top 5-err 12.985	 Train Loss 1.742
+* Epoch: [45/60]	 Top 1-err 25.570  Top 5-err 6.180	 Test Loss 0.984
+Current best accuracy (top-1 and 5 error): 25.57 6.18
+* Epoch: [45/60]	 Top 1-err 25.570  Top 5-err 6.180	 Test Loss 0.984
+74.43
+0.7443
+0.17
+0.18
+* Epoch: [46/60]	 Top 1-err 37.479  Top 5-err 14.432	 Train Loss 1.721
+* Epoch: [46/60]	 Top 1-err 25.610  Top 5-err 6.170	 Test Loss 0.977
+Current best accuracy (top-1 and 5 error): 25.57 6.18
+* Epoch: [46/60]	 Top 1-err 25.610  Top 5-err 6.170	 Test Loss 0.977
+74.39
+0.7439
+0.17
+0.17
+* Epoch: [47/60]	 Top 1-err 40.029  Top 5-err 15.029	 Train Loss 1.786
+* Epoch: [47/60]	 Top 1-err 25.600  Top 5-err 6.030	 Test Loss 0.972
+Current best accuracy (top-1 and 5 error): 25.57 6.18
+* Epoch: [47/60]	 Top 1-err 25.600  Top 5-err 6.030	 Test Loss 0.972
+74.4
+0.744
+0.16
+0.17
+* Epoch: [48/60]	 Top 1-err 36.266  Top 5-err 12.856	 Train Loss 1.725
+* Epoch: [48/60]	 Top 1-err 25.610  Top 5-err 6.240	 Test Loss 0.980
+Current best accuracy (top-1 and 5 error): 25.57 6.18
+* Epoch: [48/60]	 Top 1-err 25.610  Top 5-err 6.240	 Test Loss 0.980
+74.39
+0.7439
+0.17
+0.17
+* Epoch: [49/60]	 Top 1-err 37.829  Top 5-err 15.126	 Train Loss 1.708
+* Epoch: [49/60]	 Top 1-err 25.400  Top 5-err 6.010	 Test Loss 0.960
+Current best accuracy (top-1 and 5 error): 25.4 6.01
+* Epoch: [49/60]	 Top 1-err 25.400  Top 5-err 6.010	 Test Loss 0.960
+74.6
+0.746
+0.18
+0.15
+* Epoch: [50/60]	 Top 1-err 37.224  Top 5-err 13.093	 Train Loss 1.737
+* Epoch: [50/60]	 Top 1-err 25.300  Top 5-err 6.080	 Test Loss 0.968
+Current best accuracy (top-1 and 5 error): 25.3 6.08
+* Epoch: [50/60]	 Top 1-err 25.300  Top 5-err 6.080	 Test Loss 0.968
+74.7
+0.747
+0.2
+0.14
+* Epoch: [51/60]	 Top 1-err 40.705  Top 5-err 15.372	 Train Loss 1.820
+* Epoch: [51/60]	 Top 1-err 25.470  Top 5-err 6.170	 Test Loss 0.967
+Current best accuracy (top-1 and 5 error): 25.3 6.08
+* Epoch: [51/60]	 Top 1-err 25.470  Top 5-err 6.170	 Test Loss 0.967
+74.53
+0.7453
+0.18
+0.16
+* Epoch: [52/60]	 Top 1-err 37.694  Top 5-err 13.659	 Train Loss 1.768
+* Epoch: [52/60]	 Top 1-err 25.580  Top 5-err 6.140	 Test Loss 0.978
+Current best accuracy (top-1 and 5 error): 25.3 6.08
+* Epoch: [52/60]	 Top 1-err 25.580  Top 5-err 6.140	 Test Loss 0.978
+74.42
+0.7442
+0.18
+0.15
+* Epoch: [53/60]	 Top 1-err 34.171  Top 5-err 11.639	 Train Loss 1.716
+* Epoch: [53/60]	 Top 1-err 25.570  Top 5-err 6.030	 Test Loss 0.974
+Current best accuracy (top-1 and 5 error): 25.3 6.08
+* Epoch: [53/60]	 Top 1-err 25.570  Top 5-err 6.030	 Test Loss 0.974
+74.43
+0.7443
+0.17
+0.18
+* Epoch: [54/60]	 Top 1-err 36.807  Top 5-err 13.268	 Train Loss 1.759
+* Epoch: [54/60]	 Top 1-err 25.580  Top 5-err 6.250	 Test Loss 1.013
+Current best accuracy (top-1 and 5 error): 25.3 6.08
+* Epoch: [54/60]	 Top 1-err 25.580  Top 5-err 6.250	 Test Loss 1.013
+74.42
+0.7442
+0.16
+0.17
+* Epoch: [55/60]	 Top 1-err 37.002  Top 5-err 13.647	 Train Loss 1.723
+* Epoch: [55/60]	 Top 1-err 25.570  Top 5-err 6.100	 Test Loss 0.965
+Current best accuracy (top-1 and 5 error): 25.3 6.08
+* Epoch: [55/60]	 Top 1-err 25.570  Top 5-err 6.100	 Test Loss 0.965
+74.43
+0.7443
+0.15
+0.17
+* Epoch: [56/60]	 Top 1-err 36.255  Top 5-err 12.776	 Train Loss 1.754
+* Epoch: [56/60]	 Top 1-err 25.530  Top 5-err 6.250	 Test Loss 0.993
+Current best accuracy (top-1 and 5 error): 25.3 6.08
+* Epoch: [56/60]	 Top 1-err 25.530  Top 5-err 6.250	 Test Loss 0.993
+74.47
+0.7447
+0.17
+0.17
+* Epoch: [57/60]	 Top 1-err 38.148  Top 5-err 13.610	 Train Loss 1.771
+* Epoch: [57/60]	 Top 1-err 25.280  Top 5-err 6.050	 Test Loss 0.960
+Current best accuracy (top-1 and 5 error): 25.28 6.05
+* Epoch: [57/60]	 Top 1-err 25.280  Top 5-err 6.050	 Test Loss 0.960
+74.72
+0.7472
+0.17
+0.16
+* Epoch: [58/60]	 Top 1-err 37.293  Top 5-err 13.397	 Train Loss 1.707
+* Epoch: [58/60]	 Top 1-err 25.320  Top 5-err 6.070	 Test Loss 0.950
+Current best accuracy (top-1 and 5 error): 25.28 6.05
+* Epoch: [58/60]	 Top 1-err 25.320  Top 5-err 6.070	 Test Loss 0.950
+74.68
+0.7468
+0.17
+0.14
+* Epoch: [59/60]	 Top 1-err 35.678  Top 5-err 12.772	 Train Loss 1.700
+* Epoch: [59/60]	 Top 1-err 25.470  Top 5-err 6.250	 Test Loss 0.975
+Current best accuracy (top-1 and 5 error): 25.28 6.05
+* Epoch: [59/60]	 Top 1-err 25.470  Top 5-err 6.250	 Test Loss 0.975
+74.53
+0.7453
+0.17
+0.14
+Best accuracy (top-1 and 5 error): 25.28 6.05
+=> loading checkpoint 'runs/cifar100_resnet_1_35_98_test/model_best.pth.tar'
+* Epoch: [-1/60]	 Top 1-err 25.280  Top 5-err 6.050	 Test Loss 0.960
+74.72
+0.7472
+0.17
+0.16
+python3 cifar100_repair_confusion.py --net_type resnet --dataset cifar100 --depth 50 --batch_size 256 --lr 0.1 --expname cifar100_resnet_1_35_98_test --epochs 60 --beta 1.0 --cutmix_prob 1 --pretrained ./runs/cifar100_resnet_1_35_98/model_best.pth.tar --lam 0.5
+Files already downloaded and verified
+Files already downloaded and verified
+Files already downloaded and verified
+=> creating model 'resnet'
+True
+=> loading checkpoint './runs/cifar100_resnet_1_35_98/model_best.pth.tar'
+=> loaded checkpoint './runs/cifar100_resnet_1_35_98/model_best.pth.tar'
+the number of model parameters: 521716
+* Epoch: [0/60]	 Top 1-err 45.403  Top 5-err 19.268	 Train Loss 2.080
+* Epoch: [0/60]	 Top 1-err 32.300  Top 5-err 8.880	 Test Loss 1.182
+Current best accuracy (top-1 and 5 error): 32.3 100
+* Epoch: [0/60]	 Top 1-err 32.300  Top 5-err 8.880	 Test Loss 1.182
+67.7
+0.677
+0.15
+0.38
+* Epoch: [1/60]	 Top 1-err 49.230  Top 5-err 22.472	 Train Loss 2.153
+* Epoch: [1/60]	 Top 1-err 31.900  Top 5-err 8.870	 Test Loss 1.166
+Current best accuracy (top-1 and 5 error): 31.9 100
+* Epoch: [1/60]	 Top 1-err 31.900  Top 5-err 8.870	 Test Loss 1.166
+68.1
+0.681
+0.41
+0.07
+* Epoch: [2/60]	 Top 1-err 46.042  Top 5-err 19.605	 Train Loss 2.078
+* Epoch: [2/60]	 Top 1-err 33.360  Top 5-err 9.420	 Test Loss 1.203
+Current best accuracy (top-1 and 5 error): 31.9 100
+* Epoch: [2/60]	 Top 1-err 33.360  Top 5-err 9.420	 Test Loss 1.203
+66.64
+0.6664
+0.27
+0.13
+* Epoch: [3/60]	 Top 1-err 46.597  Top 5-err 20.175	 Train Loss 2.082
+* Epoch: [3/60]	 Top 1-err 31.310  Top 5-err 8.770	 Test Loss 1.203
+Current best accuracy (top-1 and 5 error): 31.31 100
+* Epoch: [3/60]	 Top 1-err 31.310  Top 5-err 8.770	 Test Loss 1.203
+68.69
+0.6869
+0.2
+0.16
+* Epoch: [4/60]	 Top 1-err 47.556  Top 5-err 20.239	 Train Loss 2.127
+* Epoch: [4/60]	 Top 1-err 31.760  Top 5-err 9.080	 Test Loss 1.260
+Current best accuracy (top-1 and 5 error): 31.31 100
+* Epoch: [4/60]	 Top 1-err 31.760  Top 5-err 9.080	 Test Loss 1.260
+68.24
+0.6824
+0.19
+0.25
+* Epoch: [5/60]	 Top 1-err 43.033  Top 5-err 17.665	 Train Loss 2.015
+* Epoch: [5/60]	 Top 1-err 31.910  Top 5-err 8.660	 Test Loss 1.205
+Current best accuracy (top-1 and 5 error): 31.31 100
+* Epoch: [5/60]	 Top 1-err 31.910  Top 5-err 8.660	 Test Loss 1.205
+68.09
+0.6809
+0.15
+0.2
+* Epoch: [6/60]	 Top 1-err 45.033  Top 5-err 18.847	 Train Loss 2.060
+* Epoch: [6/60]	 Top 1-err 32.140  Top 5-err 8.930	 Test Loss 1.227
+Current best accuracy (top-1 and 5 error): 31.31 100
+* Epoch: [6/60]	 Top 1-err 32.140  Top 5-err 8.930	 Test Loss 1.227
+67.86
+0.6786
+0.25
+0.2
+* Epoch: [7/60]	 Top 1-err 44.206  Top 5-err 18.366	 Train Loss 1.978
+* Epoch: [7/60]	 Top 1-err 33.020  Top 5-err 9.250	 Test Loss 1.242
+Current best accuracy (top-1 and 5 error): 31.31 100
+* Epoch: [7/60]	 Top 1-err 33.020  Top 5-err 9.250	 Test Loss 1.242
+66.98
+0.6698
+0.24
+0.24
+* Epoch: [8/60]	 Top 1-err 45.153  Top 5-err 18.849	 Train Loss 1.997
+* Epoch: [8/60]	 Top 1-err 34.380  Top 5-err 9.760	 Test Loss 1.250
+Current best accuracy (top-1 and 5 error): 31.31 100
+* Epoch: [8/60]	 Top 1-err 34.380  Top 5-err 9.760	 Test Loss 1.250
+65.62
+0.6562
+0.41
+0.11
+* Epoch: [9/60]	 Top 1-err 45.776  Top 5-err 19.313	 Train Loss 2.044
+* Epoch: [9/60]	 Top 1-err 32.990  Top 5-err 9.400	 Test Loss 1.211
+Current best accuracy (top-1 and 5 error): 31.31 100
+* Epoch: [9/60]	 Top 1-err 32.990  Top 5-err 9.400	 Test Loss 1.211
+67.01
+0.6701
+0.17
+0.24
+* Epoch: [10/60]	 Top 1-err 45.750  Top 5-err 18.698	 Train Loss 2.052
+* Epoch: [10/60]	 Top 1-err 32.500  Top 5-err 9.180	 Test Loss 1.207
+Current best accuracy (top-1 and 5 error): 31.31 100
+* Epoch: [10/60]	 Top 1-err 32.500  Top 5-err 9.180	 Test Loss 1.207
+67.5
+0.675
+0.22
+0.15
+* Epoch: [11/60]	 Top 1-err 46.220  Top 5-err 19.084	 Train Loss 2.099
+* Epoch: [11/60]	 Top 1-err 32.570  Top 5-err 9.020	 Test Loss 1.203
+Current best accuracy (top-1 and 5 error): 31.31 100
+* Epoch: [11/60]	 Top 1-err 32.570  Top 5-err 9.020	 Test Loss 1.203
+67.43
+0.6743
+0.23
+0.16
+* Epoch: [12/60]	 Top 1-err 47.403  Top 5-err 20.137	 Train Loss 2.086
+* Epoch: [12/60]	 Top 1-err 33.450  Top 5-err 8.750	 Test Loss 1.243
+Current best accuracy (top-1 and 5 error): 31.31 100
+* Epoch: [12/60]	 Top 1-err 33.450  Top 5-err 8.750	 Test Loss 1.243
+66.55
+0.6655
+0.19
+0.22
+* Epoch: [13/60]	 Top 1-err 45.878  Top 5-err 19.271	 Train Loss 2.074
+* Epoch: [13/60]	 Top 1-err 33.410  Top 5-err 9.870	 Test Loss 1.280
+Current best accuracy (top-1 and 5 error): 31.31 100
+* Epoch: [13/60]	 Top 1-err 33.410  Top 5-err 9.870	 Test Loss 1.280
+66.59
+0.6659
+0.12
+0.32
+* Epoch: [14/60]	 Top 1-err 45.816  Top 5-err 19.066	 Train Loss 2.074
+* Epoch: [14/60]	 Top 1-err 34.010  Top 5-err 9.470	 Test Loss 1.271
+Current best accuracy (top-1 and 5 error): 31.31 100
+* Epoch: [14/60]	 Top 1-err 34.010  Top 5-err 9.470	 Test Loss 1.271
+65.99
+0.6599
+0.39
+0.09
+* Epoch: [15/60]	 Top 1-err 49.483  Top 5-err 21.597	 Train Loss 2.123
+* Epoch: [15/60]	 Top 1-err 32.570  Top 5-err 9.220	 Test Loss 1.229
+Current best accuracy (top-1 and 5 error): 31.31 100
+* Epoch: [15/60]	 Top 1-err 32.570  Top 5-err 9.220	 Test Loss 1.229
+67.43
+0.6743
+0.16
+0.25
+* Epoch: [16/60]	 Top 1-err 44.710  Top 5-err 18.009	 Train Loss 2.055
+* Epoch: [16/60]	 Top 1-err 33.680  Top 5-err 9.810	 Test Loss 1.275
+Current best accuracy (top-1 and 5 error): 31.31 100
+* Epoch: [16/60]	 Top 1-err 33.680  Top 5-err 9.810	 Test Loss 1.275
+66.32
+0.6632
+0.16
+0.26
+* Epoch: [17/60]	 Top 1-err 46.024  Top 5-err 19.648	 Train Loss 2.030
+* Epoch: [17/60]	 Top 1-err 32.940  Top 5-err 9.230	 Test Loss 1.215
+Current best accuracy (top-1 and 5 error): 31.31 100
+* Epoch: [17/60]	 Top 1-err 32.940  Top 5-err 9.230	 Test Loss 1.215
+67.06
+0.6706
+0.09
+0.39
+* Epoch: [18/60]	 Top 1-err 47.188  Top 5-err 19.579	 Train Loss 2.069
+* Epoch: [18/60]	 Top 1-err 33.400  Top 5-err 9.660	 Test Loss 1.256
+Current best accuracy (top-1 and 5 error): 31.31 100
+* Epoch: [18/60]	 Top 1-err 33.400  Top 5-err 9.660	 Test Loss 1.256
+66.6
+0.666
+0.32
+0.15
+* Epoch: [19/60]	 Top 1-err 45.851  Top 5-err 19.721	 Train Loss 2.018
+* Epoch: [19/60]	 Top 1-err 32.860  Top 5-err 9.080	 Test Loss 1.222
+Current best accuracy (top-1 and 5 error): 31.31 100
+* Epoch: [19/60]	 Top 1-err 32.860  Top 5-err 9.080	 Test Loss 1.222
+67.14
+0.6714
+0.43
+0.07
+* Epoch: [20/60]	 Top 1-err 43.093  Top 5-err 17.253	 Train Loss 1.973
+* Epoch: [20/60]	 Top 1-err 33.170  Top 5-err 9.850	 Test Loss 1.243
+Current best accuracy (top-1 and 5 error): 31.31 100
+* Epoch: [20/60]	 Top 1-err 33.170  Top 5-err 9.850	 Test Loss 1.243
+66.83
+0.6683
+0.19
+0.22
+* Epoch: [21/60]	 Top 1-err 46.787  Top 5-err 20.184	 Train Loss 2.056
+* Epoch: [21/60]	 Top 1-err 32.940  Top 5-err 9.070	 Test Loss 1.209
+Current best accuracy (top-1 and 5 error): 31.31 100
+* Epoch: [21/60]	 Top 1-err 32.940  Top 5-err 9.070	 Test Loss 1.209
+67.06
+0.6706
+0.25
+0.22
+* Epoch: [22/60]	 Top 1-err 42.668  Top 5-err 16.905	 Train Loss 2.014
+* Epoch: [22/60]	 Top 1-err 33.610  Top 5-err 10.270	 Test Loss 1.258
+Current best accuracy (top-1 and 5 error): 31.31 100
+* Epoch: [22/60]	 Top 1-err 33.610  Top 5-err 10.270	 Test Loss 1.258
+66.39
+0.6639
+0.19
+0.15
+* Epoch: [23/60]	 Top 1-err 44.750  Top 5-err 18.616	 Train Loss 2.013
+* Epoch: [23/60]	 Top 1-err 34.830  Top 5-err 10.020	 Test Loss 1.303
+Current best accuracy (top-1 and 5 error): 31.31 100
+* Epoch: [23/60]	 Top 1-err 34.830  Top 5-err 10.020	 Test Loss 1.303
+65.17
+0.6517
+0.34
+0.09
+* Epoch: [24/60]	 Top 1-err 45.264  Top 5-err 18.674	 Train Loss 2.046
+* Epoch: [24/60]	 Top 1-err 34.060  Top 5-err 9.380	 Test Loss 1.259
+Current best accuracy (top-1 and 5 error): 31.31 100
+* Epoch: [24/60]	 Top 1-err 34.060  Top 5-err 9.380	 Test Loss 1.259
+65.94
+0.6594
+0.57
+0.02
+* Epoch: [25/60]	 Top 1-err 44.652  Top 5-err 18.321	 Train Loss 2.054
+* Epoch: [25/60]	 Top 1-err 35.080  Top 5-err 10.610	 Test Loss 1.324
+Current best accuracy (top-1 and 5 error): 31.31 100
+* Epoch: [25/60]	 Top 1-err 35.080  Top 5-err 10.610	 Test Loss 1.324
+64.92
+0.6492
+0.26
+0.15
+* Epoch: [26/60]	 Top 1-err 44.525  Top 5-err 17.998	 Train Loss 2.061
+* Epoch: [26/60]	 Top 1-err 34.850  Top 5-err 9.970	 Test Loss 1.278
+Current best accuracy (top-1 and 5 error): 31.31 100
+* Epoch: [26/60]	 Top 1-err 34.850  Top 5-err 9.970	 Test Loss 1.278
+65.15
+0.6515
+0.08
+0.5
+* Epoch: [27/60]	 Top 1-err 45.554  Top 5-err 18.645	 Train Loss 2.071
+* Epoch: [27/60]	 Top 1-err 33.410  Top 5-err 9.680	 Test Loss 1.258
+Current best accuracy (top-1 and 5 error): 31.31 100
+* Epoch: [27/60]	 Top 1-err 33.410  Top 5-err 9.680	 Test Loss 1.258
+66.59
+0.6659
+0.1
+0.43
+* Epoch: [28/60]	 Top 1-err 46.541  Top 5-err 19.665	 Train Loss 2.059
+* Epoch: [28/60]	 Top 1-err 33.880  Top 5-err 10.050	 Test Loss 1.306
+Current best accuracy (top-1 and 5 error): 31.31 100
+* Epoch: [28/60]	 Top 1-err 33.880  Top 5-err 10.050	 Test Loss 1.306
+66.12
+0.6612
+0.09
+0.32
+* Epoch: [29/60]	 Top 1-err 45.020  Top 5-err 18.137	 Train Loss 2.038
+* Epoch: [29/60]	 Top 1-err 35.630  Top 5-err 10.510	 Test Loss 1.333
+Current best accuracy (top-1 and 5 error): 31.31 100
+* Epoch: [29/60]	 Top 1-err 35.630  Top 5-err 10.510	 Test Loss 1.333
+64.37
+0.6437
+0.09
+0.48
+* Epoch: [30/60]	 Top 1-err 42.450  Top 5-err 17.095	 Train Loss 1.932
+* Epoch: [30/60]	 Top 1-err 26.620  Top 5-err 6.650	 Test Loss 1.003
+Current best accuracy (top-1 and 5 error): 26.62 100
+* Epoch: [30/60]	 Top 1-err 26.620  Top 5-err 6.650	 Test Loss 1.003
+73.38
+0.7338
+0.16
+0.16
+* Epoch: [31/60]	 Top 1-err 41.126  Top 5-err 16.413	 Train Loss 1.837
+* Epoch: [31/60]	 Top 1-err 26.860  Top 5-err 6.580	 Test Loss 1.011
+Current best accuracy (top-1 and 5 error): 26.62 100
+* Epoch: [31/60]	 Top 1-err 26.860  Top 5-err 6.580	 Test Loss 1.011
+73.14
+0.7314
+0.15
+0.2
+* Epoch: [32/60]	 Top 1-err 38.007  Top 5-err 14.246	 Train Loss 1.831
+* Epoch: [32/60]	 Top 1-err 26.490  Top 5-err 6.430	 Test Loss 1.009
+Current best accuracy (top-1 and 5 error): 26.49 100
+* Epoch: [32/60]	 Top 1-err 26.490  Top 5-err 6.430	 Test Loss 1.009
+73.51
+0.7351
+0.22
+0.19
+* Epoch: [33/60]	 Top 1-err 40.995  Top 5-err 15.455	 Train Loss 1.861
+* Epoch: [33/60]	 Top 1-err 26.680  Top 5-err 6.400	 Test Loss 1.017
+Current best accuracy (top-1 and 5 error): 26.49 100
+* Epoch: [33/60]	 Top 1-err 26.680  Top 5-err 6.400	 Test Loss 1.017
+73.32
+0.7332
+0.21
+0.2
+* Epoch: [34/60]	 Top 1-err 38.009  Top 5-err 14.140	 Train Loss 1.801
+* Epoch: [34/60]	 Top 1-err 26.210  Top 5-err 6.580	 Test Loss 1.012
+Current best accuracy (top-1 and 5 error): 26.21 100
+* Epoch: [34/60]	 Top 1-err 26.210  Top 5-err 6.580	 Test Loss 1.012
+73.79
+0.7379
+0.23
+0.17
+* Epoch: [35/60]	 Top 1-err 40.934  Top 5-err 15.621	 Train Loss 1.854
+* Epoch: [35/60]	 Top 1-err 26.430  Top 5-err 6.600	 Test Loss 1.003
+Current best accuracy (top-1 and 5 error): 26.21 100
+* Epoch: [35/60]	 Top 1-err 26.430  Top 5-err 6.600	 Test Loss 1.003
+73.57
+0.7357
+0.21
+0.15
+* Epoch: [36/60]	 Top 1-err 37.035  Top 5-err 13.470	 Train Loss 1.772
+* Epoch: [36/60]	 Top 1-err 26.250  Top 5-err 6.720	 Test Loss 1.025
+Current best accuracy (top-1 and 5 error): 26.21 100
+* Epoch: [36/60]	 Top 1-err 26.250  Top 5-err 6.720	 Test Loss 1.025
+73.75
+0.7375
+0.15
+0.2
+* Epoch: [37/60]	 Top 1-err 36.636  Top 5-err 13.397	 Train Loss 1.753
+* Epoch: [37/60]	 Top 1-err 25.990  Top 5-err 6.540	 Test Loss 0.981
+Current best accuracy (top-1 and 5 error): 25.99 100
+* Epoch: [37/60]	 Top 1-err 25.990  Top 5-err 6.540	 Test Loss 0.981
+74.01
+0.7401
+0.19
+0.16
+* Epoch: [38/60]	 Top 1-err 38.849  Top 5-err 14.315	 Train Loss 1.795
+* Epoch: [38/60]	 Top 1-err 25.730  Top 5-err 6.510	 Test Loss 0.986
+Current best accuracy (top-1 and 5 error): 25.73 100
+* Epoch: [38/60]	 Top 1-err 25.730  Top 5-err 6.510	 Test Loss 0.986
+74.27
+0.7427
+0.17
+0.16
+* Epoch: [39/60]	 Top 1-err 40.537  Top 5-err 15.124	 Train Loss 1.851
+* Epoch: [39/60]	 Top 1-err 26.320  Top 5-err 6.460	 Test Loss 0.999
+Current best accuracy (top-1 and 5 error): 25.73 100
+* Epoch: [39/60]	 Top 1-err 26.320  Top 5-err 6.460	 Test Loss 0.999
+73.68
+0.7368
+0.15
+0.13
+* Epoch: [40/60]	 Top 1-err 38.718  Top 5-err 14.707	 Train Loss 1.809
+* Epoch: [40/60]	 Top 1-err 26.360  Top 5-err 6.520	 Test Loss 1.019
+Current best accuracy (top-1 and 5 error): 25.73 100
+* Epoch: [40/60]	 Top 1-err 26.360  Top 5-err 6.520	 Test Loss 1.019
+73.64
+0.7364
+0.15
+0.16
+* Epoch: [41/60]	 Top 1-err 38.257  Top 5-err 13.738	 Train Loss 1.792
+* Epoch: [41/60]	 Top 1-err 26.010  Top 5-err 6.400	 Test Loss 0.967
+Current best accuracy (top-1 and 5 error): 25.73 100
+* Epoch: [41/60]	 Top 1-err 26.010  Top 5-err 6.400	 Test Loss 0.967
+73.99
+0.7399
+0.18
+0.16
+* Epoch: [42/60]	 Top 1-err 37.836  Top 5-err 14.554	 Train Loss 1.765
+* Epoch: [42/60]	 Top 1-err 26.110  Top 5-err 6.430	 Test Loss 0.975
+Current best accuracy (top-1 and 5 error): 25.73 100
+* Epoch: [42/60]	 Top 1-err 26.110  Top 5-err 6.430	 Test Loss 0.975
+73.89
+0.7389
+0.22
+0.19
+* Epoch: [43/60]	 Top 1-err 37.851  Top 5-err 13.840	 Train Loss 1.762
+* Epoch: [43/60]	 Top 1-err 26.110  Top 5-err 6.400	 Test Loss 0.978
+Current best accuracy (top-1 and 5 error): 25.73 100
+* Epoch: [43/60]	 Top 1-err 26.110  Top 5-err 6.400	 Test Loss 0.978
+73.89
+0.7389
+0.13
+0.21
+* Epoch: [44/60]	 Top 1-err 38.996  Top 5-err 14.656	 Train Loss 1.766
+* Epoch: [44/60]	 Top 1-err 26.010  Top 5-err 6.500	 Test Loss 0.994
+Current best accuracy (top-1 and 5 error): 25.73 100
+* Epoch: [44/60]	 Top 1-err 26.010  Top 5-err 6.500	 Test Loss 0.994
+73.99
+0.7399
+0.22
+0.16
+* Epoch: [45/60]	 Top 1-err 36.373  Top 5-err 13.029	 Train Loss 1.741
+* Epoch: [45/60]	 Top 1-err 25.570  Top 5-err 6.350	 Test Loss 0.980
+Current best accuracy (top-1 and 5 error): 25.57 6.35
+* Epoch: [45/60]	 Top 1-err 25.570  Top 5-err 6.350	 Test Loss 0.980
+74.43
+0.7443
+0.18
+0.19
+* Epoch: [46/60]	 Top 1-err 37.286  Top 5-err 14.284	 Train Loss 1.723
+* Epoch: [46/60]	 Top 1-err 25.710  Top 5-err 6.280	 Test Loss 0.973
+Current best accuracy (top-1 and 5 error): 25.57 6.35
+* Epoch: [46/60]	 Top 1-err 25.710  Top 5-err 6.280	 Test Loss 0.973
+74.29
+0.7429
+0.18
+0.2
+* Epoch: [47/60]	 Top 1-err 39.960  Top 5-err 15.004	 Train Loss 1.784
+* Epoch: [47/60]	 Top 1-err 25.810  Top 5-err 6.260	 Test Loss 0.969
+Current best accuracy (top-1 and 5 error): 25.57 6.35
+* Epoch: [47/60]	 Top 1-err 25.810  Top 5-err 6.260	 Test Loss 0.969
+74.19
+0.7419
+0.17
+0.2
+* Epoch: [48/60]	 Top 1-err 36.344  Top 5-err 12.869	 Train Loss 1.724
+* Epoch: [48/60]	 Top 1-err 25.830  Top 5-err 6.350	 Test Loss 0.976
+Current best accuracy (top-1 and 5 error): 25.57 6.35
+* Epoch: [48/60]	 Top 1-err 25.830  Top 5-err 6.350	 Test Loss 0.976
+74.17
+0.7417
+0.18
+0.19
+* Epoch: [49/60]	 Top 1-err 37.747  Top 5-err 15.051	 Train Loss 1.707
+* Epoch: [49/60]	 Top 1-err 25.760  Top 5-err 6.220	 Test Loss 0.959
+Current best accuracy (top-1 and 5 error): 25.57 6.35
+* Epoch: [49/60]	 Top 1-err 25.760  Top 5-err 6.220	 Test Loss 0.959
+74.24
+0.7424
+0.19
+0.17
+* Epoch: [50/60]	 Top 1-err 37.337  Top 5-err 13.058	 Train Loss 1.737
+* Epoch: [50/60]	 Top 1-err 25.640  Top 5-err 6.300	 Test Loss 0.965
+Current best accuracy (top-1 and 5 error): 25.57 6.35
+* Epoch: [50/60]	 Top 1-err 25.640  Top 5-err 6.300	 Test Loss 0.965
+74.36
+0.7436
+0.22
+0.17
+* Epoch: [51/60]	 Top 1-err 40.619  Top 5-err 15.355	 Train Loss 1.816
+* Epoch: [51/60]	 Top 1-err 25.680  Top 5-err 6.350	 Test Loss 0.964
+Current best accuracy (top-1 and 5 error): 25.57 6.35
+* Epoch: [51/60]	 Top 1-err 25.680  Top 5-err 6.350	 Test Loss 0.964
+74.32
+0.7432
+0.2
+0.19
+* Epoch: [52/60]	 Top 1-err 37.929  Top 5-err 13.594	 Train Loss 1.768
+* Epoch: [52/60]	 Top 1-err 25.950  Top 5-err 6.290	 Test Loss 0.975
+Current best accuracy (top-1 and 5 error): 25.57 6.35
+* Epoch: [52/60]	 Top 1-err 25.950  Top 5-err 6.290	 Test Loss 0.975
+74.05
+0.7405
+0.17
+0.19
+* Epoch: [53/60]	 Top 1-err 34.253  Top 5-err 11.454	 Train Loss 1.715
+* Epoch: [53/60]	 Top 1-err 25.810  Top 5-err 6.260	 Test Loss 0.971
+Current best accuracy (top-1 and 5 error): 25.57 6.35
+* Epoch: [53/60]	 Top 1-err 25.810  Top 5-err 6.260	 Test Loss 0.971
+74.19
+0.7419
+0.18
+0.19
+* Epoch: [54/60]	 Top 1-err 36.913  Top 5-err 13.321	 Train Loss 1.758
+* Epoch: [54/60]	 Top 1-err 25.840  Top 5-err 6.470	 Test Loss 1.008
+Current best accuracy (top-1 and 5 error): 25.57 6.35
+* Epoch: [54/60]	 Top 1-err 25.840  Top 5-err 6.470	 Test Loss 1.008
+74.16
+0.7416
+0.19
+0.18
+* Epoch: [55/60]	 Top 1-err 36.903  Top 5-err 13.699	 Train Loss 1.722
+* Epoch: [55/60]	 Top 1-err 25.770  Top 5-err 6.360	 Test Loss 0.962
+Current best accuracy (top-1 and 5 error): 25.57 6.35
+* Epoch: [55/60]	 Top 1-err 25.770  Top 5-err 6.360	 Test Loss 0.962
+74.23
+0.7423
+0.19
+0.2
+* Epoch: [56/60]	 Top 1-err 36.242  Top 5-err 12.789	 Train Loss 1.753
+* Epoch: [56/60]	 Top 1-err 25.800  Top 5-err 6.360	 Test Loss 0.989
+Current best accuracy (top-1 and 5 error): 25.57 6.35
+* Epoch: [56/60]	 Top 1-err 25.800  Top 5-err 6.360	 Test Loss 0.989
+74.2
+0.742
+0.17
+0.19
+* Epoch: [57/60]	 Top 1-err 38.158  Top 5-err 13.641	 Train Loss 1.771
+* Epoch: [57/60]	 Top 1-err 25.690  Top 5-err 6.220	 Test Loss 0.957
+Current best accuracy (top-1 and 5 error): 25.57 6.35
+* Epoch: [57/60]	 Top 1-err 25.690  Top 5-err 6.220	 Test Loss 0.957
+74.31
+0.7431
+0.18
+0.17
+* Epoch: [58/60]	 Top 1-err 37.328  Top 5-err 13.384	 Train Loss 1.708
+* Epoch: [58/60]	 Top 1-err 25.550  Top 5-err 6.180	 Test Loss 0.947
+Current best accuracy (top-1 and 5 error): 25.55 6.18
+* Epoch: [58/60]	 Top 1-err 25.550  Top 5-err 6.180	 Test Loss 0.947
+74.45
+0.7445
+0.18
+0.16
+* Epoch: [59/60]	 Top 1-err 35.610  Top 5-err 12.647	 Train Loss 1.697
+* Epoch: [59/60]	 Top 1-err 25.590  Top 5-err 6.340	 Test Loss 0.971
+Current best accuracy (top-1 and 5 error): 25.55 6.18
+* Epoch: [59/60]	 Top 1-err 25.590  Top 5-err 6.340	 Test Loss 0.971
+74.41
+0.7441
+0.19
+0.17
+Best accuracy (top-1 and 5 error): 25.55 6.18
+=> loading checkpoint 'runs/cifar100_resnet_1_35_98_test/model_best.pth.tar'
+* Epoch: [-1/60]	 Top 1-err 25.550  Top 5-err 6.180	 Test Loss 0.947
+74.45
+0.7445
+0.18
+0.16
+python3 cifar100_repair_confusion.py --net_type resnet --dataset cifar100 --depth 50 --batch_size 256 --lr 0.1 --expname cifar100_resnet_1_35_98_test --epochs 60 --beta 1.0 --cutmix_prob 1 --pretrained ./runs/cifar100_resnet_1_35_98/model_best.pth.tar --lam 1
+Files already downloaded and verified
+Files already downloaded and verified
+Files already downloaded and verified
+=> creating model 'resnet'
+True
+=> loading checkpoint './runs/cifar100_resnet_1_35_98/model_best.pth.tar'
+=> loaded checkpoint './runs/cifar100_resnet_1_35_98/model_best.pth.tar'
+the number of model parameters: 521716
+* Epoch: [0/60]	 Top 1-err 45.375  Top 5-err 19.284	 Train Loss 2.080
+* Epoch: [0/60]	 Top 1-err 31.500  Top 5-err 8.660	 Test Loss 1.162
+Current best accuracy (top-1 and 5 error): 31.5 100
+* Epoch: [0/60]	 Top 1-err 31.500  Top 5-err 8.660	 Test Loss 1.162
+68.5
+0.685
+0.16
+0.32
+* Epoch: [1/60]	 Top 1-err 49.131  Top 5-err 22.355	 Train Loss 2.153
+* Epoch: [1/60]	 Top 1-err 31.760  Top 5-err 8.900	 Test Loss 1.170
+Current best accuracy (top-1 and 5 error): 31.5 100
+* Epoch: [1/60]	 Top 1-err 31.760  Top 5-err 8.900	 Test Loss 1.170
+68.24
+0.6824
+0.42
+0.06
+* Epoch: [2/60]	 Top 1-err 45.980  Top 5-err 19.638	 Train Loss 2.079
+* Epoch: [2/60]	 Top 1-err 33.430  Top 5-err 9.750	 Test Loss 1.210
+Current best accuracy (top-1 and 5 error): 31.5 100
+* Epoch: [2/60]	 Top 1-err 33.430  Top 5-err 9.750	 Test Loss 1.210
+66.57
+0.6657
+0.26
+0.12
+* Epoch: [3/60]	 Top 1-err 46.736  Top 5-err 20.173	 Train Loss 2.081
+* Epoch: [3/60]	 Top 1-err 31.470  Top 5-err 9.020	 Test Loss 1.215
+Current best accuracy (top-1 and 5 error): 31.47 100
+* Epoch: [3/60]	 Top 1-err 31.470  Top 5-err 9.020	 Test Loss 1.215
+68.53
+0.6853
+0.22
+0.13
+* Epoch: [4/60]	 Top 1-err 47.510  Top 5-err 20.328	 Train Loss 2.126
+* Epoch: [4/60]	 Top 1-err 32.320  Top 5-err 9.380	 Test Loss 1.262
+Current best accuracy (top-1 and 5 error): 31.47 100
+* Epoch: [4/60]	 Top 1-err 32.320  Top 5-err 9.380	 Test Loss 1.262
+67.68
+0.6768
+0.17
+0.27
+* Epoch: [5/60]	 Top 1-err 43.073  Top 5-err 17.592	 Train Loss 2.016
+* Epoch: [5/60]	 Top 1-err 32.350  Top 5-err 9.010	 Test Loss 1.214
+Current best accuracy (top-1 and 5 error): 31.47 100
+* Epoch: [5/60]	 Top 1-err 32.350  Top 5-err 9.010	 Test Loss 1.214
+67.65
+0.6765
+0.16
+0.22
+* Epoch: [6/60]	 Top 1-err 45.042  Top 5-err 18.756	 Train Loss 2.060
+* Epoch: [6/60]	 Top 1-err 31.760  Top 5-err 8.970	 Test Loss 1.219
+Current best accuracy (top-1 and 5 error): 31.47 100
+* Epoch: [6/60]	 Top 1-err 31.760  Top 5-err 8.970	 Test Loss 1.219
+68.24
+0.6824
+0.27
+0.19
+* Epoch: [7/60]	 Top 1-err 44.266  Top 5-err 18.390	 Train Loss 1.978
+* Epoch: [7/60]	 Top 1-err 33.070  Top 5-err 9.330	 Test Loss 1.247
+Current best accuracy (top-1 and 5 error): 31.47 100
+* Epoch: [7/60]	 Top 1-err 33.070  Top 5-err 9.330	 Test Loss 1.247
+66.93
+0.6693
+0.25
+0.24
+* Epoch: [8/60]	 Top 1-err 45.186  Top 5-err 18.800	 Train Loss 1.996
+* Epoch: [8/60]	 Top 1-err 33.840  Top 5-err 9.460	 Test Loss 1.224
+Current best accuracy (top-1 and 5 error): 31.47 100
+* Epoch: [8/60]	 Top 1-err 33.840  Top 5-err 9.460	 Test Loss 1.224
+66.16
+0.6616
+0.39
+0.1
+* Epoch: [9/60]	 Top 1-err 45.834  Top 5-err 19.530	 Train Loss 2.045
+* Epoch: [9/60]	 Top 1-err 33.730  Top 5-err 9.680	 Test Loss 1.233
+Current best accuracy (top-1 and 5 error): 31.47 100
+* Epoch: [9/60]	 Top 1-err 33.730  Top 5-err 9.680	 Test Loss 1.233
+66.27
+0.6627
+0.18
+0.21
+* Epoch: [10/60]	 Top 1-err 45.847  Top 5-err 18.883	 Train Loss 2.053
+* Epoch: [10/60]	 Top 1-err 33.210  Top 5-err 9.480	 Test Loss 1.236
+Current best accuracy (top-1 and 5 error): 31.47 100
+* Epoch: [10/60]	 Top 1-err 33.210  Top 5-err 9.480	 Test Loss 1.236
+66.79
+0.6679
+0.23
+0.14
+* Epoch: [11/60]	 Top 1-err 46.188  Top 5-err 19.158	 Train Loss 2.097
+* Epoch: [11/60]	 Top 1-err 31.800  Top 5-err 8.860	 Test Loss 1.194
+Current best accuracy (top-1 and 5 error): 31.47 100
+* Epoch: [11/60]	 Top 1-err 31.800  Top 5-err 8.860	 Test Loss 1.194
+68.2
+0.682
+0.14
+0.19
+* Epoch: [12/60]	 Top 1-err 47.213  Top 5-err 20.266	 Train Loss 2.086
+* Epoch: [12/60]	 Top 1-err 33.270  Top 5-err 9.160	 Test Loss 1.248
+Current best accuracy (top-1 and 5 error): 31.47 100
+* Epoch: [12/60]	 Top 1-err 33.270  Top 5-err 9.160	 Test Loss 1.248
+66.73
+0.6673
+0.2
+0.21
+* Epoch: [13/60]	 Top 1-err 46.120  Top 5-err 19.228	 Train Loss 2.076
+* Epoch: [13/60]	 Top 1-err 34.050  Top 5-err 10.590	 Test Loss 1.303
+Current best accuracy (top-1 and 5 error): 31.47 100
+* Epoch: [13/60]	 Top 1-err 34.050  Top 5-err 10.590	 Test Loss 1.303
+65.95
+0.6595
+0.17
+0.24
+* Epoch: [14/60]	 Top 1-err 45.732  Top 5-err 19.122	 Train Loss 2.073
+* Epoch: [14/60]	 Top 1-err 32.380  Top 5-err 8.800	 Test Loss 1.206
+Current best accuracy (top-1 and 5 error): 31.47 100
+* Epoch: [14/60]	 Top 1-err 32.380  Top 5-err 8.800	 Test Loss 1.206
+67.62
+0.6762
+0.35
+0.09
+* Epoch: [15/60]	 Top 1-err 49.481  Top 5-err 21.552	 Train Loss 2.125
+* Epoch: [15/60]	 Top 1-err 32.720  Top 5-err 9.500	 Test Loss 1.233
+Current best accuracy (top-1 and 5 error): 31.47 100
+* Epoch: [15/60]	 Top 1-err 32.720  Top 5-err 9.500	 Test Loss 1.233
+67.28
+0.6728
+0.08
+0.3
+* Epoch: [16/60]	 Top 1-err 44.546  Top 5-err 18.044	 Train Loss 2.054
+* Epoch: [16/60]	 Top 1-err 32.950  Top 5-err 9.560	 Test Loss 1.270
+Current best accuracy (top-1 and 5 error): 31.47 100
+* Epoch: [16/60]	 Top 1-err 32.950  Top 5-err 9.560	 Test Loss 1.270
+67.05
+0.6705
+0.24
+0.24
+* Epoch: [17/60]	 Top 1-err 46.279  Top 5-err 19.705	 Train Loss 2.031
+* Epoch: [17/60]	 Top 1-err 33.680  Top 5-err 9.510	 Test Loss 1.253
+Current best accuracy (top-1 and 5 error): 31.47 100
+* Epoch: [17/60]	 Top 1-err 33.680  Top 5-err 9.510	 Test Loss 1.253
+66.32
+0.6632
+0.14
+0.29
+* Epoch: [18/60]	 Top 1-err 47.381  Top 5-err 19.554	 Train Loss 2.069
+* Epoch: [18/60]	 Top 1-err 31.660  Top 5-err 8.980	 Test Loss 1.175
+Current best accuracy (top-1 and 5 error): 31.47 100
+* Epoch: [18/60]	 Top 1-err 31.660  Top 5-err 8.980	 Test Loss 1.175
+68.34
+0.6834
+0.31
+0.23
+* Epoch: [19/60]	 Top 1-err 45.991  Top 5-err 19.767	 Train Loss 2.020
+* Epoch: [19/60]	 Top 1-err 33.260  Top 5-err 9.150	 Test Loss 1.262
+Current best accuracy (top-1 and 5 error): 31.47 100
+* Epoch: [19/60]	 Top 1-err 33.260  Top 5-err 9.150	 Test Loss 1.262
+66.74
+0.6674
+0.47
+0.05
+* Epoch: [20/60]	 Top 1-err 43.257  Top 5-err 17.399	 Train Loss 1.974
+* Epoch: [20/60]	 Top 1-err 33.560  Top 5-err 9.950	 Test Loss 1.238
+Current best accuracy (top-1 and 5 error): 31.47 100
+* Epoch: [20/60]	 Top 1-err 33.560  Top 5-err 9.950	 Test Loss 1.238
+66.44
+0.6644
+0.1
+0.34
+* Epoch: [21/60]	 Top 1-err 46.980  Top 5-err 20.213	 Train Loss 2.054
+* Epoch: [21/60]	 Top 1-err 32.270  Top 5-err 8.700	 Test Loss 1.176
+Current best accuracy (top-1 and 5 error): 31.47 100
+* Epoch: [21/60]	 Top 1-err 32.270  Top 5-err 8.700	 Test Loss 1.176
+67.73
+0.6773
+0.17
+0.25
+* Epoch: [22/60]	 Top 1-err 42.718  Top 5-err 16.847	 Train Loss 2.014
+* Epoch: [22/60]	 Top 1-err 32.860  Top 5-err 9.240	 Test Loss 1.204
+Current best accuracy (top-1 and 5 error): 31.47 100
+* Epoch: [22/60]	 Top 1-err 32.860  Top 5-err 9.240	 Test Loss 1.204
+67.14
+0.6714
+0.18
+0.17
+* Epoch: [23/60]	 Top 1-err 44.980  Top 5-err 18.561	 Train Loss 2.016
+* Epoch: [23/60]	 Top 1-err 33.320  Top 5-err 9.820	 Test Loss 1.246
+Current best accuracy (top-1 and 5 error): 31.47 100
+* Epoch: [23/60]	 Top 1-err 33.320  Top 5-err 9.820	 Test Loss 1.246
+66.68
+0.6668
+0.33
+0.11
+* Epoch: [24/60]	 Top 1-err 45.444  Top 5-err 18.703	 Train Loss 2.048
+* Epoch: [24/60]	 Top 1-err 34.810  Top 5-err 10.350	 Test Loss 1.310
+Current best accuracy (top-1 and 5 error): 31.47 100
+* Epoch: [24/60]	 Top 1-err 34.810  Top 5-err 10.350	 Test Loss 1.310
+65.19
+0.6519
+0.61
+0.01
+* Epoch: [25/60]	 Top 1-err 44.725  Top 5-err 18.120	 Train Loss 2.056
+* Epoch: [25/60]	 Top 1-err 35.440  Top 5-err 11.030	 Test Loss 1.330
+Current best accuracy (top-1 and 5 error): 31.47 100
+* Epoch: [25/60]	 Top 1-err 35.440  Top 5-err 11.030	 Test Loss 1.330
+64.56
+0.6456
+0.29
+0.15
+* Epoch: [26/60]	 Top 1-err 44.510  Top 5-err 18.055	 Train Loss 2.059
+* Epoch: [26/60]	 Top 1-err 35.220  Top 5-err 9.930	 Test Loss 1.292
+Current best accuracy (top-1 and 5 error): 31.47 100
+* Epoch: [26/60]	 Top 1-err 35.220  Top 5-err 9.930	 Test Loss 1.292
+64.78
+0.6478
+0.07
+0.36
+* Epoch: [27/60]	 Top 1-err 45.368  Top 5-err 18.488	 Train Loss 2.071
+* Epoch: [27/60]	 Top 1-err 33.090  Top 5-err 9.440	 Test Loss 1.268
+Current best accuracy (top-1 and 5 error): 31.47 100
+* Epoch: [27/60]	 Top 1-err 33.090  Top 5-err 9.440	 Test Loss 1.268
+66.91
+0.6691
+0.05
+0.49
+* Epoch: [28/60]	 Top 1-err 46.368  Top 5-err 19.641	 Train Loss 2.058
+* Epoch: [28/60]	 Top 1-err 35.570  Top 5-err 10.830	 Test Loss 1.355
+Current best accuracy (top-1 and 5 error): 31.47 100
+* Epoch: [28/60]	 Top 1-err 35.570  Top 5-err 10.830	 Test Loss 1.355
+64.43
+0.6443
+0.07
+0.42
+* Epoch: [29/60]	 Top 1-err 44.927  Top 5-err 18.169	 Train Loss 2.039
+* Epoch: [29/60]	 Top 1-err 36.640  Top 5-err 10.760	 Test Loss 1.370
+Current best accuracy (top-1 and 5 error): 31.47 100
+* Epoch: [29/60]	 Top 1-err 36.640  Top 5-err 10.760	 Test Loss 1.370
+63.36
+0.6336
+0.03
+0.6
+* Epoch: [30/60]	 Top 1-err 42.413  Top 5-err 17.069	 Train Loss 1.929
+* Epoch: [30/60]	 Top 1-err 26.440  Top 5-err 6.700	 Test Loss 1.002
+Current best accuracy (top-1 and 5 error): 26.44 100
+* Epoch: [30/60]	 Top 1-err 26.440  Top 5-err 6.700	 Test Loss 1.002
+73.56
+0.7356
+0.25
+0.12
+* Epoch: [31/60]	 Top 1-err 41.027  Top 5-err 16.364	 Train Loss 1.837
+* Epoch: [31/60]	 Top 1-err 26.430  Top 5-err 6.710	 Test Loss 1.009
+Current best accuracy (top-1 and 5 error): 26.43 100
+* Epoch: [31/60]	 Top 1-err 26.430  Top 5-err 6.710	 Test Loss 1.009
+73.57
+0.7357
+0.17
+0.16
+* Epoch: [32/60]	 Top 1-err 37.916  Top 5-err 14.277	 Train Loss 1.833
+* Epoch: [32/60]	 Top 1-err 26.170  Top 5-err 6.390	 Test Loss 1.006
+Current best accuracy (top-1 and 5 error): 26.17 100
+* Epoch: [32/60]	 Top 1-err 26.170  Top 5-err 6.390	 Test Loss 1.006
+73.83
+0.7383
+0.19
+0.13
+* Epoch: [33/60]	 Top 1-err 41.257  Top 5-err 15.497	 Train Loss 1.864
+* Epoch: [33/60]	 Top 1-err 26.190  Top 5-err 6.540	 Test Loss 1.018
+Current best accuracy (top-1 and 5 error): 26.17 100
+* Epoch: [33/60]	 Top 1-err 26.190  Top 5-err 6.540	 Test Loss 1.018
+73.81
+0.7381
+0.16
+0.14
+* Epoch: [34/60]	 Top 1-err 38.042  Top 5-err 14.251	 Train Loss 1.802
+* Epoch: [34/60]	 Top 1-err 25.920  Top 5-err 6.550	 Test Loss 1.012
+Current best accuracy (top-1 and 5 error): 25.92 100
+* Epoch: [34/60]	 Top 1-err 25.920  Top 5-err 6.550	 Test Loss 1.012
+74.08
+0.7408
+0.21
+0.12
+* Epoch: [35/60]	 Top 1-err 40.947  Top 5-err 15.561	 Train Loss 1.855
+* Epoch: [35/60]	 Top 1-err 25.900  Top 5-err 6.560	 Test Loss 0.997
+Current best accuracy (top-1 and 5 error): 25.9 100
+* Epoch: [35/60]	 Top 1-err 25.900  Top 5-err 6.560	 Test Loss 0.997
+74.1
+0.741
+0.2
+0.11
+* Epoch: [36/60]	 Top 1-err 36.891  Top 5-err 13.319	 Train Loss 1.772
+* Epoch: [36/60]	 Top 1-err 26.210  Top 5-err 6.580	 Test Loss 1.029
+Current best accuracy (top-1 and 5 error): 25.9 100
+* Epoch: [36/60]	 Top 1-err 26.210  Top 5-err 6.580	 Test Loss 1.029
+73.79
+0.7379
+0.14
+0.16
+* Epoch: [37/60]	 Top 1-err 36.761  Top 5-err 13.310	 Train Loss 1.755
+* Epoch: [37/60]	 Top 1-err 25.860  Top 5-err 6.280	 Test Loss 0.975
+Current best accuracy (top-1 and 5 error): 25.86 100
+* Epoch: [37/60]	 Top 1-err 25.860  Top 5-err 6.280	 Test Loss 0.975
+74.14
+0.7414
+0.15
+0.12
+* Epoch: [38/60]	 Top 1-err 38.625  Top 5-err 14.273	 Train Loss 1.796
+* Epoch: [38/60]	 Top 1-err 25.630  Top 5-err 6.350	 Test Loss 0.980
+Current best accuracy (top-1 and 5 error): 25.63 100
+* Epoch: [38/60]	 Top 1-err 25.630  Top 5-err 6.350	 Test Loss 0.980
+74.37
+0.7437
+0.18
+0.14
+* Epoch: [39/60]	 Top 1-err 40.479  Top 5-err 15.118	 Train Loss 1.850
+* Epoch: [39/60]	 Top 1-err 25.990  Top 5-err 6.420	 Test Loss 0.994
+Current best accuracy (top-1 and 5 error): 25.63 100
+* Epoch: [39/60]	 Top 1-err 25.990  Top 5-err 6.420	 Test Loss 0.994
+74.01
+0.7401
+0.15
+0.12
+* Epoch: [40/60]	 Top 1-err 38.807  Top 5-err 14.714	 Train Loss 1.809
+* Epoch: [40/60]	 Top 1-err 26.030  Top 5-err 6.480	 Test Loss 1.016
+Current best accuracy (top-1 and 5 error): 25.63 100
+* Epoch: [40/60]	 Top 1-err 26.030  Top 5-err 6.480	 Test Loss 1.016
+73.97
+0.7397
+0.21
+0.14
+* Epoch: [41/60]	 Top 1-err 38.479  Top 5-err 13.820	 Train Loss 1.793
+* Epoch: [41/60]	 Top 1-err 25.900  Top 5-err 6.270	 Test Loss 0.970
+Current best accuracy (top-1 and 5 error): 25.63 100
+* Epoch: [41/60]	 Top 1-err 25.900  Top 5-err 6.270	 Test Loss 0.970
+74.1
+0.741
+0.17
+0.13
+* Epoch: [42/60]	 Top 1-err 37.918  Top 5-err 14.401	 Train Loss 1.764
+* Epoch: [42/60]	 Top 1-err 25.860  Top 5-err 6.220	 Test Loss 0.977
+Current best accuracy (top-1 and 5 error): 25.63 100
+* Epoch: [42/60]	 Top 1-err 25.860  Top 5-err 6.220	 Test Loss 0.977
+74.14
+0.7414
+0.17
+0.15
+* Epoch: [43/60]	 Top 1-err 37.996  Top 5-err 13.876	 Train Loss 1.764
+* Epoch: [43/60]	 Top 1-err 26.020  Top 5-err 6.350	 Test Loss 0.985
+Current best accuracy (top-1 and 5 error): 25.63 100
+* Epoch: [43/60]	 Top 1-err 26.020  Top 5-err 6.350	 Test Loss 0.985
+73.98
+0.7398
+0.14
+0.2
+* Epoch: [44/60]	 Top 1-err 38.984  Top 5-err 14.623	 Train Loss 1.765
+* Epoch: [44/60]	 Top 1-err 25.820  Top 5-err 6.440	 Test Loss 0.991
+Current best accuracy (top-1 and 5 error): 25.63 100
+* Epoch: [44/60]	 Top 1-err 25.820  Top 5-err 6.440	 Test Loss 0.991
+74.18
+0.7418
+0.2
+0.1
+* Epoch: [45/60]	 Top 1-err 36.388  Top 5-err 13.007	 Train Loss 1.741
+* Epoch: [45/60]	 Top 1-err 25.670  Top 5-err 6.250	 Test Loss 0.980
+Current best accuracy (top-1 and 5 error): 25.63 100
+* Epoch: [45/60]	 Top 1-err 25.670  Top 5-err 6.250	 Test Loss 0.980
+74.33
+0.7433
+0.18
+0.15
+* Epoch: [46/60]	 Top 1-err 37.373  Top 5-err 14.497	 Train Loss 1.723
+* Epoch: [46/60]	 Top 1-err 25.450  Top 5-err 6.180	 Test Loss 0.972
+Current best accuracy (top-1 and 5 error): 25.45 6.18
+* Epoch: [46/60]	 Top 1-err 25.450  Top 5-err 6.180	 Test Loss 0.972
+74.55
+0.7455
+0.15
+0.12
+* Epoch: [47/60]	 Top 1-err 39.923  Top 5-err 15.077	 Train Loss 1.783
+* Epoch: [47/60]	 Top 1-err 25.390  Top 5-err 6.160	 Test Loss 0.966
+Current best accuracy (top-1 and 5 error): 25.39 6.16
+* Epoch: [47/60]	 Top 1-err 25.390  Top 5-err 6.160	 Test Loss 0.966
+74.61
+0.7461
+0.16
+0.13
+* Epoch: [48/60]	 Top 1-err 36.328  Top 5-err 12.854	 Train Loss 1.724
+* Epoch: [48/60]	 Top 1-err 25.500  Top 5-err 6.090	 Test Loss 0.975
+Current best accuracy (top-1 and 5 error): 25.39 6.16
+* Epoch: [48/60]	 Top 1-err 25.500  Top 5-err 6.090	 Test Loss 0.975
+74.5
+0.745
+0.18
+0.14
+* Epoch: [49/60]	 Top 1-err 37.643  Top 5-err 15.086	 Train Loss 1.707
+* Epoch: [49/60]	 Top 1-err 25.490  Top 5-err 6.020	 Test Loss 0.955
+Current best accuracy (top-1 and 5 error): 25.39 6.16
+* Epoch: [49/60]	 Top 1-err 25.490  Top 5-err 6.020	 Test Loss 0.955
+74.51
+0.7451
+0.2
+0.13
+* Epoch: [50/60]	 Top 1-err 37.337  Top 5-err 13.075	 Train Loss 1.736
+* Epoch: [50/60]	 Top 1-err 25.460  Top 5-err 6.030	 Test Loss 0.964
+Current best accuracy (top-1 and 5 error): 25.39 6.16
+* Epoch: [50/60]	 Top 1-err 25.460  Top 5-err 6.030	 Test Loss 0.964
+74.54
+0.7454
+0.21
+0.1
+* Epoch: [51/60]	 Top 1-err 40.638  Top 5-err 15.313	 Train Loss 1.817
+* Epoch: [51/60]	 Top 1-err 25.270  Top 5-err 6.190	 Test Loss 0.963
+Current best accuracy (top-1 and 5 error): 25.27 6.19
+* Epoch: [51/60]	 Top 1-err 25.270  Top 5-err 6.190	 Test Loss 0.963
+74.73
+0.7473
+0.2
+0.11
+* Epoch: [52/60]	 Top 1-err 37.738  Top 5-err 13.525	 Train Loss 1.767
+* Epoch: [52/60]	 Top 1-err 25.390  Top 5-err 6.000	 Test Loss 0.974
+Current best accuracy (top-1 and 5 error): 25.27 6.19
+* Epoch: [52/60]	 Top 1-err 25.390  Top 5-err 6.000	 Test Loss 0.974
+74.61
+0.7461
+0.19
+0.14
+* Epoch: [53/60]	 Top 1-err 34.177  Top 5-err 11.523	 Train Loss 1.713
+* Epoch: [53/60]	 Top 1-err 25.240  Top 5-err 6.240	 Test Loss 0.969
+Current best accuracy (top-1 and 5 error): 25.24 6.24
+* Epoch: [53/60]	 Top 1-err 25.240  Top 5-err 6.240	 Test Loss 0.969
+74.76
+0.7476
+0.16
+0.15
+* Epoch: [54/60]	 Top 1-err 36.718  Top 5-err 13.253	 Train Loss 1.758
+* Epoch: [54/60]	 Top 1-err 25.550  Top 5-err 6.320	 Test Loss 1.007
+Current best accuracy (top-1 and 5 error): 25.24 6.24
+* Epoch: [54/60]	 Top 1-err 25.550  Top 5-err 6.320	 Test Loss 1.007
+74.45
+0.7445
+0.17
+0.14
+* Epoch: [55/60]	 Top 1-err 36.958  Top 5-err 13.621	 Train Loss 1.720
+* Epoch: [55/60]	 Top 1-err 25.320  Top 5-err 6.180	 Test Loss 0.961
+Current best accuracy (top-1 and 5 error): 25.24 6.24
+* Epoch: [55/60]	 Top 1-err 25.320  Top 5-err 6.180	 Test Loss 0.961
+74.68
+0.7468
+0.16
+0.13
+* Epoch: [56/60]	 Top 1-err 36.281  Top 5-err 12.749	 Train Loss 1.752
+* Epoch: [56/60]	 Top 1-err 25.500  Top 5-err 6.160	 Test Loss 0.988
+Current best accuracy (top-1 and 5 error): 25.24 6.24
+* Epoch: [56/60]	 Top 1-err 25.500  Top 5-err 6.160	 Test Loss 0.988
+74.5
+0.745
+0.17
+0.15
+* Epoch: [57/60]	 Top 1-err 38.168  Top 5-err 13.638	 Train Loss 1.770
+* Epoch: [57/60]	 Top 1-err 25.390  Top 5-err 5.970	 Test Loss 0.954
+Current best accuracy (top-1 and 5 error): 25.24 6.24
+* Epoch: [57/60]	 Top 1-err 25.390  Top 5-err 5.970	 Test Loss 0.954
+74.61
+0.7461
+0.16
+0.14
+* Epoch: [58/60]	 Top 1-err 37.262  Top 5-err 13.388	 Train Loss 1.706
+* Epoch: [58/60]	 Top 1-err 25.130  Top 5-err 6.020	 Test Loss 0.946
+Current best accuracy (top-1 and 5 error): 25.13 6.02
+* Epoch: [58/60]	 Top 1-err 25.130  Top 5-err 6.020	 Test Loss 0.946
+74.87
+0.7487
+0.18
+0.12
+* Epoch: [59/60]	 Top 1-err 35.570  Top 5-err 12.690	 Train Loss 1.697
+* Epoch: [59/60]	 Top 1-err 25.380  Top 5-err 6.050	 Test Loss 0.968
+Current best accuracy (top-1 and 5 error): 25.13 6.02
+* Epoch: [59/60]	 Top 1-err 25.380  Top 5-err 6.050	 Test Loss 0.968
+74.62
+0.7462
+0.17
+0.12
+Best accuracy (top-1 and 5 error): 25.13 6.02
+=> loading checkpoint 'runs/cifar100_resnet_1_35_98_test/model_best.pth.tar'
+* Epoch: [-1/60]	 Top 1-err 25.130  Top 5-err 6.020	 Test Loss 0.946
+74.87
+0.7487
+0.18
+0.12
+python3 cifar100_repair_confusion.py --net_type resnet --dataset cifar100 --depth 50 --batch_size 256 --lr 0.1 --expname cifar100_resnet_1_35_98_test --epochs 60 --beta 1.0 --cutmix_prob 1 --pretrained ./runs/cifar100_resnet_1_35_98/model_best.pth.tar --lam 2
+Files already downloaded and verified
+Files already downloaded and verified
+Files already downloaded and verified
+=> creating model 'resnet'
+True
+=> loading checkpoint './runs/cifar100_resnet_1_35_98/model_best.pth.tar'
+=> loaded checkpoint './runs/cifar100_resnet_1_35_98/model_best.pth.tar'
+the number of model parameters: 521716
+* Epoch: [0/60]	 Top 1-err 45.406  Top 5-err 19.295	 Train Loss 2.080
+* Epoch: [0/60]	 Top 1-err 32.030  Top 5-err 8.970	 Test Loss 1.178
+Current best accuracy (top-1 and 5 error): 32.03 100
+* Epoch: [0/60]	 Top 1-err 32.030  Top 5-err 8.970	 Test Loss 1.178
+67.97
+0.6797
+0.17
+0.3
+* Epoch: [1/60]	 Top 1-err 49.153  Top 5-err 22.468	 Train Loss 2.154
+* Epoch: [1/60]	 Top 1-err 31.550  Top 5-err 8.580	 Test Loss 1.157
+Current best accuracy (top-1 and 5 error): 31.55 100
+* Epoch: [1/60]	 Top 1-err 31.550  Top 5-err 8.580	 Test Loss 1.157
+68.45
+0.6845
+0.4
+0.06
+* Epoch: [2/60]	 Top 1-err 46.005  Top 5-err 19.554	 Train Loss 2.079
+* Epoch: [2/60]	 Top 1-err 32.960  Top 5-err 9.360	 Test Loss 1.197
+Current best accuracy (top-1 and 5 error): 31.55 100
+* Epoch: [2/60]	 Top 1-err 32.960  Top 5-err 9.360	 Test Loss 1.197
+67.04
+0.6704
+0.27
+0.11
+* Epoch: [3/60]	 Top 1-err 46.781  Top 5-err 20.100	 Train Loss 2.081
+* Epoch: [3/60]	 Top 1-err 31.420  Top 5-err 8.710	 Test Loss 1.208
+Current best accuracy (top-1 and 5 error): 31.42 100
+* Epoch: [3/60]	 Top 1-err 31.420  Top 5-err 8.710	 Test Loss 1.208
+68.58
+0.6858
+0.18
+0.14
+* Epoch: [4/60]	 Top 1-err 47.572  Top 5-err 20.251	 Train Loss 2.127
+* Epoch: [4/60]	 Top 1-err 31.690  Top 5-err 9.290	 Test Loss 1.252
+Current best accuracy (top-1 and 5 error): 31.42 100
+* Epoch: [4/60]	 Top 1-err 31.690  Top 5-err 9.290	 Test Loss 1.252
+68.31
+0.6831
+0.15
+0.26
+* Epoch: [5/60]	 Top 1-err 42.996  Top 5-err 17.534	 Train Loss 2.015
+* Epoch: [5/60]	 Top 1-err 32.280  Top 5-err 9.130	 Test Loss 1.210
+Current best accuracy (top-1 and 5 error): 31.42 100
+* Epoch: [5/60]	 Top 1-err 32.280  Top 5-err 9.130	 Test Loss 1.210
+67.72
+0.6772
+0.17
+0.22
+* Epoch: [6/60]	 Top 1-err 44.811  Top 5-err 18.803	 Train Loss 2.061
+* Epoch: [6/60]	 Top 1-err 31.530  Top 5-err 8.860	 Test Loss 1.203
+Current best accuracy (top-1 and 5 error): 31.42 100
+* Epoch: [6/60]	 Top 1-err 31.530  Top 5-err 8.860	 Test Loss 1.203
+68.47
+0.6847
+0.29
+0.15
+* Epoch: [7/60]	 Top 1-err 44.246  Top 5-err 18.368	 Train Loss 1.977
+* Epoch: [7/60]	 Top 1-err 32.470  Top 5-err 8.870	 Test Loss 1.218
+Current best accuracy (top-1 and 5 error): 31.42 100
+* Epoch: [7/60]	 Top 1-err 32.470  Top 5-err 8.870	 Test Loss 1.218
+67.53
+0.6753
+0.17
+0.24
+* Epoch: [8/60]	 Top 1-err 45.031  Top 5-err 18.851	 Train Loss 1.995
+* Epoch: [8/60]	 Top 1-err 32.950  Top 5-err 9.270	 Test Loss 1.215
+Current best accuracy (top-1 and 5 error): 31.42 100
+* Epoch: [8/60]	 Top 1-err 32.950  Top 5-err 9.270	 Test Loss 1.215
+67.05
+0.6705
+0.28
+0.11
+* Epoch: [9/60]	 Top 1-err 45.920  Top 5-err 19.603	 Train Loss 2.045
+* Epoch: [9/60]	 Top 1-err 34.250  Top 5-err 9.940	 Test Loss 1.262
+Current best accuracy (top-1 and 5 error): 31.42 100
+* Epoch: [9/60]	 Top 1-err 34.250  Top 5-err 9.940	 Test Loss 1.262
+65.75
+0.6575
+0.14
+0.26
+* Epoch: [10/60]	 Top 1-err 45.537  Top 5-err 18.758	 Train Loss 2.053
+* Epoch: [10/60]	 Top 1-err 32.910  Top 5-err 9.390	 Test Loss 1.220
+Current best accuracy (top-1 and 5 error): 31.42 100
+* Epoch: [10/60]	 Top 1-err 32.910  Top 5-err 9.390	 Test Loss 1.220
+67.09
+0.6709
+0.23
+0.16
+* Epoch: [11/60]	 Top 1-err 46.087  Top 5-err 19.224	 Train Loss 2.098
+* Epoch: [11/60]	 Top 1-err 31.490  Top 5-err 8.850	 Test Loss 1.182
+Current best accuracy (top-1 and 5 error): 31.42 100
+* Epoch: [11/60]	 Top 1-err 31.490  Top 5-err 8.850	 Test Loss 1.182
+68.51
+0.6851
+0.18
+0.15
+* Epoch: [12/60]	 Top 1-err 47.231  Top 5-err 20.071	 Train Loss 2.086
+* Epoch: [12/60]	 Top 1-err 33.370  Top 5-err 9.180	 Test Loss 1.234
+Current best accuracy (top-1 and 5 error): 31.42 100
+* Epoch: [12/60]	 Top 1-err 33.370  Top 5-err 9.180	 Test Loss 1.234
+66.63
+0.6663
+0.18
+0.15
+* Epoch: [13/60]	 Top 1-err 46.080  Top 5-err 19.233	 Train Loss 2.073
+* Epoch: [13/60]	 Top 1-err 33.880  Top 5-err 9.850	 Test Loss 1.278
+Current best accuracy (top-1 and 5 error): 31.42 100
+* Epoch: [13/60]	 Top 1-err 33.880  Top 5-err 9.850	 Test Loss 1.278
+66.12
+0.6612
+0.09
+0.34
+* Epoch: [14/60]	 Top 1-err 45.856  Top 5-err 19.266	 Train Loss 2.072
+* Epoch: [14/60]	 Top 1-err 32.660  Top 5-err 8.960	 Test Loss 1.220
+Current best accuracy (top-1 and 5 error): 31.42 100
+* Epoch: [14/60]	 Top 1-err 32.660  Top 5-err 8.960	 Test Loss 1.220
+67.34
+0.6734
+0.37
+0.11
+* Epoch: [15/60]	 Top 1-err 49.603  Top 5-err 21.643	 Train Loss 2.126
+* Epoch: [15/60]	 Top 1-err 32.660  Top 5-err 8.950	 Test Loss 1.230
+Current best accuracy (top-1 and 5 error): 31.42 100
+* Epoch: [15/60]	 Top 1-err 32.660  Top 5-err 8.950	 Test Loss 1.230
+67.34
+0.6734
+0.18
+0.18
+* Epoch: [16/60]	 Top 1-err 44.523  Top 5-err 17.971	 Train Loss 2.055
+* Epoch: [16/60]	 Top 1-err 32.400  Top 5-err 9.240	 Test Loss 1.242
+Current best accuracy (top-1 and 5 error): 31.42 100
+* Epoch: [16/60]	 Top 1-err 32.400  Top 5-err 9.240	 Test Loss 1.242
+67.6
+0.676
+0.16
+0.28
+* Epoch: [17/60]	 Top 1-err 46.188  Top 5-err 19.687	 Train Loss 2.031
+* Epoch: [17/60]	 Top 1-err 33.420  Top 5-err 9.230	 Test Loss 1.247
+Current best accuracy (top-1 and 5 error): 31.42 100
+* Epoch: [17/60]	 Top 1-err 33.420  Top 5-err 9.230	 Test Loss 1.247
+66.58
+0.6658
+0.18
+0.26
+* Epoch: [18/60]	 Top 1-err 47.113  Top 5-err 19.499	 Train Loss 2.068
+* Epoch: [18/60]	 Top 1-err 32.830  Top 5-err 9.230	 Test Loss 1.218
+Current best accuracy (top-1 and 5 error): 31.42 100
+* Epoch: [18/60]	 Top 1-err 32.830  Top 5-err 9.230	 Test Loss 1.218
+67.17
+0.6717
+0.28
+0.21
+* Epoch: [19/60]	 Top 1-err 45.820  Top 5-err 19.641	 Train Loss 2.018
+* Epoch: [19/60]	 Top 1-err 33.280  Top 5-err 9.060	 Test Loss 1.256
+Current best accuracy (top-1 and 5 error): 31.42 100
+* Epoch: [19/60]	 Top 1-err 33.280  Top 5-err 9.060	 Test Loss 1.256
+66.72
+0.6672
+0.59
+0.01
+* Epoch: [20/60]	 Top 1-err 43.122  Top 5-err 17.264	 Train Loss 1.971
+* Epoch: [20/60]	 Top 1-err 33.480  Top 5-err 9.750	 Test Loss 1.229
+Current best accuracy (top-1 and 5 error): 31.42 100
+* Epoch: [20/60]	 Top 1-err 33.480  Top 5-err 9.750	 Test Loss 1.229
+66.52
+0.6652
+0.13
+0.25
+* Epoch: [21/60]	 Top 1-err 47.004  Top 5-err 20.102	 Train Loss 2.054
+* Epoch: [21/60]	 Top 1-err 32.300  Top 5-err 9.220	 Test Loss 1.213
+Current best accuracy (top-1 and 5 error): 31.42 100
+* Epoch: [21/60]	 Top 1-err 32.300  Top 5-err 9.220	 Test Loss 1.213
+67.7
+0.677
+0.16
+0.29
+* Epoch: [22/60]	 Top 1-err 42.860  Top 5-err 16.745	 Train Loss 2.015
+* Epoch: [22/60]	 Top 1-err 33.220  Top 5-err 9.690	 Test Loss 1.231
+Current best accuracy (top-1 and 5 error): 31.42 100
+* Epoch: [22/60]	 Top 1-err 33.220  Top 5-err 9.690	 Test Loss 1.231
+66.78
+0.6678
+0.16
+0.23
+* Epoch: [23/60]	 Top 1-err 44.854  Top 5-err 18.470	 Train Loss 2.013
+* Epoch: [23/60]	 Top 1-err 33.910  Top 5-err 9.950	 Test Loss 1.271
+Current best accuracy (top-1 and 5 error): 31.42 100
+* Epoch: [23/60]	 Top 1-err 33.910  Top 5-err 9.950	 Test Loss 1.271
+66.09
+0.6609
+0.31
+0.12
+* Epoch: [24/60]	 Top 1-err 45.273  Top 5-err 18.703	 Train Loss 2.043
+* Epoch: [24/60]	 Top 1-err 34.090  Top 5-err 9.810	 Test Loss 1.266
+Current best accuracy (top-1 and 5 error): 31.42 100
+* Epoch: [24/60]	 Top 1-err 34.090  Top 5-err 9.810	 Test Loss 1.266
+65.91
+0.6591
+0.56
+0.04
+* Epoch: [25/60]	 Top 1-err 44.874  Top 5-err 18.281	 Train Loss 2.058
+* Epoch: [25/60]	 Top 1-err 35.160  Top 5-err 10.700	 Test Loss 1.320
+Current best accuracy (top-1 and 5 error): 31.42 100
+* Epoch: [25/60]	 Top 1-err 35.160  Top 5-err 10.700	 Test Loss 1.320
+64.84
+0.6484
+0.21
+0.19
+* Epoch: [26/60]	 Top 1-err 44.494  Top 5-err 18.040	 Train Loss 2.059
+* Epoch: [26/60]	 Top 1-err 34.100  Top 5-err 9.460	 Test Loss 1.257
+Current best accuracy (top-1 and 5 error): 31.42 100
+* Epoch: [26/60]	 Top 1-err 34.100  Top 5-err 9.460	 Test Loss 1.257
+65.9
+0.659
+0.03
+0.58
+* Epoch: [27/60]	 Top 1-err 45.426  Top 5-err 18.623	 Train Loss 2.071
+* Epoch: [27/60]	 Top 1-err 34.740  Top 5-err 10.310	 Test Loss 1.309
+Current best accuracy (top-1 and 5 error): 31.42 100
+* Epoch: [27/60]	 Top 1-err 34.740  Top 5-err 10.310	 Test Loss 1.309
+65.26
+0.6526
+0.15
+0.3
+* Epoch: [28/60]	 Top 1-err 46.324  Top 5-err 19.581	 Train Loss 2.055
+* Epoch: [28/60]	 Top 1-err 35.090  Top 5-err 9.880	 Test Loss 1.337
+Current best accuracy (top-1 and 5 error): 31.42 100
+* Epoch: [28/60]	 Top 1-err 35.090  Top 5-err 9.880	 Test Loss 1.337
+64.91
+0.6491
+0.09
+0.46
+* Epoch: [29/60]	 Top 1-err 45.208  Top 5-err 18.131	 Train Loss 2.039
+* Epoch: [29/60]	 Top 1-err 36.630  Top 5-err 11.510	 Test Loss 1.398
+Current best accuracy (top-1 and 5 error): 31.42 100
+* Epoch: [29/60]	 Top 1-err 36.630  Top 5-err 11.510	 Test Loss 1.398
+63.37
+0.6337
+0.06
+0.42
+* Epoch: [30/60]	 Top 1-err 42.514  Top 5-err 17.162	 Train Loss 1.932
+* Epoch: [30/60]	 Top 1-err 26.720  Top 5-err 6.620	 Test Loss 1.003
+Current best accuracy (top-1 and 5 error): 26.72 100
+* Epoch: [30/60]	 Top 1-err 26.720  Top 5-err 6.620	 Test Loss 1.003
+73.28
+0.7328
+0.17
+0.13
+* Epoch: [31/60]	 Top 1-err 41.009  Top 5-err 16.381	 Train Loss 1.837
+* Epoch: [31/60]	 Top 1-err 26.650  Top 5-err 6.600	 Test Loss 1.010
+Current best accuracy (top-1 and 5 error): 26.65 100
+* Epoch: [31/60]	 Top 1-err 26.650  Top 5-err 6.600	 Test Loss 1.010
+73.35
+0.7335
+0.18
+0.15
+* Epoch: [32/60]	 Top 1-err 37.914  Top 5-err 14.219	 Train Loss 1.831
+* Epoch: [32/60]	 Top 1-err 26.290  Top 5-err 6.400	 Test Loss 1.009
+Current best accuracy (top-1 and 5 error): 26.29 100
+* Epoch: [32/60]	 Top 1-err 26.290  Top 5-err 6.400	 Test Loss 1.009
+73.71
+0.7371
+0.17
+0.13
+* Epoch: [33/60]	 Top 1-err 40.942  Top 5-err 15.397	 Train Loss 1.861
+* Epoch: [33/60]	 Top 1-err 26.480  Top 5-err 6.380	 Test Loss 1.018
+Current best accuracy (top-1 and 5 error): 26.29 100
+* Epoch: [33/60]	 Top 1-err 26.480  Top 5-err 6.380	 Test Loss 1.018
+73.52
+0.7352
+0.2
+0.14
+* Epoch: [34/60]	 Top 1-err 37.920  Top 5-err 14.260	 Train Loss 1.799
+* Epoch: [34/60]	 Top 1-err 26.220  Top 5-err 6.510	 Test Loss 1.009
+Current best accuracy (top-1 and 5 error): 26.22 100
+* Epoch: [34/60]	 Top 1-err 26.220  Top 5-err 6.510	 Test Loss 1.009
+73.78
+0.7378
+0.25
+0.12
+* Epoch: [35/60]	 Top 1-err 41.047  Top 5-err 15.470	 Train Loss 1.854
+* Epoch: [35/60]	 Top 1-err 26.210  Top 5-err 6.320	 Test Loss 0.996
+Current best accuracy (top-1 and 5 error): 26.21 100
+* Epoch: [35/60]	 Top 1-err 26.210  Top 5-err 6.320	 Test Loss 0.996
+73.79
+0.7379
+0.26
+0.11
+* Epoch: [36/60]	 Top 1-err 36.878  Top 5-err 13.335	 Train Loss 1.771
+* Epoch: [36/60]	 Top 1-err 26.340  Top 5-err 6.480	 Test Loss 1.023
+Current best accuracy (top-1 and 5 error): 26.21 100
+* Epoch: [36/60]	 Top 1-err 26.340  Top 5-err 6.480	 Test Loss 1.023
+73.66
+0.7366
+0.2
+0.15
+* Epoch: [37/60]	 Top 1-err 36.794  Top 5-err 13.251	 Train Loss 1.754
+* Epoch: [37/60]	 Top 1-err 26.050  Top 5-err 6.300	 Test Loss 0.979
+Current best accuracy (top-1 and 5 error): 26.05 100
+* Epoch: [37/60]	 Top 1-err 26.050  Top 5-err 6.300	 Test Loss 0.979
+73.95
+0.7395
+0.24
+0.12
+* Epoch: [38/60]	 Top 1-err 38.576  Top 5-err 14.273	 Train Loss 1.795
+* Epoch: [38/60]	 Top 1-err 25.710  Top 5-err 6.240	 Test Loss 0.988
+Current best accuracy (top-1 and 5 error): 25.71 100
+* Epoch: [38/60]	 Top 1-err 25.710  Top 5-err 6.240	 Test Loss 0.988
+74.29
+0.7429
+0.16
+0.17
+* Epoch: [39/60]	 Top 1-err 40.475  Top 5-err 15.191	 Train Loss 1.851
+* Epoch: [39/60]	 Top 1-err 26.040  Top 5-err 6.300	 Test Loss 0.992
+Current best accuracy (top-1 and 5 error): 25.71 100
+* Epoch: [39/60]	 Top 1-err 26.040  Top 5-err 6.300	 Test Loss 0.992
+73.96
+0.7396
+0.2
+0.13
+* Epoch: [40/60]	 Top 1-err 38.716  Top 5-err 14.676	 Train Loss 1.809
+* Epoch: [40/60]	 Top 1-err 25.990  Top 5-err 6.450	 Test Loss 1.010
+Current best accuracy (top-1 and 5 error): 25.71 100
+* Epoch: [40/60]	 Top 1-err 25.990  Top 5-err 6.450	 Test Loss 1.010
+74.01
+0.7401
+0.19
+0.14
+* Epoch: [41/60]	 Top 1-err 38.297  Top 5-err 13.778	 Train Loss 1.791
+* Epoch: [41/60]	 Top 1-err 25.820  Top 5-err 6.260	 Test Loss 0.970
+Current best accuracy (top-1 and 5 error): 25.71 100
+* Epoch: [41/60]	 Top 1-err 25.820  Top 5-err 6.260	 Test Loss 0.970
+74.18
+0.7418
+0.16
+0.14
+* Epoch: [42/60]	 Top 1-err 37.778  Top 5-err 14.548	 Train Loss 1.764
+* Epoch: [42/60]	 Top 1-err 25.830  Top 5-err 6.220	 Test Loss 0.978
+Current best accuracy (top-1 and 5 error): 25.71 100
+* Epoch: [42/60]	 Top 1-err 25.830  Top 5-err 6.220	 Test Loss 0.978
+74.17
+0.7417
+0.19
+0.14
+* Epoch: [43/60]	 Top 1-err 38.087  Top 5-err 13.916	 Train Loss 1.763
+* Epoch: [43/60]	 Top 1-err 26.070  Top 5-err 6.370	 Test Loss 0.982
+Current best accuracy (top-1 and 5 error): 25.71 100
+* Epoch: [43/60]	 Top 1-err 26.070  Top 5-err 6.370	 Test Loss 0.982
+73.93
+0.7393
+0.15
+0.17
+* Epoch: [44/60]	 Top 1-err 39.086  Top 5-err 14.616	 Train Loss 1.766
+* Epoch: [44/60]	 Top 1-err 26.050  Top 5-err 6.390	 Test Loss 0.987
+Current best accuracy (top-1 and 5 error): 25.71 100
+* Epoch: [44/60]	 Top 1-err 26.050  Top 5-err 6.390	 Test Loss 0.987
+73.95
+0.7395
+0.2
+0.13
+* Epoch: [45/60]	 Top 1-err 36.308  Top 5-err 12.954	 Train Loss 1.740
+* Epoch: [45/60]	 Top 1-err 25.750  Top 5-err 6.160	 Test Loss 0.979
+Current best accuracy (top-1 and 5 error): 25.71 100
+* Epoch: [45/60]	 Top 1-err 25.750  Top 5-err 6.160	 Test Loss 0.979
+74.25
+0.7425
+0.17
+0.15
+* Epoch: [46/60]	 Top 1-err 37.366  Top 5-err 14.322	 Train Loss 1.722
+* Epoch: [46/60]	 Top 1-err 25.630  Top 5-err 6.180	 Test Loss 0.971
+Current best accuracy (top-1 and 5 error): 25.63 6.18
+* Epoch: [46/60]	 Top 1-err 25.630  Top 5-err 6.180	 Test Loss 0.971
+74.37
+0.7437
+0.17
+0.14
+* Epoch: [47/60]	 Top 1-err 39.909  Top 5-err 14.973	 Train Loss 1.783
+* Epoch: [47/60]	 Top 1-err 25.650  Top 5-err 6.040	 Test Loss 0.967
+Current best accuracy (top-1 and 5 error): 25.63 6.18
+* Epoch: [47/60]	 Top 1-err 25.650  Top 5-err 6.040	 Test Loss 0.967
+74.35
+0.7435
+0.15
+0.14
+* Epoch: [48/60]	 Top 1-err 36.146  Top 5-err 12.876	 Train Loss 1.724
+* Epoch: [48/60]	 Top 1-err 25.780  Top 5-err 6.180	 Test Loss 0.975
+Current best accuracy (top-1 and 5 error): 25.63 6.18
+* Epoch: [48/60]	 Top 1-err 25.780  Top 5-err 6.180	 Test Loss 0.975
+74.22
+0.7422
+0.19
+0.13
+* Epoch: [49/60]	 Top 1-err 37.756  Top 5-err 15.015	 Train Loss 1.707
+* Epoch: [49/60]	 Top 1-err 25.460  Top 5-err 5.970	 Test Loss 0.957
+Current best accuracy (top-1 and 5 error): 25.46 5.97
+* Epoch: [49/60]	 Top 1-err 25.460  Top 5-err 5.970	 Test Loss 0.957
+74.54
+0.7454
+0.18
+0.14
+* Epoch: [50/60]	 Top 1-err 37.211  Top 5-err 13.129	 Train Loss 1.736
+* Epoch: [50/60]	 Top 1-err 25.580  Top 5-err 5.910	 Test Loss 0.966
+Current best accuracy (top-1 and 5 error): 25.46 5.97
+* Epoch: [50/60]	 Top 1-err 25.580  Top 5-err 5.910	 Test Loss 0.966
+74.42
+0.7442
+0.2
+0.13
+* Epoch: [51/60]	 Top 1-err 40.659  Top 5-err 15.271	 Train Loss 1.816
+* Epoch: [51/60]	 Top 1-err 25.350  Top 5-err 6.080	 Test Loss 0.964
+Current best accuracy (top-1 and 5 error): 25.35 6.08
+* Epoch: [51/60]	 Top 1-err 25.350  Top 5-err 6.080	 Test Loss 0.964
+74.65
+0.7465
+0.2
+0.14
+* Epoch: [52/60]	 Top 1-err 37.827  Top 5-err 13.592	 Train Loss 1.767
+* Epoch: [52/60]	 Top 1-err 25.650  Top 5-err 6.010	 Test Loss 0.974
+Current best accuracy (top-1 and 5 error): 25.35 6.08
+* Epoch: [52/60]	 Top 1-err 25.650  Top 5-err 6.010	 Test Loss 0.974
+74.35
+0.7435
+0.18
+0.13
+* Epoch: [53/60]	 Top 1-err 34.160  Top 5-err 11.466	 Train Loss 1.715
+* Epoch: [53/60]	 Top 1-err 25.520  Top 5-err 6.020	 Test Loss 0.969
+Current best accuracy (top-1 and 5 error): 25.35 6.08
+* Epoch: [53/60]	 Top 1-err 25.520  Top 5-err 6.020	 Test Loss 0.969
+74.48
+0.7448
+0.18
+0.15
+* Epoch: [54/60]	 Top 1-err 36.800  Top 5-err 13.339	 Train Loss 1.758
+* Epoch: [54/60]	 Top 1-err 25.760  Top 5-err 6.220	 Test Loss 1.008
+Current best accuracy (top-1 and 5 error): 25.35 6.08
+* Epoch: [54/60]	 Top 1-err 25.760  Top 5-err 6.220	 Test Loss 1.008
+74.24
+0.7424
+0.2
+0.13
+* Epoch: [55/60]	 Top 1-err 37.029  Top 5-err 13.521	 Train Loss 1.720
+* Epoch: [55/60]	 Top 1-err 25.660  Top 5-err 6.040	 Test Loss 0.962
+Current best accuracy (top-1 and 5 error): 25.35 6.08
+* Epoch: [55/60]	 Top 1-err 25.660  Top 5-err 6.040	 Test Loss 0.962
+74.34
+0.7434
+0.19
+0.14
+* Epoch: [56/60]	 Top 1-err 36.228  Top 5-err 12.752	 Train Loss 1.752
+* Epoch: [56/60]	 Top 1-err 25.830  Top 5-err 6.220	 Test Loss 0.989
+Current best accuracy (top-1 and 5 error): 25.35 6.08
+* Epoch: [56/60]	 Top 1-err 25.830  Top 5-err 6.220	 Test Loss 0.989
+74.17
+0.7417
+0.19
+0.14
+* Epoch: [57/60]	 Top 1-err 38.058  Top 5-err 13.696	 Train Loss 1.770
+* Epoch: [57/60]	 Top 1-err 25.600  Top 5-err 6.000	 Test Loss 0.956
+Current best accuracy (top-1 and 5 error): 25.35 6.08
+* Epoch: [57/60]	 Top 1-err 25.600  Top 5-err 6.000	 Test Loss 0.956
+74.4
+0.744
+0.18
+0.13
+* Epoch: [58/60]	 Top 1-err 37.217  Top 5-err 13.259	 Train Loss 1.706
+* Epoch: [58/60]	 Top 1-err 25.380  Top 5-err 6.000	 Test Loss 0.946
+Current best accuracy (top-1 and 5 error): 25.35 6.08
+* Epoch: [58/60]	 Top 1-err 25.380  Top 5-err 6.000	 Test Loss 0.946
+74.62
+0.7462
+0.19
+0.12
+* Epoch: [59/60]	 Top 1-err 35.636  Top 5-err 12.588	 Train Loss 1.698
+* Epoch: [59/60]	 Top 1-err 25.540  Top 5-err 6.070	 Test Loss 0.970
+Current best accuracy (top-1 and 5 error): 25.35 6.08
+* Epoch: [59/60]	 Top 1-err 25.540  Top 5-err 6.070	 Test Loss 0.970
+74.46
+0.7446
+0.21
+0.13
+Best accuracy (top-1 and 5 error): 25.35 6.08
+=> loading checkpoint 'runs/cifar100_resnet_1_35_98_test/model_best.pth.tar'
+* Epoch: [-1/60]	 Top 1-err 25.350  Top 5-err 6.080	 Test Loss 0.964
+74.65
+0.7465
+0.2
+0.14

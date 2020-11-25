@@ -1,0 +1,3567 @@
+python3 repair_confusion_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4/model_best.pth.tar --expid 0 --lam 0 --forward 1
+Files already downloaded and verified
+Files already downloaded and verified
+Files already downloaded and verified
+=> creating model 'resnet'
+True
+=> loading checkpoint './runs/cifar10_resnet_2_4/model_best.pth.tar'
+=> loaded checkpoint './runs/cifar10_resnet_2_4/model_best.pth.tar'
+the number of model parameters: 498586
+* Epoch: [0/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.189
+* Epoch: [0/60]	 Top 1-err 16.160  Top 5-err 0.920	 Test Loss 0.604
+* Epoch: [0/60]	 Top 1-err 16.160  Top 5-err 0.920	 Test Loss 0.604
+logging filter: 83.84
+logging filter: 0.8384
+logging filter: pair accuracy: 0.7035
+logging filter: 3 -> 5
+logging filter: 0.037
+logging filter: 5 -> 3
+logging filter: 0.107
+not enough sample
+0
+10
+* Epoch: [1/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.184
+* Epoch: [1/60]	 Top 1-err 15.580  Top 5-err 0.880	 Test Loss 0.617
+* Epoch: [1/60]	 Top 1-err 15.580  Top 5-err 0.880	 Test Loss 0.617
+logging filter: 84.42
+logging filter: 0.8442
+logging filter: pair accuracy: 0.5835
+logging filter: 3 -> 5
+logging filter: 0.012
+logging filter: 5 -> 3
+logging filter: 0.122
+* Epoch: [2/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.161
+* Epoch: [2/60]	 Top 1-err 15.840  Top 5-err 1.700	 Test Loss 0.659
+* Epoch: [2/60]	 Top 1-err 15.840  Top 5-err 1.700	 Test Loss 0.659
+logging filter: 84.16
+logging filter: 0.8416
+logging filter: pair accuracy: 0.608
+logging filter: 3 -> 5
+logging filter: 0.014
+logging filter: 5 -> 3
+logging filter: 0.106
+* Epoch: [3/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.157
+* Epoch: [3/60]	 Top 1-err 14.630  Top 5-err 0.870	 Test Loss 0.559
+* Epoch: [3/60]	 Top 1-err 14.630  Top 5-err 0.870	 Test Loss 0.559
+logging filter: 85.37
+logging filter: 0.8537
+logging filter: pair accuracy: 0.7175
+logging filter: 3 -> 5
+logging filter: 0.06
+logging filter: 5 -> 3
+logging filter: 0.068
+* Epoch: [4/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.149
+* Epoch: [4/60]	 Top 1-err 14.460  Top 5-err 0.950	 Test Loss 0.601
+* Epoch: [4/60]	 Top 1-err 14.460  Top 5-err 0.950	 Test Loss 0.601
+logging filter: 85.54
+logging filter: 0.8554
+logging filter: pair accuracy: 0.674
+logging filter: 3 -> 5
+logging filter: 0.016
+logging filter: 5 -> 3
+logging filter: 0.131
+not enough sample
+0
+10
+* Epoch: [5/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.149
+* Epoch: [5/60]	 Top 1-err 12.650  Top 5-err 0.700	 Test Loss 0.501
+* Epoch: [5/60]	 Top 1-err 12.650  Top 5-err 0.700	 Test Loss 0.501
+logging filter: 87.35
+logging filter: 0.8735
+logging filter: pair accuracy: 0.671
+logging filter: 3 -> 5
+logging filter: 0.042
+logging filter: 5 -> 3
+logging filter: 0.058
+not enough sample
+10
+0
+* Epoch: [6/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.144
+* Epoch: [6/60]	 Top 1-err 16.540  Top 5-err 1.490	 Test Loss 0.673
+* Epoch: [6/60]	 Top 1-err 16.540  Top 5-err 1.490	 Test Loss 0.673
+logging filter: 83.46
+logging filter: 0.8346
+logging filter: pair accuracy: 0.5995
+logging filter: 3 -> 5
+logging filter: 0.018
+logging filter: 5 -> 3
+logging filter: 0.103
+* Epoch: [7/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.138
+* Epoch: [7/60]	 Top 1-err 14.000  Top 5-err 0.960	 Test Loss 0.559
+* Epoch: [7/60]	 Top 1-err 14.000  Top 5-err 0.960	 Test Loss 0.559
+logging filter: 86.0
+logging filter: 0.86
+logging filter: pair accuracy: 0.664
+logging filter: 3 -> 5
+logging filter: 0.035
+logging filter: 5 -> 3
+logging filter: 0.075
+not enough sample
+0
+10
+* Epoch: [8/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.141
+* Epoch: [8/60]	 Top 1-err 14.840  Top 5-err 0.660	 Test Loss 0.605
+* Epoch: [8/60]	 Top 1-err 14.840  Top 5-err 0.660	 Test Loss 0.605
+logging filter: 85.16
+logging filter: 0.8516
+logging filter: pair accuracy: 0.713
+logging filter: 3 -> 5
+logging filter: 0.037
+logging filter: 5 -> 3
+logging filter: 0.083
+not enough sample
+0
+10
+* Epoch: [9/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.141
+* Epoch: [9/60]	 Top 1-err 14.500  Top 5-err 1.340	 Test Loss 0.633
+* Epoch: [9/60]	 Top 1-err 14.500  Top 5-err 1.340	 Test Loss 0.633
+logging filter: 85.5
+logging filter: 0.855
+logging filter: pair accuracy: 0.62
+logging filter: 3 -> 5
+logging filter: 0.012
+logging filter: 5 -> 3
+logging filter: 0.136
+* Epoch: [10/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.134
+* Epoch: [10/60]	 Top 1-err 14.310  Top 5-err 0.980	 Test Loss 0.578
+* Epoch: [10/60]	 Top 1-err 14.310  Top 5-err 0.980	 Test Loss 0.578
+logging filter: 85.69
+logging filter: 0.8569
+logging filter: pair accuracy: 0.674
+logging filter: 3 -> 5
+logging filter: 0.016
+logging filter: 5 -> 3
+logging filter: 0.141
+* Epoch: [11/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.130
+* Epoch: [11/60]	 Top 1-err 15.640  Top 5-err 1.180	 Test Loss 0.690
+* Epoch: [11/60]	 Top 1-err 15.640  Top 5-err 1.180	 Test Loss 0.690
+logging filter: 84.36
+logging filter: 0.8436
+logging filter: pair accuracy: 0.551
+logging filter: 3 -> 5
+logging filter: 0.023
+logging filter: 5 -> 3
+logging filter: 0.046
+* Epoch: [12/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.124
+* Epoch: [12/60]	 Top 1-err 12.930  Top 5-err 0.660	 Test Loss 0.511
+* Epoch: [12/60]	 Top 1-err 12.930  Top 5-err 0.660	 Test Loss 0.511
+logging filter: 87.07
+logging filter: 0.8707
+logging filter: pair accuracy: 0.7085
+logging filter: 3 -> 5
+logging filter: 0.031
+logging filter: 5 -> 3
+logging filter: 0.084
+* Epoch: [13/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.129
+* Epoch: [13/60]	 Top 1-err 15.780  Top 5-err 1.300	 Test Loss 0.655
+* Epoch: [13/60]	 Top 1-err 15.780  Top 5-err 1.300	 Test Loss 0.655
+logging filter: 84.22
+logging filter: 0.8422
+logging filter: pair accuracy: 0.578
+logging filter: 3 -> 5
+logging filter: 0.015
+logging filter: 5 -> 3
+logging filter: 0.101
+* Epoch: [14/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.134
+* Epoch: [14/60]	 Top 1-err 15.060  Top 5-err 1.640	 Test Loss 0.686
+* Epoch: [14/60]	 Top 1-err 15.060  Top 5-err 1.640	 Test Loss 0.686
+logging filter: 84.94
+logging filter: 0.8494
+logging filter: pair accuracy: 0.5995
+logging filter: 3 -> 5
+logging filter: 0.022
+logging filter: 5 -> 3
+logging filter: 0.076
+* Epoch: [15/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.131
+* Epoch: [15/60]	 Top 1-err 17.960  Top 5-err 2.010	 Test Loss 0.827
+* Epoch: [15/60]	 Top 1-err 17.960  Top 5-err 2.010	 Test Loss 0.827
+logging filter: 82.04
+logging filter: 0.8204
+logging filter: pair accuracy: 0.47
+logging filter: 3 -> 5
+logging filter: 0.006
+logging filter: 5 -> 3
+logging filter: 0.108
+* Epoch: [16/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.129
+* Epoch: [16/60]	 Top 1-err 14.610  Top 5-err 1.450	 Test Loss 0.648
+* Epoch: [16/60]	 Top 1-err 14.610  Top 5-err 1.450	 Test Loss 0.648
+logging filter: 85.39
+logging filter: 0.8539
+logging filter: pair accuracy: 0.6035
+logging filter: 3 -> 5
+logging filter: 0.072
+logging filter: 5 -> 3
+logging filter: 0.024
+* Epoch: [17/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.128
+* Epoch: [17/60]	 Top 1-err 14.570  Top 5-err 1.550	 Test Loss 0.645
+* Epoch: [17/60]	 Top 1-err 14.570  Top 5-err 1.550	 Test Loss 0.645
+logging filter: 85.43
+logging filter: 0.8543
+logging filter: pair accuracy: 0.634
+logging filter: 3 -> 5
+logging filter: 0.013
+logging filter: 5 -> 3
+logging filter: 0.132
+not enough sample
+10
+0
+not enough sample
+10
+0
+not enough sample
+0
+10
+* Epoch: [18/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.129
+* Epoch: [18/60]	 Top 1-err 15.030  Top 5-err 1.640	 Test Loss 0.692
+* Epoch: [18/60]	 Top 1-err 15.030  Top 5-err 1.640	 Test Loss 0.692
+logging filter: 84.97
+logging filter: 0.8497
+logging filter: pair accuracy: 0.559
+logging filter: 3 -> 5
+logging filter: 0.041
+logging filter: 5 -> 3
+logging filter: 0.029
+* Epoch: [19/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.122
+* Epoch: [19/60]	 Top 1-err 14.830  Top 5-err 1.510	 Test Loss 0.635
+* Epoch: [19/60]	 Top 1-err 14.830  Top 5-err 1.510	 Test Loss 0.635
+logging filter: 85.17
+logging filter: 0.8517
+logging filter: pair accuracy: 0.571
+logging filter: 3 -> 5
+logging filter: 0.004
+logging filter: 5 -> 3
+logging filter: 0.097
+not enough sample
+0
+10
+* Epoch: [20/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.124
+* Epoch: [20/60]	 Top 1-err 11.650  Top 5-err 0.700	 Test Loss 0.454
+* Epoch: [20/60]	 Top 1-err 11.650  Top 5-err 0.700	 Test Loss 0.454
+logging filter: 88.35
+logging filter: 0.8835
+logging filter: pair accuracy: 0.7025
+logging filter: 3 -> 5
+logging filter: 0.037
+logging filter: 5 -> 3
+logging filter: 0.098
+* Epoch: [21/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.121
+* Epoch: [21/60]	 Top 1-err 13.180  Top 5-err 0.830	 Test Loss 0.541
+* Epoch: [21/60]	 Top 1-err 13.180  Top 5-err 0.830	 Test Loss 0.541
+logging filter: 86.82
+logging filter: 0.8682
+logging filter: pair accuracy: 0.646
+logging filter: 3 -> 5
+logging filter: 0.009
+logging filter: 5 -> 3
+logging filter: 0.112
+* Epoch: [22/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.121
+* Epoch: [22/60]	 Top 1-err 12.020  Top 5-err 0.750	 Test Loss 0.505
+* Epoch: [22/60]	 Top 1-err 12.020  Top 5-err 0.750	 Test Loss 0.505
+logging filter: 87.98
+logging filter: 0.8798
+logging filter: pair accuracy: 0.7205
+logging filter: 3 -> 5
+logging filter: 0.099
+logging filter: 5 -> 3
+logging filter: 0.04
+* Epoch: [23/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.115
+* Epoch: [23/60]	 Top 1-err 11.930  Top 5-err 0.760	 Test Loss 0.501
+* Epoch: [23/60]	 Top 1-err 11.930  Top 5-err 0.760	 Test Loss 0.501
+logging filter: 88.07
+logging filter: 0.8807
+logging filter: pair accuracy: 0.709
+logging filter: 3 -> 5
+logging filter: 0.066
+logging filter: 5 -> 3
+logging filter: 0.039
+* Epoch: [24/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.117
+* Epoch: [24/60]	 Top 1-err 13.810  Top 5-err 1.080	 Test Loss 0.584
+* Epoch: [24/60]	 Top 1-err 13.810  Top 5-err 1.080	 Test Loss 0.584
+logging filter: 86.19
+logging filter: 0.8619
+logging filter: pair accuracy: 0.673
+logging filter: 3 -> 5
+logging filter: 0.08
+logging filter: 5 -> 3
+logging filter: 0.039
+not enough sample
+0
+10
+* Epoch: [25/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.116
+* Epoch: [25/60]	 Top 1-err 12.390  Top 5-err 0.720	 Test Loss 0.519
+* Epoch: [25/60]	 Top 1-err 12.390  Top 5-err 0.720	 Test Loss 0.519
+logging filter: 87.61
+logging filter: 0.8761
+logging filter: pair accuracy: 0.7115
+logging filter: 3 -> 5
+logging filter: 0.022
+logging filter: 5 -> 3
+logging filter: 0.137
+* Epoch: [26/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.116
+* Epoch: [26/60]	 Top 1-err 13.070  Top 5-err 1.270	 Test Loss 0.559
+* Epoch: [26/60]	 Top 1-err 13.070  Top 5-err 1.270	 Test Loss 0.559
+logging filter: 86.93
+logging filter: 0.8693
+logging filter: pair accuracy: 0.639
+logging filter: 3 -> 5
+logging filter: 0.059
+logging filter: 5 -> 3
+logging filter: 0.045
+not enough sample
+10
+0
+* Epoch: [27/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.120
+* Epoch: [27/60]	 Top 1-err 12.430  Top 5-err 0.930	 Test Loss 0.522
+* Epoch: [27/60]	 Top 1-err 12.430  Top 5-err 0.930	 Test Loss 0.522
+logging filter: 87.57
+logging filter: 0.8757
+logging filter: pair accuracy: 0.666
+logging filter: 3 -> 5
+logging filter: 0.109
+logging filter: 5 -> 3
+logging filter: 0.021
+not enough sample
+10
+0
+* Epoch: [28/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.124
+* Epoch: [28/60]	 Top 1-err 14.760  Top 5-err 1.310	 Test Loss 0.620
+* Epoch: [28/60]	 Top 1-err 14.760  Top 5-err 1.310	 Test Loss 0.620
+logging filter: 85.24
+logging filter: 0.8524
+logging filter: pair accuracy: 0.6075
+logging filter: 3 -> 5
+logging filter: 0.037
+logging filter: 5 -> 3
+logging filter: 0.048
+* Epoch: [29/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.110
+* Epoch: [29/60]	 Top 1-err 12.280  Top 5-err 0.670	 Test Loss 0.512
+* Epoch: [29/60]	 Top 1-err 12.280  Top 5-err 0.670	 Test Loss 0.512
+logging filter: 87.72
+logging filter: 0.8772
+logging filter: pair accuracy: 0.727
+logging filter: 3 -> 5
+logging filter: 0.043
+logging filter: 5 -> 3
+logging filter: 0.087
+* Epoch: [30/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.066
+* Epoch: [30/60]	 Top 1-err 10.320  Top 5-err 0.650	 Test Loss 0.417
+* Epoch: [30/60]	 Top 1-err 10.320  Top 5-err 0.650	 Test Loss 0.417
+logging filter: 89.68
+logging filter: 0.8968
+logging filter: pair accuracy: 0.7225
+logging filter: 3 -> 5
+logging filter: 0.026
+logging filter: 5 -> 3
+logging filter: 0.086
+not enough sample
+0
+10
+* Epoch: [31/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.043
+* Epoch: [31/60]	 Top 1-err 10.630  Top 5-err 0.810	 Test Loss 0.452
+* Epoch: [31/60]	 Top 1-err 10.630  Top 5-err 0.810	 Test Loss 0.452
+logging filter: 89.37
+logging filter: 0.8937
+logging filter: pair accuracy: 0.695
+logging filter: 3 -> 5
+logging filter: 0.016
+logging filter: 5 -> 3
+logging filter: 0.101
+* Epoch: [32/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.035
+* Epoch: [32/60]	 Top 1-err 10.100  Top 5-err 0.610	 Test Loss 0.407
+* Epoch: [32/60]	 Top 1-err 10.100  Top 5-err 0.610	 Test Loss 0.407
+logging filter: 89.9
+logging filter: 0.899
+logging filter: pair accuracy: 0.719
+logging filter: 3 -> 5
+logging filter: 0.042
+logging filter: 5 -> 3
+logging filter: 0.057
+* Epoch: [33/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.032
+* Epoch: [33/60]	 Top 1-err 10.270  Top 5-err 0.720	 Test Loss 0.437
+* Epoch: [33/60]	 Top 1-err 10.270  Top 5-err 0.720	 Test Loss 0.437
+logging filter: 89.73
+logging filter: 0.8973
+logging filter: pair accuracy: 0.714
+logging filter: 3 -> 5
+logging filter: 0.024
+logging filter: 5 -> 3
+logging filter: 0.075
+* Epoch: [34/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.029
+* Epoch: [34/60]	 Top 1-err 9.760  Top 5-err 0.710	 Test Loss 0.425
+* Epoch: [34/60]	 Top 1-err 9.760  Top 5-err 0.710	 Test Loss 0.425
+logging filter: 90.24
+logging filter: 0.9024
+logging filter: pair accuracy: 0.729
+logging filter: 3 -> 5
+logging filter: 0.036
+logging filter: 5 -> 3
+logging filter: 0.06
+* Epoch: [35/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.026
+* Epoch: [35/60]	 Top 1-err 9.410  Top 5-err 0.610	 Test Loss 0.399
+* Epoch: [35/60]	 Top 1-err 9.410  Top 5-err 0.610	 Test Loss 0.399
+logging filter: 90.59
+logging filter: 0.9059
+logging filter: pair accuracy: 0.7385
+logging filter: 3 -> 5
+logging filter: 0.035
+logging filter: 5 -> 3
+logging filter: 0.06
+* Epoch: [36/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.025
+* Epoch: [36/60]	 Top 1-err 9.730  Top 5-err 0.760	 Test Loss 0.431
+* Epoch: [36/60]	 Top 1-err 9.730  Top 5-err 0.760	 Test Loss 0.431
+logging filter: 90.27
+logging filter: 0.9027
+logging filter: pair accuracy: 0.7285
+logging filter: 3 -> 5
+logging filter: 0.034
+logging filter: 5 -> 3
+logging filter: 0.057
+* Epoch: [37/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.024
+* Epoch: [37/60]	 Top 1-err 9.920  Top 5-err 0.780	 Test Loss 0.437
+* Epoch: [37/60]	 Top 1-err 9.920  Top 5-err 0.780	 Test Loss 0.437
+logging filter: 90.08
+logging filter: 0.9008
+logging filter: pair accuracy: 0.717
+logging filter: 3 -> 5
+logging filter: 0.025
+logging filter: 5 -> 3
+logging filter: 0.065
+not enough sample
+10
+0
+* Epoch: [38/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.022
+* Epoch: [38/60]	 Top 1-err 9.760  Top 5-err 0.820	 Test Loss 0.438
+* Epoch: [38/60]	 Top 1-err 9.760  Top 5-err 0.820	 Test Loss 0.438
+logging filter: 90.24
+logging filter: 0.9024
+logging filter: pair accuracy: 0.726
+logging filter: 3 -> 5
+logging filter: 0.025
+logging filter: 5 -> 3
+logging filter: 0.058
+not enough sample
+10
+0
+* Epoch: [39/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.021
+* Epoch: [39/60]	 Top 1-err 9.640  Top 5-err 0.740	 Test Loss 0.437
+* Epoch: [39/60]	 Top 1-err 9.640  Top 5-err 0.740	 Test Loss 0.437
+logging filter: 90.36
+logging filter: 0.9036
+logging filter: pair accuracy: 0.729
+logging filter: 3 -> 5
+logging filter: 0.031
+logging filter: 5 -> 3
+logging filter: 0.052
+* Epoch: [40/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.020
+* Epoch: [40/60]	 Top 1-err 10.030  Top 5-err 0.840	 Test Loss 0.448
+* Epoch: [40/60]	 Top 1-err 10.030  Top 5-err 0.840	 Test Loss 0.448
+logging filter: 89.97
+logging filter: 0.8997
+logging filter: pair accuracy: 0.7135
+logging filter: 3 -> 5
+logging filter: 0.042
+logging filter: 5 -> 3
+logging filter: 0.04
+* Epoch: [41/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.019
+* Epoch: [41/60]	 Top 1-err 9.770  Top 5-err 0.790	 Test Loss 0.440
+* Epoch: [41/60]	 Top 1-err 9.770  Top 5-err 0.790	 Test Loss 0.440
+logging filter: 90.23
+logging filter: 0.9023
+logging filter: pair accuracy: 0.723
+logging filter: 3 -> 5
+logging filter: 0.021
+logging filter: 5 -> 3
+logging filter: 0.064
+* Epoch: [42/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.018
+* Epoch: [42/60]	 Top 1-err 9.750  Top 5-err 0.820	 Test Loss 0.445
+* Epoch: [42/60]	 Top 1-err 9.750  Top 5-err 0.820	 Test Loss 0.445
+logging filter: 90.25
+logging filter: 0.9025
+logging filter: pair accuracy: 0.73
+logging filter: 3 -> 5
+logging filter: 0.03
+logging filter: 5 -> 3
+logging filter: 0.047
+* Epoch: [43/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.017
+* Epoch: [43/60]	 Top 1-err 9.590  Top 5-err 0.730	 Test Loss 0.438
+* Epoch: [43/60]	 Top 1-err 9.590  Top 5-err 0.730	 Test Loss 0.438
+logging filter: 90.41
+logging filter: 0.9041
+logging filter: pair accuracy: 0.7375
+logging filter: 3 -> 5
+logging filter: 0.024
+logging filter: 5 -> 3
+logging filter: 0.057
+* Epoch: [44/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.017
+* Epoch: [44/60]	 Top 1-err 10.140  Top 5-err 0.900	 Test Loss 0.472
+* Epoch: [44/60]	 Top 1-err 10.140  Top 5-err 0.900	 Test Loss 0.472
+logging filter: 89.86
+logging filter: 0.8986
+logging filter: pair accuracy: 0.702
+logging filter: 3 -> 5
+logging filter: 0.02
+logging filter: 5 -> 3
+logging filter: 0.065
+* Epoch: [45/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.016
+* Epoch: [45/60]	 Top 1-err 9.290  Top 5-err 0.690	 Test Loss 0.427
+Current best accuracy (top-1 and 5 error): 9.29 0.69
+saving best model...
+* Epoch: [45/60]	 Top 1-err 9.290  Top 5-err 0.690	 Test Loss 0.427
+logging filter: 90.71
+logging filter: 0.9071
+logging filter: pair accuracy: 0.744
+logging filter: 3 -> 5
+logging filter: 0.037
+logging filter: 5 -> 3
+logging filter: 0.047
+* Epoch: [46/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.016
+* Epoch: [46/60]	 Top 1-err 9.430  Top 5-err 0.760	 Test Loss 0.427
+Current best accuracy (top-1 and 5 error): 9.29 0.69
+* Epoch: [46/60]	 Top 1-err 9.430  Top 5-err 0.760	 Test Loss 0.427
+logging filter: 90.57
+logging filter: 0.9057
+logging filter: pair accuracy: 0.7425
+logging filter: 3 -> 5
+logging filter: 0.027
+logging filter: 5 -> 3
+logging filter: 0.057
+* Epoch: [47/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.015
+* Epoch: [47/60]	 Top 1-err 9.630  Top 5-err 0.710	 Test Loss 0.432
+Current best accuracy (top-1 and 5 error): 9.29 0.69
+* Epoch: [47/60]	 Top 1-err 9.630  Top 5-err 0.710	 Test Loss 0.432
+logging filter: 90.37
+logging filter: 0.9037
+logging filter: pair accuracy: 0.736
+logging filter: 3 -> 5
+logging filter: 0.024
+logging filter: 5 -> 3
+logging filter: 0.063
+* Epoch: [48/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.015
+* Epoch: [48/60]	 Top 1-err 9.870  Top 5-err 0.780	 Test Loss 0.447
+Current best accuracy (top-1 and 5 error): 9.29 0.69
+* Epoch: [48/60]	 Top 1-err 9.870  Top 5-err 0.780	 Test Loss 0.447
+logging filter: 90.13
+logging filter: 0.9013
+logging filter: pair accuracy: 0.7255
+logging filter: 3 -> 5
+logging filter: 0.027
+logging filter: 5 -> 3
+logging filter: 0.055
+not enough sample
+10
+0
+* Epoch: [49/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.014
+* Epoch: [49/60]	 Top 1-err 9.520  Top 5-err 0.800	 Test Loss 0.438
+Current best accuracy (top-1 and 5 error): 9.29 0.69
+* Epoch: [49/60]	 Top 1-err 9.520  Top 5-err 0.800	 Test Loss 0.438
+logging filter: 90.48
+logging filter: 0.9048
+logging filter: pair accuracy: 0.732
+logging filter: 3 -> 5
+logging filter: 0.031
+logging filter: 5 -> 3
+logging filter: 0.049
+not enough sample
+10
+0
+* Epoch: [50/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.015
+* Epoch: [50/60]	 Top 1-err 9.830  Top 5-err 0.760	 Test Loss 0.445
+Current best accuracy (top-1 and 5 error): 9.29 0.69
+* Epoch: [50/60]	 Top 1-err 9.830  Top 5-err 0.760	 Test Loss 0.445
+logging filter: 90.17
+logging filter: 0.9017
+logging filter: pair accuracy: 0.7235
+logging filter: 3 -> 5
+logging filter: 0.03
+logging filter: 5 -> 3
+logging filter: 0.052
+not enough sample
+10
+0
+not enough sample
+0
+10
+* Epoch: [51/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.014
+* Epoch: [51/60]	 Top 1-err 9.880  Top 5-err 0.830	 Test Loss 0.454
+Current best accuracy (top-1 and 5 error): 9.29 0.69
+* Epoch: [51/60]	 Top 1-err 9.880  Top 5-err 0.830	 Test Loss 0.454
+logging filter: 90.12
+logging filter: 0.9012
+logging filter: pair accuracy: 0.7165
+logging filter: 3 -> 5
+logging filter: 0.031
+logging filter: 5 -> 3
+logging filter: 0.045
+not enough sample
+10
+0
+* Epoch: [52/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.014
+* Epoch: [52/60]	 Top 1-err 9.530  Top 5-err 0.730	 Test Loss 0.439
+Current best accuracy (top-1 and 5 error): 9.29 0.69
+* Epoch: [52/60]	 Top 1-err 9.530  Top 5-err 0.730	 Test Loss 0.439
+logging filter: 90.47
+logging filter: 0.9047
+logging filter: pair accuracy: 0.7355
+logging filter: 3 -> 5
+logging filter: 0.02
+logging filter: 5 -> 3
+logging filter: 0.071
+not enough sample
+0
+10
+not enough sample
+10
+0
+* Epoch: [53/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.015
+* Epoch: [53/60]	 Top 1-err 9.530  Top 5-err 0.820	 Test Loss 0.430
+Current best accuracy (top-1 and 5 error): 9.29 0.69
+* Epoch: [53/60]	 Top 1-err 9.530  Top 5-err 0.820	 Test Loss 0.430
+logging filter: 90.47
+logging filter: 0.9047
+logging filter: pair accuracy: 0.7345
+logging filter: 3 -> 5
+logging filter: 0.045
+logging filter: 5 -> 3
+logging filter: 0.04
+* Epoch: [54/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.015
+* Epoch: [54/60]	 Top 1-err 9.740  Top 5-err 0.780	 Test Loss 0.442
+Current best accuracy (top-1 and 5 error): 9.29 0.69
+* Epoch: [54/60]	 Top 1-err 9.740  Top 5-err 0.780	 Test Loss 0.442
+logging filter: 90.26
+logging filter: 0.9026
+logging filter: pair accuracy: 0.7305
+logging filter: 3 -> 5
+logging filter: 0.024
+logging filter: 5 -> 3
+logging filter: 0.05
+not enough sample
+10
+0
+not enough sample
+10
+0
+* Epoch: [55/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.014
+* Epoch: [55/60]	 Top 1-err 9.190  Top 5-err 0.730	 Test Loss 0.420
+Current best accuracy (top-1 and 5 error): 9.19 0.73
+saving best model...
+* Epoch: [55/60]	 Top 1-err 9.190  Top 5-err 0.730	 Test Loss 0.420
+logging filter: 90.81
+logging filter: 0.9081
+logging filter: pair accuracy: 0.7465
+logging filter: 3 -> 5
+logging filter: 0.039
+logging filter: 5 -> 3
+logging filter: 0.046
+* Epoch: [56/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.014
+* Epoch: [56/60]	 Top 1-err 9.320  Top 5-err 0.670	 Test Loss 0.429
+Current best accuracy (top-1 and 5 error): 9.19 0.73
+* Epoch: [56/60]	 Top 1-err 9.320  Top 5-err 0.670	 Test Loss 0.429
+logging filter: 90.68
+logging filter: 0.9068
+logging filter: pair accuracy: 0.7435
+logging filter: 3 -> 5
+logging filter: 0.02
+logging filter: 5 -> 3
+logging filter: 0.075
+* Epoch: [57/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.014
+* Epoch: [57/60]	 Top 1-err 10.190  Top 5-err 0.900	 Test Loss 0.479
+Current best accuracy (top-1 and 5 error): 9.19 0.73
+* Epoch: [57/60]	 Top 1-err 10.190  Top 5-err 0.900	 Test Loss 0.479
+logging filter: 89.81
+logging filter: 0.8981
+logging filter: pair accuracy: 0.7045
+logging filter: 3 -> 5
+logging filter: 0.021
+logging filter: 5 -> 3
+logging filter: 0.057
+not enough sample
+10
+0
+* Epoch: [58/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.014
+* Epoch: [58/60]	 Top 1-err 9.560  Top 5-err 0.740	 Test Loss 0.444
+Current best accuracy (top-1 and 5 error): 9.19 0.73
+* Epoch: [58/60]	 Top 1-err 9.560  Top 5-err 0.740	 Test Loss 0.444
+logging filter: 90.44
+logging filter: 0.9044
+logging filter: pair accuracy: 0.7295
+logging filter: 3 -> 5
+logging filter: 0.028
+logging filter: 5 -> 3
+logging filter: 0.055
+* Epoch: [59/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.014
+* Epoch: [59/60]	 Top 1-err 9.760  Top 5-err 0.790	 Test Loss 0.456
+Current best accuracy (top-1 and 5 error): 9.19 0.73
+* Epoch: [59/60]	 Top 1-err 9.760  Top 5-err 0.790	 Test Loss 0.456
+logging filter: 90.24
+logging filter: 0.9024
+logging filter: pair accuracy: 0.7245
+logging filter: 3 -> 5
+logging filter: 0.021
+logging filter: 5 -> 3
+logging filter: 0.063
+Best accuracy (top-1 and 5 error): 9.19 0.73
+logging filter: 
+=> loading checkpoint 'runs/cifar10_resnet_2_4_dogcat_test/model_best.pth.tar'
+* Epoch: [-1/60]	 Top 1-err 9.190  Top 5-err 0.730	 Test Loss 0.420
+logging filter: 90.81
+logging filter: 0.9081
+logging filter: pair accuracy: 0.7465
+logging filter: 3 -> 5
+logging filter: 0.039
+logging filter: 5 -> 3
+logging filter: 0.046
+python3 repair_confusion_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4/model_best.pth.tar --expid 0 --lam 0 --forward 2
+Files already downloaded and verified
+Files already downloaded and verified
+Files already downloaded and verified
+=> creating model 'resnet'
+True
+=> loading checkpoint './runs/cifar10_resnet_2_4/model_best.pth.tar'
+=> loaded checkpoint './runs/cifar10_resnet_2_4/model_best.pth.tar'
+the number of model parameters: 498586
+* Epoch: [0/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.190
+* Epoch: [0/60]	 Top 1-err 19.720  Top 5-err 2.410	 Test Loss 0.905
+* Epoch: [0/60]	 Top 1-err 19.720  Top 5-err 2.410	 Test Loss 0.905
+logging filter: 80.28
+logging filter: 0.8028
+logging filter: pair accuracy: 0.4645
+logging filter: 3 -> 5
+logging filter: 0.006
+logging filter: 5 -> 3
+logging filter: 0.082
+not enough sample
+0
+10
+* Epoch: [1/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.178
+* Epoch: [1/60]	 Top 1-err 14.390  Top 5-err 1.180	 Test Loss 0.594
+* Epoch: [1/60]	 Top 1-err 14.390  Top 5-err 1.180	 Test Loss 0.594
+logging filter: 85.61
+logging filter: 0.8561
+logging filter: pair accuracy: 0.6365
+logging filter: 3 -> 5
+logging filter: 0.021
+logging filter: 5 -> 3
+logging filter: 0.073
+* Epoch: [2/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.162
+* Epoch: [2/60]	 Top 1-err 18.880  Top 5-err 2.510	 Test Loss 0.871
+* Epoch: [2/60]	 Top 1-err 18.880  Top 5-err 2.510	 Test Loss 0.871
+logging filter: 81.12
+logging filter: 0.8112
+logging filter: pair accuracy: 0.529
+logging filter: 3 -> 5
+logging filter: 0.015
+logging filter: 5 -> 3
+logging filter: 0.097
+* Epoch: [3/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.156
+* Epoch: [3/60]	 Top 1-err 19.120  Top 5-err 2.600	 Test Loss 0.895
+* Epoch: [3/60]	 Top 1-err 19.120  Top 5-err 2.600	 Test Loss 0.895
+logging filter: 80.88
+logging filter: 0.8088
+logging filter: pair accuracy: 0.488
+logging filter: 3 -> 5
+logging filter: 0.016
+logging filter: 5 -> 3
+logging filter: 0.057
+* Epoch: [4/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.149
+* Epoch: [4/60]	 Top 1-err 19.980  Top 5-err 2.430	 Test Loss 0.955
+* Epoch: [4/60]	 Top 1-err 19.980  Top 5-err 2.430	 Test Loss 0.955
+logging filter: 80.02
+logging filter: 0.8002
+logging filter: pair accuracy: 0.4435
+logging filter: 3 -> 5
+logging filter: 0.008
+logging filter: 5 -> 3
+logging filter: 0.095
+not enough sample
+0
+10
+* Epoch: [5/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.147
+* Epoch: [5/60]	 Top 1-err 16.350  Top 5-err 1.620	 Test Loss 0.727
+* Epoch: [5/60]	 Top 1-err 16.350  Top 5-err 1.620	 Test Loss 0.727
+logging filter: 83.65
+logging filter: 0.8365
+logging filter: pair accuracy: 0.602
+logging filter: 3 -> 5
+logging filter: 0.029
+logging filter: 5 -> 3
+logging filter: 0.067
+not enough sample
+10
+0
+* Epoch: [6/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.148
+* Epoch: [6/60]	 Top 1-err 20.960  Top 5-err 3.790	 Test Loss 1.131
+* Epoch: [6/60]	 Top 1-err 20.960  Top 5-err 3.790	 Test Loss 1.131
+logging filter: 79.04
+logging filter: 0.7904
+logging filter: pair accuracy: 0.3735
+logging filter: 3 -> 5
+logging filter: 0.028
+logging filter: 5 -> 3
+logging filter: 0.018
+* Epoch: [7/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.141
+* Epoch: [7/60]	 Top 1-err 16.940  Top 5-err 2.040	 Test Loss 0.772
+* Epoch: [7/60]	 Top 1-err 16.940  Top 5-err 2.040	 Test Loss 0.772
+logging filter: 83.06
+logging filter: 0.8306
+logging filter: pair accuracy: 0.551
+logging filter: 3 -> 5
+logging filter: 0.021
+logging filter: 5 -> 3
+logging filter: 0.052
+not enough sample
+0
+10
+* Epoch: [8/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.136
+* Epoch: [8/60]	 Top 1-err 14.910  Top 5-err 1.420	 Test Loss 0.672
+* Epoch: [8/60]	 Top 1-err 14.910  Top 5-err 1.420	 Test Loss 0.672
+logging filter: 85.09
+logging filter: 0.8509
+logging filter: pair accuracy: 0.5845
+logging filter: 3 -> 5
+logging filter: 0.062
+logging filter: 5 -> 3
+logging filter: 0.033
+not enough sample
+0
+10
+* Epoch: [9/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.142
+* Epoch: [9/60]	 Top 1-err 18.260  Top 5-err 1.980	 Test Loss 0.815
+* Epoch: [9/60]	 Top 1-err 18.260  Top 5-err 1.980	 Test Loss 0.815
+logging filter: 81.74
+logging filter: 0.8174
+logging filter: pair accuracy: 0.545
+logging filter: 3 -> 5
+logging filter: 0.007
+logging filter: 5 -> 3
+logging filter: 0.19
+* Epoch: [10/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.139
+* Epoch: [10/60]	 Top 1-err 16.570  Top 5-err 1.520	 Test Loss 0.735
+* Epoch: [10/60]	 Top 1-err 16.570  Top 5-err 1.520	 Test Loss 0.735
+logging filter: 83.43
+logging filter: 0.8343
+logging filter: pair accuracy: 0.549
+logging filter: 3 -> 5
+logging filter: 0.014
+logging filter: 5 -> 3
+logging filter: 0.082
+* Epoch: [11/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.135
+* Epoch: [11/60]	 Top 1-err 14.130  Top 5-err 0.940	 Test Loss 0.602
+* Epoch: [11/60]	 Top 1-err 14.130  Top 5-err 0.940	 Test Loss 0.602
+logging filter: 85.87
+logging filter: 0.8587
+logging filter: pair accuracy: 0.629
+logging filter: 3 -> 5
+logging filter: 0.027
+logging filter: 5 -> 3
+logging filter: 0.076
+* Epoch: [12/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.126
+* Epoch: [12/60]	 Top 1-err 16.540  Top 5-err 1.980	 Test Loss 0.790
+* Epoch: [12/60]	 Top 1-err 16.540  Top 5-err 1.980	 Test Loss 0.790
+logging filter: 83.46
+logging filter: 0.8346
+logging filter: pair accuracy: 0.566
+logging filter: 3 -> 5
+logging filter: 0.032
+logging filter: 5 -> 3
+logging filter: 0.051
+* Epoch: [13/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.134
+* Epoch: [13/60]	 Top 1-err 21.520  Top 5-err 3.780	 Test Loss 1.110
+* Epoch: [13/60]	 Top 1-err 21.520  Top 5-err 3.780	 Test Loss 1.110
+logging filter: 78.48
+logging filter: 0.7848
+logging filter: pair accuracy: 0.3415
+logging filter: 3 -> 5
+logging filter: 0.001
+logging filter: 5 -> 3
+logging filter: 0.143
+* Epoch: [14/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.130
+* Epoch: [14/60]	 Top 1-err 17.100  Top 5-err 2.150	 Test Loss 0.807
+* Epoch: [14/60]	 Top 1-err 17.100  Top 5-err 2.150	 Test Loss 0.807
+logging filter: 82.9
+logging filter: 0.829
+logging filter: pair accuracy: 0.5045
+logging filter: 3 -> 5
+logging filter: 0.004
+logging filter: 5 -> 3
+logging filter: 0.098
+* Epoch: [15/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.129
+* Epoch: [15/60]	 Top 1-err 18.840  Top 5-err 2.780	 Test Loss 0.945
+* Epoch: [15/60]	 Top 1-err 18.840  Top 5-err 2.780	 Test Loss 0.945
+logging filter: 81.16
+logging filter: 0.8116
+logging filter: pair accuracy: 0.4225
+logging filter: 3 -> 5
+logging filter: 0.017
+logging filter: 5 -> 3
+logging filter: 0.013
+* Epoch: [16/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.125
+* Epoch: [16/60]	 Top 1-err 14.940  Top 5-err 1.550	 Test Loss 0.683
+* Epoch: [16/60]	 Top 1-err 14.940  Top 5-err 1.550	 Test Loss 0.683
+logging filter: 85.06
+logging filter: 0.8506
+logging filter: pair accuracy: 0.5665
+logging filter: 3 -> 5
+logging filter: 0.051
+logging filter: 5 -> 3
+logging filter: 0.027
+* Epoch: [17/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.128
+* Epoch: [17/60]	 Top 1-err 16.160  Top 5-err 1.760	 Test Loss 0.731
+* Epoch: [17/60]	 Top 1-err 16.160  Top 5-err 1.760	 Test Loss 0.731
+logging filter: 83.84
+logging filter: 0.8384
+logging filter: pair accuracy: 0.5195
+logging filter: 3 -> 5
+logging filter: 0.018
+logging filter: 5 -> 3
+logging filter: 0.053
+not enough sample
+10
+0
+not enough sample
+10
+0
+not enough sample
+0
+10
+* Epoch: [18/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.122
+* Epoch: [18/60]	 Top 1-err 15.450  Top 5-err 1.710	 Test Loss 0.749
+* Epoch: [18/60]	 Top 1-err 15.450  Top 5-err 1.710	 Test Loss 0.749
+logging filter: 84.55
+logging filter: 0.8455
+logging filter: pair accuracy: 0.539
+logging filter: 3 -> 5
+logging filter: 0.026
+logging filter: 5 -> 3
+logging filter: 0.055
+* Epoch: [19/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.126
+* Epoch: [19/60]	 Top 1-err 15.080  Top 5-err 1.300	 Test Loss 0.652
+* Epoch: [19/60]	 Top 1-err 15.080  Top 5-err 1.300	 Test Loss 0.652
+logging filter: 84.92
+logging filter: 0.8492
+logging filter: pair accuracy: 0.5955
+logging filter: 3 -> 5
+logging filter: 0.02
+logging filter: 5 -> 3
+logging filter: 0.086
+not enough sample
+0
+10
+* Epoch: [20/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.122
+* Epoch: [20/60]	 Top 1-err 15.840  Top 5-err 1.580	 Test Loss 0.719
+* Epoch: [20/60]	 Top 1-err 15.840  Top 5-err 1.580	 Test Loss 0.719
+logging filter: 84.16
+logging filter: 0.8416
+logging filter: pair accuracy: 0.5305
+logging filter: 3 -> 5
+logging filter: 0.007
+logging filter: 5 -> 3
+logging filter: 0.13
+* Epoch: [21/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.122
+* Epoch: [21/60]	 Top 1-err 14.250  Top 5-err 1.500	 Test Loss 0.644
+* Epoch: [21/60]	 Top 1-err 14.250  Top 5-err 1.500	 Test Loss 0.644
+logging filter: 85.75
+logging filter: 0.8575
+logging filter: pair accuracy: 0.604
+logging filter: 3 -> 5
+logging filter: 0.04
+logging filter: 5 -> 3
+logging filter: 0.043
+* Epoch: [22/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.121
+* Epoch: [22/60]	 Top 1-err 14.680  Top 5-err 1.440	 Test Loss 0.683
+* Epoch: [22/60]	 Top 1-err 14.680  Top 5-err 1.440	 Test Loss 0.683
+logging filter: 85.32
+logging filter: 0.8532
+logging filter: pair accuracy: 0.5695
+logging filter: 3 -> 5
+logging filter: 0.058
+logging filter: 5 -> 3
+logging filter: 0.028
+* Epoch: [23/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.115
+* Epoch: [23/60]	 Top 1-err 14.050  Top 5-err 1.330	 Test Loss 0.613
+* Epoch: [23/60]	 Top 1-err 14.050  Top 5-err 1.330	 Test Loss 0.613
+logging filter: 85.95
+logging filter: 0.8595
+logging filter: pair accuracy: 0.6235
+logging filter: 3 -> 5
+logging filter: 0.036
+logging filter: 5 -> 3
+logging filter: 0.064
+* Epoch: [24/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.121
+* Epoch: [24/60]	 Top 1-err 16.530  Top 5-err 1.970	 Test Loss 0.779
+* Epoch: [24/60]	 Top 1-err 16.530  Top 5-err 1.970	 Test Loss 0.779
+logging filter: 83.47
+logging filter: 0.8347
+logging filter: pair accuracy: 0.538
+logging filter: 3 -> 5
+logging filter: 0.013
+logging filter: 5 -> 3
+logging filter: 0.067
+not enough sample
+0
+10
+* Epoch: [25/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.115
+* Epoch: [25/60]	 Top 1-err 15.440  Top 5-err 1.770	 Test Loss 0.718
+* Epoch: [25/60]	 Top 1-err 15.440  Top 5-err 1.770	 Test Loss 0.718
+logging filter: 84.56
+logging filter: 0.8456
+logging filter: pair accuracy: 0.589
+logging filter: 3 -> 5
+logging filter: 0.022
+logging filter: 5 -> 3
+logging filter: 0.092
+* Epoch: [26/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.115
+* Epoch: [26/60]	 Top 1-err 16.290  Top 5-err 1.650	 Test Loss 0.766
+* Epoch: [26/60]	 Top 1-err 16.290  Top 5-err 1.650	 Test Loss 0.766
+logging filter: 83.71
+logging filter: 0.8371
+logging filter: pair accuracy: 0.527
+logging filter: 3 -> 5
+logging filter: 0.028
+logging filter: 5 -> 3
+logging filter: 0.056
+not enough sample
+10
+0
+* Epoch: [27/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.117
+* Epoch: [27/60]	 Top 1-err 15.220  Top 5-err 1.610	 Test Loss 0.672
+* Epoch: [27/60]	 Top 1-err 15.220  Top 5-err 1.610	 Test Loss 0.672
+logging filter: 84.78
+logging filter: 0.8478
+logging filter: pair accuracy: 0.615
+logging filter: 3 -> 5
+logging filter: 0.062
+logging filter: 5 -> 3
+logging filter: 0.037
+not enough sample
+10
+0
+* Epoch: [28/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.122
+* Epoch: [28/60]	 Top 1-err 14.400  Top 5-err 1.190	 Test Loss 0.617
+* Epoch: [28/60]	 Top 1-err 14.400  Top 5-err 1.190	 Test Loss 0.617
+logging filter: 85.6
+logging filter: 0.856
+logging filter: pair accuracy: 0.6215
+logging filter: 3 -> 5
+logging filter: 0.032
+logging filter: 5 -> 3
+logging filter: 0.098
+* Epoch: [29/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.124
+* Epoch: [29/60]	 Top 1-err 16.520  Top 5-err 1.910	 Test Loss 0.743
+* Epoch: [29/60]	 Top 1-err 16.520  Top 5-err 1.910	 Test Loss 0.743
+logging filter: 83.48
+logging filter: 0.8348
+logging filter: pair accuracy: 0.544
+logging filter: 3 -> 5
+logging filter: 0.025
+logging filter: 5 -> 3
+logging filter: 0.083
+* Epoch: [30/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.070
+* Epoch: [30/60]	 Top 1-err 12.540  Top 5-err 1.190	 Test Loss 0.552
+* Epoch: [30/60]	 Top 1-err 12.540  Top 5-err 1.190	 Test Loss 0.552
+logging filter: 87.46
+logging filter: 0.8746
+logging filter: pair accuracy: 0.628
+logging filter: 3 -> 5
+logging filter: 0.017
+logging filter: 5 -> 3
+logging filter: 0.093
+not enough sample
+0
+10
+* Epoch: [31/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.045
+* Epoch: [31/60]	 Top 1-err 13.380  Top 5-err 1.700	 Test Loss 0.628
+* Epoch: [31/60]	 Top 1-err 13.380  Top 5-err 1.700	 Test Loss 0.628
+logging filter: 86.62
+logging filter: 0.8662
+logging filter: pair accuracy: 0.575
+logging filter: 3 -> 5
+logging filter: 0.012
+logging filter: 5 -> 3
+logging filter: 0.095
+* Epoch: [32/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.038
+* Epoch: [32/60]	 Top 1-err 11.780  Top 5-err 1.220	 Test Loss 0.532
+* Epoch: [32/60]	 Top 1-err 11.780  Top 5-err 1.220	 Test Loss 0.532
+logging filter: 88.22
+logging filter: 0.8822
+logging filter: pair accuracy: 0.637
+logging filter: 3 -> 5
+logging filter: 0.025
+logging filter: 5 -> 3
+logging filter: 0.05
+* Epoch: [33/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.034
+* Epoch: [33/60]	 Top 1-err 13.120  Top 5-err 1.510	 Test Loss 0.620
+* Epoch: [33/60]	 Top 1-err 13.120  Top 5-err 1.510	 Test Loss 0.620
+logging filter: 86.88
+logging filter: 0.8688
+logging filter: pair accuracy: 0.593
+logging filter: 3 -> 5
+logging filter: 0.016
+logging filter: 5 -> 3
+logging filter: 0.067
+* Epoch: [34/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.031
+* Epoch: [34/60]	 Top 1-err 12.030  Top 5-err 1.290	 Test Loss 0.570
+* Epoch: [34/60]	 Top 1-err 12.030  Top 5-err 1.290	 Test Loss 0.570
+logging filter: 87.97
+logging filter: 0.8797
+logging filter: pair accuracy: 0.627
+logging filter: 3 -> 5
+logging filter: 0.019
+logging filter: 5 -> 3
+logging filter: 0.059
+* Epoch: [35/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.027
+* Epoch: [35/60]	 Top 1-err 11.600  Top 5-err 1.170	 Test Loss 0.548
+* Epoch: [35/60]	 Top 1-err 11.600  Top 5-err 1.170	 Test Loss 0.548
+logging filter: 88.4
+logging filter: 0.884
+logging filter: pair accuracy: 0.6485
+logging filter: 3 -> 5
+logging filter: 0.025
+logging filter: 5 -> 3
+logging filter: 0.05
+* Epoch: [36/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.026
+* Epoch: [36/60]	 Top 1-err 12.470  Top 5-err 1.350	 Test Loss 0.593
+* Epoch: [36/60]	 Top 1-err 12.470  Top 5-err 1.350	 Test Loss 0.593
+logging filter: 87.53
+logging filter: 0.8753
+logging filter: pair accuracy: 0.6205
+logging filter: 3 -> 5
+logging filter: 0.022
+logging filter: 5 -> 3
+logging filter: 0.058
+* Epoch: [37/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.025
+* Epoch: [37/60]	 Top 1-err 11.770  Top 5-err 1.320	 Test Loss 0.571
+* Epoch: [37/60]	 Top 1-err 11.770  Top 5-err 1.320	 Test Loss 0.571
+logging filter: 88.23
+logging filter: 0.8823
+logging filter: pair accuracy: 0.6365
+logging filter: 3 -> 5
+logging filter: 0.019
+logging filter: 5 -> 3
+logging filter: 0.057
+not enough sample
+10
+0
+* Epoch: [38/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.023
+* Epoch: [38/60]	 Top 1-err 12.540  Top 5-err 1.440	 Test Loss 0.604
+* Epoch: [38/60]	 Top 1-err 12.540  Top 5-err 1.440	 Test Loss 0.604
+logging filter: 87.46
+logging filter: 0.8746
+logging filter: pair accuracy: 0.6055
+logging filter: 3 -> 5
+logging filter: 0.016
+logging filter: 5 -> 3
+logging filter: 0.056
+not enough sample
+10
+0
+* Epoch: [39/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.021
+* Epoch: [39/60]	 Top 1-err 11.960  Top 5-err 1.440	 Test Loss 0.593
+* Epoch: [39/60]	 Top 1-err 11.960  Top 5-err 1.440	 Test Loss 0.593
+logging filter: 88.04
+logging filter: 0.8804
+logging filter: pair accuracy: 0.631
+logging filter: 3 -> 5
+logging filter: 0.021
+logging filter: 5 -> 3
+logging filter: 0.045
+* Epoch: [40/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.020
+* Epoch: [40/60]	 Top 1-err 12.560  Top 5-err 1.630	 Test Loss 0.626
+* Epoch: [40/60]	 Top 1-err 12.560  Top 5-err 1.630	 Test Loss 0.626
+logging filter: 87.44
+logging filter: 0.8744
+logging filter: pair accuracy: 0.6085
+logging filter: 3 -> 5
+logging filter: 0.037
+logging filter: 5 -> 3
+logging filter: 0.029
+* Epoch: [41/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.019
+* Epoch: [41/60]	 Top 1-err 12.080  Top 5-err 1.380	 Test Loss 0.612
+* Epoch: [41/60]	 Top 1-err 12.080  Top 5-err 1.380	 Test Loss 0.612
+logging filter: 87.92
+logging filter: 0.8792
+logging filter: pair accuracy: 0.6215
+logging filter: 3 -> 5
+logging filter: 0.014
+logging filter: 5 -> 3
+logging filter: 0.059
+* Epoch: [42/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.018
+* Epoch: [42/60]	 Top 1-err 12.210  Top 5-err 1.580	 Test Loss 0.633
+* Epoch: [42/60]	 Top 1-err 12.210  Top 5-err 1.580	 Test Loss 0.633
+logging filter: 87.79
+logging filter: 0.8779
+logging filter: pair accuracy: 0.6175
+logging filter: 3 -> 5
+logging filter: 0.026
+logging filter: 5 -> 3
+logging filter: 0.034
+* Epoch: [43/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.018
+* Epoch: [43/60]	 Top 1-err 11.810  Top 5-err 1.300	 Test Loss 0.606
+* Epoch: [43/60]	 Top 1-err 11.810  Top 5-err 1.300	 Test Loss 0.606
+logging filter: 88.19
+logging filter: 0.8819
+logging filter: pair accuracy: 0.64
+logging filter: 3 -> 5
+logging filter: 0.024
+logging filter: 5 -> 3
+logging filter: 0.045
+* Epoch: [44/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.017
+* Epoch: [44/60]	 Top 1-err 13.300  Top 5-err 1.790	 Test Loss 0.688
+* Epoch: [44/60]	 Top 1-err 13.300  Top 5-err 1.790	 Test Loss 0.688
+logging filter: 86.7
+logging filter: 0.867
+logging filter: pair accuracy: 0.5715
+logging filter: 3 -> 5
+logging filter: 0.009
+logging filter: 5 -> 3
+logging filter: 0.063
+* Epoch: [45/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.016
+* Epoch: [45/60]	 Top 1-err 11.560  Top 5-err 1.200	 Test Loss 0.589
+Current best accuracy (top-1 and 5 error): 11.56 1.2
+saving best model...
+* Epoch: [45/60]	 Top 1-err 11.560  Top 5-err 1.200	 Test Loss 0.589
+logging filter: 88.44
+logging filter: 0.8844
+logging filter: pair accuracy: 0.6525
+logging filter: 3 -> 5
+logging filter: 0.028
+logging filter: 5 -> 3
+logging filter: 0.038
+* Epoch: [46/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.016
+* Epoch: [46/60]	 Top 1-err 11.990  Top 5-err 1.470	 Test Loss 0.619
+Current best accuracy (top-1 and 5 error): 11.56 1.2
+* Epoch: [46/60]	 Top 1-err 11.990  Top 5-err 1.470	 Test Loss 0.619
+logging filter: 88.01
+logging filter: 0.8801
+logging filter: pair accuracy: 0.632
+logging filter: 3 -> 5
+logging filter: 0.011
+logging filter: 5 -> 3
+logging filter: 0.063
+* Epoch: [47/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.016
+* Epoch: [47/60]	 Top 1-err 12.090  Top 5-err 1.360	 Test Loss 0.619
+Current best accuracy (top-1 and 5 error): 11.56 1.2
+* Epoch: [47/60]	 Top 1-err 12.090  Top 5-err 1.360	 Test Loss 0.619
+logging filter: 87.91
+logging filter: 0.8791
+logging filter: pair accuracy: 0.6175
+logging filter: 3 -> 5
+logging filter: 0.017
+logging filter: 5 -> 3
+logging filter: 0.063
+* Epoch: [48/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.016
+* Epoch: [48/60]	 Top 1-err 12.230  Top 5-err 1.400	 Test Loss 0.615
+Current best accuracy (top-1 and 5 error): 11.56 1.2
+* Epoch: [48/60]	 Top 1-err 12.230  Top 5-err 1.400	 Test Loss 0.615
+logging filter: 87.77
+logging filter: 0.8777
+logging filter: pair accuracy: 0.6155
+logging filter: 3 -> 5
+logging filter: 0.019
+logging filter: 5 -> 3
+logging filter: 0.04
+not enough sample
+10
+0
+* Epoch: [49/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.015
+* Epoch: [49/60]	 Top 1-err 11.280  Top 5-err 1.180	 Test Loss 0.580
+Current best accuracy (top-1 and 5 error): 11.28 1.18
+saving best model...
+* Epoch: [49/60]	 Top 1-err 11.280  Top 5-err 1.180	 Test Loss 0.580
+logging filter: 88.72
+logging filter: 0.8872
+logging filter: pair accuracy: 0.639
+logging filter: 3 -> 5
+logging filter: 0.022
+logging filter: 5 -> 3
+logging filter: 0.045
+not enough sample
+10
+0
+* Epoch: [50/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.015
+* Epoch: [50/60]	 Top 1-err 11.900  Top 5-err 1.410	 Test Loss 0.626
+Current best accuracy (top-1 and 5 error): 11.28 1.18
+* Epoch: [50/60]	 Top 1-err 11.900  Top 5-err 1.410	 Test Loss 0.626
+logging filter: 88.1
+logging filter: 0.881
+logging filter: pair accuracy: 0.623
+logging filter: 3 -> 5
+logging filter: 0.016
+logging filter: 5 -> 3
+logging filter: 0.047
+not enough sample
+10
+0
+not enough sample
+0
+10
+* Epoch: [51/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.015
+* Epoch: [51/60]	 Top 1-err 12.210  Top 5-err 1.540	 Test Loss 0.635
+Current best accuracy (top-1 and 5 error): 11.28 1.18
+* Epoch: [51/60]	 Top 1-err 12.210  Top 5-err 1.540	 Test Loss 0.635
+logging filter: 87.79
+logging filter: 0.8779
+logging filter: pair accuracy: 0.6095
+logging filter: 3 -> 5
+logging filter: 0.027
+logging filter: 5 -> 3
+logging filter: 0.03
+not enough sample
+10
+0
+* Epoch: [52/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.015
+* Epoch: [52/60]	 Top 1-err 11.990  Top 5-err 1.320	 Test Loss 0.618
+Current best accuracy (top-1 and 5 error): 11.28 1.18
+* Epoch: [52/60]	 Top 1-err 11.990  Top 5-err 1.320	 Test Loss 0.618
+logging filter: 88.01
+logging filter: 0.8801
+logging filter: pair accuracy: 0.628
+logging filter: 3 -> 5
+logging filter: 0.013
+logging filter: 5 -> 3
+logging filter: 0.067
+not enough sample
+0
+10
+not enough sample
+10
+0
+* Epoch: [53/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.014
+* Epoch: [53/60]	 Top 1-err 11.640  Top 5-err 1.320	 Test Loss 0.593
+Current best accuracy (top-1 and 5 error): 11.28 1.18
+* Epoch: [53/60]	 Top 1-err 11.640  Top 5-err 1.320	 Test Loss 0.593
+logging filter: 88.36
+logging filter: 0.8836
+logging filter: pair accuracy: 0.637
+logging filter: 3 -> 5
+logging filter: 0.024
+logging filter: 5 -> 3
+logging filter: 0.036
+* Epoch: [54/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.015
+* Epoch: [54/60]	 Top 1-err 11.820  Top 5-err 1.350	 Test Loss 0.604
+Current best accuracy (top-1 and 5 error): 11.28 1.18
+* Epoch: [54/60]	 Top 1-err 11.820  Top 5-err 1.350	 Test Loss 0.604
+logging filter: 88.18
+logging filter: 0.8818
+logging filter: pair accuracy: 0.6305
+logging filter: 3 -> 5
+logging filter: 0.021
+logging filter: 5 -> 3
+logging filter: 0.042
+not enough sample
+10
+0
+not enough sample
+10
+0
+* Epoch: [55/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.015
+* Epoch: [55/60]	 Top 1-err 11.310  Top 5-err 1.180	 Test Loss 0.576
+Current best accuracy (top-1 and 5 error): 11.28 1.18
+* Epoch: [55/60]	 Top 1-err 11.310  Top 5-err 1.180	 Test Loss 0.576
+logging filter: 88.69
+logging filter: 0.8869
+logging filter: pair accuracy: 0.65
+logging filter: 3 -> 5
+logging filter: 0.028
+logging filter: 5 -> 3
+logging filter: 0.039
+* Epoch: [56/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.014
+* Epoch: [56/60]	 Top 1-err 11.120  Top 5-err 1.230	 Test Loss 0.566
+Current best accuracy (top-1 and 5 error): 11.12 1.23
+saving best model...
+* Epoch: [56/60]	 Top 1-err 11.120  Top 5-err 1.230	 Test Loss 0.566
+logging filter: 88.88
+logging filter: 0.8888
+logging filter: pair accuracy: 0.6645
+logging filter: 3 -> 5
+logging filter: 0.012
+logging filter: 5 -> 3
+logging filter: 0.09
+* Epoch: [57/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.014
+* Epoch: [57/60]	 Top 1-err 12.510  Top 5-err 1.720	 Test Loss 0.672
+Current best accuracy (top-1 and 5 error): 11.12 1.23
+* Epoch: [57/60]	 Top 1-err 12.510  Top 5-err 1.720	 Test Loss 0.672
+logging filter: 87.49
+logging filter: 0.8749
+logging filter: pair accuracy: 0.589
+logging filter: 3 -> 5
+logging filter: 0.01
+logging filter: 5 -> 3
+logging filter: 0.059
+not enough sample
+10
+0
+* Epoch: [58/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.015
+* Epoch: [58/60]	 Top 1-err 11.650  Top 5-err 1.470	 Test Loss 0.592
+Current best accuracy (top-1 and 5 error): 11.12 1.23
+* Epoch: [58/60]	 Top 1-err 11.650  Top 5-err 1.470	 Test Loss 0.592
+logging filter: 88.35
+logging filter: 0.8835
+logging filter: pair accuracy: 0.6395
+logging filter: 3 -> 5
+logging filter: 0.02
+logging filter: 5 -> 3
+logging filter: 0.055
+* Epoch: [59/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.014
+* Epoch: [59/60]	 Top 1-err 11.960  Top 5-err 1.360	 Test Loss 0.616
+Current best accuracy (top-1 and 5 error): 11.12 1.23
+* Epoch: [59/60]	 Top 1-err 11.960  Top 5-err 1.360	 Test Loss 0.616
+logging filter: 88.04
+logging filter: 0.8804
+logging filter: pair accuracy: 0.6215
+logging filter: 3 -> 5
+logging filter: 0.012
+logging filter: 5 -> 3
+logging filter: 0.075
+Best accuracy (top-1 and 5 error): 11.12 1.23
+logging filter: 
+=> loading checkpoint 'runs/cifar10_resnet_2_4_dogcat_test/model_best.pth.tar'
+* Epoch: [-1/60]	 Top 1-err 11.120  Top 5-err 1.230	 Test Loss 0.566
+logging filter: 88.88
+logging filter: 0.8888
+logging filter: pair accuracy: 0.6645
+logging filter: 3 -> 5
+logging filter: 0.012
+logging filter: 5 -> 3
+logging filter: 0.09
+python3 repair_confusion_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4/model_best.pth.tar --expid 0 --lam 0 --forward 3
+Files already downloaded and verified
+Files already downloaded and verified
+Files already downloaded and verified
+=> creating model 'resnet'
+True
+=> loading checkpoint './runs/cifar10_resnet_2_4/model_best.pth.tar'
+=> loaded checkpoint './runs/cifar10_resnet_2_4/model_best.pth.tar'
+the number of model parameters: 498586
+* Epoch: [0/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.194
+* Epoch: [0/60]	 Top 1-err 21.630  Top 5-err 1.950	 Test Loss 1.004
+* Epoch: [0/60]	 Top 1-err 21.630  Top 5-err 1.950	 Test Loss 1.004
+logging filter: 78.37
+logging filter: 0.7837
+logging filter: pair accuracy: 0.447
+logging filter: 3 -> 5
+logging filter: 0.007
+logging filter: 5 -> 3
+logging filter: 0.11
+not enough sample
+0
+10
+* Epoch: [1/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.178
+* Epoch: [1/60]	 Top 1-err 17.950  Top 5-err 1.440	 Test Loss 0.787
+* Epoch: [1/60]	 Top 1-err 17.950  Top 5-err 1.440	 Test Loss 0.787
+logging filter: 82.05
+logging filter: 0.8205
+logging filter: pair accuracy: 0.4725
+logging filter: 3 -> 5
+logging filter: 0.007
+logging filter: 5 -> 3
+logging filter: 0.079
+* Epoch: [2/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.161
+* Epoch: [2/60]	 Top 1-err 18.820  Top 5-err 2.570	 Test Loss 0.896
+* Epoch: [2/60]	 Top 1-err 18.820  Top 5-err 2.570	 Test Loss 0.896
+logging filter: 81.18
+logging filter: 0.8118
+logging filter: pair accuracy: 0.479
+logging filter: 3 -> 5
+logging filter: 0.004
+logging filter: 5 -> 3
+logging filter: 0.107
+* Epoch: [3/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.157
+* Epoch: [3/60]	 Top 1-err 18.520  Top 5-err 2.310	 Test Loss 0.851
+* Epoch: [3/60]	 Top 1-err 18.520  Top 5-err 2.310	 Test Loss 0.851
+logging filter: 81.48
+logging filter: 0.8148
+logging filter: pair accuracy: 0.5195
+logging filter: 3 -> 5
+logging filter: 0.023
+logging filter: 5 -> 3
+logging filter: 0.044
+* Epoch: [4/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.150
+* Epoch: [4/60]	 Top 1-err 16.090  Top 5-err 1.840	 Test Loss 0.741
+* Epoch: [4/60]	 Top 1-err 16.090  Top 5-err 1.840	 Test Loss 0.741
+logging filter: 83.91
+logging filter: 0.8391
+logging filter: pair accuracy: 0.558
+logging filter: 3 -> 5
+logging filter: 0.013
+logging filter: 5 -> 3
+logging filter: 0.091
+not enough sample
+0
+10
+* Epoch: [5/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.144
+* Epoch: [5/60]	 Top 1-err 18.530  Top 5-err 2.510	 Test Loss 0.885
+* Epoch: [5/60]	 Top 1-err 18.530  Top 5-err 2.510	 Test Loss 0.885
+logging filter: 81.47
+logging filter: 0.8147
+logging filter: pair accuracy: 0.472
+logging filter: 3 -> 5
+logging filter: 0.034
+logging filter: 5 -> 3
+logging filter: 0.026
+not enough sample
+10
+0
+* Epoch: [6/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.144
+* Epoch: [6/60]	 Top 1-err 20.800  Top 5-err 3.100	 Test Loss 1.055
+* Epoch: [6/60]	 Top 1-err 20.800  Top 5-err 3.100	 Test Loss 1.055
+logging filter: 79.2
+logging filter: 0.792
+logging filter: pair accuracy: 0.472
+logging filter: 3 -> 5
+logging filter: 0.036
+logging filter: 5 -> 3
+logging filter: 0.04
+* Epoch: [7/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.139
+* Epoch: [7/60]	 Top 1-err 16.270  Top 5-err 1.870	 Test Loss 0.764
+* Epoch: [7/60]	 Top 1-err 16.270  Top 5-err 1.870	 Test Loss 0.764
+logging filter: 83.73
+logging filter: 0.8373
+logging filter: pair accuracy: 0.5105
+logging filter: 3 -> 5
+logging filter: 0.041
+logging filter: 5 -> 3
+logging filter: 0.029
+not enough sample
+0
+10
+* Epoch: [8/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.141
+* Epoch: [8/60]	 Top 1-err 15.700  Top 5-err 1.610	 Test Loss 0.691
+* Epoch: [8/60]	 Top 1-err 15.700  Top 5-err 1.610	 Test Loss 0.691
+logging filter: 84.3
+logging filter: 0.843
+logging filter: pair accuracy: 0.586
+logging filter: 3 -> 5
+logging filter: 0.03
+logging filter: 5 -> 3
+logging filter: 0.065
+not enough sample
+0
+10
+* Epoch: [9/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.139
+* Epoch: [9/60]	 Top 1-err 18.100  Top 5-err 2.020	 Test Loss 0.858
+* Epoch: [9/60]	 Top 1-err 18.100  Top 5-err 2.020	 Test Loss 0.858
+logging filter: 81.9
+logging filter: 0.819
+logging filter: pair accuracy: 0.505
+logging filter: 3 -> 5
+logging filter: 0.009
+logging filter: 5 -> 3
+logging filter: 0.094
+* Epoch: [10/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.133
+* Epoch: [10/60]	 Top 1-err 15.720  Top 5-err 1.750	 Test Loss 0.716
+* Epoch: [10/60]	 Top 1-err 15.720  Top 5-err 1.750	 Test Loss 0.716
+logging filter: 84.28
+logging filter: 0.8428
+logging filter: pair accuracy: 0.5505
+logging filter: 3 -> 5
+logging filter: 0.014
+logging filter: 5 -> 3
+logging filter: 0.067
+* Epoch: [11/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.130
+* Epoch: [11/60]	 Top 1-err 17.510  Top 5-err 1.700	 Test Loss 0.829
+* Epoch: [11/60]	 Top 1-err 17.510  Top 5-err 1.700	 Test Loss 0.829
+logging filter: 82.49
+logging filter: 0.8249
+logging filter: pair accuracy: 0.4955
+logging filter: 3 -> 5
+logging filter: 0.009
+logging filter: 5 -> 3
+logging filter: 0.068
+* Epoch: [12/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.128
+* Epoch: [12/60]	 Top 1-err 17.460  Top 5-err 1.670	 Test Loss 0.802
+* Epoch: [12/60]	 Top 1-err 17.460  Top 5-err 1.670	 Test Loss 0.802
+logging filter: 82.54
+logging filter: 0.8254
+logging filter: pair accuracy: 0.5375
+logging filter: 3 -> 5
+logging filter: 0.033
+logging filter: 5 -> 3
+logging filter: 0.021
+* Epoch: [13/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.132
+* Epoch: [13/60]	 Top 1-err 18.280  Top 5-err 2.630	 Test Loss 0.894
+* Epoch: [13/60]	 Top 1-err 18.280  Top 5-err 2.630	 Test Loss 0.894
+logging filter: 81.72
+logging filter: 0.8172
+logging filter: pair accuracy: 0.449
+logging filter: 3 -> 5
+logging filter: 0.008
+logging filter: 5 -> 3
+logging filter: 0.101
+* Epoch: [14/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.129
+* Epoch: [14/60]	 Top 1-err 15.330  Top 5-err 1.740	 Test Loss 0.716
+* Epoch: [14/60]	 Top 1-err 15.330  Top 5-err 1.740	 Test Loss 0.716
+logging filter: 84.67
+logging filter: 0.8467
+logging filter: pair accuracy: 0.5445
+logging filter: 3 -> 5
+logging filter: 0.014
+logging filter: 5 -> 3
+logging filter: 0.097
+* Epoch: [15/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.132
+* Epoch: [15/60]	 Top 1-err 16.830  Top 5-err 2.650	 Test Loss 0.848
+* Epoch: [15/60]	 Top 1-err 16.830  Top 5-err 2.650	 Test Loss 0.848
+logging filter: 83.17
+logging filter: 0.8317
+logging filter: pair accuracy: 0.504
+logging filter: 3 -> 5
+logging filter: 0.029
+logging filter: 5 -> 3
+logging filter: 0.027
+* Epoch: [16/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.126
+* Epoch: [16/60]	 Top 1-err 17.280  Top 5-err 2.580	 Test Loss 0.842
+* Epoch: [16/60]	 Top 1-err 17.280  Top 5-err 2.580	 Test Loss 0.842
+logging filter: 82.72
+logging filter: 0.8272
+logging filter: pair accuracy: 0.507
+logging filter: 3 -> 5
+logging filter: 0.066
+logging filter: 5 -> 3
+logging filter: 0.012
+* Epoch: [17/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.129
+* Epoch: [17/60]	 Top 1-err 16.700  Top 5-err 2.010	 Test Loss 0.779
+* Epoch: [17/60]	 Top 1-err 16.700  Top 5-err 2.010	 Test Loss 0.779
+logging filter: 83.3
+logging filter: 0.833
+logging filter: pair accuracy: 0.5445
+logging filter: 3 -> 5
+logging filter: 0.007
+logging filter: 5 -> 3
+logging filter: 0.094
+not enough sample
+10
+0
+not enough sample
+10
+0
+not enough sample
+0
+10
+* Epoch: [18/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.126
+* Epoch: [18/60]	 Top 1-err 16.460  Top 5-err 2.270	 Test Loss 0.789
+* Epoch: [18/60]	 Top 1-err 16.460  Top 5-err 2.270	 Test Loss 0.789
+logging filter: 83.54
+logging filter: 0.8354
+logging filter: pair accuracy: 0.527
+logging filter: 3 -> 5
+logging filter: 0.042
+logging filter: 5 -> 3
+logging filter: 0.027
+* Epoch: [19/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.126
+* Epoch: [19/60]	 Top 1-err 15.080  Top 5-err 1.340	 Test Loss 0.676
+* Epoch: [19/60]	 Top 1-err 15.080  Top 5-err 1.340	 Test Loss 0.676
+logging filter: 84.92
+logging filter: 0.8492
+logging filter: pair accuracy: 0.575
+logging filter: 3 -> 5
+logging filter: 0.033
+logging filter: 5 -> 3
+logging filter: 0.052
+not enough sample
+0
+10
+* Epoch: [20/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.121
+* Epoch: [20/60]	 Top 1-err 14.620  Top 5-err 1.410	 Test Loss 0.663
+* Epoch: [20/60]	 Top 1-err 14.620  Top 5-err 1.410	 Test Loss 0.663
+logging filter: 85.38
+logging filter: 0.8538
+logging filter: pair accuracy: 0.599
+logging filter: 3 -> 5
+logging filter: 0.019
+logging filter: 5 -> 3
+logging filter: 0.076
+* Epoch: [21/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.125
+* Epoch: [21/60]	 Top 1-err 14.950  Top 5-err 1.540	 Test Loss 0.693
+* Epoch: [21/60]	 Top 1-err 14.950  Top 5-err 1.540	 Test Loss 0.693
+logging filter: 85.05
+logging filter: 0.8505
+logging filter: pair accuracy: 0.603
+logging filter: 3 -> 5
+logging filter: 0.021
+logging filter: 5 -> 3
+logging filter: 0.069
+* Epoch: [22/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.120
+* Epoch: [22/60]	 Top 1-err 15.440  Top 5-err 1.850	 Test Loss 0.735
+* Epoch: [22/60]	 Top 1-err 15.440  Top 5-err 1.850	 Test Loss 0.735
+logging filter: 84.56
+logging filter: 0.8456
+logging filter: pair accuracy: 0.5815
+logging filter: 3 -> 5
+logging filter: 0.068
+logging filter: 5 -> 3
+logging filter: 0.02
+* Epoch: [23/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.117
+* Epoch: [23/60]	 Top 1-err 15.200  Top 5-err 1.510	 Test Loss 0.704
+* Epoch: [23/60]	 Top 1-err 15.200  Top 5-err 1.510	 Test Loss 0.704
+logging filter: 84.8
+logging filter: 0.848
+logging filter: pair accuracy: 0.595
+logging filter: 3 -> 5
+logging filter: 0.043
+logging filter: 5 -> 3
+logging filter: 0.042
+* Epoch: [24/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.121
+* Epoch: [24/60]	 Top 1-err 17.720  Top 5-err 2.250	 Test Loss 0.856
+* Epoch: [24/60]	 Top 1-err 17.720  Top 5-err 2.250	 Test Loss 0.856
+logging filter: 82.28
+logging filter: 0.8228
+logging filter: pair accuracy: 0.507
+logging filter: 3 -> 5
+logging filter: 0.023
+logging filter: 5 -> 3
+logging filter: 0.056
+not enough sample
+0
+10
+* Epoch: [25/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.117
+* Epoch: [25/60]	 Top 1-err 16.710  Top 5-err 1.870	 Test Loss 0.803
+* Epoch: [25/60]	 Top 1-err 16.710  Top 5-err 1.870	 Test Loss 0.803
+logging filter: 83.29
+logging filter: 0.8329
+logging filter: pair accuracy: 0.5705
+logging filter: 3 -> 5
+logging filter: 0.027
+logging filter: 5 -> 3
+logging filter: 0.076
+* Epoch: [26/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.119
+* Epoch: [26/60]	 Top 1-err 16.940  Top 5-err 2.010	 Test Loss 0.822
+* Epoch: [26/60]	 Top 1-err 16.940  Top 5-err 2.010	 Test Loss 0.822
+logging filter: 83.06
+logging filter: 0.8306
+logging filter: pair accuracy: 0.5015
+logging filter: 3 -> 5
+logging filter: 0.019
+logging filter: 5 -> 3
+logging filter: 0.029
+not enough sample
+10
+0
+* Epoch: [27/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.120
+* Epoch: [27/60]	 Top 1-err 15.470  Top 5-err 1.820	 Test Loss 0.727
+* Epoch: [27/60]	 Top 1-err 15.470  Top 5-err 1.820	 Test Loss 0.727
+logging filter: 84.53
+logging filter: 0.8453
+logging filter: pair accuracy: 0.5775
+logging filter: 3 -> 5
+logging filter: 0.122
+logging filter: 5 -> 3
+logging filter: 0.014
+not enough sample
+10
+0
+* Epoch: [28/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.118
+* Epoch: [28/60]	 Top 1-err 18.470  Top 5-err 2.670	 Test Loss 0.899
+* Epoch: [28/60]	 Top 1-err 18.470  Top 5-err 2.670	 Test Loss 0.899
+logging filter: 81.53
+logging filter: 0.8153
+logging filter: pair accuracy: 0.4425
+logging filter: 3 -> 5
+logging filter: 0.03
+logging filter: 5 -> 3
+logging filter: 0.017
+* Epoch: [29/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.120
+* Epoch: [29/60]	 Top 1-err 17.800  Top 5-err 2.270	 Test Loss 0.858
+* Epoch: [29/60]	 Top 1-err 17.800  Top 5-err 2.270	 Test Loss 0.858
+logging filter: 82.2
+logging filter: 0.822
+logging filter: pair accuracy: 0.506
+logging filter: 3 -> 5
+logging filter: 0.01
+logging filter: 5 -> 3
+logging filter: 0.117
+* Epoch: [30/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.064
+* Epoch: [30/60]	 Top 1-err 13.830  Top 5-err 1.710	 Test Loss 0.637
+* Epoch: [30/60]	 Top 1-err 13.830  Top 5-err 1.710	 Test Loss 0.637
+logging filter: 86.17
+logging filter: 0.8617
+logging filter: pair accuracy: 0.5755
+logging filter: 3 -> 5
+logging filter: 0.014
+logging filter: 5 -> 3
+logging filter: 0.094
+not enough sample
+0
+10
+* Epoch: [31/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.043
+* Epoch: [31/60]	 Top 1-err 14.920  Top 5-err 2.240	 Test Loss 0.740
+* Epoch: [31/60]	 Top 1-err 14.920  Top 5-err 2.240	 Test Loss 0.740
+logging filter: 85.08
+logging filter: 0.8508
+logging filter: pair accuracy: 0.507
+logging filter: 3 -> 5
+logging filter: 0.005
+logging filter: 5 -> 3
+logging filter: 0.089
+* Epoch: [32/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.036
+* Epoch: [32/60]	 Top 1-err 13.310  Top 5-err 1.700	 Test Loss 0.637
+* Epoch: [32/60]	 Top 1-err 13.310  Top 5-err 1.700	 Test Loss 0.637
+logging filter: 86.69
+logging filter: 0.8669
+logging filter: pair accuracy: 0.567
+logging filter: 3 -> 5
+logging filter: 0.023
+logging filter: 5 -> 3
+logging filter: 0.034
+* Epoch: [33/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.033
+* Epoch: [33/60]	 Top 1-err 13.740  Top 5-err 1.820	 Test Loss 0.675
+* Epoch: [33/60]	 Top 1-err 13.740  Top 5-err 1.820	 Test Loss 0.675
+logging filter: 86.26
+logging filter: 0.8626
+logging filter: pair accuracy: 0.58
+logging filter: 3 -> 5
+logging filter: 0.01
+logging filter: 5 -> 3
+logging filter: 0.07
+* Epoch: [34/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.030
+* Epoch: [34/60]	 Top 1-err 13.090  Top 5-err 1.670	 Test Loss 0.641
+* Epoch: [34/60]	 Top 1-err 13.090  Top 5-err 1.670	 Test Loss 0.641
+logging filter: 86.91
+logging filter: 0.8691
+logging filter: pair accuracy: 0.5925
+logging filter: 3 -> 5
+logging filter: 0.015
+logging filter: 5 -> 3
+logging filter: 0.051
+* Epoch: [35/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.026
+* Epoch: [35/60]	 Top 1-err 12.470  Top 5-err 1.520	 Test Loss 0.619
+* Epoch: [35/60]	 Top 1-err 12.470  Top 5-err 1.520	 Test Loss 0.619
+logging filter: 87.53
+logging filter: 0.8753
+logging filter: pair accuracy: 0.6175
+logging filter: 3 -> 5
+logging filter: 0.016
+logging filter: 5 -> 3
+logging filter: 0.051
+* Epoch: [36/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.026
+* Epoch: [36/60]	 Top 1-err 13.930  Top 5-err 1.910	 Test Loss 0.710
+* Epoch: [36/60]	 Top 1-err 13.930  Top 5-err 1.910	 Test Loss 0.710
+logging filter: 86.07
+logging filter: 0.8607
+logging filter: pair accuracy: 0.5825
+logging filter: 3 -> 5
+logging filter: 0.024
+logging filter: 5 -> 3
+logging filter: 0.027
+* Epoch: [37/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.024
+* Epoch: [37/60]	 Top 1-err 12.960  Top 5-err 1.810	 Test Loss 0.657
+* Epoch: [37/60]	 Top 1-err 12.960  Top 5-err 1.810	 Test Loss 0.657
+logging filter: 87.04
+logging filter: 0.8704
+logging filter: pair accuracy: 0.596
+logging filter: 3 -> 5
+logging filter: 0.011
+logging filter: 5 -> 3
+logging filter: 0.051
+not enough sample
+10
+0
+* Epoch: [38/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.022
+* Epoch: [38/60]	 Top 1-err 13.670  Top 5-err 1.950	 Test Loss 0.710
+* Epoch: [38/60]	 Top 1-err 13.670  Top 5-err 1.950	 Test Loss 0.710
+logging filter: 86.33
+logging filter: 0.8633
+logging filter: pair accuracy: 0.5735
+logging filter: 3 -> 5
+logging filter: 0.013
+logging filter: 5 -> 3
+logging filter: 0.048
+not enough sample
+10
+0
+* Epoch: [39/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.021
+* Epoch: [39/60]	 Top 1-err 13.700  Top 5-err 1.960	 Test Loss 0.724
+* Epoch: [39/60]	 Top 1-err 13.700  Top 5-err 1.960	 Test Loss 0.724
+logging filter: 86.3
+logging filter: 0.863
+logging filter: pair accuracy: 0.571
+logging filter: 3 -> 5
+logging filter: 0.016
+logging filter: 5 -> 3
+logging filter: 0.042
+* Epoch: [40/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.020
+* Epoch: [40/60]	 Top 1-err 13.850  Top 5-err 2.340	 Test Loss 0.749
+* Epoch: [40/60]	 Top 1-err 13.850  Top 5-err 2.340	 Test Loss 0.749
+logging filter: 86.15
+logging filter: 0.8615
+logging filter: pair accuracy: 0.564
+logging filter: 3 -> 5
+logging filter: 0.045
+logging filter: 5 -> 3
+logging filter: 0.016
+* Epoch: [41/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.020
+* Epoch: [41/60]	 Top 1-err 13.680  Top 5-err 2.000	 Test Loss 0.727
+* Epoch: [41/60]	 Top 1-err 13.680  Top 5-err 2.000	 Test Loss 0.727
+logging filter: 86.32
+logging filter: 0.8632
+logging filter: pair accuracy: 0.553
+logging filter: 3 -> 5
+logging filter: 0.01
+logging filter: 5 -> 3
+logging filter: 0.055
+* Epoch: [42/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.018
+* Epoch: [42/60]	 Top 1-err 14.060  Top 5-err 2.310	 Test Loss 0.766
+* Epoch: [42/60]	 Top 1-err 14.060  Top 5-err 2.310	 Test Loss 0.766
+logging filter: 85.94
+logging filter: 0.8594
+logging filter: pair accuracy: 0.556
+logging filter: 3 -> 5
+logging filter: 0.021
+logging filter: 5 -> 3
+logging filter: 0.015
+* Epoch: [43/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.018
+* Epoch: [43/60]	 Top 1-err 13.080  Top 5-err 1.690	 Test Loss 0.680
+* Epoch: [43/60]	 Top 1-err 13.080  Top 5-err 1.690	 Test Loss 0.680
+logging filter: 86.92
+logging filter: 0.8692
+logging filter: pair accuracy: 0.5955
+logging filter: 3 -> 5
+logging filter: 0.013
+logging filter: 5 -> 3
+logging filter: 0.039
+* Epoch: [44/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.017
+* Epoch: [44/60]	 Top 1-err 15.310  Top 5-err 2.640	 Test Loss 0.846
+* Epoch: [44/60]	 Top 1-err 15.310  Top 5-err 2.640	 Test Loss 0.846
+logging filter: 84.69
+logging filter: 0.8469
+logging filter: pair accuracy: 0.505
+logging filter: 3 -> 5
+logging filter: 0.004
+logging filter: 5 -> 3
+logging filter: 0.043
+* Epoch: [45/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.015
+* Epoch: [45/60]	 Top 1-err 13.070  Top 5-err 1.690	 Test Loss 0.695
+Current best accuracy (top-1 and 5 error): 13.07 1.69
+saving best model...
+* Epoch: [45/60]	 Top 1-err 13.070  Top 5-err 1.690	 Test Loss 0.695
+logging filter: 86.93
+logging filter: 0.8693
+logging filter: pair accuracy: 0.604
+logging filter: 3 -> 5
+logging filter: 0.023
+logging filter: 5 -> 3
+logging filter: 0.029
+* Epoch: [46/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.016
+* Epoch: [46/60]	 Top 1-err 13.410  Top 5-err 1.950	 Test Loss 0.714
+Current best accuracy (top-1 and 5 error): 13.07 1.69
+* Epoch: [46/60]	 Top 1-err 13.410  Top 5-err 1.950	 Test Loss 0.714
+logging filter: 86.59
+logging filter: 0.8659
+logging filter: pair accuracy: 0.5835
+logging filter: 3 -> 5
+logging filter: 0.008
+logging filter: 5 -> 3
+logging filter: 0.06
+* Epoch: [47/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.015
+* Epoch: [47/60]	 Top 1-err 13.030  Top 5-err 1.660	 Test Loss 0.669
+Current best accuracy (top-1 and 5 error): 13.03 1.66
+saving best model...
+* Epoch: [47/60]	 Top 1-err 13.030  Top 5-err 1.660	 Test Loss 0.669
+logging filter: 86.97
+logging filter: 0.8697
+logging filter: pair accuracy: 0.5955
+logging filter: 3 -> 5
+logging filter: 0.011
+logging filter: 5 -> 3
+logging filter: 0.05
+* Epoch: [48/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.015
+* Epoch: [48/60]	 Top 1-err 13.340  Top 5-err 1.850	 Test Loss 0.698
+Current best accuracy (top-1 and 5 error): 13.03 1.66
+* Epoch: [48/60]	 Top 1-err 13.340  Top 5-err 1.850	 Test Loss 0.698
+logging filter: 86.66
+logging filter: 0.8666
+logging filter: pair accuracy: 0.575
+logging filter: 3 -> 5
+logging filter: 0.01
+logging filter: 5 -> 3
+logging filter: 0.03
+not enough sample
+10
+0
+* Epoch: [49/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.015
+* Epoch: [49/60]	 Top 1-err 12.610  Top 5-err 1.580	 Test Loss 0.665
+Current best accuracy (top-1 and 5 error): 12.61 1.58
+saving best model...
+* Epoch: [49/60]	 Top 1-err 12.610  Top 5-err 1.580	 Test Loss 0.665
+logging filter: 87.39
+logging filter: 0.8739
+logging filter: pair accuracy: 0.5905
+logging filter: 3 -> 5
+logging filter: 0.018
+logging filter: 5 -> 3
+logging filter: 0.026
+not enough sample
+10
+0
+* Epoch: [50/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.015
+* Epoch: [50/60]	 Top 1-err 13.830  Top 5-err 2.100	 Test Loss 0.747
+Current best accuracy (top-1 and 5 error): 12.61 1.58
+* Epoch: [50/60]	 Top 1-err 13.830  Top 5-err 2.100	 Test Loss 0.747
+logging filter: 86.17
+logging filter: 0.8617
+logging filter: pair accuracy: 0.5575
+logging filter: 3 -> 5
+logging filter: 0.011
+logging filter: 5 -> 3
+logging filter: 0.036
+not enough sample
+10
+0
+not enough sample
+0
+10
+* Epoch: [51/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.014
+* Epoch: [51/60]	 Top 1-err 13.100  Top 5-err 1.730	 Test Loss 0.690
+Current best accuracy (top-1 and 5 error): 12.61 1.58
+* Epoch: [51/60]	 Top 1-err 13.100  Top 5-err 1.730	 Test Loss 0.690
+logging filter: 86.9
+logging filter: 0.869
+logging filter: pair accuracy: 0.587
+logging filter: 3 -> 5
+logging filter: 0.025
+logging filter: 5 -> 3
+logging filter: 0.022
+not enough sample
+10
+0
+* Epoch: [52/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.014
+* Epoch: [52/60]	 Top 1-err 13.070  Top 5-err 1.690	 Test Loss 0.704
+Current best accuracy (top-1 and 5 error): 12.61 1.58
+* Epoch: [52/60]	 Top 1-err 13.070  Top 5-err 1.690	 Test Loss 0.704
+logging filter: 86.93
+logging filter: 0.8693
+logging filter: pair accuracy: 0.5975
+logging filter: 3 -> 5
+logging filter: 0.008
+logging filter: 5 -> 3
+logging filter: 0.069
+not enough sample
+0
+10
+not enough sample
+10
+0
+* Epoch: [53/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.014
+* Epoch: [53/60]	 Top 1-err 12.580  Top 5-err 1.750	 Test Loss 0.675
+Current best accuracy (top-1 and 5 error): 12.58 1.75
+saving best model...
+* Epoch: [53/60]	 Top 1-err 12.580  Top 5-err 1.750	 Test Loss 0.675
+logging filter: 87.42
+logging filter: 0.8742
+logging filter: pair accuracy: 0.6025
+logging filter: 3 -> 5
+logging filter: 0.026
+logging filter: 5 -> 3
+logging filter: 0.026
+* Epoch: [54/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.015
+* Epoch: [54/60]	 Top 1-err 13.160  Top 5-err 1.740	 Test Loss 0.693
+Current best accuracy (top-1 and 5 error): 12.58 1.75
+* Epoch: [54/60]	 Top 1-err 13.160  Top 5-err 1.740	 Test Loss 0.693
+logging filter: 86.84
+logging filter: 0.8684
+logging filter: pair accuracy: 0.5855
+logging filter: 3 -> 5
+logging filter: 0.013
+logging filter: 5 -> 3
+logging filter: 0.033
+not enough sample
+10
+0
+not enough sample
+10
+0
+* Epoch: [55/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.014
+* Epoch: [55/60]	 Top 1-err 12.290  Top 5-err 1.560	 Test Loss 0.647
+Current best accuracy (top-1 and 5 error): 12.29 1.56
+saving best model...
+* Epoch: [55/60]	 Top 1-err 12.290  Top 5-err 1.560	 Test Loss 0.647
+logging filter: 87.71
+logging filter: 0.8771
+logging filter: pair accuracy: 0.618
+logging filter: 3 -> 5
+logging filter: 0.038
+logging filter: 5 -> 3
+logging filter: 0.02
+* Epoch: [56/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.014
+* Epoch: [56/60]	 Top 1-err 12.180  Top 5-err 1.560	 Test Loss 0.626
+Current best accuracy (top-1 and 5 error): 12.18 1.56
+saving best model...
+* Epoch: [56/60]	 Top 1-err 12.180  Top 5-err 1.560	 Test Loss 0.626
+logging filter: 87.82
+logging filter: 0.8782
+logging filter: pair accuracy: 0.6235
+logging filter: 3 -> 5
+logging filter: 0.009
+logging filter: 5 -> 3
+logging filter: 0.079
+* Epoch: [57/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.014
+* Epoch: [57/60]	 Top 1-err 14.340  Top 5-err 2.350	 Test Loss 0.782
+Current best accuracy (top-1 and 5 error): 12.18 1.56
+* Epoch: [57/60]	 Top 1-err 14.340  Top 5-err 2.350	 Test Loss 0.782
+logging filter: 85.66
+logging filter: 0.8566
+logging filter: pair accuracy: 0.53
+logging filter: 3 -> 5
+logging filter: 0.006
+logging filter: 5 -> 3
+logging filter: 0.041
+not enough sample
+10
+0
+* Epoch: [58/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.014
+* Epoch: [58/60]	 Top 1-err 13.190  Top 5-err 1.930	 Test Loss 0.696
+Current best accuracy (top-1 and 5 error): 12.18 1.56
+* Epoch: [58/60]	 Top 1-err 13.190  Top 5-err 1.930	 Test Loss 0.696
+logging filter: 86.81
+logging filter: 0.8681
+logging filter: pair accuracy: 0.5795
+logging filter: 3 -> 5
+logging filter: 0.016
+logging filter: 5 -> 3
+logging filter: 0.042
+* Epoch: [59/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.014
+* Epoch: [59/60]	 Top 1-err 13.250  Top 5-err 1.920	 Test Loss 0.707
+Current best accuracy (top-1 and 5 error): 12.18 1.56
+* Epoch: [59/60]	 Top 1-err 13.250  Top 5-err 1.920	 Test Loss 0.707
+logging filter: 86.75
+logging filter: 0.8675
+logging filter: pair accuracy: 0.571
+logging filter: 3 -> 5
+logging filter: 0.008
+logging filter: 5 -> 3
+logging filter: 0.058
+Best accuracy (top-1 and 5 error): 12.18 1.56
+logging filter: 
+=> loading checkpoint 'runs/cifar10_resnet_2_4_dogcat_test/model_best.pth.tar'
+* Epoch: [-1/60]	 Top 1-err 12.180  Top 5-err 1.560	 Test Loss 0.626
+logging filter: 87.82
+logging filter: 0.8782
+logging filter: pair accuracy: 0.6235
+logging filter: 3 -> 5
+logging filter: 0.009
+logging filter: 5 -> 3
+logging filter: 0.079
+python3 repair_confusion_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4/model_best.pth.tar --expid 0 --lam 0 --forward 4
+Files already downloaded and verified
+Files already downloaded and verified
+Files already downloaded and verified
+=> creating model 'resnet'
+True
+=> loading checkpoint './runs/cifar10_resnet_2_4/model_best.pth.tar'
+=> loaded checkpoint './runs/cifar10_resnet_2_4/model_best.pth.tar'
+the number of model parameters: 498586
+* Epoch: [0/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.193
+* Epoch: [0/60]	 Top 1-err 19.850  Top 5-err 2.220	 Test Loss 0.897
+* Epoch: [0/60]	 Top 1-err 19.850  Top 5-err 2.220	 Test Loss 0.897
+logging filter: 80.15
+logging filter: 0.8015
+logging filter: pair accuracy: 0.489
+logging filter: 3 -> 5
+logging filter: 0.045
+logging filter: 5 -> 3
+logging filter: 0.042
+not enough sample
+0
+10
+* Epoch: [1/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.178
+* Epoch: [1/60]	 Top 1-err 20.560  Top 5-err 3.510	 Test Loss 1.023
+* Epoch: [1/60]	 Top 1-err 20.560  Top 5-err 3.510	 Test Loss 1.023
+logging filter: 79.44
+logging filter: 0.7944
+logging filter: pair accuracy: 0.361
+logging filter: 3 -> 5
+logging filter: 0.016
+logging filter: 5 -> 3
+logging filter: 0.018
+* Epoch: [2/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.162
+* Epoch: [2/60]	 Top 1-err 18.580  Top 5-err 2.280	 Test Loss 0.893
+* Epoch: [2/60]	 Top 1-err 18.580  Top 5-err 2.280	 Test Loss 0.893
+logging filter: 81.42
+logging filter: 0.8142
+logging filter: pair accuracy: 0.5385
+logging filter: 3 -> 5
+logging filter: 0.01
+logging filter: 5 -> 3
+logging filter: 0.105
+* Epoch: [3/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.158
+* Epoch: [3/60]	 Top 1-err 19.040  Top 5-err 2.360	 Test Loss 0.979
+* Epoch: [3/60]	 Top 1-err 19.040  Top 5-err 2.360	 Test Loss 0.979
+logging filter: 80.96
+logging filter: 0.8096
+logging filter: pair accuracy: 0.477
+logging filter: 3 -> 5
+logging filter: 0.01
+logging filter: 5 -> 3
+logging filter: 0.066
+* Epoch: [4/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.151
+* Epoch: [4/60]	 Top 1-err 20.590  Top 5-err 2.990	 Test Loss 1.042
+* Epoch: [4/60]	 Top 1-err 20.590  Top 5-err 2.990	 Test Loss 1.042
+logging filter: 79.41
+logging filter: 0.7941
+logging filter: pair accuracy: 0.4385
+logging filter: 3 -> 5
+logging filter: 0.018
+logging filter: 5 -> 3
+logging filter: 0.032
+not enough sample
+0
+10
+* Epoch: [5/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.141
+* Epoch: [5/60]	 Top 1-err 21.610  Top 5-err 3.280	 Test Loss 1.164
+* Epoch: [5/60]	 Top 1-err 21.610  Top 5-err 3.280	 Test Loss 1.164
+logging filter: 78.39
+logging filter: 0.7839
+logging filter: pair accuracy: 0.3965
+logging filter: 3 -> 5
+logging filter: 0.01
+logging filter: 5 -> 3
+logging filter: 0.031
+not enough sample
+10
+0
+* Epoch: [6/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.145
+* Epoch: [6/60]	 Top 1-err 21.660  Top 5-err 2.700	 Test Loss 1.157
+* Epoch: [6/60]	 Top 1-err 21.660  Top 5-err 2.700	 Test Loss 1.157
+logging filter: 78.34
+logging filter: 0.7834
+logging filter: pair accuracy: 0.454
+logging filter: 3 -> 5
+logging filter: 0.013
+logging filter: 5 -> 3
+logging filter: 0.03
+* Epoch: [7/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.138
+* Epoch: [7/60]	 Top 1-err 20.730  Top 5-err 3.680	 Test Loss 1.089
+* Epoch: [7/60]	 Top 1-err 20.730  Top 5-err 3.680	 Test Loss 1.089
+logging filter: 79.27
+logging filter: 0.7927
+logging filter: pair accuracy: 0.426
+logging filter: 3 -> 5
+logging filter: 0.03
+logging filter: 5 -> 3
+logging filter: 0.008
+not enough sample
+0
+10
+* Epoch: [8/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.143
+* Epoch: [8/60]	 Top 1-err 16.400  Top 5-err 1.930	 Test Loss 0.799
+* Epoch: [8/60]	 Top 1-err 16.400  Top 5-err 1.930	 Test Loss 0.799
+logging filter: 83.6
+logging filter: 0.836
+logging filter: pair accuracy: 0.547
+logging filter: 3 -> 5
+logging filter: 0.012
+logging filter: 5 -> 3
+logging filter: 0.052
+not enough sample
+0
+10
+* Epoch: [9/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.134
+* Epoch: [9/60]	 Top 1-err 20.990  Top 5-err 3.800	 Test Loss 1.101
+* Epoch: [9/60]	 Top 1-err 20.990  Top 5-err 3.800	 Test Loss 1.101
+logging filter: 79.01
+logging filter: 0.7901
+logging filter: pair accuracy: 0.417
+logging filter: 3 -> 5
+logging filter: 0.002
+logging filter: 5 -> 3
+logging filter: 0.07
+* Epoch: [10/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.136
+* Epoch: [10/60]	 Top 1-err 18.480  Top 5-err 3.000	 Test Loss 0.918
+* Epoch: [10/60]	 Top 1-err 18.480  Top 5-err 3.000	 Test Loss 0.918
+logging filter: 81.52
+logging filter: 0.8152
+logging filter: pair accuracy: 0.409
+logging filter: 3 -> 5
+logging filter: 0.003
+logging filter: 5 -> 3
+logging filter: 0.055
+* Epoch: [11/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.134
+* Epoch: [11/60]	 Top 1-err 18.330  Top 5-err 2.560	 Test Loss 0.939
+* Epoch: [11/60]	 Top 1-err 18.330  Top 5-err 2.560	 Test Loss 0.939
+logging filter: 81.67
+logging filter: 0.8167
+logging filter: pair accuracy: 0.4375
+logging filter: 3 -> 5
+logging filter: 0.017
+logging filter: 5 -> 3
+logging filter: 0.033
+* Epoch: [12/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.124
+* Epoch: [12/60]	 Top 1-err 18.660  Top 5-err 2.450	 Test Loss 0.964
+* Epoch: [12/60]	 Top 1-err 18.660  Top 5-err 2.450	 Test Loss 0.964
+logging filter: 81.34
+logging filter: 0.8134
+logging filter: pair accuracy: 0.49
+logging filter: 3 -> 5
+logging filter: 0.023
+logging filter: 5 -> 3
+logging filter: 0.035
+* Epoch: [13/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.132
+* Epoch: [13/60]	 Top 1-err 22.760  Top 5-err 3.240	 Test Loss 1.172
+* Epoch: [13/60]	 Top 1-err 22.760  Top 5-err 3.240	 Test Loss 1.172
+logging filter: 77.24
+logging filter: 0.7724
+logging filter: pair accuracy: 0.3635
+logging filter: 3 -> 5
+logging filter: 0.002
+logging filter: 5 -> 3
+logging filter: 0.062
+* Epoch: [14/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.131
+* Epoch: [14/60]	 Top 1-err 17.200  Top 5-err 2.590	 Test Loss 0.882
+* Epoch: [14/60]	 Top 1-err 17.200  Top 5-err 2.590	 Test Loss 0.882
+logging filter: 82.8
+logging filter: 0.828
+logging filter: pair accuracy: 0.502
+logging filter: 3 -> 5
+logging filter: 0.003
+logging filter: 5 -> 3
+logging filter: 0.116
+* Epoch: [15/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.133
+* Epoch: [15/60]	 Top 1-err 15.900  Top 5-err 1.970	 Test Loss 0.741
+* Epoch: [15/60]	 Top 1-err 15.900  Top 5-err 1.970	 Test Loss 0.741
+logging filter: 84.1
+logging filter: 0.841
+logging filter: pair accuracy: 0.5135
+logging filter: 3 -> 5
+logging filter: 0.023
+logging filter: 5 -> 3
+logging filter: 0.033
+* Epoch: [16/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.123
+* Epoch: [16/60]	 Top 1-err 17.880  Top 5-err 2.930	 Test Loss 0.907
+* Epoch: [16/60]	 Top 1-err 17.880  Top 5-err 2.930	 Test Loss 0.907
+logging filter: 82.12
+logging filter: 0.8212
+logging filter: pair accuracy: 0.477
+logging filter: 3 -> 5
+logging filter: 0.059
+logging filter: 5 -> 3
+logging filter: 0.015
+* Epoch: [17/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.129
+* Epoch: [17/60]	 Top 1-err 18.650  Top 5-err 2.780	 Test Loss 0.912
+* Epoch: [17/60]	 Top 1-err 18.650  Top 5-err 2.780	 Test Loss 0.912
+logging filter: 81.35
+logging filter: 0.8135
+logging filter: pair accuracy: 0.459
+logging filter: 3 -> 5
+logging filter: 0.005
+logging filter: 5 -> 3
+logging filter: 0.079
+not enough sample
+10
+0
+not enough sample
+10
+0
+not enough sample
+0
+10
+* Epoch: [18/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.122
+* Epoch: [18/60]	 Top 1-err 17.500  Top 5-err 2.360	 Test Loss 0.834
+* Epoch: [18/60]	 Top 1-err 17.500  Top 5-err 2.360	 Test Loss 0.834
+logging filter: 82.5
+logging filter: 0.825
+logging filter: pair accuracy: 0.467
+logging filter: 3 -> 5
+logging filter: 0.026
+logging filter: 5 -> 3
+logging filter: 0.031
+* Epoch: [19/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.122
+* Epoch: [19/60]	 Top 1-err 16.370  Top 5-err 1.960	 Test Loss 0.785
+* Epoch: [19/60]	 Top 1-err 16.370  Top 5-err 1.960	 Test Loss 0.785
+logging filter: 83.63
+logging filter: 0.8363
+logging filter: pair accuracy: 0.553
+logging filter: 3 -> 5
+logging filter: 0.026
+logging filter: 5 -> 3
+logging filter: 0.048
+not enough sample
+0
+10
+* Epoch: [20/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.122
+* Epoch: [20/60]	 Top 1-err 15.860  Top 5-err 1.630	 Test Loss 0.770
+* Epoch: [20/60]	 Top 1-err 15.860  Top 5-err 1.630	 Test Loss 0.770
+logging filter: 84.14
+logging filter: 0.8414
+logging filter: pair accuracy: 0.526
+logging filter: 3 -> 5
+logging filter: 0.013
+logging filter: 5 -> 3
+logging filter: 0.095
+* Epoch: [21/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.123
+* Epoch: [21/60]	 Top 1-err 15.100  Top 5-err 1.810	 Test Loss 0.720
+* Epoch: [21/60]	 Top 1-err 15.100  Top 5-err 1.810	 Test Loss 0.720
+logging filter: 84.9
+logging filter: 0.849
+logging filter: pair accuracy: 0.559
+logging filter: 3 -> 5
+logging filter: 0.025
+logging filter: 5 -> 3
+logging filter: 0.041
+* Epoch: [22/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.120
+* Epoch: [22/60]	 Top 1-err 17.190  Top 5-err 2.180	 Test Loss 0.884
+* Epoch: [22/60]	 Top 1-err 17.190  Top 5-err 2.180	 Test Loss 0.884
+logging filter: 82.81
+logging filter: 0.8281
+logging filter: pair accuracy: 0.508
+logging filter: 3 -> 5
+logging filter: 0.039
+logging filter: 5 -> 3
+logging filter: 0.018
+* Epoch: [23/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.114
+* Epoch: [23/60]	 Top 1-err 15.490  Top 5-err 1.530	 Test Loss 0.738
+* Epoch: [23/60]	 Top 1-err 15.490  Top 5-err 1.530	 Test Loss 0.738
+logging filter: 84.51
+logging filter: 0.8451
+logging filter: pair accuracy: 0.5995
+logging filter: 3 -> 5
+logging filter: 0.05
+logging filter: 5 -> 3
+logging filter: 0.031
+* Epoch: [24/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.115
+* Epoch: [24/60]	 Top 1-err 19.980  Top 5-err 3.550	 Test Loss 1.123
+* Epoch: [24/60]	 Top 1-err 19.980  Top 5-err 3.550	 Test Loss 1.123
+logging filter: 80.02
+logging filter: 0.8002
+logging filter: pair accuracy: 0.446
+logging filter: 3 -> 5
+logging filter: 0.011
+logging filter: 5 -> 3
+logging filter: 0.029
+not enough sample
+0
+10
+* Epoch: [25/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.115
+* Epoch: [25/60]	 Top 1-err 19.440  Top 5-err 3.250	 Test Loss 1.082
+* Epoch: [25/60]	 Top 1-err 19.440  Top 5-err 3.250	 Test Loss 1.082
+logging filter: 80.56
+logging filter: 0.8056
+logging filter: pair accuracy: 0.4665
+logging filter: 3 -> 5
+logging filter: 0.013
+logging filter: 5 -> 3
+logging filter: 0.047
+* Epoch: [26/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.126
+* Epoch: [26/60]	 Top 1-err 18.010  Top 5-err 2.590	 Test Loss 0.909
+* Epoch: [26/60]	 Top 1-err 18.010  Top 5-err 2.590	 Test Loss 0.909
+logging filter: 81.99
+logging filter: 0.8199
+logging filter: pair accuracy: 0.4665
+logging filter: 3 -> 5
+logging filter: 0.037
+logging filter: 5 -> 3
+logging filter: 0.015
+not enough sample
+10
+0
+* Epoch: [27/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.123
+* Epoch: [27/60]	 Top 1-err 18.060  Top 5-err 2.240	 Test Loss 0.900
+* Epoch: [27/60]	 Top 1-err 18.060  Top 5-err 2.240	 Test Loss 0.900
+logging filter: 81.94
+logging filter: 0.8194
+logging filter: pair accuracy: 0.4975
+logging filter: 3 -> 5
+logging filter: 0.042
+logging filter: 5 -> 3
+logging filter: 0.013
+not enough sample
+10
+0
+* Epoch: [28/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.119
+* Epoch: [28/60]	 Top 1-err 17.520  Top 5-err 2.410	 Test Loss 0.874
+* Epoch: [28/60]	 Top 1-err 17.520  Top 5-err 2.410	 Test Loss 0.874
+logging filter: 82.48
+logging filter: 0.8248
+logging filter: pair accuracy: 0.502
+logging filter: 3 -> 5
+logging filter: 0.022
+logging filter: 5 -> 3
+logging filter: 0.041
+* Epoch: [29/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.117
+* Epoch: [29/60]	 Top 1-err 23.180  Top 5-err 4.350	 Test Loss 1.285
+* Epoch: [29/60]	 Top 1-err 23.180  Top 5-err 4.350	 Test Loss 1.285
+logging filter: 76.82
+logging filter: 0.7682
+logging filter: pair accuracy: 0.3285
+logging filter: 3 -> 5
+logging filter: 0.02
+logging filter: 5 -> 3
+logging filter: 0.029
+* Epoch: [30/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.067
+* Epoch: [30/60]	 Top 1-err 14.700  Top 5-err 1.960	 Test Loss 0.724
+* Epoch: [30/60]	 Top 1-err 14.700  Top 5-err 1.960	 Test Loss 0.724
+logging filter: 85.3
+logging filter: 0.853
+logging filter: pair accuracy: 0.541
+logging filter: 3 -> 5
+logging filter: 0.006
+logging filter: 5 -> 3
+logging filter: 0.067
+not enough sample
+0
+10
+* Epoch: [31/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.044
+* Epoch: [31/60]	 Top 1-err 16.100  Top 5-err 2.790	 Test Loss 0.867
+* Epoch: [31/60]	 Top 1-err 16.100  Top 5-err 2.790	 Test Loss 0.867
+logging filter: 83.9
+logging filter: 0.839
+logging filter: pair accuracy: 0.4625
+logging filter: 3 -> 5
+logging filter: 0.001
+logging filter: 5 -> 3
+logging filter: 0.109
+* Epoch: [32/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.037
+* Epoch: [32/60]	 Top 1-err 14.140  Top 5-err 1.780	 Test Loss 0.691
+* Epoch: [32/60]	 Top 1-err 14.140  Top 5-err 1.780	 Test Loss 0.691
+logging filter: 85.86
+logging filter: 0.8586
+logging filter: pair accuracy: 0.5375
+logging filter: 3 -> 5
+logging filter: 0.013
+logging filter: 5 -> 3
+logging filter: 0.046
+* Epoch: [33/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.032
+* Epoch: [33/60]	 Top 1-err 15.150  Top 5-err 2.100	 Test Loss 0.808
+* Epoch: [33/60]	 Top 1-err 15.150  Top 5-err 2.100	 Test Loss 0.808
+logging filter: 84.85
+logging filter: 0.8485
+logging filter: pair accuracy: 0.516
+logging filter: 3 -> 5
+logging filter: 0.006
+logging filter: 5 -> 3
+logging filter: 0.051
+* Epoch: [34/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.030
+* Epoch: [34/60]	 Top 1-err 14.480  Top 5-err 1.930	 Test Loss 0.753
+* Epoch: [34/60]	 Top 1-err 14.480  Top 5-err 1.930	 Test Loss 0.753
+logging filter: 85.52
+logging filter: 0.8552
+logging filter: pair accuracy: 0.5385
+logging filter: 3 -> 5
+logging filter: 0.012
+logging filter: 5 -> 3
+logging filter: 0.059
+* Epoch: [35/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.027
+* Epoch: [35/60]	 Top 1-err 13.750  Top 5-err 1.740	 Test Loss 0.705
+* Epoch: [35/60]	 Top 1-err 13.750  Top 5-err 1.740	 Test Loss 0.705
+logging filter: 86.25
+logging filter: 0.8625
+logging filter: pair accuracy: 0.5805
+logging filter: 3 -> 5
+logging filter: 0.019
+logging filter: 5 -> 3
+logging filter: 0.036
+* Epoch: [36/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.025
+* Epoch: [36/60]	 Top 1-err 14.510  Top 5-err 2.040	 Test Loss 0.764
+* Epoch: [36/60]	 Top 1-err 14.510  Top 5-err 2.040	 Test Loss 0.764
+logging filter: 85.49
+logging filter: 0.8549
+logging filter: pair accuracy: 0.5565
+logging filter: 3 -> 5
+logging filter: 0.019
+logging filter: 5 -> 3
+logging filter: 0.031
+* Epoch: [37/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.024
+* Epoch: [37/60]	 Top 1-err 14.070  Top 5-err 1.950	 Test Loss 0.743
+* Epoch: [37/60]	 Top 1-err 14.070  Top 5-err 1.950	 Test Loss 0.743
+logging filter: 85.93
+logging filter: 0.8593
+logging filter: pair accuracy: 0.554
+logging filter: 3 -> 5
+logging filter: 0.015
+logging filter: 5 -> 3
+logging filter: 0.042
+not enough sample
+10
+0
+* Epoch: [38/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.022
+* Epoch: [38/60]	 Top 1-err 14.800  Top 5-err 2.240	 Test Loss 0.805
+* Epoch: [38/60]	 Top 1-err 14.800  Top 5-err 2.240	 Test Loss 0.805
+logging filter: 85.2
+logging filter: 0.852
+logging filter: pair accuracy: 0.531
+logging filter: 3 -> 5
+logging filter: 0.015
+logging filter: 5 -> 3
+logging filter: 0.034
+not enough sample
+10
+0
+* Epoch: [39/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.021
+* Epoch: [39/60]	 Top 1-err 15.030  Top 5-err 2.380	 Test Loss 0.836
+* Epoch: [39/60]	 Top 1-err 15.030  Top 5-err 2.380	 Test Loss 0.836
+logging filter: 84.97
+logging filter: 0.8497
+logging filter: pair accuracy: 0.5205
+logging filter: 3 -> 5
+logging filter: 0.014
+logging filter: 5 -> 3
+logging filter: 0.028
+* Epoch: [40/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.020
+* Epoch: [40/60]	 Top 1-err 15.400  Top 5-err 2.960	 Test Loss 0.902
+* Epoch: [40/60]	 Top 1-err 15.400  Top 5-err 2.960	 Test Loss 0.902
+logging filter: 84.6
+logging filter: 0.846
+logging filter: pair accuracy: 0.5005
+logging filter: 3 -> 5
+logging filter: 0.036
+logging filter: 5 -> 3
+logging filter: 0.009
+* Epoch: [41/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.019
+* Epoch: [41/60]	 Top 1-err 14.880  Top 5-err 2.400	 Test Loss 0.848
+* Epoch: [41/60]	 Top 1-err 14.880  Top 5-err 2.400	 Test Loss 0.848
+logging filter: 85.12
+logging filter: 0.8512
+logging filter: pair accuracy: 0.5005
+logging filter: 3 -> 5
+logging filter: 0.007
+logging filter: 5 -> 3
+logging filter: 0.038
+* Epoch: [42/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.018
+* Epoch: [42/60]	 Top 1-err 14.990  Top 5-err 2.510	 Test Loss 0.869
+* Epoch: [42/60]	 Top 1-err 14.990  Top 5-err 2.510	 Test Loss 0.869
+logging filter: 85.01
+logging filter: 0.8501
+logging filter: pair accuracy: 0.522
+logging filter: 3 -> 5
+logging filter: 0.02
+logging filter: 5 -> 3
+logging filter: 0.015
+* Epoch: [43/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.018
+* Epoch: [43/60]	 Top 1-err 14.630  Top 5-err 2.130	 Test Loss 0.808
+* Epoch: [43/60]	 Top 1-err 14.630  Top 5-err 2.130	 Test Loss 0.808
+logging filter: 85.37
+logging filter: 0.8537
+logging filter: pair accuracy: 0.5445
+logging filter: 3 -> 5
+logging filter: 0.01
+logging filter: 5 -> 3
+logging filter: 0.039
+* Epoch: [44/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.017
+* Epoch: [44/60]	 Top 1-err 16.700  Top 5-err 3.230	 Test Loss 0.988
+* Epoch: [44/60]	 Top 1-err 16.700  Top 5-err 3.230	 Test Loss 0.988
+logging filter: 83.3
+logging filter: 0.833
+logging filter: pair accuracy: 0.444
+logging filter: 3 -> 5
+logging filter: 0.003
+logging filter: 5 -> 3
+logging filter: 0.026
+* Epoch: [45/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.016
+* Epoch: [45/60]	 Top 1-err 14.220  Top 5-err 2.050	 Test Loss 0.804
+Current best accuracy (top-1 and 5 error): 14.22 2.05
+saving best model...
+* Epoch: [45/60]	 Top 1-err 14.220  Top 5-err 2.050	 Test Loss 0.804
+logging filter: 85.78
+logging filter: 0.8578
+logging filter: pair accuracy: 0.566
+logging filter: 3 -> 5
+logging filter: 0.022
+logging filter: 5 -> 3
+logging filter: 0.018
+* Epoch: [46/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.016
+* Epoch: [46/60]	 Top 1-err 14.720  Top 5-err 2.190	 Test Loss 0.829
+Current best accuracy (top-1 and 5 error): 14.22 2.05
+* Epoch: [46/60]	 Top 1-err 14.720  Top 5-err 2.190	 Test Loss 0.829
+logging filter: 85.28
+logging filter: 0.8528
+logging filter: pair accuracy: 0.5415
+logging filter: 3 -> 5
+logging filter: 0.006
+logging filter: 5 -> 3
+logging filter: 0.047
+* Epoch: [47/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.015
+* Epoch: [47/60]	 Top 1-err 15.120  Top 5-err 2.230	 Test Loss 0.857
+Current best accuracy (top-1 and 5 error): 14.22 2.05
+* Epoch: [47/60]	 Top 1-err 15.120  Top 5-err 2.230	 Test Loss 0.857
+logging filter: 84.88
+logging filter: 0.8488
+logging filter: pair accuracy: 0.5195
+logging filter: 3 -> 5
+logging filter: 0.008
+logging filter: 5 -> 3
+logging filter: 0.025
+* Epoch: [48/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.016
+* Epoch: [48/60]	 Top 1-err 14.760  Top 5-err 2.290	 Test Loss 0.836
+Current best accuracy (top-1 and 5 error): 14.22 2.05
+* Epoch: [48/60]	 Top 1-err 14.760  Top 5-err 2.290	 Test Loss 0.836
+logging filter: 85.24
+logging filter: 0.8524
+logging filter: pair accuracy: 0.525
+logging filter: 3 -> 5
+logging filter: 0.016
+logging filter: 5 -> 3
+logging filter: 0.021
+not enough sample
+10
+0
+* Epoch: [49/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.015
+* Epoch: [49/60]	 Top 1-err 13.200  Top 5-err 1.790	 Test Loss 0.738
+Current best accuracy (top-1 and 5 error): 13.2 1.79
+saving best model...
+* Epoch: [49/60]	 Top 1-err 13.200  Top 5-err 1.790	 Test Loss 0.738
+logging filter: 86.8
+logging filter: 0.868
+logging filter: pair accuracy: 0.562
+logging filter: 3 -> 5
+logging filter: 0.026
+logging filter: 5 -> 3
+logging filter: 0.019
+not enough sample
+10
+0
+* Epoch: [50/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.015
+* Epoch: [50/60]	 Top 1-err 14.810  Top 5-err 2.280	 Test Loss 0.836
+Current best accuracy (top-1 and 5 error): 13.2 1.79
+* Epoch: [50/60]	 Top 1-err 14.810  Top 5-err 2.280	 Test Loss 0.836
+logging filter: 85.19
+logging filter: 0.8519
+logging filter: pair accuracy: 0.5145
+logging filter: 3 -> 5
+logging filter: 0.012
+logging filter: 5 -> 3
+logging filter: 0.034
+not enough sample
+10
+0
+not enough sample
+0
+10
+* Epoch: [51/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.014
+* Epoch: [51/60]	 Top 1-err 14.090  Top 5-err 2.120	 Test Loss 0.784
+Current best accuracy (top-1 and 5 error): 13.2 1.79
+* Epoch: [51/60]	 Top 1-err 14.090  Top 5-err 2.120	 Test Loss 0.784
+logging filter: 85.91
+logging filter: 0.8591
+logging filter: pair accuracy: 0.544
+logging filter: 3 -> 5
+logging filter: 0.019
+logging filter: 5 -> 3
+logging filter: 0.016
+not enough sample
+10
+0
+* Epoch: [52/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.014
+* Epoch: [52/60]	 Top 1-err 14.650  Top 5-err 2.100	 Test Loss 0.832
+Current best accuracy (top-1 and 5 error): 13.2 1.79
+* Epoch: [52/60]	 Top 1-err 14.650  Top 5-err 2.100	 Test Loss 0.832
+logging filter: 85.35
+logging filter: 0.8535
+logging filter: pair accuracy: 0.5515
+logging filter: 3 -> 5
+logging filter: 0.004
+logging filter: 5 -> 3
+logging filter: 0.054
+not enough sample
+0
+10
+not enough sample
+10
+0
+* Epoch: [53/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.014
+* Epoch: [53/60]	 Top 1-err 13.880  Top 5-err 2.290	 Test Loss 0.800
+Current best accuracy (top-1 and 5 error): 13.2 1.79
+* Epoch: [53/60]	 Top 1-err 13.880  Top 5-err 2.290	 Test Loss 0.800
+logging filter: 86.12
+logging filter: 0.8612
+logging filter: pair accuracy: 0.5485
+logging filter: 3 -> 5
+logging filter: 0.028
+logging filter: 5 -> 3
+logging filter: 0.011
+* Epoch: [54/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.015
+* Epoch: [54/60]	 Top 1-err 13.600  Top 5-err 1.820	 Test Loss 0.730
+Current best accuracy (top-1 and 5 error): 13.2 1.79
+* Epoch: [54/60]	 Top 1-err 13.600  Top 5-err 1.820	 Test Loss 0.730
+logging filter: 86.4
+logging filter: 0.864
+logging filter: pair accuracy: 0.579
+logging filter: 3 -> 5
+logging filter: 0.019
+logging filter: 5 -> 3
+logging filter: 0.029
+not enough sample
+10
+0
+not enough sample
+10
+0
+* Epoch: [55/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.014
+* Epoch: [55/60]	 Top 1-err 13.690  Top 5-err 1.930	 Test Loss 0.761
+Current best accuracy (top-1 and 5 error): 13.2 1.79
+* Epoch: [55/60]	 Top 1-err 13.690  Top 5-err 1.930	 Test Loss 0.761
+logging filter: 86.31
+logging filter: 0.8631
+logging filter: pair accuracy: 0.5735
+logging filter: 3 -> 5
+logging filter: 0.025
+logging filter: 5 -> 3
+logging filter: 0.02
+* Epoch: [56/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.014
+* Epoch: [56/60]	 Top 1-err 12.890  Top 5-err 1.610	 Test Loss 0.690
+Current best accuracy (top-1 and 5 error): 12.89 1.61
+saving best model...
+* Epoch: [56/60]	 Top 1-err 12.890  Top 5-err 1.610	 Test Loss 0.690
+logging filter: 87.11
+logging filter: 0.8711
+logging filter: pair accuracy: 0.597
+logging filter: 3 -> 5
+logging filter: 0.007
+logging filter: 5 -> 3
+logging filter: 0.072
+* Epoch: [57/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.014
+* Epoch: [57/60]	 Top 1-err 15.970  Top 5-err 2.820	 Test Loss 0.937
+Current best accuracy (top-1 and 5 error): 12.89 1.61
+* Epoch: [57/60]	 Top 1-err 15.970  Top 5-err 2.820	 Test Loss 0.937
+logging filter: 84.03
+logging filter: 0.8403
+logging filter: pair accuracy: 0.4515
+logging filter: 3 -> 5
+logging filter: 0.007
+logging filter: 5 -> 3
+logging filter: 0.032
+not enough sample
+10
+0
+* Epoch: [58/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.015
+* Epoch: [58/60]	 Top 1-err 14.410  Top 5-err 2.070	 Test Loss 0.782
+Current best accuracy (top-1 and 5 error): 12.89 1.61
+* Epoch: [58/60]	 Top 1-err 14.410  Top 5-err 2.070	 Test Loss 0.782
+logging filter: 85.59
+logging filter: 0.8559
+logging filter: pair accuracy: 0.5455
+logging filter: 3 -> 5
+logging filter: 0.011
+logging filter: 5 -> 3
+logging filter: 0.032
+* Epoch: [59/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.014
+* Epoch: [59/60]	 Top 1-err 13.750  Top 5-err 2.010	 Test Loss 0.759
+Current best accuracy (top-1 and 5 error): 12.89 1.61
+* Epoch: [59/60]	 Top 1-err 13.750  Top 5-err 2.010	 Test Loss 0.759
+logging filter: 86.25
+logging filter: 0.8625
+logging filter: pair accuracy: 0.552
+logging filter: 3 -> 5
+logging filter: 0.009
+logging filter: 5 -> 3
+logging filter: 0.046
+Best accuracy (top-1 and 5 error): 12.89 1.61
+logging filter: 
+=> loading checkpoint 'runs/cifar10_resnet_2_4_dogcat_test/model_best.pth.tar'
+* Epoch: [-1/60]	 Top 1-err 12.890  Top 5-err 1.610	 Test Loss 0.690
+logging filter: 87.11
+logging filter: 0.8711
+logging filter: pair accuracy: 0.597
+logging filter: 3 -> 5
+logging filter: 0.007
+logging filter: 5 -> 3
+logging filter: 0.072
+python3 repair_confusion_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4/model_best.pth.tar --expid 0 --lam 0 --forward 5
+Files already downloaded and verified
+Files already downloaded and verified
+Files already downloaded and verified
+=> creating model 'resnet'
+True
+=> loading checkpoint './runs/cifar10_resnet_2_4/model_best.pth.tar'
+=> loaded checkpoint './runs/cifar10_resnet_2_4/model_best.pth.tar'
+the number of model parameters: 498586
+* Epoch: [0/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.191
+* Epoch: [0/60]	 Top 1-err 20.460  Top 5-err 2.190	 Test Loss 1.005
+* Epoch: [0/60]	 Top 1-err 20.460  Top 5-err 2.190	 Test Loss 1.005
+logging filter: 79.54
+logging filter: 0.7954
+logging filter: pair accuracy: 0.444
+logging filter: 3 -> 5
+logging filter: 0.017
+logging filter: 5 -> 3
+logging filter: 0.04
+not enough sample
+0
+10
+* Epoch: [1/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.181
+* Epoch: [1/60]	 Top 1-err 17.940  Top 5-err 2.140	 Test Loss 0.815
+* Epoch: [1/60]	 Top 1-err 17.940  Top 5-err 2.140	 Test Loss 0.815
+logging filter: 82.06
+logging filter: 0.8206
+logging filter: pair accuracy: 0.445
+logging filter: 3 -> 5
+logging filter: 0.014
+logging filter: 5 -> 3
+logging filter: 0.043
+* Epoch: [2/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.166
+* Epoch: [2/60]	 Top 1-err 23.490  Top 5-err 3.850	 Test Loss 1.251
+* Epoch: [2/60]	 Top 1-err 23.490  Top 5-err 3.850	 Test Loss 1.251
+logging filter: 76.51
+logging filter: 0.7651
+logging filter: pair accuracy: 0.447
+logging filter: 3 -> 5
+logging filter: 0.014
+logging filter: 5 -> 3
+logging filter: 0.055
+* Epoch: [3/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.154
+* Epoch: [3/60]	 Top 1-err 20.930  Top 5-err 2.600	 Test Loss 1.110
+* Epoch: [3/60]	 Top 1-err 20.930  Top 5-err 2.600	 Test Loss 1.110
+logging filter: 79.07
+logging filter: 0.7907
+logging filter: pair accuracy: 0.445
+logging filter: 3 -> 5
+logging filter: 0.007
+logging filter: 5 -> 3
+logging filter: 0.057
+* Epoch: [4/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.153
+* Epoch: [4/60]	 Top 1-err 19.760  Top 5-err 2.870	 Test Loss 0.987
+* Epoch: [4/60]	 Top 1-err 19.760  Top 5-err 2.870	 Test Loss 0.987
+logging filter: 80.24
+logging filter: 0.8024
+logging filter: pair accuracy: 0.476
+logging filter: 3 -> 5
+logging filter: 0.013
+logging filter: 5 -> 3
+logging filter: 0.048
+not enough sample
+0
+10
+* Epoch: [5/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.143
+* Epoch: [5/60]	 Top 1-err 24.130  Top 5-err 4.110	 Test Loss 1.313
+* Epoch: [5/60]	 Top 1-err 24.130  Top 5-err 4.110	 Test Loss 1.313
+logging filter: 75.87
+logging filter: 0.7587
+logging filter: pair accuracy: 0.38
+logging filter: 3 -> 5
+logging filter: 0.018
+logging filter: 5 -> 3
+logging filter: 0.026
+not enough sample
+10
+0
+* Epoch: [6/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.145
+* Epoch: [6/60]	 Top 1-err 19.800  Top 5-err 2.710	 Test Loss 0.977
+* Epoch: [6/60]	 Top 1-err 19.800  Top 5-err 2.710	 Test Loss 0.977
+logging filter: 80.2
+logging filter: 0.802
+logging filter: pair accuracy: 0.4345
+logging filter: 3 -> 5
+logging filter: 0.022
+logging filter: 5 -> 3
+logging filter: 0.027
+* Epoch: [7/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.137
+* Epoch: [7/60]	 Top 1-err 19.520  Top 5-err 3.140	 Test Loss 1.002
+* Epoch: [7/60]	 Top 1-err 19.520  Top 5-err 3.140	 Test Loss 1.002
+logging filter: 80.48
+logging filter: 0.8048
+logging filter: pair accuracy: 0.447
+logging filter: 3 -> 5
+logging filter: 0.032
+logging filter: 5 -> 3
+logging filter: 0.019
+not enough sample
+0
+10
+* Epoch: [8/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.140
+* Epoch: [8/60]	 Top 1-err 18.720  Top 5-err 2.490	 Test Loss 0.902
+* Epoch: [8/60]	 Top 1-err 18.720  Top 5-err 2.490	 Test Loss 0.902
+logging filter: 81.28
+logging filter: 0.8128
+logging filter: pair accuracy: 0.4755
+logging filter: 3 -> 5
+logging filter: 0.007
+logging filter: 5 -> 3
+logging filter: 0.072
+not enough sample
+0
+10
+* Epoch: [9/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.138
+* Epoch: [9/60]	 Top 1-err 18.880  Top 5-err 3.430	 Test Loss 0.997
+* Epoch: [9/60]	 Top 1-err 18.880  Top 5-err 3.430	 Test Loss 0.997
+logging filter: 81.12
+logging filter: 0.8112
+logging filter: pair accuracy: 0.4095
+logging filter: 3 -> 5
+logging filter: 0.001
+logging filter: 5 -> 3
+logging filter: 0.099
+* Epoch: [10/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.133
+* Epoch: [10/60]	 Top 1-err 16.880  Top 5-err 2.040	 Test Loss 0.841
+* Epoch: [10/60]	 Top 1-err 16.880  Top 5-err 2.040	 Test Loss 0.841
+logging filter: 83.12
+logging filter: 0.8312
+logging filter: pair accuracy: 0.511
+logging filter: 3 -> 5
+logging filter: 0.03
+logging filter: 5 -> 3
+logging filter: 0.034
+* Epoch: [11/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.133
+* Epoch: [11/60]	 Top 1-err 18.180  Top 5-err 2.530	 Test Loss 0.965
+* Epoch: [11/60]	 Top 1-err 18.180  Top 5-err 2.530	 Test Loss 0.965
+logging filter: 81.82
+logging filter: 0.8182
+logging filter: pair accuracy: 0.4485
+logging filter: 3 -> 5
+logging filter: 0.019
+logging filter: 5 -> 3
+logging filter: 0.026
+* Epoch: [12/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.126
+* Epoch: [12/60]	 Top 1-err 18.630  Top 5-err 2.270	 Test Loss 0.941
+* Epoch: [12/60]	 Top 1-err 18.630  Top 5-err 2.270	 Test Loss 0.941
+logging filter: 81.37
+logging filter: 0.8137
+logging filter: pair accuracy: 0.514
+logging filter: 3 -> 5
+logging filter: 0.028
+logging filter: 5 -> 3
+logging filter: 0.027
+* Epoch: [13/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.129
+* Epoch: [13/60]	 Top 1-err 22.950  Top 5-err 3.980	 Test Loss 1.192
+* Epoch: [13/60]	 Top 1-err 22.950  Top 5-err 3.980	 Test Loss 1.192
+logging filter: 77.05
+logging filter: 0.7705
+logging filter: pair accuracy: 0.3305
+logging filter: 3 -> 5
+logging filter: 0.002
+logging filter: 5 -> 3
+logging filter: 0.081
+* Epoch: [14/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.135
+* Epoch: [14/60]	 Top 1-err 18.730  Top 5-err 2.280	 Test Loss 0.943
+* Epoch: [14/60]	 Top 1-err 18.730  Top 5-err 2.280	 Test Loss 0.943
+logging filter: 81.27
+logging filter: 0.8127
+logging filter: pair accuracy: 0.48
+logging filter: 3 -> 5
+logging filter: 0.004
+logging filter: 5 -> 3
+logging filter: 0.087
+* Epoch: [15/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.127
+* Epoch: [15/60]	 Top 1-err 18.730  Top 5-err 3.560	 Test Loss 0.965
+* Epoch: [15/60]	 Top 1-err 18.730  Top 5-err 3.560	 Test Loss 0.965
+logging filter: 81.27
+logging filter: 0.8127
+logging filter: pair accuracy: 0.414
+logging filter: 3 -> 5
+logging filter: 0.019
+logging filter: 5 -> 3
+logging filter: 0.005
+* Epoch: [16/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.124
+* Epoch: [16/60]	 Top 1-err 18.500  Top 5-err 2.760	 Test Loss 0.957
+* Epoch: [16/60]	 Top 1-err 18.500  Top 5-err 2.760	 Test Loss 0.957
+logging filter: 81.5
+logging filter: 0.815
+logging filter: pair accuracy: 0.466
+logging filter: 3 -> 5
+logging filter: 0.017
+logging filter: 5 -> 3
+logging filter: 0.03
+* Epoch: [17/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.129
+* Epoch: [17/60]	 Top 1-err 17.880  Top 5-err 2.940	 Test Loss 0.885
+* Epoch: [17/60]	 Top 1-err 17.880  Top 5-err 2.940	 Test Loss 0.885
+logging filter: 82.12
+logging filter: 0.8212
+logging filter: pair accuracy: 0.477
+logging filter: 3 -> 5
+logging filter: 0.004
+logging filter: 5 -> 3
+logging filter: 0.082
+not enough sample
+10
+0
+not enough sample
+10
+0
+not enough sample
+0
+10
+* Epoch: [18/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.126
+* Epoch: [18/60]	 Top 1-err 19.220  Top 5-err 3.130	 Test Loss 0.970
+* Epoch: [18/60]	 Top 1-err 19.220  Top 5-err 3.130	 Test Loss 0.970
+logging filter: 80.78
+logging filter: 0.8078
+logging filter: pair accuracy: 0.409
+logging filter: 3 -> 5
+logging filter: 0.013
+logging filter: 5 -> 3
+logging filter: 0.023
+* Epoch: [19/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.121
+* Epoch: [19/60]	 Top 1-err 16.950  Top 5-err 1.760	 Test Loss 0.768
+* Epoch: [19/60]	 Top 1-err 16.950  Top 5-err 1.760	 Test Loss 0.768
+logging filter: 83.05
+logging filter: 0.8305
+logging filter: pair accuracy: 0.5475
+logging filter: 3 -> 5
+logging filter: 0.033
+logging filter: 5 -> 3
+logging filter: 0.039
+not enough sample
+0
+10
+* Epoch: [20/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.122
+* Epoch: [20/60]	 Top 1-err 18.250  Top 5-err 2.710	 Test Loss 0.909
+* Epoch: [20/60]	 Top 1-err 18.250  Top 5-err 2.710	 Test Loss 0.909
+logging filter: 81.75
+logging filter: 0.8175
+logging filter: pair accuracy: 0.441
+logging filter: 3 -> 5
+logging filter: 0.003
+logging filter: 5 -> 3
+logging filter: 0.114
+* Epoch: [21/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.120
+* Epoch: [21/60]	 Top 1-err 15.280  Top 5-err 1.440	 Test Loss 0.739
+* Epoch: [21/60]	 Top 1-err 15.280  Top 5-err 1.440	 Test Loss 0.739
+logging filter: 84.72
+logging filter: 0.8472
+logging filter: pair accuracy: 0.5785
+logging filter: 3 -> 5
+logging filter: 0.026
+logging filter: 5 -> 3
+logging filter: 0.062
+* Epoch: [22/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.124
+* Epoch: [22/60]	 Top 1-err 17.950  Top 5-err 2.180	 Test Loss 0.891
+* Epoch: [22/60]	 Top 1-err 17.950  Top 5-err 2.180	 Test Loss 0.891
+logging filter: 82.05
+logging filter: 0.8205
+logging filter: pair accuracy: 0.541
+logging filter: 3 -> 5
+logging filter: 0.02
+logging filter: 5 -> 3
+logging filter: 0.055
+* Epoch: [23/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.120
+* Epoch: [23/60]	 Top 1-err 14.280  Top 5-err 1.410	 Test Loss 0.639
+* Epoch: [23/60]	 Top 1-err 14.280  Top 5-err 1.410	 Test Loss 0.639
+logging filter: 85.72
+logging filter: 0.8572
+logging filter: pair accuracy: 0.6425
+logging filter: 3 -> 5
+logging filter: 0.059
+logging filter: 5 -> 3
+logging filter: 0.048
+* Epoch: [24/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.120
+* Epoch: [24/60]	 Top 1-err 20.510  Top 5-err 3.750	 Test Loss 1.108
+* Epoch: [24/60]	 Top 1-err 20.510  Top 5-err 3.750	 Test Loss 1.108
+logging filter: 79.49
+logging filter: 0.7949
+logging filter: pair accuracy: 0.397
+logging filter: 3 -> 5
+logging filter: 0.014
+logging filter: 5 -> 3
+logging filter: 0.029
+not enough sample
+0
+10
+* Epoch: [25/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.116
+* Epoch: [25/60]	 Top 1-err 20.070  Top 5-err 3.600	 Test Loss 1.136
+* Epoch: [25/60]	 Top 1-err 20.070  Top 5-err 3.600	 Test Loss 1.136
+logging filter: 79.93
+logging filter: 0.7993
+logging filter: pair accuracy: 0.414
+logging filter: 3 -> 5
+logging filter: 0.033
+logging filter: 5 -> 3
+logging filter: 0.018
+* Epoch: [26/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.119
+* Epoch: [26/60]	 Top 1-err 16.980  Top 5-err 1.900	 Test Loss 0.837
+* Epoch: [26/60]	 Top 1-err 16.980  Top 5-err 1.900	 Test Loss 0.837
+logging filter: 83.02
+logging filter: 0.8302
+logging filter: pair accuracy: 0.494
+logging filter: 3 -> 5
+logging filter: 0.015
+logging filter: 5 -> 3
+logging filter: 0.043
+not enough sample
+10
+0
+* Epoch: [27/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.115
+* Epoch: [27/60]	 Top 1-err 17.840  Top 5-err 2.610	 Test Loss 0.950
+* Epoch: [27/60]	 Top 1-err 17.840  Top 5-err 2.610	 Test Loss 0.950
+logging filter: 82.16
+logging filter: 0.8216
+logging filter: pair accuracy: 0.504
+logging filter: 3 -> 5
+logging filter: 0.036
+logging filter: 5 -> 3
+logging filter: 0.015
+not enough sample
+10
+0
+* Epoch: [28/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.121
+* Epoch: [28/60]	 Top 1-err 19.920  Top 5-err 3.350	 Test Loss 1.051
+* Epoch: [28/60]	 Top 1-err 19.920  Top 5-err 3.350	 Test Loss 1.051
+logging filter: 80.08
+logging filter: 0.8008
+logging filter: pair accuracy: 0.375
+logging filter: 3 -> 5
+logging filter: 0.024
+logging filter: 5 -> 3
+logging filter: 0.014
+* Epoch: [29/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.118
+* Epoch: [29/60]	 Top 1-err 17.690  Top 5-err 2.380	 Test Loss 0.884
+* Epoch: [29/60]	 Top 1-err 17.690  Top 5-err 2.380	 Test Loss 0.884
+logging filter: 82.31
+logging filter: 0.8231
+logging filter: pair accuracy: 0.535
+logging filter: 3 -> 5
+logging filter: 0.019
+logging filter: 5 -> 3
+logging filter: 0.087
+* Epoch: [30/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.066
+* Epoch: [30/60]	 Top 1-err 15.350  Top 5-err 2.410	 Test Loss 0.775
+* Epoch: [30/60]	 Top 1-err 15.350  Top 5-err 2.410	 Test Loss 0.775
+logging filter: 84.65
+logging filter: 0.8465
+logging filter: pair accuracy: 0.5165
+logging filter: 3 -> 5
+logging filter: 0.005
+logging filter: 5 -> 3
+logging filter: 0.082
+not enough sample
+0
+10
+* Epoch: [31/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.044
+* Epoch: [31/60]	 Top 1-err 17.200  Top 5-err 3.370	 Test Loss 0.952
+* Epoch: [31/60]	 Top 1-err 17.200  Top 5-err 3.370	 Test Loss 0.952
+logging filter: 82.8
+logging filter: 0.828
+logging filter: pair accuracy: 0.414
+logging filter: 3 -> 5
+logging filter: 0.003
+logging filter: 5 -> 3
+logging filter: 0.085
+* Epoch: [32/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.038
+* Epoch: [32/60]	 Top 1-err 15.020  Top 5-err 2.310	 Test Loss 0.756
+* Epoch: [32/60]	 Top 1-err 15.020  Top 5-err 2.310	 Test Loss 0.756
+logging filter: 84.98
+logging filter: 0.8498
+logging filter: pair accuracy: 0.5005
+logging filter: 3 -> 5
+logging filter: 0.006
+logging filter: 5 -> 3
+logging filter: 0.043
+* Epoch: [33/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.032
+* Epoch: [33/60]	 Top 1-err 16.400  Top 5-err 3.100	 Test Loss 0.926
+* Epoch: [33/60]	 Top 1-err 16.400  Top 5-err 3.100	 Test Loss 0.926
+logging filter: 83.6
+logging filter: 0.836
+logging filter: pair accuracy: 0.4615
+logging filter: 3 -> 5
+logging filter: 0.005
+logging filter: 5 -> 3
+logging filter: 0.041
+* Epoch: [34/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.030
+* Epoch: [34/60]	 Top 1-err 15.000  Top 5-err 2.620	 Test Loss 0.817
+* Epoch: [34/60]	 Top 1-err 15.000  Top 5-err 2.620	 Test Loss 0.817
+logging filter: 85.0
+logging filter: 0.85
+logging filter: pair accuracy: 0.514
+logging filter: 3 -> 5
+logging filter: 0.006
+logging filter: 5 -> 3
+logging filter: 0.047
+* Epoch: [35/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.026
+* Epoch: [35/60]	 Top 1-err 14.730  Top 5-err 2.200	 Test Loss 0.799
+* Epoch: [35/60]	 Top 1-err 14.730  Top 5-err 2.200	 Test Loss 0.799
+logging filter: 85.27
+logging filter: 0.8527
+logging filter: pair accuracy: 0.5385
+logging filter: 3 -> 5
+logging filter: 0.012
+logging filter: 5 -> 3
+logging filter: 0.032
+* Epoch: [36/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.026
+* Epoch: [36/60]	 Top 1-err 15.630  Top 5-err 2.620	 Test Loss 0.881
+* Epoch: [36/60]	 Top 1-err 15.630  Top 5-err 2.620	 Test Loss 0.881
+logging filter: 84.37
+logging filter: 0.8437
+logging filter: pair accuracy: 0.514
+logging filter: 3 -> 5
+logging filter: 0.009
+logging filter: 5 -> 3
+logging filter: 0.023
+* Epoch: [37/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.024
+* Epoch: [37/60]	 Top 1-err 15.140  Top 5-err 2.640	 Test Loss 0.817
+* Epoch: [37/60]	 Top 1-err 15.140  Top 5-err 2.640	 Test Loss 0.817
+logging filter: 84.86
+logging filter: 0.8486
+logging filter: pair accuracy: 0.516
+logging filter: 3 -> 5
+logging filter: 0.003
+logging filter: 5 -> 3
+logging filter: 0.051
+not enough sample
+10
+0
+* Epoch: [38/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.023
+* Epoch: [38/60]	 Top 1-err 16.330  Top 5-err 3.200	 Test Loss 0.938
+* Epoch: [38/60]	 Top 1-err 16.330  Top 5-err 3.200	 Test Loss 0.938
+logging filter: 83.67
+logging filter: 0.8367
+logging filter: pair accuracy: 0.473
+logging filter: 3 -> 5
+logging filter: 0.008
+logging filter: 5 -> 3
+logging filter: 0.026
+not enough sample
+10
+0
+* Epoch: [39/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.021
+* Epoch: [39/60]	 Top 1-err 15.320  Top 5-err 2.780	 Test Loss 0.891
+* Epoch: [39/60]	 Top 1-err 15.320  Top 5-err 2.780	 Test Loss 0.891
+logging filter: 84.68
+logging filter: 0.8468
+logging filter: pair accuracy: 0.507
+logging filter: 3 -> 5
+logging filter: 0.007
+logging filter: 5 -> 3
+logging filter: 0.025
+* Epoch: [40/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.021
+* Epoch: [40/60]	 Top 1-err 15.760  Top 5-err 3.250	 Test Loss 0.914
+* Epoch: [40/60]	 Top 1-err 15.760  Top 5-err 3.250	 Test Loss 0.914
+logging filter: 84.24
+logging filter: 0.8424
+logging filter: pair accuracy: 0.5025
+logging filter: 3 -> 5
+logging filter: 0.038
+logging filter: 5 -> 3
+logging filter: 0.008
+* Epoch: [41/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.019
+* Epoch: [41/60]	 Top 1-err 15.680  Top 5-err 2.970	 Test Loss 0.909
+* Epoch: [41/60]	 Top 1-err 15.680  Top 5-err 2.970	 Test Loss 0.909
+logging filter: 84.32
+logging filter: 0.8432
+logging filter: pair accuracy: 0.4755
+logging filter: 3 -> 5
+logging filter: 0.003
+logging filter: 5 -> 3
+logging filter: 0.054
+* Epoch: [42/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.018
+* Epoch: [42/60]	 Top 1-err 15.960  Top 5-err 3.150	 Test Loss 0.949
+* Epoch: [42/60]	 Top 1-err 15.960  Top 5-err 3.150	 Test Loss 0.949
+logging filter: 84.04
+logging filter: 0.8404
+logging filter: pair accuracy: 0.48
+logging filter: 3 -> 5
+logging filter: 0.017
+logging filter: 5 -> 3
+logging filter: 0.008
+* Epoch: [43/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.017
+* Epoch: [43/60]	 Top 1-err 15.210  Top 5-err 2.760	 Test Loss 0.905
+* Epoch: [43/60]	 Top 1-err 15.210  Top 5-err 2.760	 Test Loss 0.905
+logging filter: 84.79
+logging filter: 0.8479
+logging filter: pair accuracy: 0.526
+logging filter: 3 -> 5
+logging filter: 0.011
+logging filter: 5 -> 3
+logging filter: 0.019
+* Epoch: [44/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.016
+* Epoch: [44/60]	 Top 1-err 18.270  Top 5-err 4.050	 Test Loss 1.140
+* Epoch: [44/60]	 Top 1-err 18.270  Top 5-err 4.050	 Test Loss 1.140
+logging filter: 81.73
+logging filter: 0.8173
+logging filter: pair accuracy: 0.3835
+logging filter: 3 -> 5
+logging filter: 0.002
+logging filter: 5 -> 3
+logging filter: 0.022
+* Epoch: [45/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.015
+* Epoch: [45/60]	 Top 1-err 15.440  Top 5-err 2.790	 Test Loss 0.907
+Current best accuracy (top-1 and 5 error): 15.44 2.79
+saving best model...
+* Epoch: [45/60]	 Top 1-err 15.440  Top 5-err 2.790	 Test Loss 0.907
+logging filter: 84.56
+logging filter: 0.8456
+logging filter: pair accuracy: 0.522
+logging filter: 3 -> 5
+logging filter: 0.018
+logging filter: 5 -> 3
+logging filter: 0.019
+* Epoch: [46/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.015
+* Epoch: [46/60]	 Top 1-err 15.690  Top 5-err 2.830	 Test Loss 0.915
+Current best accuracy (top-1 and 5 error): 15.44 2.79
+* Epoch: [46/60]	 Top 1-err 15.690  Top 5-err 2.830	 Test Loss 0.915
+logging filter: 84.31
+logging filter: 0.8431
+logging filter: pair accuracy: 0.5145
+logging filter: 3 -> 5
+logging filter: 0.004
+logging filter: 5 -> 3
+logging filter: 0.044
+* Epoch: [47/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.014
+* Epoch: [47/60]	 Top 1-err 15.950  Top 5-err 2.920	 Test Loss 0.938
+Current best accuracy (top-1 and 5 error): 15.44 2.79
+* Epoch: [47/60]	 Top 1-err 15.950  Top 5-err 2.920	 Test Loss 0.938
+logging filter: 84.05
+logging filter: 0.8405
+logging filter: pair accuracy: 0.479
+logging filter: 3 -> 5
+logging filter: 0.004
+logging filter: 5 -> 3
+logging filter: 0.032
+* Epoch: [48/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.015
+* Epoch: [48/60]	 Top 1-err 14.950  Top 5-err 2.500	 Test Loss 0.852
+Current best accuracy (top-1 and 5 error): 14.95 2.5
+saving best model...
+* Epoch: [48/60]	 Top 1-err 14.950  Top 5-err 2.500	 Test Loss 0.852
+logging filter: 85.05
+logging filter: 0.8505
+logging filter: pair accuracy: 0.5205
+logging filter: 3 -> 5
+logging filter: 0.008
+logging filter: 5 -> 3
+logging filter: 0.023
+not enough sample
+10
+0
+* Epoch: [49/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.014
+* Epoch: [49/60]	 Top 1-err 13.150  Top 5-err 1.860	 Test Loss 0.733
+Current best accuracy (top-1 and 5 error): 13.15 1.86
+saving best model...
+* Epoch: [49/60]	 Top 1-err 13.150  Top 5-err 1.860	 Test Loss 0.733
+logging filter: 86.85
+logging filter: 0.8685
+logging filter: pair accuracy: 0.572
+logging filter: 3 -> 5
+logging filter: 0.025
+logging filter: 5 -> 3
+logging filter: 0.021
+not enough sample
+10
+0
+* Epoch: [50/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.015
+* Epoch: [50/60]	 Top 1-err 15.950  Top 5-err 3.010	 Test Loss 0.963
+Current best accuracy (top-1 and 5 error): 13.15 1.86
+* Epoch: [50/60]	 Top 1-err 15.950  Top 5-err 3.010	 Test Loss 0.963
+logging filter: 84.05
+logging filter: 0.8405
+logging filter: pair accuracy: 0.4795
+logging filter: 3 -> 5
+logging filter: 0.002
+logging filter: 5 -> 3
+logging filter: 0.028
+not enough sample
+10
+0
+not enough sample
+0
+10
+* Epoch: [51/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.014
+* Epoch: [51/60]	 Top 1-err 14.900  Top 5-err 2.800	 Test Loss 0.873
+Current best accuracy (top-1 and 5 error): 13.15 1.86
+* Epoch: [51/60]	 Top 1-err 14.900  Top 5-err 2.800	 Test Loss 0.873
+logging filter: 85.1
+logging filter: 0.851
+logging filter: pair accuracy: 0.5115
+logging filter: 3 -> 5
+logging filter: 0.013
+logging filter: 5 -> 3
+logging filter: 0.013
+not enough sample
+10
+0
+* Epoch: [52/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.014
+* Epoch: [52/60]	 Top 1-err 15.150  Top 5-err 2.530	 Test Loss 0.895
+Current best accuracy (top-1 and 5 error): 13.15 1.86
+* Epoch: [52/60]	 Top 1-err 15.150  Top 5-err 2.530	 Test Loss 0.895
+logging filter: 84.85
+logging filter: 0.8485
+logging filter: pair accuracy: 0.5275
+logging filter: 3 -> 5
+logging filter: 0.002
+logging filter: 5 -> 3
+logging filter: 0.049
+not enough sample
+0
+10
+not enough sample
+10
+0
+* Epoch: [53/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.015
+* Epoch: [53/60]	 Top 1-err 14.440  Top 5-err 2.440	 Test Loss 0.830
+Current best accuracy (top-1 and 5 error): 13.15 1.86
+* Epoch: [53/60]	 Top 1-err 14.440  Top 5-err 2.440	 Test Loss 0.830
+logging filter: 85.56
+logging filter: 0.8556
+logging filter: pair accuracy: 0.536
+logging filter: 3 -> 5
+logging filter: 0.022
+logging filter: 5 -> 3
+logging filter: 0.02
+* Epoch: [54/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.015
+* Epoch: [54/60]	 Top 1-err 14.530  Top 5-err 2.130	 Test Loss 0.798
+Current best accuracy (top-1 and 5 error): 13.15 1.86
+* Epoch: [54/60]	 Top 1-err 14.530  Top 5-err 2.130	 Test Loss 0.798
+logging filter: 85.47
+logging filter: 0.8547
+logging filter: pair accuracy: 0.5495
+logging filter: 3 -> 5
+logging filter: 0.011
+logging filter: 5 -> 3
+logging filter: 0.027
+not enough sample
+10
+0
+not enough sample
+10
+0
+* Epoch: [55/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.015
+* Epoch: [55/60]	 Top 1-err 14.320  Top 5-err 2.150	 Test Loss 0.798
+Current best accuracy (top-1 and 5 error): 13.15 1.86
+* Epoch: [55/60]	 Top 1-err 14.320  Top 5-err 2.150	 Test Loss 0.798
+logging filter: 85.68
+logging filter: 0.8568
+logging filter: pair accuracy: 0.5575
+logging filter: 3 -> 5
+logging filter: 0.033
+logging filter: 5 -> 3
+logging filter: 0.02
+* Epoch: [56/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.014
+* Epoch: [56/60]	 Top 1-err 14.030  Top 5-err 2.300	 Test Loss 0.794
+Current best accuracy (top-1 and 5 error): 13.15 1.86
+* Epoch: [56/60]	 Top 1-err 14.030  Top 5-err 2.300	 Test Loss 0.794
+logging filter: 85.97
+logging filter: 0.8597
+logging filter: pair accuracy: 0.556
+logging filter: 3 -> 5
+logging filter: 0.002
+logging filter: 5 -> 3
+logging filter: 0.083
+* Epoch: [57/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.014
+* Epoch: [57/60]	 Top 1-err 16.390  Top 5-err 3.240	 Test Loss 1.003
+Current best accuracy (top-1 and 5 error): 13.15 1.86
+* Epoch: [57/60]	 Top 1-err 16.390  Top 5-err 3.240	 Test Loss 1.003
+logging filter: 83.61
+logging filter: 0.8361
+logging filter: pair accuracy: 0.437
+logging filter: 3 -> 5
+logging filter: 0.005
+logging filter: 5 -> 3
+logging filter: 0.02
+not enough sample
+10
+0
+* Epoch: [58/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.015
+* Epoch: [58/60]	 Top 1-err 15.240  Top 5-err 2.660	 Test Loss 0.866
+Current best accuracy (top-1 and 5 error): 13.15 1.86
+* Epoch: [58/60]	 Top 1-err 15.240  Top 5-err 2.660	 Test Loss 0.866
+logging filter: 84.76
+logging filter: 0.8476
+logging filter: pair accuracy: 0.5165
+logging filter: 3 -> 5
+logging filter: 0.007
+logging filter: 5 -> 3
+logging filter: 0.036
+* Epoch: [59/60]	 Top 1-err 0.000  Top 5-err 0.000	 Train Loss 0.014
+* Epoch: [59/60]	 Top 1-err 14.010  Top 5-err 2.360	 Test Loss 0.823
+Current best accuracy (top-1 and 5 error): 13.15 1.86
+* Epoch: [59/60]	 Top 1-err 14.010  Top 5-err 2.360	 Test Loss 0.823
+logging filter: 85.99
+logging filter: 0.8599
+logging filter: pair accuracy: 0.5405
+logging filter: 3 -> 5
+logging filter: 0.002
+logging filter: 5 -> 3
+logging filter: 0.037
+Best accuracy (top-1 and 5 error): 13.15 1.86
+logging filter: 
+=> loading checkpoint 'runs/cifar10_resnet_2_4_dogcat_test/model_best.pth.tar'
+* Epoch: [-1/60]	 Top 1-err 13.150  Top 5-err 1.860	 Test Loss 0.733
+logging filter: 86.85
+logging filter: 0.8685
+logging filter: pair accuracy: 0.572
+logging filter: 3 -> 5
+logging filter: 0.025
+logging filter: 5 -> 3
+logging filter: 0.021
