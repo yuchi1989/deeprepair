@@ -319,8 +319,9 @@ def train(train_loader, target_train_loader, model, criterion, optimizer, epoch)
         except StopIteration:
             extra_iterator = iter(target_train_loader)
             (target_input, target_target) = next(extra_iterator)
-        input = torch.cat([input, target_input])
-        target = torch.cat([target, target_target])
+        if args.lam != 0:
+            input = torch.cat([input, target_input])
+            target = torch.cat([target, target_target])
         input = input.cuda()
         target = target.cuda()
         target_copy = target.cpu().numpy()

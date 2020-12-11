@@ -576,9 +576,41 @@ python2 repair_confusion.py --pretrained coco_bias_1/model_best.pth.tar --log_di
 
 
 python3 train_baseline_cifar100.py --net_type resnet --dataset cifar100 --depth 50 --batch_size 256 --lr 0.1 --expname cifar100_resnet_2 --epochs 300 --beta 1.0 --cutmix_prob 0
+    top confusion pairs
+    0.7087
+    0.0
+    0.0
+
+    (55, 72) avg: 0.15000000000000002 otter seal
+    (55, 72): 0.16
+    (72, 55): 0.14
+
+    (35, 98) avg: 0.135
+    (35, 98): 0.16
+    (98, 35): 0.11
+
+    (11, 35) avg: 0.13
+    (11, 35): 0.12
+    (35, 11): 0.14
+
+   
+
+    python3 cifar100_repair_confusion.py --net_type resnet --dataset cifar100 --depth 50 --batch_size 256 --lr 0.1 --expname cifar100_resnet_2_otter_seal --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar100_resnet_2/model_best.pth.tar --lam 0 --first 55 --second 72
 
 
-python3 repair_confusion_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4/model_best.pth.tar --expid 0 --lam 0
+    (55, 0, 72) triplet: 0.15000000000000002 otter apple seal
+    (55, 0): 0.0
+    (55, 72): 0.15000000000000002
+
+    python3 cifar100_repair_bias.py --net_type resnet --dataset cifar100 --depth 50 --batch_size 256 --lr 0.1 --expname cifar100_resnet_2_otter_seal --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar100_resnet_2/model_best.pth.tar --lam 0.5 --first 55 --second 0 --third 72
+
+    python3 cifar100_repair_confusion.py --net_type resnet --dataset cifar100 --depth 50 --batch_size 256 --lr 0.1 --expname cifar100_resnet_2_otter_seal --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar100_resnet_1_35_98/model_best.pth.tar --lam 0.5
+
+
+
+
+
+    python3 repair_confusion_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4/model_best.pth.tar --expid 0 --lam 0
 
 
 exp6.2:
