@@ -104,25 +104,28 @@ def log_print(var):
 
 glob_bn_total = 0
 glob_bn_count = 0
-def count_bn_layer(module):
+def count_bn_layer(model):
     global glob_bn_total
-    if isinstance(module, torch.nn.modules.batchnorm._BatchNorm):
-        glob_bn_total += 1
+    for module in model.modules():
+        if isinstance(module, torch.nn.BatchNorm2d):
+            glob_bn_total += 1
 
 
-def set_bn_eval(module):
+def set_bn_eval(model):
     global glob_bn_count
     global glob_bn_total
-    if isinstance(module, torch.nn.modules.batchnorm._BatchNorm):
-        glob_bn_count += 1
-        if glob_bn_count < glob_bn_total:
-        # if glob_bn_count == 0:
-            module.eval()
+    for module in model.modules():
+        if isinstance(module, torch.nn.BatchNorm2d):
+            glob_bn_count += 1
+            if glob_bn_count < glob_bn_total:
+            # if glob_bn_count == 0:
+                module.eval()
 
 
-def set_bn_train(module):
-    if isinstance(module, torch.nn.modules.batchnorm._BatchNorm):
-        module.train()
+def set_bn_train(model):
+    for module in model.modules():
+        if isinstance(module, torch.nn.BatchNorm2d):
+            module.train()
 
 
 
@@ -311,7 +314,7 @@ def train(train_loader, target_train_loader, model, criterion, optimizer, epoch)
     glob_bn_total = 0
     glob_bn_count = 0
     count_bn_layer(model)
-    print("total bn layer: " + str(glob_bn_count))
+    print("total bn layer: " + str(glob_bn_total))
     set_bn_eval(model)
     end = time.time()
     current_LR = get_learning_rate(optimizer)[0]

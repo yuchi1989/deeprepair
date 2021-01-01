@@ -103,9 +103,10 @@ def log_print(var):
     print("logging filter: " + str(var))
 
 
-def set_bn_eval(module):
-    if isinstance(module, torch.nn.modules.batchnorm._BatchNorm):
-        module.eval()
+def set_bn_eval(model):
+    for module in model.modules():
+        if isinstance(module, torch.nn.BatchNorm2d):
+            module.eval()
 
 def set_bn_train(module):
     if isinstance(module, torch.nn.modules.batchnorm._BatchNorm):
