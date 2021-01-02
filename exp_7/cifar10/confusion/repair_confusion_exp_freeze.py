@@ -104,13 +104,30 @@ def log_print(var):
 
 
 def set_bn_eval(model):
+    '''
     for module in model.modules():
         if isinstance(module, torch.nn.BatchNorm2d):
+            print("set bn")
+            module.eval()
+    '''
+    for module in model.modules():
+        if isinstance(module, nn.BatchNorm2d):
+            if hasattr(module, 'weight'):
+                module.weight.requires_grad_(False)
+            if hasattr(module, 'bias'):
+                module.bias.requires_grad_(False)
+            #print("set bn")
             module.eval()
 
-def set_bn_train(module):
-    if isinstance(module, torch.nn.modules.batchnorm._BatchNorm):
-        module.train()
+def set_bn_train(model):
+    for module in model.modules():
+        if isinstance(module, nn.BatchNorm2d):
+            if hasattr(module, 'weight'):
+                module.weight.requires_grad_(True)
+            if hasattr(module, 'bias'):
+                module.bias.requires_grad_(True)
+            #print("set bn")
+            module.train()
 
 
 
@@ -294,7 +311,9 @@ def train(train_loader, target_train_loader, model, criterion, optimizer, epoch)
 
     # switch to train mode
     model.train()
+    #print(model)
     set_bn_eval(model)
+    #model.apply(set_bn_eval)
     end = time.time()
     current_LR = get_learning_rate(optimizer)[0]
     extra_iterator = iter(target_train_loader)
@@ -312,8 +331,10 @@ def train(train_loader, target_train_loader, model, criterion, optimizer, epoch)
         input = input.cuda()
         target = target.cuda()
         target_copy = target_target.cpu().numpy()
+        set_bn_eval(model)
         for _ in range(args.forward):
             target_output = model(target_input)
+        set_bn_train(model)
         r = np.random.rand(1)
         if args.beta > 0 and r < args.cutmix_prob:
             # generate mixed sample

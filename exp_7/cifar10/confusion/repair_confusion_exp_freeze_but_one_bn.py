@@ -117,14 +117,24 @@ def set_bn_eval(model):
     for module in model.modules():
         if isinstance(module, torch.nn.BatchNorm2d):
             glob_bn_count += 1
-            if glob_bn_count < glob_bn_total:
-            # if glob_bn_count == 0:
+            #if glob_bn_count < glob_bn_total:# unfreeze last bn
+            #if glob_bn_count == glob_bn_total//2:# unfreeze last bn
+            if glob_bn_count == 1: # unfreeze first bn layer
                 module.eval()
+                if hasattr(module, 'weight'):
+                    module.weight.requires_grad_(False)
+                if hasattr(module, 'bias'):
+                    module.bias.requires_grad_(False)
 
 
-def set_bn_train(model):
+def set_bn_train(model): # unfreeze all bn
     for module in model.modules():
-        if isinstance(module, torch.nn.BatchNorm2d):
+        if isinstance(module, nn.BatchNorm2d):
+            if hasattr(module, 'weight'):
+                module.weight.requires_grad_(True)
+            if hasattr(module, 'bias'):
+                module.bias.requires_grad_(True)
+            #print("set bn")
             module.train()
 
 
@@ -315,7 +325,6 @@ def train(train_loader, target_train_loader, model, criterion, optimizer, epoch)
     glob_bn_count = 0
     count_bn_layer(model)
     print("total bn layer: " + str(glob_bn_total))
-    set_bn_eval(model)
     end = time.time()
     current_LR = get_learning_rate(optimizer)[0]
     extra_iterator = iter(target_train_loader)
@@ -333,8 +342,11 @@ def train(train_loader, target_train_loader, model, criterion, optimizer, epoch)
         input = input.cuda()
         target = target.cuda()
         target_copy = target_target.cpu().numpy()
+        glob_bn_count = 0
+        set_bn_eval(model)
         for _ in range(args.forward):
             target_output = model(target_input)
+        set_bn_train(model)
         r = np.random.rand(1)
         if args.beta > 0 and r < args.cutmix_prob:
             # generate mixed sample
