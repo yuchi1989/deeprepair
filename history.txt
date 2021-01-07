@@ -662,76 +662,252 @@ exp6.2:
 
 exp_7
 
-python3 repair_confusion_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4/model_best.pth.tar --expid 0 --lam 0 --forward 1
+cifar10:
+    python3 repair_confusion_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4/model_best.pth.tar --expid 0 --lam 0 --forward 1
 
-logging filter: 90.74
-logging filter: 0.9074
-logging filter: 3 -> 5
-logging filter: 0.041
-logging filter: 5 -> 3
-logging filter: 0.035
+    logging filter: 90.74
+    logging filter: 0.9074
+    logging filter: 3 -> 5
+    logging filter: 0.041
+    logging filter: 5 -> 3
+    logging filter: 0.035
 
-python3 repair_confusion_exp_freeze.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4/model_best.pth.tar --expid 0 --lam 0 --forward 1
+    python3 repair_confusion_exp_freeze.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4/model_best.pth.tar --expid 0 --lam 0 --forward 1
 
-freeze all batch norm layer helps reduce the confusion. In other words, batchnorm layer help increase accuracy with the sacriface of confusion.
+    freeze all batch norm layer helps reduce the confusion. In other words, batchnorm layer help increase accuracy with the sacriface of confusion.
 
-logging filter: 92.96
-logging filter: 0.9296
-logging filter: pair accuracy: 0.8645
-logging filter: 3 -> 5
-logging filter: 0.066
-logging filter: 5 -> 3
-logging filter: 0.059
+    logging filter: 92.96
+    logging filter: 0.9296
+    logging filter: pair accuracy: 0.8645
+    logging filter: 3 -> 5
+    logging filter: 0.066
+    logging filter: 5 -> 3
+    logging filter: 0.059
 
-# unfreeze last bn layer
-python3 repair_confusion_exp_freeze_but_one_bn.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4/model_best.pth.tar --expid 0 --lam 0 --forward 1
+    # unfreeze last bn layer
+    python3 repair_confusion_exp_freeze_but_one_bn.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4/model_best.pth.tar --expid 0 --lam 0 --forward 1
 
-logging filter: 91.15
-logging filter: 0.9115
-logging filter: pair accuracy: 0.752
-logging filter: 3 -> 5
-logging filter: 0.039
-logging filter: 5 -> 3
-logging filter: 0.05
-
-
-unfreeze first bn layer
-python3 repair_confusion_exp_freeze_but_one_bn.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4/model_best.pth.tar --expid 0 --lam 0 --forward 1
-
-logging filter: 92.74
-logging filter: 0.9274
-logging filter: pair accuracy: 0.863
-logging filter: 3 -> 5
-logging filter: 0.068
-logging filter: 5 -> 3
-logging filter: 0.065
+    logging filter: 91.15
+    logging filter: 0.9115
+    logging filter: pair accuracy: 0.752
+    logging filter: 3 -> 5
+    logging filter: 0.039
+    logging filter: 5 -> 3
+    logging filter: 0.05
 
 
+    unfreeze first bn layer
+    python3 repair_confusion_exp_freeze_but_one_bn.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4/model_best.pth.tar --expid 0 --lam 0 --forward 1
 
-# unfreeze middle bn layer
-python3 repair_confusion_exp_freeze_but_one_bn.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4/model_best.pth.tar --expid 0 --lam 0 --forward 1
+    logging filter: 92.74
+    logging filter: 0.9274
+    logging filter: pair accuracy: 0.863
+    logging filter: 3 -> 5
+    logging filter: 0.068
+    logging filter: 5 -> 3
+    logging filter: 0.065
 
-logging filter: 92.96
-logging filter: 0.9296
-logging filter: pair accuracy: 0.864
-logging filter: 3 -> 5
-logging filter: 0.059
-logging filter: 5 -> 3
-logging filter: 0.084
 
-# unfreeze last 1/3 bn layer
-python3 repair_confusion_exp_freeze_but_one_bn.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4/model_best.pth.tar --expid 0 --lam 0 --forward 1
 
-logging filter: 90.51
-logging filter: 0.9051
-logging filter: pair accuracy: 0.7335
-logging filter: 3 -> 5
-logging filter: 0.023
-logging filter: 5 -> 3
-logging filter: 0.081
+    # unfreeze middle bn layer
+    python3 repair_confusion_exp_freeze_but_one_bn.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4/model_best.pth.tar --expid 0 --lam 0 --forward 1
 
-# unfreeze first 1/3 layer
-python3 repair_confusion_exp_freeze_but_one_bn.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4/model_best.pth.tar --expid 0 --lam 0 --forward 1
+    logging filter: 92.96
+    logging filter: 0.9296
+    logging filter: pair accuracy: 0.864
+    logging filter: 3 -> 5
+    logging filter: 0.059
+    logging filter: 5 -> 3
+    logging filter: 0.084
 
-# unfreeze middle 1/3 bn layer
-python3 repair_confusion_exp_freeze_but_one_bn.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4/model_best.pth.tar --expid 0 --lam 0 --forward 1
+    # unfreeze last 1/3 bn layer
+    python3 repair_confusion_exp_freeze_but_one_bn.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4/model_best.pth.tar --expid 0 --lam 0 --forward 1
+
+    logging filter: 90.51
+    logging filter: 0.9051
+    logging filter: pair accuracy: 0.7335
+    logging filter: 3 -> 5
+    logging filter: 0.023
+    logging filter: 5 -> 3
+    logging filter: 0.081
+
+    # unfreeze first 1/3 layer
+    python3 repair_confusion_exp_freeze_but_one_bn.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4/model_best.pth.tar --expid 0 --lam 0 --forward 1
+
+    logging filter: 92.75
+    logging filter: 0.9275
+    logging filter: pair accuracy: 0.854
+    logging filter: 3 -> 5
+    logging filter: 0.064
+    logging filter: 5 -> 3
+    logging filter: 0.079
+
+    # unfreeze middle 1/3 bn layer
+    python3 repair_confusion_exp_freeze_but_one_bn.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4/model_best.pth.tar --expid 0 --lam 0 --forward 1
+
+    logging filter: 92.93
+    logging filter: 0.9293
+    logging filter: pair accuracy: 0.8565
+    logging filter: 3 -> 5
+    logging filter: 0.064
+    logging filter: 5 -> 3
+    logging filter: 0.07
+
+    # unfreeze last 3 bn layer
+    python3 repair_confusion_exp_freeze_but_one_bn.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4/model_best.pth.tar --expid 0 --lam 0 --forward 1
+
+cifar100:
+    python3 cifar100_repair_confusion_exp.py --net_type resnet --dataset cifar100 --depth 50 --batch_size 256 --lr 0.1 --expname cifar100_resnet_2_otter_seal --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar100_resnet_2/model_best.pth.tar --lam 0 --first 55 --second 72 --forward 1
+
+    69.24
+    0.6924
+    0.0
+    0.04
+
+
+    #freeze all batch norm layer
+    python3 cifar100_repair_confusion_exp_freeze.py --net_type resnet --dataset cifar100 --depth 50 --batch_size 256 --lr 0.1 --expname cifar100_resnet_2_otter_seal --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar100_resnet_2/model_best.pth.tar --lam 0 --first 55 --second 72 --forward 1
+
+    71.7
+    0.717
+    0.09
+    0.18
+
+    #unfreeze last one
+    python3 cifar100_repair_confusion_exp_freeze_but_one_bn.py --net_type resnet --dataset cifar100 --depth 50 --batch_size 256 --lr 0.1 --expname cifar100_resnet_2_otter_seal --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar100_resnet_2/model_best.pth.tar --lam 0 --first 55 --second 72 --forward 1
+
+    71.06
+    0.7106
+    0.09
+    0.18
+
+    #unfreeze first one
+    python3 cifar100_repair_confusion_exp_freeze_but_one_bn.py --net_type resnet --dataset cifar100 --depth 50 --batch_size 256 --lr 0.1 --expname cifar100_resnet_2_otter_seal --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar100_resnet_2/model_best.pth.tar --lam 0 --first 55 --second 72 --forward 1
+
+    71.34
+    0.7134
+    0.05
+    0.15
+
+    #unfreeze mid one
+    python3 cifar100_repair_confusion_exp_freeze_but_one_bn.py --net_type resnet --dataset cifar100 --depth 50 --batch_size 256 --lr 0.1 --expname cifar100_resnet_2_otter_seal --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar100_resnet_2/model_best.pth.tar --lam 0 --first 55 --second 72 --forward 1
+
+    71.67
+    0.7167
+    0.07
+    0.17
+
+    unfreeze last 1/3
+    python3 cifar100_repair_confusion_exp_freeze_but_one_bn.py --net_type resnet --dataset cifar100 --depth 50 --batch_size 256 --lr 0.1 --expname cifar100_resnet_2_otter_seal --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar100_resnet_2/model_best.pth.tar --lam 0 --first 55 --second 72 --forward 1
+
+    69.32
+    0.6932
+    0.02
+    0.04
+
+    unfreeze first 1/3
+    python3 cifar100_repair_confusion_exp_freeze_but_one_bn.py --net_type resnet --dataset cifar100 --depth 50 --batch_size 256 --lr 0.1 --expname cifar100_resnet_2_otter_seal --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar100_resnet_2/model_best.pth.tar --lam 0 --first 55 --second 72 --forward 1
+    
+    71.1
+    0.711
+    0.1
+    0.14
+    
+    unfreeze mid 1/3
+    python3 cifar100_repair_confusion_exp_freeze_but_one_bn.py --net_type resnet --dataset cifar100 --depth 50 --batch_size 256 --lr 0.1 --expname cifar100_resnet_2_otter_seal --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar100_resnet_2/model_best.pth.tar --lam 0 --first 55 --second 72 --forward 1
+
+    71.09
+    0.7109
+    0.06
+    0.15
+
+
+    unfreeze last 3 bn layer
+    python3 cifar100_repair_confusion_exp_freeze_but_one_bn.py --net_type resnet --dataset cifar100 --depth 50 --batch_size 256 --lr 0.1 --expname cifar100_resnet_2_otter_seal --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar100_resnet_2/model_best.pth.tar --lam 0 --first 55 --second 72 --forward 1
+
+    70.16
+    0.7016
+    0.03
+    0.06
+    or
+    70.13
+    0.7013
+    0.03
+    0.03
+
+
+
+
+cifar100: pair 35 98
+    python3 cifar100_repair_confusion_exp.py --net_type resnet --dataset cifar100 --depth 50 --batch_size 256 --lr 0.1 --expname cifar100_resnet_2_otter_seal --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar100_resnet_2/model_best.pth.tar --lam 0 --first 35 --second 98 --forward 1
+
+    67.32
+    0.6732
+    0.07
+    0.05
+
+
+    #freeze all batch norm layer
+    python3 cifar100_repair_confusion_exp_freeze.py --net_type resnet --dataset cifar100 --depth 50 --batch_size 256 --lr 0.1 --expname cifar100_resnet_2_otter_seal --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar100_resnet_2/model_best.pth.tar --lam 0 --first 35 --second 98 --forward 1
+
+    71.56
+    0.7156
+    0.22
+    0.14
+
+
+    #unfreeze last one
+    python3 cifar100_repair_confusion_exp_freeze_but_one_bn.py --net_type resnet --dataset cifar100 --depth 50 --batch_size 256 --lr 0.1 --expname cifar100_resnet_2_otter_seal --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar100_resnet_2/model_best.pth.tar --lam 0 --first 35 --second 98 --forward 1
+
+    
+    69.73
+    0.6973
+    0.1
+    0.05
+
+
+
+    #unfreeze first one
+    python3 cifar100_repair_confusion_exp_freeze_but_one_bn.py --net_type resnet --dataset cifar100 --depth 50 --batch_size 256 --lr 0.1 --expname cifar100_resnet_2_otter_seal --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar100_resnet_2/model_best.pth.tar --lam 0 --first 35 --second 98 --forward 1
+
+    71.26
+    0.7126
+    0.19
+    0.08
+
+
+
+    #unfreeze mid one
+    python3 cifar100_repair_confusion_exp_freeze_but_one_bn.py --net_type resnet --dataset cifar100 --depth 50 --batch_size 256 --lr 0.1 --expname cifar100_resnet_2_otter_seal --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar100_resnet_2/model_best.pth.tar --lam 0 --first 35 --second 98 --forward 1
+
+    
+
+    unfreeze last 1/3
+    python3 cifar100_repair_confusion_exp_freeze_but_one_bn.py --net_type resnet --dataset cifar100 --depth 50 --batch_size 256 --lr 0.1 --expname cifar100_resnet_2_otter_seal --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar100_resnet_2/model_best.pth.tar --lam 0 --first 35 --second 98 --forward 1
+
+    67.95
+    0.6795
+    0.11
+    0.09
+
+
+    unfreeze first 1/3
+    python3 cifar100_repair_confusion_exp_freeze_but_one_bn.py --net_type resnet --dataset cifar100 --depth 50 --batch_size 256 --lr 0.1 --expname cifar100_resnet_2_otter_seal --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar100_resnet_2/model_best.pth.tar --lam 0 --first 35 --second 98 --forward 1
+    
+    
+    
+    unfreeze mid 1/3
+    python3 cifar100_repair_confusion_exp_freeze_but_one_bn.py --net_type resnet --dataset cifar100 --depth 50 --batch_size 256 --lr 0.1 --expname cifar100_resnet_2_otter_seal --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar100_resnet_2/model_best.pth.tar --lam 0 --first 35 --second 98 --forward 1
+
+    
+
+
+    unfreeze last 3 bn layer
+    python3 cifar100_repair_confusion_exp_freeze_but_one_bn.py --net_type resnet --dataset cifar100 --depth 50 --batch_size 256 --lr 0.1 --expname cifar100_resnet_2_otter_seal --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar100_resnet_2/model_best.pth.tar --lam 0 --first 35 --second 98 --forward 1
+
+    69.43
+    0.6943
+    0.11
+    0.04
+
+    
