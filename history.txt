@@ -756,6 +756,37 @@ cifar10:
     # unfreeze last 3 bn layer
     python3 repair_confusion_exp_freeze_but_one_bn.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4/model_best.pth.tar --expid 0 --lam 0 --forward 1
 
+    logging filter: 90.72
+    logging filter: 0.9072
+    logging filter: pair accuracy: 0.7435
+    logging filter: 3 -> 5
+    logging filter: 0.024
+    logging filter: 5 -> 3
+    logging filter: 0.057
+
+    # unfreeze last 3 bn layer momentum = 0.5
+    python3 repair_confusion_exp_momentum.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4/model_best.pth.tar --expid 0 --lam 0 --forward 1
+
+    logging filter: 92.02
+    logging filter: 0.9202
+    logging filter: pair accuracy: 0.8105
+    logging filter: 3 -> 5
+    logging filter: 0.046
+    logging filter: 5 -> 3
+    logging filter: 0.044
+
+
+    # unfreeze last 3 bn layer momentum = 0.5 forward = 0
+    python3 repair_confusion_exp_momentum.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4/model_best.pth.tar --expid 0 --lam 0 --forward 0
+
+    logging filter: 92.92
+    logging filter: 0.9292
+    logging filter: pair accuracy: 0.852
+    logging filter: 3 -> 5
+    logging filter: 0.069
+    logging filter: 5 -> 3
+    logging filter: 0.067
+
 cifar100:
     python3 cifar100_repair_confusion_exp.py --net_type resnet --dataset cifar100 --depth 50 --batch_size 256 --lr 0.1 --expname cifar100_resnet_2_otter_seal --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar100_resnet_2/model_best.pth.tar --lam 0 --first 55 --second 72 --forward 1
 

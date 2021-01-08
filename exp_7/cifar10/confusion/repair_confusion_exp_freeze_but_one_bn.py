@@ -117,12 +117,13 @@ def set_bn_eval(model):
     for module in model.modules():
         if isinstance(module, torch.nn.BatchNorm2d):
             glob_bn_count += 1
+            if glob_bn_count < glob_bn_total - 2: # unfreeze last 3
             #if glob_bn_count < glob_bn_total:# unfreeze last bn
             #if glob_bn_count != glob_bn_total//2:# unfreeze middle bn
             #if glob_bn_count != 1: # unfreeze first bn layer
             #if glob_bn_count < glob_bn_total*2/3:# unfreeze last 1/3
             #if glob_bn_count > glob_bn_total*1/3:# unfreeze first 1/3
-            if glob_bn_count > glob_bn_total*2/3 or glob_bn_count < glob_bn_total*1/3: # unfreeze middle 1/3
+            #if glob_bn_count > glob_bn_total*2/3 or glob_bn_count < glob_bn_total*1/3: # unfreeze middle 1/3
                 module.eval()
                 if hasattr(module, 'weight'):
                     module.weight.requires_grad_(False)
