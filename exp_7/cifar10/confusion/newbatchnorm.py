@@ -31,7 +31,7 @@ class dnnrepair_BatchNorm2d(nn.BatchNorm2d):
 
         # calculate running estimates
         if self.training:
-            weighted_input = self.running_weight.view(-1,1,1,1)
+            weighted_input = self.running_weight.view(-1,1,1,1)* input
             mean = weighted_input.mean([0, 2, 3])
             # use biased var in train
             var = weighted_input.var([0, 2, 3], unbiased=False)
