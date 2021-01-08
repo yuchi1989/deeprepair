@@ -8,46 +8,53 @@ import torchvision
 import torchvision.transforms as transforms
 from torch.nn.parameter import Parameter
 
+
 class dnnrepair_BatchNorm2d(nn.BatchNorm2d):
-    def __init__(self, num_features, running_weight, eps=1e-5, momentum=0.1,
+
+    def __init__(self, num_features, target_ratio=0, eps=1e-5, momentum=0.1,
                  affine=True, track_running_stats=True):
         super(dnnrepair_BatchNorm2d, self).__init__(
             num_features, eps, momentum, affine, track_running_stats)
-        self.running_weight = running_weight/running_weight.sum()
+        self.target_ratio = target_ratio
 
     def forward(self, input):
         self._check_input_dim(input)
-        assert self.running_weight.size(0) == input.size(0)
-        
+
         exponential_average_factor = 0.0
 
         if self.training and self.track_running_stats:
             if self.num_batches_tracked is not None:
                 self.num_batches_tracked += 1
                 if self.momentum is None:  # use cumulative moving average
-                    exponential_average_factor = 1.0 / float(self.num_batches_tracked)
+                    exponential_average_factor = 1.0 / \
+                        float(self.num_batches_tracked)
                 else:  # use exponential moving average
                     exponential_average_factor = self.momentum
 
         # calculate running estimates
         if self.training:
-            weighted_input = self.running_weight.view(-1,1,1,1)* input
+            half_input = input.size(0) / 2
+            self.running_weight = torch.Tensor([self.target_ratio / half_input] * half_input + [
+                                               (1 - self.target_ratio) / half_input] * half_input)
+            weighted_input = self.running_weight.view(-1, 1, 1, 1) * input
             mean = weighted_input.mean([0, 2, 3])
             # use biased var in train
             var = weighted_input.var([0, 2, 3], unbiased=False)
             n = input.numel() / input.size(1)
             with torch.no_grad():
-                self.running_mean.copy_(exponential_average_factor * mean\
-                    + (1 - exponential_average_factor) * self.running_mean)
+                self.running_mean.copy_(exponential_average_factor * mean
+                                        + (1 - exponential_average_factor) * self.running_mean)
                 # update running_var with unbiased var
-                self.running_var.copy_(exponential_average_factor * var * n / (n - 1)\
-                    + (1 - exponential_average_factor) * self.running_var)
+                self.running_var.copy_(exponential_average_factor * var * n / (n - 1)
+                                       + (1 - exponential_average_factor) * self.running_var)
         else:
             mean = self.running_mean
             var = self.running_var
 
-        input = (input - mean[None, :, None, None]) / (torch.sqrt(var[None, :, None, None] + self.eps))
+        input = (input - mean[None, :, None, None]) / \
+            (torch.sqrt(var[None, :, None, None] + self.eps))
         if self.affine:
-            input = input * self.weight[None, :, None, None] + self.bias[None, :, None, None]
+            input = input * self.weight[None, :, None,
+                                        None] + self.bias[None, :, None, None]
 
         return input
