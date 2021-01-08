@@ -33,10 +33,10 @@ class dnnrepair_BatchNorm2d(nn.BatchNorm2d):
 
         # calculate running estimates
         if self.training:
-            half_input = input.size(0) / 2
-            self.running_weight = torch.Tensor([self.target_ratio / half_input] * half_input + [
-                                               (1 - self.target_ratio) / half_input] * half_input)
-            weighted_input = self.running_weight.view(-1, 1, 1, 1) * input
+            half_len = input.size(0)//2
+            first_half = self.target_ratio / half_len * input[:half_len]
+            second_half = (1 - self.target_ratio) / half_len * input[half_len:]
+            weighted_input = torch.cat([first_half, second_half])
             mean = weighted_input.mean([0, 2, 3])
             # use biased var in train
             var = weighted_input.var([0, 2, 3], unbiased=False)
