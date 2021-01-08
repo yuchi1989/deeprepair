@@ -13,10 +13,12 @@ class dnnrepair_BatchNorm2d(nn.BatchNorm2d):
                  affine=True, track_running_stats=True):
         super(dnnrepair_BatchNorm2d, self).__init__(
             num_features, eps, momentum, affine, track_running_stats)
+        self.running_weight = running_weight/running_weight.sum()
 
     def forward(self, input):
         self._check_input_dim(input)
-
+        assert self.running_weight.size(0) == input.size(0)
+        
         exponential_average_factor = 0.0
 
         if self.training and self.track_running_stats:
@@ -29,16 +31,17 @@ class dnnrepair_BatchNorm2d(nn.BatchNorm2d):
 
         # calculate running estimates
         if self.training:
-            mean = input.mean([0, 2, 3])
+            weighted_input = self.running_weight.view(-1,1,1,1)
+            mean = weighted_input.mean([0, 2, 3])
             # use biased var in train
-            var = input.var([0, 2, 3], unbiased=False)
+            var = weighted_input.var([0, 2, 3], unbiased=False)
             n = input.numel() / input.size(1)
             with torch.no_grad():
-                self.running_mean = exponential_average_factor * mean\
-                    + (1 - exponential_average_factor) * self.running_mean
+                self.running_mean.copy_(exponential_average_factor * mean\
+                    + (1 - exponential_average_factor) * self.running_mean)
                 # update running_var with unbiased var
-                self.running_var = exponential_average_factor * var * n / (n - 1)\
-                    + (1 - exponential_average_factor) * self.running_var
+                self.running_var.copy_(exponential_average_factor * var * n / (n - 1)\
+                    + (1 - exponential_average_factor) * self.running_var)
         else:
             mean = self.running_mean
             var = self.running_var
