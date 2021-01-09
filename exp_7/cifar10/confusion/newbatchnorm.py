@@ -11,13 +11,15 @@ from torch.nn.parameter import Parameter
 
 class dnnrepair_BatchNorm2d(nn.BatchNorm2d):
 
-    def __init__(self, num_features, weight, bias, target_ratio=0, eps=1e-5, momentum=0.1,
+    def __init__(self, num_features, weight, bias, running_mean, running_var, target_ratio=0, eps=1e-5, momentum=0.1,
                  affine=True, track_running_stats=True):
         super(dnnrepair_BatchNorm2d, self).__init__(
             num_features, eps, momentum, affine, track_running_stats)
         self.target_ratio = target_ratio
         self.weight = weight
         self.bias = bias
+        self.running_mean = running_mean
+        self.running_var = running_var
 
     def forward(self, input):
         self._check_input_dim(input)
