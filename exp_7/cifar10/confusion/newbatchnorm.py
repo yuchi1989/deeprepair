@@ -37,6 +37,7 @@ class dnnrepair_BatchNorm2d(nn.BatchNorm2d):
             first_half = self.target_ratio / half_len * input[:half_len]
             second_half = (1 - self.target_ratio) / half_len * input[half_len:]
             weighted_input = torch.cat([first_half, second_half])
+            assert input.size() == weighted_input.size()
             mean = weighted_input.mean([0, 2, 3])
             # use biased var in train
             var = weighted_input.var([0, 2, 3], unbiased=False)
