@@ -131,6 +131,11 @@ def replace_bn(module):
                 new_bn = dnnrepair_BatchNorm2d(target_attr.num_features, 0.5, target_attr.eps, target_attr.momentum, target_attr.affine,
                                             track_running_stats=True)
                 setattr(module, attr_str, new_bn)
+            else:
+                print('replaced: bn')
+                new_bn = dnnrepair_BatchNorm2d(target_attr.num_features, 0, target_attr.eps, target_attr.momentum, target_attr.affine,
+                                            track_running_stats=True)
+                setattr(module, attr_str, new_bn)
 
     # iterate through immediate child modules. Note, the recursion is done by our code no need to use named_modules()
     for name, immediate_child_module in module.named_children():

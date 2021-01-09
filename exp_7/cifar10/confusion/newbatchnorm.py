@@ -34,21 +34,20 @@ class dnnrepair_BatchNorm2d(nn.BatchNorm2d):
         # calculate running estimates
         if self.training:
             half_len = input.size(0)//2
-            first_half = (1 - self.target_ratio) / half_len * input[:half_len]
-            second_half = self.target_ratio / half_len * input[half_len:]
-
-            weighted_input = torch.cat([first_half, second_half])
-            assert input.size() == weighted_input.size()
-            mean = weighted_input.mean([0, 2, 3])
+            original_half = input[:half_len]
+            target_half = input[half_len:]  # target input
+            mean = original_half.mean(
+                [0, 2, 3]) * (1 - self.target_ratio) + target_half.mean([0, 2, 3]) * self.target_ratio
             # use biased var in train
-            var = weighted_input.var([0, 2, 3], unbiased=False)
+            var = original_half.var([0, 2, 3], unbiased=False) * (1 - self.target_ratio) + \
+                target_half.var([0, 2, 3], unbiased=False) * self.target_ratio
             n = input.numel() / input.size(1)
             with torch.no_grad():
-                self.running_mean.copy_(exponential_average_factor * mean + \
-                    (1 - exponential_average_factor) * self.running_mean)
+                self.running_mean.copy_(exponential_average_factor * mean +
+                                        (1 - exponential_average_factor) * self.running_mean)
                 # update running_var with unbiased var
-                self.running_var.copy_(exponential_average_factor * var * n / \
-                    (n - 1) + (1 - exponential_average_factor) * self.running_var)
+                self.running_var.copy_(exponential_average_factor * var * n /
+                                       (n - 1) + (1 - exponential_average_factor) * self.running_var)
         else:
             mean = self.running_mean
             var = self.running_var
