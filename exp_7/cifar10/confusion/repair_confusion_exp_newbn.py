@@ -128,8 +128,8 @@ def replace_bn(module):
             glob_bn_count += 1
             if glob_bn_count >= glob_bn_total - 2: # unfreeze last 3
                 print('replaced: bn')
-                new_bn = dnnrepair_BatchNorm2d(target_attr.num_features, 1, target_attr.eps, target_attr.momentum, target_attr.affine,
-                                            track_running_stats=False)
+                new_bn = dnnrepair_BatchNorm2d(target_attr.num_features, 0.5, target_attr.eps, target_attr.momentum, target_attr.affine,
+                                            track_running_stats=True)
                 setattr(module, attr_str, new_bn)
 
     # iterate through immediate child modules. Note, the recursion is done by our code no need to use named_modules()
@@ -448,7 +448,7 @@ def train(train_loader, target_train_loader, model, criterion, optimizer, epoch)
             # print(p_dist)
             #loss2 = criterion(output, target).mean() + p_dist
             #loss2 = criterion(output, target).mean()
-            loss2 = criterion(output[:output.size(0)/2], target[:target.size(0)/2]).mean() #- args.lam*p_dist
+            loss2 = criterion(output[:output.size(0) // 2], target[:target.size(0) // 2]).mean() #- args.lam*p_dist
 
         losses.update(loss2.item(), input.size(0))
 
