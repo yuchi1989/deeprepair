@@ -2,6 +2,8 @@
 # python3 repair_retrain_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --pretrained ./runs/DeepInspect_1/model_best.pth.tar --expid 0 --checkmodel
 # python3 repair_retrain_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname ResNet50 --epochs 60 --beta 1.0 --cutmix_prob 1.0 --pretrained ./runs/DeepInspect_1/model_best.pth.tar --expid 0 --first 3 --second 5
 
+# python3 repair_confusion_exp_newbn.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4/model_best.pth.tar --expid 0 --lam 0 --extra 256
+# set extra batch size same as batch size for half half assumption in new batchnorm layer
 import argparse
 import os
 import shutil
@@ -88,8 +90,8 @@ parser.add_argument('--extra', default=10, type=int,
                     help='extra batch size')
 parser.add_argument('--keeplr', help='set lr 0.001 ',
     action='store_true')
-parser.add_argument('--forward', default=1, type=int,
-                    help='extra batch size')
+#parser.add_argument('--forward', default=1, type=int,
+#                    help='extra batch size')
 parser.set_defaults(bottleneck=True)
 parser.set_defaults(verbose=False)
 
@@ -255,6 +257,16 @@ def main():
     # print(model)
     print('the number of model parameters: {}'.format(
         sum([p.data.nelement() for p in model.parameters()])))
+    global glob_bn_count
+    global glob_bn_total
+    glob_bn_total = 0
+    glob_bn_count = 0
+    count_bn_layer(model)
+    print("total bn layer: " + str(glob_bn_total))
+    glob_bn_count = 0
+    replace_bn(model)
+    print(model)
+    model.cuda()
 
     # define loss function (criterion) and optimizer
     criterion = nn.CrossEntropyLoss(reduction='none').cuda()
@@ -349,12 +361,7 @@ def train(train_loader, target_train_loader, model, criterion, optimizer, epoch)
 
     # switch to train mode
     model.train()
-    global glob_bn_count
-    global glob_bn_total
-    glob_bn_total = 0
-    glob_bn_count = 0
-    count_bn_layer(model)
-    print("total bn layer: " + str(glob_bn_total))
+    
     end = time.time()
     current_LR = get_learning_rate(optimizer)[0]
     extra_iterator = iter(target_train_loader)
@@ -367,17 +374,12 @@ def train(train_loader, target_train_loader, model, criterion, optimizer, epoch)
         except StopIteration:
             extra_iterator = iter(target_train_loader)
             (target_input, target_target) = next(extra_iterator)
-        #input = torch.cat([input, target_input])
-        #target = torch.cat([target, target_target])
+        input = torch.cat([input, target_input])
+        target = torch.cat([target, target_target])
         input = input.cuda()
         target = target.cuda()
         target_copy = target_target.cpu().numpy()
-        glob_bn_count = 0
-        replace_bn(model)
-        print(model)
-        exit()
-        for _ in range(args.forward):
-            target_output = model(target_input)
+
         r = np.random.rand(1)
         if args.beta > 0 and r < args.cutmix_prob:
             # generate mixed sample
@@ -429,6 +431,7 @@ def train(train_loader, target_train_loader, model, criterion, optimizer, epoch)
             # print(output.shape)
             # print(output[id3].shape)
             # print((torch.sum(output[id3],0)/len(id3)).shape)
+            '''
             m = nn.Softmax(dim=1)
             if len(id3) == 0 or len(id5) == 0:
                 p_dist = 0
@@ -438,11 +441,12 @@ def train(train_loader, target_train_loader, model, criterion, optimizer, epoch)
             else:
                 p_dist = torch.dist(torch.mean(
                     m(target_output)[id3], 0), torch.mean(m(target_output)[id5], 0), 2)
+            '''
             #print(criterion(output, target).mean())
             # print(p_dist)
             #loss2 = criterion(output, target).mean() + p_dist
             #loss2 = criterion(output, target).mean()
-            loss2 = criterion(output, target).mean() - args.lam*p_dist
+            loss2 = criterion(output[:output.size(0)/2], target[:target.size(0)/2]).mean() #- args.lam*p_dist
 
         losses.update(loss2.item(), input.size(0))
 
