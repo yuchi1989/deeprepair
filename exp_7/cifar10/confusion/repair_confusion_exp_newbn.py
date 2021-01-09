@@ -257,6 +257,8 @@ def main():
     # print(model)
     print('the number of model parameters: {}'.format(
         sum([p.data.nelement() for p in model.parameters()])))
+        
+    # replace bn layer
     global glob_bn_count
     global glob_bn_total
     glob_bn_total = 0
