@@ -90,6 +90,9 @@ parser.add_argument('--extra', default=10, type=int,
                     help='extra batch size')
 parser.add_argument('--keeplr', help='set lr 0.001 ',
                     action='store_true')
+
+parser.add_argument('--replace', help='replace bn layer ',
+                    action='store_true')
 # parser.add_argument('--forward', default=1, type=int,
 #                    help='extra batch size')
 parser.set_defaults(bottleneck=True)
@@ -134,7 +137,7 @@ def replace_bn(module):
                 setattr(module, attr_str, new_bn)
             else:
                 print('replaced: bn')
-                new_bn = dnnrepair_BatchNorm2d(target_attr.num_features, target_attr.weight, target_attr.bias, target_attr.running_mean, target_attr.running_var, 0, target_attr.eps, target_attr.momentum, target_attr.affine, track_running_stats=True)
+                new_bn = dnnrepair_BatchNorm2d(target_attr.num_features, target_attr.weight, target_attr.bias, target_attr.running_mean, target_attr.running_var, 0.5, target_attr.eps, target_attr.momentum, target_attr.affine, track_running_stats=True)
                 setattr(module, attr_str, new_bn)
 
     # iterate through immediate child modules. Note, the recursion is done by our code no need to use named_modules()
@@ -267,17 +270,18 @@ def main():
         sum([p.data.nelement() for p in model.parameters()])))
 
     # replace bn layer
-    model.to('cpu')
-    global glob_bn_count
-    global glob_bn_total
-    glob_bn_total = 0
-    glob_bn_count = 0
-    count_bn_layer(model)
-    print("total bn layer: " + str(glob_bn_total))
-    glob_bn_count = 0
-    replace_bn(model)
-    print(model)
-    model = torch.nn.DataParallel(model).cuda()
+    if args.replace:
+        model.to('cpu')
+        global glob_bn_count
+        global glob_bn_total
+        glob_bn_total = 0
+        glob_bn_count = 0
+        count_bn_layer(model)
+        print("total bn layer: " + str(glob_bn_total))
+        glob_bn_count = 0
+        replace_bn(model)
+        print(model)
+        model = model.cuda()
 
     # define loss function (criterion) and optimizer
     criterion = nn.CrossEntropyLoss(reduction='none').cuda()
@@ -439,6 +443,7 @@ def train(train_loader, target_train_loader, model, criterion, optimizer, epoch)
             #yhats = top1_output.cpu().data.numpy()
             # print(yhats[:5])
             #target_output = model(input)
+            '''
             id3 = []
             id5 = []
             for j in range(len(target_input)):
@@ -446,6 +451,7 @@ def train(train_loader, target_train_loader, model, criterion, optimizer, epoch)
                     id3.append(j)
                 elif (target_copy[j]) == args.second:
                     id5.append(j)
+            '''
             # print(output.shape)
             # print(output[id3].shape)
             # print((torch.sum(output[id3],0)/len(id3)).shape)
@@ -724,7 +730,7 @@ def accuracy(output, target, topk=(1,)):
 
     res = []
     for k in topk:
-        correct_k = correct[:k].view(-1).float().sum(0, keepdim=True)
+        correct_k = correct[:k].reshape(-1).float().sum(0, keepdim=True)
         wrong_k = batch_size - correct_k
         res.append(wrong_k.mul_(100.0 / batch_size))
 
