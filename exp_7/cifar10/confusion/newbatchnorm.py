@@ -40,16 +40,17 @@ class dnnrepair_BatchNorm2d(nn.BatchNorm2d):
             half_len = input.size(0)//2
             original_half = input[:half_len]
             target_half = input[half_len:]  # target input
-            mean = target_half.mean([0, 2, 3])
-            # use biased var in train
-            var = target_half.var([0, 2, 3], unbiased=False)
-            n = input.numel() / input.size(1)
-            with torch.no_grad():
-                self.running_mean.copy_(exponential_average_factor * mean +
-                                        (1 - exponential_average_factor) * self.running_mean)
-                # update running_var with unbiased var
-                self.running_var.copy_(exponential_average_factor * var * n /
-                                       (n - 1) + (1 - exponential_average_factor) * self.running_var)
+            if self.target_ratio != 0:
+                mean = target_half.mean([0, 2, 3])
+                # use biased var in train
+                var = target_half.var([0, 2, 3], unbiased=False)
+                n = input.numel() / input.size(1)
+                with torch.no_grad():
+                    self.running_mean.copy_(exponential_average_factor * mean +
+                                            (1 - exponential_average_factor) * self.running_mean)
+                    # update running_var with unbiased var
+                    self.running_var.copy_(exponential_average_factor * var * n /
+                                        (n - 1) + (1 - exponential_average_factor) * self.running_var)
 
             mean = original_half.mean([0, 2, 3])
             # use biased var in train
