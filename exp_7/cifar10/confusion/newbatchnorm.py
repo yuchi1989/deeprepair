@@ -44,7 +44,7 @@ class dnnrepair_BatchNorm2d(nn.BatchNorm2d):
                 mean = target_half.mean([0, 2, 3])
                 # use biased var in train
                 var = target_half.var([0, 2, 3], unbiased=False)
-                n = input.numel() / input.size(1)
+                n = target_half.numel() / target_half.size(1)
                 with torch.no_grad():
                     self.running_mean.copy_(exponential_average_factor * mean +
                                             (1 - exponential_average_factor) * self.running_mean)
@@ -55,7 +55,7 @@ class dnnrepair_BatchNorm2d(nn.BatchNorm2d):
             mean = original_half.mean([0, 2, 3])
             # use biased var in train
             var = original_half.var([0, 2, 3], unbiased=False)
-            n = input.numel() / input.size(1)
+            n = original_half.numel() / original_half.size(1)
             with torch.no_grad():
                 self.running_mean.copy_(exponential_average_factor * mean +
                                         (1 - exponential_average_factor) * self.running_mean)
