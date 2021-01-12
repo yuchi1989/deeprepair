@@ -132,7 +132,8 @@ def replace_bn(module):
             glob_bn_count += 1
             if glob_bn_count >= glob_bn_total - 2:  # unfreeze last 3
                 print('replaced: bn')
-                new_bn = dnnrepair_BatchNorm2d(child.num_features, child.weight, child.bias, child.running_mean, child.running_var, 0.5, child.eps, child.momentum, child.affine, track_running_stats=True)
+                #new_bn = dnnrepair_BatchNorm2d(child.num_features, child.weight, child.bias, child.running_mean, child.running_var, 0.5, child.eps, child.momentum, child.affine, track_running_stats=True)
+                new_bn = dnnrepair_BatchNorm2d(child.num_features, child.weight, child.bias, child.running_mean, child.running_var, 9/19, child.eps, 0.19, child.affine, track_running_stats=True)
                 setattr(module, child_name, new_bn)
             else:
                 print('replaced: bn')

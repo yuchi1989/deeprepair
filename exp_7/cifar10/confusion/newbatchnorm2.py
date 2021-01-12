@@ -49,13 +49,25 @@ class dnnrepair_BatchNorm2d(nn.BatchNorm2d):
             # use biased var in train
             var = original_half.var([0, 2, 3], unbiased=False)
             n2 = original_half.numel() / original_half.size(1)
-
+            '''
             with torch.no_grad():
                 if self.target_ratio != 0:
                     self.running_mean.copy_(e * mean + (1-e) * e * target_mean + (1-e) ** 2 * self.running_mean)
                     # update running_var with unbiased var
                     self.running_var.copy_(e * n2 / (n2 - 1) * var + (1 - e) * e * n1 / (n1 - 1) * target_var  +  (1 - e) ** 2 * self.running_var)
                 else:
+                    self.running_mean.copy_(e * mean + (1 - e) * self.running_mean)
+                    # update running_var with unbiased var
+                    self.running_var.copy_(e * var * n2 /(n2 - 1) + (1 - e) * self.running_var)
+            '''
+            with torch.no_grad():
+                if self.target_ratio != 0:
+                    #e = 0.19
+                    self.running_mean.copy_(e * ( (1-self.target_ratio) * mean + self.target_ratio * target_mean) + (1-e) * self.running_mean)
+                    # update running_var with unbiased var
+                    self.running_var.copy_(e * ( (1-self.target_ratio) * n2 / (n2 - 1) * var + self.target_ratio * n1 / (n1 - 1) * target_var) + (1-e) * self.running_var)
+                else:
+                    #e = 0.1
                     self.running_mean.copy_(e * mean + (1 - e) * self.running_mean)
                     # update running_var with unbiased var
                     self.running_var.copy_(e * var * n2 /(n2 - 1) + (1 - e) * self.running_var)
