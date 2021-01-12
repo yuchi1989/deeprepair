@@ -114,36 +114,32 @@ glob_bn_count = 0
 
 def count_bn_layer(module):
     global glob_bn_total
-    for attr_str in dir(module):
-        target_attr = getattr(module, attr_str)
-        if type(target_attr) == torch.nn.BatchNorm2d:
+    for child_name, child in module.named_children():
+        if isinstance(child, torch.nn.modules.batchnorm.BatchNorm2d):
+            #setattr(module, child_name, nn.Softplus())
             glob_bn_total += 1
-    # iterate through immediate child modules. Note, the recursion is done by our code no need to use named_modules()
-    for name, immediate_child_module in module.named_children():
-        count_bn_layer(immediate_child_module)
+        else:
+            count_bn_layer(child)
 
 
 def replace_bn(module):
     global glob_bn_count
     global glob_bn_total
     # go through all attributes of module nn.module (e.g. network or layer) and put batch norms if present
-    for attr_str in dir(module):
-        target_attr = getattr(module, attr_str)
-        if type(target_attr) == torch.nn.BatchNorm2d:
-            glob_bn_count += 1
+
+    for child_name, child in module.named_children():
+        if isinstance(child, torch.nn.modules.batchnorm.BatchNorm2d):
+            glob_bn_total += 1
             if glob_bn_count >= glob_bn_total - 2:  # unfreeze last 3
                 print('replaced: bn')
-                new_bn = dnnrepair_BatchNorm2d(target_attr.num_features, target_attr.weight, target_attr.bias, target_attr.running_mean, target_attr.running_var, 0.5, target_attr.eps, target_attr.momentum, target_attr.affine, track_running_stats=True)
-                setattr(module, attr_str, new_bn)
+                new_bn = dnnrepair_BatchNorm2d(child.num_features, child.weight, child.bias, child.running_mean, child.running_var, 0.5, child.eps, child.momentum, child.affine, track_running_stats=True)
+                setattr(module, child_name, new_bn)
             else:
                 print('replaced: bn')
-                new_bn = dnnrepair_BatchNorm2d(target_attr.num_features, target_attr.weight, target_attr.bias, target_attr.running_mean, target_attr.running_var, 0, target_attr.eps, target_attr.momentum, target_attr.affine, track_running_stats=True)
-                setattr(module, attr_str, new_bn)
-
-    # iterate through immediate child modules. Note, the recursion is done by our code no need to use named_modules()
-    for name, immediate_child_module in module.named_children():
-        replace_bn(immediate_child_module)
-
+                new_bn = dnnrepair_BatchNorm2d(child.num_features, child.weight, child.bias, child.running_mean, child.running_var, 0, child.eps, child.momentum, child.affine, track_running_stats=True)
+                setattr(module, child_name, new_bn)
+        else:
+            replace_bn(child)
 
 def set_bn_eval(model):
     global glob_bn_count
