@@ -27,7 +27,7 @@ import numpy as np
 import random
 import warnings
 from tqdm import tqdm
-from newbatchnorm import dnnrepair_BatchNorm2d
+from newbatchnorm2 import dnnrepair_BatchNorm2d
 warnings.filterwarnings("ignore")
 
 torch.manual_seed(124)
