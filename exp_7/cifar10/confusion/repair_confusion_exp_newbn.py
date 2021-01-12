@@ -137,7 +137,7 @@ def replace_bn(module):
             else:
                 print('replaced: bn')
                 new_bn = dnnrepair_BatchNorm2d(child.num_features, child.weight, child.bias, child.running_mean, child.running_var, 0, child.eps, child.momentum, child.affine, track_running_stats=True)
-                #setattr(module, child_name, new_bn)
+                setattr(module, child_name, new_bn)
         else:
             replace_bn(child)
 
