@@ -129,7 +129,7 @@ def replace_bn(module):
 
     for child_name, child in module.named_children():
         if isinstance(child, torch.nn.modules.batchnorm.BatchNorm2d):
-            glob_bn_total += 1
+            glob_bn_count += 1
             if glob_bn_count >= glob_bn_total - 2:  # unfreeze last 3
                 print('replaced: bn')
                 new_bn = dnnrepair_BatchNorm2d(child.num_features, child.weight, child.bias, child.running_mean, child.running_var, 0.5, child.eps, child.momentum, child.affine, track_running_stats=True)
@@ -137,7 +137,7 @@ def replace_bn(module):
             else:
                 print('replaced: bn')
                 new_bn = dnnrepair_BatchNorm2d(child.num_features, child.weight, child.bias, child.running_mean, child.running_var, 0, child.eps, child.momentum, child.affine, track_running_stats=True)
-                setattr(module, child_name, new_bn)
+                #setattr(module, child_name, new_bn)
         else:
             replace_bn(child)
 
