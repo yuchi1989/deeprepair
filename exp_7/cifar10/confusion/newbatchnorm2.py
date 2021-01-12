@@ -63,6 +63,9 @@ class dnnrepair_BatchNorm2d(nn.BatchNorm2d):
             mean = self.running_mean
             var = self.running_var
 
+        mean = self.running_mean
+        var = self.running_var
+
         input = (input - mean[None, :, None, None]) / \
             (torch.sqrt(var[None, :, None, None] + self.eps))
         if self.affine:
