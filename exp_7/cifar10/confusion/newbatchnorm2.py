@@ -60,11 +60,11 @@ class dnnrepair_BatchNorm2d(nn.BatchNorm2d):
                     # update running_var with unbiased var
                     self.running_var.copy_(e * regular_var * n2 /(n2 - 1) + (1 - e) * self.running_var)
         else:
-            mean = regular_mean
-            var = regular_var
+            mean = self.running_mean
+            var = self.running_var
 
-        mean = self.running_mean
-        var = self.running_var
+        mean = regular_mean
+        var = regular_var
 
         input = (input - mean[None, :, None, None]) / \
             (torch.sqrt(var[None, :, None, None] + self.eps))
