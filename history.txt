@@ -942,3 +942,179 @@ cifar100: pair 35 98
     0.04
 
     
+cifar10: new batchnorm layer
+    python3 repair_confusion_exp_newbn.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 128 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4/model_best.pth.tar --expid 0 --lam 0 --extra 128 --checkmodel
+
+    logging filter: 92.93
+    logging filter: 0.9293
+    logging filter: pair accuracy: 0.8725
+    logging filter: 3 -> 5
+    logging filter: 0.069
+    logging filter: 5 -> 3
+    logging filter: 0.066
+    
+    # 0.5 for last 3, others 0
+    python3 repair_confusion_exp_newbn.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 128 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4/model_best.pth.tar --expid 0 --lam 0 --extra 128
+
+    logging filter: 93.02
+    logging filter: 0.9302
+    logging filter: pair accuracy: 0.8685
+    logging filter: 3 -> 5
+    logging filter: 0.063
+    logging filter: 5 -> 3
+    logging filter: 0.073
+
+    # 0.9 ratio
+    python3 repair_confusion_exp_newbn.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 128 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4/model_best.pth.tar --expid 0 --lam 0 --extra 128
+
+    logging filter: 92.79
+    logging filter: 0.9279
+    logging filter: pair accuracy: 0.862
+    logging filter: 3 -> 5
+    logging filter: 0.062
+    logging filter: 5 -> 3
+    logging filter: 0.071
+
+    # 0.5 for all bn layers
+    logging filter: 92.83
+    logging filter: 0.9283
+    logging filter: pair accuracy: 0.8655
+    logging filter: 3 -> 5
+    logging filter: 0.078
+    logging filter: 5 -> 3
+    logging filter: 0.062
+
+
+
+google cloud:
+    python3 train_baseline.py --net_type resnet --dataset cifar10 --depth 18 --batch_size 256 --lr 0.1 --expname cifar10_resnet18_2_4 --epochs 300 --beta 1.0 --cutmix_prob 0
+    87.03
+    0.8703
+
+python3 repair_confusion_exp_newbn.py --net_type resnet --dataset cifar10 --depth 18 --batch_size 128 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet18_2_4/model_best.pth.tar --expid 0 --lam 0 --extra 128 --replace --checkmodel
+logging filter: 87.07
+logging filter: 0.8707
+logging filter: pair accuracy: 0.7945
+logging filter: 3 -> 5
+logging filter: 0.093
+logging filter: 5 -> 3
+logging filter: 0.091
+
+# fix using extra forward
+python3 repair_confusion_exp.py --net_type resnet --dataset cifar10 --depth 18 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 30 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet18_2_4/model_best.pth.tar --expid 0 --lam 0 --forward 1
+logging filter: 84.75
+logging filter: 0.8475
+logging filter: pair accuracy: 0.665
+logging filter: 3 -> 5
+logging filter: 0.035
+logging filter: 5 -> 3
+logging filter: 0.104
+
+python3 repair_confusion_exp_newbn.py --net_type resnet --dataset cifar10 --depth 18 --batch_size 128 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 30 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet18_2_4/model_best.pth.tar --expid 0 --lam 0 --extra 128 --replace
+
+logging filter: 86.58
+logging filter: 0.8658
+logging filter: pair accuracy: 0.773
+logging filter: 3 -> 5
+logging filter: 0.096
+logging filter: 5 -> 3
+logging filter: 0.107
+
+# extra batch implementation for bn layer
+python3 repair_confusion_exp_newbn.py --net_type resnet --dataset cifar10 --depth 18 --batch_size 128 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 30 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet18_2_4/model_best.pth.tar --expid 0 --lam 0 --extra 128 --replace
+
+logging filter: 70.63
+logging filter: 0.7063
+logging filter: pair accuracy: 0.195
+logging filter: 3 -> 5
+logging filter: 0.003
+logging filter: 5 -> 3
+logging filter: 0.017
+
+
+python3 repair_confusion_exp_newbn_exp.py --net_type resnet --dataset cifar10 --depth 18 --batch_size 128 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 30 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet18_2_4/model_best.pth.tar --expid 0 --lam 0 --extra 128 --replace > both.txt
+
+
+python3 repair_confusion_exp_newbn.py --net_type resnet --dataset cifar10 --depth 18 --batch_size 128 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 30 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet18_2_4/model_best.pth.tar --expid 0 --lam 0 --extra 128 --replace > extra.txt
+
+
+python3 repair_confusion_exp_newbn.py --net_type resnet --dataset cifar10 --depth 18 --batch_size 128 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet18_2_4/model_best.pth.tar --expid 0 --lam 0 --extra 128 --replace
+
+logging filter: 71.19
+logging filter: 0.7119
+logging filter: pair accuracy: 0.196
+logging filter: 3 -> 5
+logging filter: 0.006
+logging filter: 5 -> 3
+logging filter: 0.016
+
+python3 repair_confusion_exp_newbn.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 128 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4/model_best.pth.tar --expid 0 --lam 0 --extra 128 --replace
+logging filter: 85.05
+logging filter: 0.8505
+logging filter: pair accuracy: 0.4775
+logging filter: 3 -> 5
+logging filter: 0.008
+logging filter: 5 -> 3
+logging filter: 0.013
+
+# ratio
+#new_bn = dnnrepair_BatchNorm2d(child.num_features, child.weight, child.bias, child.running_mean, child.running_var, 9/19, child.eps, 0.19, child.affine, track_running_stats=True)
+
+python3 repair_confusion_exp_newbn.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 128 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4/model_best.pth.tar --expid 0 --lam 0 --extra 128 --replace
+logging filter: 84.26
+logging filter: 0.8426
+logging filter: pair accuracy: 0.438
+logging filter: 3 -> 5
+logging filter: 0.006
+logging filter: 5 -> 3
+logging filter: 0.012
+
+
+# ratio
+new_bn = dnnrepair_BatchNorm2d(child.num_features, child.weight, child.bias, child.running_mean, child.running_var, 9/19, child.eps, child.momentum, child.affine, track_running_stats=True)
+
+python3 repair_confusion_exp_newbn.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 128 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4/model_best.pth.tar --expid 0 --lam 0 --extra 128 --replace
+logging filter: 84.33
+logging filter: 0.8433
+logging filter: pair accuracy: 0.4385
+logging filter: 3 -> 5
+logging filter: 0.006
+logging filter: 5 -> 3
+logging filter: 0.011
+
+
+google cloud:
+    python3 train_baseline.py --net_type resnet --dataset cifar10 --depth 18 --batch_size 256 --lr 0.1 --expname cifar10_resnet18_2_4 --epochs 300 --beta 1.0 --cutmix_prob 0
+    87.03
+    0.8703
+
+python3 repair_confusion_exp_newbn.py --net_type resnet --dataset cifar10 --depth 18 --batch_size 128 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet18_2_4/model_best.pth.tar --expid 0 --lam 0 --extra 128 --replace --checkmodel
+logging filter: 87.07
+logging filter: 0.8707
+logging filter: pair accuracy: 0.7945
+logging filter: 3 -> 5
+logging filter: 0.093
+logging filter: 5 -> 3
+logging filter: 0.091
+
+
+python3 repair_confusion_exp_newbn.py --net_type resnet --dataset cifar10 --depth 18 --batch_size 128 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet18_2_4/model_best.pth.tar --expid 0 --lam 0 --extra 128 --replace --ratio 0.5
+logging filter: 80.83
+logging filter: 0.8083
+logging filter: pair accuracy: 0.489
+logging filter: 3 -> 5
+logging filter: 0.021
+logging filter: 5 -> 3
+logging filter: 0.061
+
+python3 repair_confusion_exp_newbn.py --net_type resnet --dataset cifar10 --depth 18 --batch_size 128 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet18_2_4/model_best.pth.tar --expid 0 --lam 0 --extra 128 --replace --ratio 0.2
+
+logging filter: 86.3
+logging filter: 0.863
+logging filter: pair accuracy: 0.7095
+logging filter: 3 -> 5
+logging filter: 0.042
+logging filter: 5 -> 3
+logging filter: 0.102
+
+python3 repair_confusion_exp_newbn.py --net_type resnet --dataset cifar10 --depth 18 --batch_size 128 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet18_2_4/model_best.pth.tar --expid 0 --lam 0 --extra 128 --replace --ratio 0.8
