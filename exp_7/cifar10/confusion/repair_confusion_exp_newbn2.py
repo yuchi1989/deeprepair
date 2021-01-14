@@ -96,6 +96,10 @@ parser.add_argument('--replace', help='replace bn layer ',
 
 parser.add_argument('--ratio', default=0.5, type=float,
                     help='target ratio for batchnorm layers')
+
+parser.add_argument('--target_weight', default=0, type=float,
+                    help='extra weights assigned to mistakes on the confusion pair in the loss. It get used when larger than 0.')
+
 # parser.add_argument('--forward', default=1, type=int,
 #                    help='extra batch size')
 parser.set_defaults(bottleneck=True)
@@ -472,7 +476,37 @@ def train(train_loader, target_train_loader, model, criterion, optimizer, epoch)
             # print(p_dist)
             #loss2 = criterion(output, target).mean() + p_dist
             #loss2 = criterion(output, target).mean()
-            loss2 = criterion(output, target).mean()  # - args.lam*p_dist
+
+            # loss2 = criterion(output, target).mean()  # - args.lam*p_dist
+
+            # print(output.size())
+            # print(target.size())
+            # print(args.first)
+            # print(args.second)
+
+            if args.target_weight > 0:
+                inds_first_1 = torch.where(target == args.first)
+                inds_first_2 = torch.where(torch.argmax(output, dim=1) == args.second)
+                inds_first = np.intersect1d(inds_first_1[0].cpu(), inds_first_2[0].cpu())
+                inds_first = torch.from_numpy(inds_first).cuda()
+
+                inds_second_1 = torch.where(target == args.second)
+                inds_second_2 = torch.where(torch.argmax(output, dim=1) == args.first)
+                inds_second = np.intersect1d(inds_second_1[0].cpu(), inds_second_2[0].cpu())
+                inds_second = torch.from_numpy(inds_second).cuda()
+
+
+                # print(output[inds_first].size())
+                # print(target[inds_first].size())
+                # print(output[inds_second].size())
+                # print(target[inds_second].size())
+                loss_target = (criterion(output[inds_first], target[inds_first]).mean() + criterion(output[inds_second], target[inds_second]).mean()) / 2
+                target_weight = 0.1
+
+                loss2 = criterion(output, target).mean() + target_weight * loss_target
+            else:
+                loss2 = criterion(output, target).mean()
+
 
         losses.update(loss2.item(), input.size(0))
 
