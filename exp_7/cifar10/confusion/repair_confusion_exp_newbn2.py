@@ -485,6 +485,7 @@ def train(train_loader, target_train_loader, model, criterion, optimizer, epoch)
             # print(args.second)
 
             if args.target_weight > 0:
+                target_weight = args.target_weight
                 inds_first_1 = torch.where(target == args.first)
                 inds_first_2 = torch.where(torch.argmax(output, dim=1) == args.second)
                 inds_first = np.intersect1d(inds_first_1[0].cpu(), inds_first_2[0].cpu())
@@ -501,7 +502,6 @@ def train(train_loader, target_train_loader, model, criterion, optimizer, epoch)
                 # print(output[inds_second].size())
                 # print(target[inds_second].size())
                 loss_target = (criterion(output[inds_first], target[inds_first]).mean() + criterion(output[inds_second], target[inds_second]).mean()) / 2
-                target_weight = 0.1
 
                 loss2 = criterion(output, target).mean() + target_weight * loss_target
             else:
