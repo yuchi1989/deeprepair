@@ -47,7 +47,7 @@ def main():
 
     if os.path.exists(args.log_dir) and not args.resume:
         print('Path {} exists! and not resuming'.format(args.log_dir))
-        return   
+        return
     if not os.path.exists(args.log_dir): os.makedirs(args.log_dir)
 
     #save all parameters for training
@@ -60,28 +60,28 @@ def main():
     train_transform = transforms.Compose([
         transforms.Scale(args.image_size),
         transforms.RandomCrop(args.crop_size),
-        transforms.RandomHorizontalFlip(), 
-        transforms.ToTensor(), 
+        transforms.RandomHorizontalFlip(),
+        transforms.ToTensor(),
         normalize])
-    val_transform = transforms.Compose([ 
+    val_transform = transforms.Compose([
         transforms.Scale(args.image_size),
-        transforms.CenterCrop(args.crop_size), 
-        transforms.ToTensor(), 
+        transforms.CenterCrop(args.crop_size),
+        transforms.ToTensor(),
         normalize])
 
     # Data samplers.
-    train_data = CocoObject(ann_dir = args.ann_dir, image_dir = args.image_dir, 
+    train_data = CocoObject(ann_dir = args.ann_dir, image_dir = args.image_dir,
         split = 'train', transform = train_transform)
 
-    val_data = CocoObject(ann_dir = args.ann_dir, image_dir = args.image_dir, 
+    val_data = CocoObject(ann_dir = args.ann_dir, image_dir = args.image_dir,
         split = 'val', transform = val_transform)
 
     # Data loaders / batch assemblers.
-    train_loader = torch.utils.data.DataLoader(train_data, batch_size = args.batch_size, 
+    train_loader = torch.utils.data.DataLoader(train_data, batch_size = args.batch_size,
                                               shuffle = True, num_workers = 2,
                                               pin_memory = True)
 
-    val_loader = torch.utils.data.DataLoader(val_data, batch_size = args.batch_size, 
+    val_loader = torch.utils.data.DataLoader(val_data, batch_size = args.batch_size,
                                             shuffle = False, num_workers = 2,
                                             pin_memory = True)
 
@@ -141,13 +141,13 @@ def save_checkpoint(args, state, is_best, filename):
     if is_best:
         shutil.copyfile(filename, os.path.join(args.log_dir, 'model_best.pth.tar'))
 
-    
+
 def train(args, epoch, model, criterion, train_loader, optimizer, train_F, score_F):
     model.train()
     batch_time = AverageMeter()
     data_time = AverageMeter()
     loss_logger = AverageMeter()
-    correct_logger = AverageMeter() 
+    correct_logger = AverageMeter()
 
     res = list()
     end = time.time()
@@ -278,7 +278,7 @@ def get_confusion(args, epoch, model, criterion, val_loader, optimizer, val_F, s
         for i in range(len(image_ids)):
             yhat = []
             label = id2labels[image_ids.cpu().numpy()[i]]
-            
+
             for j in range(len(object_preds[i])):
                 a = object_preds_c[i][j]
                 if a > 0.5:
@@ -321,7 +321,7 @@ def get_confusion(args, epoch, model, criterion, val_loader, optimizer, val_F, s
     pair_count = {}
     confusion_count = {}
     type2confusion = {}
-    
+
 
     for li, yi in zip(labels, yhats):
         no_objects = [id2object[i] for i in range(80) if id2object[i] not in li]
@@ -337,7 +337,7 @@ def get_confusion(args, epoch, model, criterion, val_loader, optimizer, val_F, s
                         confusion_count[(i, j)] += 1
                     else:
                         confusion_count[(i, j)] = 1
-    
+
 
     for i in object_list:
         for j in object_list:
@@ -347,7 +347,7 @@ def get_confusion(args, epoch, model, criterion, val_loader, optimizer, val_F, s
 
     global_epoch_confusion[-1]["confusion"] = type2confusion
     global_epoch_confusion[-1]["accuracy"] = eval_score_object
-    
+
     return eval_score_object
 
 class AverageMeter(object):
