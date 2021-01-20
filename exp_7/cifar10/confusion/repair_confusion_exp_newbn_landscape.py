@@ -485,7 +485,7 @@ def train(train_loader, target_train_loader, model, criterion, optimizer, epoch)
         optimizer.zero_grad()
         loss2.backward()
         grad.append(model.module.fc.weight.grad.clone())
-        print(grad[-1].shape)
+        #print(grad[-1].shape)
         optimizer.step()
 
         # measure elapsed time 
