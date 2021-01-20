@@ -484,11 +484,11 @@ def train(train_loader, target_train_loader, model, criterion, optimizer, epoch)
         # compute gradient and do SGD step
         optimizer.zero_grad()
         loss2.backward()
-        grad.append(model[-1].weight.grad.clone())
+        grad.append(model.module[-1].weight.grad.clone())
         print(grad[-1].shape)
         optimizer.step()
 
-        # measure elapsed time
+        # measure elapsed time 
         batch_time.update(time.time() - end)
         end = time.time()
         t.set_postfix(loss=losses.avg)
