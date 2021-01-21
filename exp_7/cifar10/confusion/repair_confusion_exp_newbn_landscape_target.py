@@ -500,9 +500,8 @@ def train(train_loader, target_train_loader, model, criterion, optimizer, epoch)
 
         # compute gradient and do SGD step
         optimizer.zero_grad()
-        loss_target.backward()
+        loss_target.backward(retain_graph=True)
         grad.append(model.module.fc.weight.grad.clone())
-        model.module.grad.data.zero_()
         optimizer.zero_grad()
         loss2.backward()
         optimizer.step()
