@@ -134,4 +134,11 @@ running_std = []
 for i in range(1, len(max_curve_step)):
     running_std.append(np.std(max_curve_step[:i]))
 plt.plot(steps[1:], running_std, color='C1', label='confusion + baseline')
+
+max_curve_step = max_batch_curve[::step]
+running_std2 = []
+for i in range(1, len(max_curve_step)):
+    running_std2.append(np.std(max_curve_step[:i]))
+plt.plot(steps[1:], running_std2, color='C2', label='confusion + ourbatchNorm')
 plt.savefig(os.path.join(figures_path, 'ziyuan_required.pdf'), dpi=500, quality=100)
+plt.show()
