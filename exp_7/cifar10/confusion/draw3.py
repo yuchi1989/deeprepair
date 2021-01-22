@@ -56,10 +56,10 @@ for i in range(len(kek_01)):
 
 plt.figure(figsize=(15, 10))
 plt.fill_between(range(len(min_curve)//5+1), min_curve[::5], max_curve[::5])
-plt.savefig(os.path.join(figures_path, 'block21_baseline.png'), dpi=500, quality=100)
+plt.savefig(os.path.join(figures_path, 'block21_baseline.pdf'), dpi=500, quality=100)
 plt.figure(figsize=(15, 10))
 plt.plot(range(len(kek_01)), kek_01)
-plt.savefig(os.path.join(figures_path, 'block22_baseline.png'), dpi=500, quality=100)
+plt.savefig(os.path.join(figures_path, 'block22_baseline.pdf'), dpi=500, quality=100)
 
 lol_batch_01 = np.array(grads_batch_01).flatten()
 lol_batch_02 = np.array(grads_batch_02).flatten()
@@ -108,7 +108,7 @@ plt.legend(fontsize=19)
 plt.title('Gradient Predictiveness', fontsize=20)
 plt.ylabel('Gradient Predictiveness', fontsize=13)
 plt.xlabel('Steps', fontsize=13)
-plt.savefig(os.path.join(figures_path, 'gradient_predictiveness.png'), dpi=500, quality=100)
+plt.savefig(os.path.join(figures_path, 'gradient_predictiveness.pdf'), dpi=500, quality=100)
 plt.show()
 
 
@@ -124,5 +124,14 @@ plt.legend(fontsize=19)
 plt.title('Effective beta-smoothness', fontsize=20)
 plt.ylabel('Effective beta-smoothness', fontsize=13)
 plt.xlabel('Steps', fontsize=13)
-plt.savefig(os.path.join(figures_path, 'effective_beta_smoothness.png'), dpi=500, quality=100)
+plt.savefig(os.path.join(figures_path, 'effective_beta_smoothness.pdf'), dpi=500, quality=100)
 plt.show()
+
+
+
+max_curve_step = max_curve[::step]
+running_std = []
+for i in range(1, len(max_curve_step)):
+    running_std.append(np.std(max_curve_step[:i]))
+plt.plot(steps[1:], running_std, color='C1', label='confusion + baseline')
+plt.savefig(os.path.join(figures_path, 'ziyuan_required.pdf'), dpi=500, quality=100)
