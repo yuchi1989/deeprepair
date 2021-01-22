@@ -88,8 +88,8 @@ parser.add_argument('--second', default=5, type=int,
                     help='second object index')
 parser.add_argument('--extra', default=10, type=int,
                     help='extra batch size')
-parser.add_argument('--keeplr', help='set lr 0.001 ',
-                    action='store_true')
+parser.add_argument('--keeplr', default=0, type=float, help='set fixed lr if not 0')
+parser.add_argument('--gradname', default="grads", type=str, help='name of grads')
 
 parser.add_argument('--replace', help='replace bn layer ',
                     action='store_true')
@@ -375,7 +375,7 @@ def main():
         log_print(global_epoch_confusion[-1]
                   ["confusion"][(args.second, args.first)])
     import pickle
-    pickle.dump(grads, open( "grads.pkl", "wb" ))
+    pickle.dump(grads, open(args.gradname + ".pkl", "wb" ))
 
 def train(train_loader, target_train_loader, model, criterion, optimizer, epoch):
     batch_time = AverageMeter()
@@ -725,8 +725,8 @@ def adjust_learning_rate(optimizer, epoch):
     if args.dataset.startswith('cifar'):
         lr = args.lr * (0.1 ** (epoch // (args.epochs * 0.5))) * \
             (0.1 ** (epoch // (args.epochs * 0.75)))
-        if args.keeplr:
-            lr = 0.001
+        if args.keeplr != 0:
+            lr = args.keeplr
     elif args.dataset == ('imagenet'):
         if args.epochs == 300:
             lr = args.lr * (0.1 ** (epoch // 75))
