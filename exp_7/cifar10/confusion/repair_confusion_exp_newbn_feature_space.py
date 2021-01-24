@@ -192,8 +192,12 @@ def get_dataset_from_specific_classes(target_dataset, first, second):
 
 
 layer_outputs= []
+
 def hook(module, input, output):
-    layer_outputs += output.detach().cpu().numpy()
+    global layer_outputs
+    output = output.detach().cpu().numpy()
+    print(output.shape)
+    layer_outputs += output
 
 def main():
     global args, best_err1, best_err5, global_epoch_confusion, best_loss
