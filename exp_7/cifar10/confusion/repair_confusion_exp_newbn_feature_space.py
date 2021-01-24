@@ -196,8 +196,9 @@ layer_outputs= []
 def hook(module, input, output):
     global layer_outputs
     output = output.detach().cpu().numpy()
-    print(output.shape)
-    layer_outputs += output
+    output = output.reshape(-1,256)
+    #print(output.shape)
+    layer_outputs.append(output)
 
 def main():
     global args, best_err1, best_err5, global_epoch_confusion, best_loss
@@ -324,7 +325,8 @@ def main():
             log_print(str(args.second) + " -> " + str(args.first))
             log_print(global_epoch_confusion[-1]
                     ["confusion"][(args.second, args.first)])
-        outputs = np.array(layer_outputs)
+        
+        outputs = np.stack(layer_outputs, axis=0)
         print(outputs.shape)
         labels = np.array(labels)
         print(labels.shape)
