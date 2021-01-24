@@ -196,7 +196,7 @@ layer_outputs= []
 def hook(module, input, output):
     global layer_outputs
     output = output.detach().cpu().numpy()
-    output = output.reshape(-1,256)
+    output = output.reshape(-1,10)
     #print(output.shape)
     layer_outputs.append(output)
 
