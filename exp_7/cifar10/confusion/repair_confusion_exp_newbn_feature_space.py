@@ -303,6 +303,7 @@ def main():
 
     # for checking pre-trained model accuracy and confusion
     if args.checkmodel:
+        global_epoch_confusion.append({})
         repaired_model = 'runs/%s/' % (args.expname) + 'model_best.pth.tar'
         if os.path.isfile(repaired_model):
             print("=> loading checkpoint '{}'".format(repaired_model))
