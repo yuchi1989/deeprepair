@@ -326,7 +326,7 @@ def main():
             log_print(global_epoch_confusion[-1]
                     ["confusion"][(args.second, args.first)])
         
-        outputs = np.stack(layer_outputs, axis=0)
+        outputs = np.vstack(layer_outputs)
         print(outputs.shape)
         labels = np.array(labels)
         print(labels.shape)
