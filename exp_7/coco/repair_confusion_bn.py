@@ -310,7 +310,13 @@ def train(args, epoch, model, criterion, train_loader, optimizer, train_F, score
         optimizer.zero_grad()
 
         object_preds = model(images)
-        loss = criterion(object_preds, objects).mean()
+        if args.replace:
+            loss = criterion(object_preds[:object_preds.size(
+                0) // 2], objects[:objects.size(0) // 2]).mean()
+        else:
+            loss = criterion(object_preds, objects).mean()
+
+        #loss = criterion(object_preds, objects).mean()
         '''
         m = nn.Softmax(dim=1)
         firstid = []
