@@ -113,18 +113,7 @@ def main():
     # Build the models
     model = MultilabelObject(args, 80).cuda()
 
-    if args.replace:
-        model.to('cpu')
-        global glob_bn_count
-        global glob_bn_total
-        glob_bn_total = 0
-        glob_bn_count = 0
-        count_bn_layer(model)
-        print("total bn layer: " + str(glob_bn_total))
-        glob_bn_count = 0
-        replace_bn(model)
-        print(model)
-        model = model.cuda()
+    
     criterion = nn.BCEWithLogitsLoss(weight = torch.FloatTensor(train_data.getObjectWeights()), size_average = True, reduction='None').cuda()
 
     def trainable_params():
@@ -147,6 +136,19 @@ def main():
         print("=> loaded checkpoint (epoch {})".format(checkpoint['epoch']))
     else:
         exit()
+    
+    if args.replace:
+        model.to('cpu')
+        global glob_bn_count
+        global glob_bn_total
+        glob_bn_total = 0
+        glob_bn_count = 0
+        count_bn_layer(model)
+        print("total bn layer: " + str(glob_bn_total))
+        glob_bn_count = 0
+        replace_bn(model)
+        print(model)
+        model = model.cuda()
 
     for epoch in range(args.start_epoch, args.num_epochs + 1):
         global_epoch_confusion.append({})
