@@ -505,7 +505,6 @@ def train(train_loader, target_train_loader, model, criterion, optimizer, epoch)
         optimizer.zero_grad()
         loss2.backward()
         new_input = input - 0.01*input.grad
-        print(new_input)
         new_output = model(new_input)
         if args.replace:
             new_loss = criterion(new_output[:new_output.size(
@@ -513,6 +512,7 @@ def train(train_loader, target_train_loader, model, criterion, optimizer, epoch)
         else:
             new_loss = criterion(new_output, target).mean()  # - args.lam*p_dist
         grad = abs(loss2.item() - new_loss)
+        input.requires_grad = False
         optimizer.step()
 
         # measure elapsed time 
