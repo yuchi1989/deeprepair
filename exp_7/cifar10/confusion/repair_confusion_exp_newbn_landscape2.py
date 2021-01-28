@@ -505,6 +505,7 @@ def train(train_loader, target_train_loader, model, criterion, optimizer, epoch)
         optimizer.zero_grad()
         loss2.backward()
         new_input = input - 0.01*input.grad
+        print(input.grad)
         new_output = model(new_input)
         if args.replace:
             new_loss = criterion(new_output[:new_output.size(
