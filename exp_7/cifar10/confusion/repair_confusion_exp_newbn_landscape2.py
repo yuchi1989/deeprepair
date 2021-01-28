@@ -401,6 +401,7 @@ def train(train_loader, target_train_loader, model, criterion, optimizer, epoch)
             input = torch.cat([input, target_input])
             target = torch.cat([target, target_target])
         input = input.cuda()
+        input.requires_grad = True
         target = target.cuda()
         target_copy = target_target.cpu().numpy()
 
@@ -503,7 +504,14 @@ def train(train_loader, target_train_loader, model, criterion, optimizer, epoch)
         #grad.append(model.module.fc.weight.grad.clone())
         optimizer.zero_grad()
         loss2.backward()
-        grad = loss2.item()
+        new_input = input - 0.01*input.grad
+        new_output = model(new_input)
+        if args.replace:
+            new_loss = criterion(new_output[:new_output.size(
+                    0) // 2], target[:target.size(0) // 2]).mean()  # - args.lam*p_dist
+        else:
+            new_loss = criterion(new_output, target).mean()  # - args.lam*p_dist
+        grad = abs(loss2.item() - new_loss)
         optimizer.step()
 
         # measure elapsed time 
