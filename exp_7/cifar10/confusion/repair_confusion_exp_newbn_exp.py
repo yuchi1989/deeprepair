@@ -34,8 +34,8 @@ torch.manual_seed(124)
 torch.cuda.manual_seed(124)
 np.random.seed(124)
 random.seed(124)
-# torch.backends.cudnn.enabled=False
-# torch.backends.cudnn.deterministic=True
+torch.backends.cudnn.enabled=False
+torch.backends.cudnn.deterministic=True
 
 model_names = sorted(name for name in models.__dict__
                      if name.islower() and not name.startswith("__")
@@ -290,7 +290,7 @@ def main():
                                 momentum=args.momentum,
                                 weight_decay=args.weight_decay, nesterov=True)
 
-    cudnn.benchmark = True
+    #cudnn.benchmark = True
     #validate(val_loader, model, criterion, 0)
 
     # for checking pre-trained model accuracy and confusion
