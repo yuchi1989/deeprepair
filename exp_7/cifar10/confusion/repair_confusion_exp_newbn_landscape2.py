@@ -316,7 +316,7 @@ def main():
         # train for one epoch
         _, grad = train(train_loader, target_train_loader,
               model, criterion, optimizer, epoch)
-        grads.append(grad)
+        grads = grads + grad
         print(len(grads))
         print(grads[0])
         # evaluate on validation set
@@ -385,6 +385,7 @@ def train(train_loader, target_train_loader, model, criterion, optimizer, epoch)
     losses = AverageMeter()
     top1 = AverageMeter()
     top5 = AverageMeter()
+    grad = []
     # switch to train mode
     model.train()
     end = time.time()
@@ -513,7 +514,7 @@ def train(train_loader, target_train_loader, model, criterion, optimizer, epoch)
                     0) // 2], target[:target.size(0) // 2]).mean()  # - args.lam*p_dist
         else:
             new_loss = criterion(new_output, target).mean()  # - args.lam*p_dist
-        grad = abs(loss2.item() - new_loss.item())
+        grad.append(abs(loss2.item() - new_loss.item()))
         input.requires_grad = False
         optimizer.step()
 
