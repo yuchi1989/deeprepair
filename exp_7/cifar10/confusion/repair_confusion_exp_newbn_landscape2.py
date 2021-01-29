@@ -317,6 +317,8 @@ def main():
         _, grad = train(train_loader, target_train_loader,
               model, criterion, optimizer, epoch)
         grads.append(grad)
+        print(len(grads))
+        print(grads[0])
         # evaluate on validation set
         err1, err5, val_loss = validate(
             val_loader, target_val_loader, model, criterion, epoch)
@@ -512,7 +514,6 @@ def train(train_loader, target_train_loader, model, criterion, optimizer, epoch)
         else:
             new_loss = criterion(new_output, target).mean()  # - args.lam*p_dist
         grad = abs(loss2.item() - new_loss.item())
-        print("grad:  " + str(grad))
         input.requires_grad = False
         optimizer.step()
 
