@@ -512,6 +512,7 @@ def train(train_loader, target_train_loader, model, criterion, optimizer, epoch)
         else:
             new_loss = criterion(new_output, target).mean()  # - args.lam*p_dist
         grad = abs(loss2.item() - new_loss.item())
+        print("grad:  " + str(grad))
         input.requires_grad = False
         optimizer.step()
 
