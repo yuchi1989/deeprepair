@@ -96,6 +96,9 @@ parser.add_argument('--replace', help='replace bn layer ',
 
 parser.add_argument('--ratio', default=0.5, type=float,
                     help='target ratio for batchnorm layers')
+
+parser.add_argument('--debug', help='debug mode, extra output',
+                    action='store_true')
 # parser.add_argument('--forward', default=1, type=int,
 #                    help='extra batch size')
 parser.set_defaults(bottleneck=True)
@@ -515,6 +518,10 @@ def train(train_loader, target_train_loader, model, criterion, optimizer, epoch)
         else:
             new_loss = criterion(new_output, target).mean()  # - args.lam*p_dist
         grad.append(abs(loss2.item() - new_loss.item()))
+        if args.debug:
+            print("loss2: " + str(loss2.item()))
+            print("new_loss: " + str(new_loss.item()))
+            print(grad)
         input.requires_grad = False
         optimizer.step()
 
