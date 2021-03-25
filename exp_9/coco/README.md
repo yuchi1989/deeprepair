@@ -22,6 +22,11 @@ python2 repair_confusion_bn.py --pretrained original_model/model_best.pth.tar --
 python2 repair_bias.py --pretrained original_model/model_best.pth.tar --log_dir coco_bias_repair --first "person" --second "clock" --third "bus" --ann_dir '/media/data/dataset/coco/annotations' --image_dir '/media/data/dataset/coco/'
 ```
 
+### Repair bias error(new bn)
+```
+python2 repair_bias_bn.py --pretrained original_model/model_best.pth.tar --log_dir coco_bias_repair --first "person" --second "clock" --third "bus" --ann_dir '/media/data/dataset/coco/annotations' --image_dir '/media/data/dataset/coco/'
+```
+
 ### Get confusion results
 ```
 python3 get_results.py --original_model 'global_epoch_confusion.npy' --repaired_model 'coco_confusion_repair/global_epoch_confusion.npy' --first "person" --second "bus" --confusion
