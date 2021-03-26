@@ -20,13 +20,17 @@ def draw_bias_graph(pretrain, repair, first, second, third):
     nature_accuracy = []
     bias = []
 
+    print("pretrain information")
     for i in information:
         acc = i["accuracy"]
+        print(acc)
         nature_accuracy.append(acc)
         bias.append(compute_bias(i["confusion"], first, second, third))
 
+    print("repair information")
     for i in information2:
         acc = i["accuracy"]
+        print(acc)
         nature_accuracy.append(acc)
         bias.append(compute_bias(i["confusion"], first, second, third))
 
@@ -51,13 +55,17 @@ def draw_confusion_graph(pretrain, repair, first, second):
     nature_accuracy = []
     confusion = []
 
+    print("pretrain information")
     for i in information:
         acc = i["accuracy"]
+        print(acc)
         nature_accuracy.append(acc)
         confusion.append(compute_confusion(i["confusion"], first, second))
 
+    print("repair information")
     for i in information2:
         acc = i["accuracy"]
+        print(acc)
         nature_accuracy.append(acc)
         confusion.append(compute_confusion(i["confusion"], first, second))
 
@@ -92,6 +100,8 @@ if __name__ == '__main__':
                         help='third object index')
     args = parser.parse_args()
     if args.confusion:
+        print("Confusion Results")
         draw_confusion_graph(args.original_model, args.repaired_model, args.first, args.second)
     if args.bias:
+        print("Bias Results")
         draw_bias_graph(args.original_model, args.repaired_model, args.first, args.second, args.third)
