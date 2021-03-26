@@ -15,18 +15,24 @@ def compute_bias(confusion_matrix, first, second, third):
     return abs(compute_confusion(confusion_matrix, first, second) - compute_confusion(confusion_matrix, first, third))
 
 def draw_bias_graph(pretrain, repair, first, second, third):
+    print("draw bias graph")
+
     information = np.load(pretrain, allow_pickle=True, encoding = 'latin1')
     information2 = np.load(repair, allow_pickle=True, encoding = 'latin1')
     nature_accuracy = []
     bias = []
 
+    print("pretrain information")
     for i in information:
         acc = i["accuracy"]
+        print(acc)
         nature_accuracy.append(acc)
         bias.append(compute_bias(i["confusion"], first, second, third))
 
+    print("repair information")
     for i in information2:
         acc = i["accuracy"]
+        print(acc)
         nature_accuracy.append(acc)
         bias.append(compute_bias(i["confusion"], first, second, third))
 
@@ -46,18 +52,24 @@ def draw_bias_graph(pretrain, repair, first, second, third):
 
 
 def draw_confusion_graph(pretrain, repair, first, second):
+    print("draw confusion graph")
+    
     information = np.load(pretrain, allow_pickle=True, encoding = 'latin1')
     information2 = np.load(repair, allow_pickle=True, encoding = 'latin1')
     nature_accuracy = []
     confusion = []
 
+    print("pretrain information")
     for i in information:
         acc = i["accuracy"]
+        print(acc)
         nature_accuracy.append(acc)
         confusion.append(compute_confusion(i["confusion"], first, second))
 
+    print("repair information")
     for i in information2:
         acc = i["accuracy"]
+        print(acc)
         nature_accuracy.append(acc)
         confusion.append(compute_confusion(i["confusion"], first, second))
 
@@ -77,6 +89,7 @@ def draw_confusion_graph(pretrain, repair, first, second):
 
 
 if __name__ == '__main__':
+    print("Results")
     parser = argparse.ArgumentParser()
     parser.add_argument(
     '--original_model', default='/set/your/model/path', type=str, metavar='PATH')
@@ -91,6 +104,7 @@ if __name__ == '__main__':
     parser.add_argument('--third', default="clock", type=str,
                         help='third object index')
     args = parser.parse_args()
+    print(args)
     if args.confusion:
         draw_confusion_graph(args.original_model, args.repaired_model, args.first, args.second)
     if args.bias:
