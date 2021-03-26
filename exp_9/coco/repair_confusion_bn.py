@@ -146,7 +146,7 @@ def main():
         count_bn_layer(model)
         print("total bn layer: " + str(glob_bn_total))
         glob_bn_count = 0
-        replace_bn(model)
+        replace_bn(model, args.ratio)
         print(model)
         model = model.cuda()
 
@@ -187,7 +187,7 @@ def count_bn_layer(module):
             count_bn_layer(child)
 
 
-def replace_bn(module):
+def replace_bn(module, ratio):
     global glob_bn_count
     global glob_bn_total
     # go through all attributes of module nn.module (e.g. network or layer) and put batch norms if present
@@ -200,14 +200,14 @@ def replace_bn(module):
                 #new_bn = dnnrepair_BatchNorm2d(child.num_features, child.weight, child.bias, child.running_mean, child.running_var, 0.5, child.eps, child.momentum, child.affine, track_running_stats=True)
                 #new_bn = dnnrepair_BatchNorm2d(child.num_features, child.weight, child.bias, child.running_mean, child.running_var, 9/19, child.eps, 0.19, child.affine, track_running_stats=True)
                 #new_bn = dnnrepair_BatchNorm2d(child.num_features, child.weight, child.bias, child.running_mean, child.running_var, 9/19, child.eps, child.momentum, child.affine, track_running_stats=True)
-                new_bn = dnnrepair_BatchNorm2d(child.num_features, child.weight, child.bias, child.running_mean, child.running_var, args.ratio, child.eps, child.momentum, child.affine, track_running_stats=True)
+                new_bn = dnnrepair_BatchNorm2d(child.num_features, child.weight, child.bias, child.running_mean, child.running_var, ratio, child.eps, child.momentum, child.affine, track_running_stats=True)
                 setattr(module, child_name, new_bn)
             else:
                 print('replaced: bn')
                 new_bn = dnnrepair_BatchNorm2d(child.num_features, child.weight, child.bias, child.running_mean, child.running_var, 0, child.eps, child.momentum, child.affine, track_running_stats=True)
                 setattr(module, child_name, new_bn)
         else:
-            replace_bn(child)
+            replace_bn(child, ratio)
 
 def set_bn_eval(model):
     global glob_bn_count
