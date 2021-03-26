@@ -103,6 +103,7 @@ if __name__ == '__main__':
     parser.add_argument('--third', default="clock", type=str,
                         help='third object index')
     args = parser.parse_args()
+    print(args)
     if args.confusion:
         draw_confusion_graph(args.original_model, args.repaired_model, args.first, args.second)
     if args.bias:
