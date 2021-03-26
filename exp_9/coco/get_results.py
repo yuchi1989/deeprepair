@@ -15,6 +15,8 @@ def compute_bias(confusion_matrix, first, second, third):
     return abs(compute_confusion(confusion_matrix, first, second) - compute_confusion(confusion_matrix, first, third))
 
 def draw_bias_graph(pretrain, repair, first, second, third):
+    print("draw bias graph")
+
     information = np.load(pretrain, allow_pickle=True, encoding = 'latin1')
     information2 = np.load(repair, allow_pickle=True, encoding = 'latin1')
     nature_accuracy = []
@@ -50,6 +52,8 @@ def draw_bias_graph(pretrain, repair, first, second, third):
 
 
 def draw_confusion_graph(pretrain, repair, first, second):
+    print("draw confusion graph")
+    
     information = np.load(pretrain, allow_pickle=True, encoding = 'latin1')
     information2 = np.load(repair, allow_pickle=True, encoding = 'latin1')
     nature_accuracy = []
@@ -100,8 +104,6 @@ if __name__ == '__main__':
                         help='third object index')
     args = parser.parse_args()
     if args.confusion:
-        print("Confusion Results")
         draw_confusion_graph(args.original_model, args.repaired_model, args.first, args.second)
     if args.bias:
-        print("Bias Results")
         draw_bias_graph(args.original_model, args.repaired_model, args.first, args.second, args.third)
