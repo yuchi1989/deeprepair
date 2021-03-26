@@ -89,6 +89,7 @@ def draw_confusion_graph(pretrain, repair, first, second):
 
 
 if __name__ == '__main__':
+    print("Results")
     parser = argparse.ArgumentParser()
     parser.add_argument(
     '--original_model', default='/set/your/model/path', type=str, metavar='PATH')
