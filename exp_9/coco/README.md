@@ -24,7 +24,7 @@ python2 repair_bias.py --pretrained original_model/model_best.pth.tar --log_dir 
 
 ### Repair bias error(new bn)
 ```
-python2 repair_bias_bn.py --pretrained original_model/model_best.pth.tar --log_dir coco_bias_repair --first "person" --second "bus" --ann_dir '/local/shared/coco/annotations' --image_dir '/local/shared/coco/' --replace --ratio 0.5 --log_dir coco_bias_repair
+python2 repair_bias_bn.py --pretrained original_model/model_best.pth.tar --log_dir coco_bias_repair --first "person" --second "bus" --ann_dir '/local/shared/coco/annotations' --image_dir '/local/shared/coco/' --replace --ratio 0.5
 ```
 
 ### Get confusion results
