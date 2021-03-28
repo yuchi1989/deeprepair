@@ -48,6 +48,7 @@ def draw_bias_graph(pretrain, repair, first, second, third):
     plt.xlabel("epoch")
     legend = ax.legend(loc='best', shadow=True, fontsize=14)
     plt.savefig("coco_bias.pdf", bbox_inches='tight')
+    print("coco_bias.pdf saved")
     plt.show()
 
 
@@ -85,6 +86,7 @@ def draw_confusion_graph(pretrain, repair, first, second):
     plt.xlabel("epoch")
     legend = ax.legend(loc='best', shadow=True, fontsize=14)
     plt.savefig("coco_confusion.pdf", bbox_inches='tight')
+    print("coco_confusion.pdf saved")
     plt.show()
 
 
