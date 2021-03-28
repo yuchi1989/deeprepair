@@ -15,7 +15,9 @@ def main():
             break
     type2confusion = feature_data["confusion"]
     for i in range(len(object_list)):
-        print(type2confusion[(person_class, i)])
+        if i != person_class:
+            print((person_class, i))
+            print(type2confusion[(person_class, i)])
 
 
 if __name__ == '__main__':
