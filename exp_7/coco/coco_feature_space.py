@@ -127,8 +127,8 @@ def main():
         print("no pre-trained model found")
         exit()
 
-    train_features_label_confusion = get_features(args, model, criterion, train_loader, optimizer, train_data)
-    np.save(os.path.join(args.groupname + '_train_data.npy'), train_features_label_confusion)
+    #train_features_label_confusion = get_features(args, model, criterion, train_loader, optimizer, train_data)
+    #np.save(os.path.join(args.groupname + '_train_data.npy'), train_features_label_confusion)
     test_features_label_confusion = get_features(args, model, criterion, val_loader, optimizer, val_data)
     np.save(os.path.join(args.groupname + '_test_data.npy'), test_features_label_confusion)
 
