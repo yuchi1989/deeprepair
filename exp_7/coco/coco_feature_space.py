@@ -223,7 +223,7 @@ def compute_bias(confusion_matrix, first, second, third):
 def get_features(args, model, criterion, val_loader, optimizer, test_data):
     model.eval()
     res = list()
-    feature_data = []
+    feature_data = {}
     features = []
     yhats = []
     labels = []
