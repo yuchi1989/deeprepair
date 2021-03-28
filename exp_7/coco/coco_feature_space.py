@@ -222,7 +222,8 @@ def compute_bias(confusion_matrix, first, second, third):
 
 def get_features(args, model, criterion, val_loader, optimizer, test_data):
     model.eval()
-    feature_data = []
+    res = list()
+    feature_data = {}
     features = []
     yhats = []
     labels = []
@@ -260,6 +261,7 @@ def get_features(args, model, criterion, val_loader, optimizer, test_data):
 
         object_preds_max = object_preds.data.max(1, keepdim=True)[1]
         object_correct = torch.gather(objects.data, 1, object_preds_max).cpu().sum()
+        res.append((image_ids, object_preds.data.cpu(), objects.data.cpu()))
         features.append(object_preds.data.cpu())
 
 
