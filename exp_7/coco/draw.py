@@ -39,7 +39,6 @@ def main():
 
         confusion_bar.append(conf_list)
 
-
     X = np.arange(class_num)
     plt.bar(X + 0.00, confusion_bar[0], width = 0.1)
     plt.bar(X + 0.10, confusion_bar[1], width = 0.1)
