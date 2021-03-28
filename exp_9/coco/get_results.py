@@ -44,6 +44,7 @@ def draw_bias_graph(pretrain, repair, first, second, third):
 
     plt.rcParams.update({'font.size': 12})
     fig, ax = plt.subplots()
+    plt.vlines(4, 0, 5, linestyles ="dotted", colors ="k")
     x = range(len(nature_accuracy))
     ax.plot(x, nature_accuracy, 'r-', label="accuracy")
     legend2 = "bias between " + second + " and " + third + ",\n given " + first

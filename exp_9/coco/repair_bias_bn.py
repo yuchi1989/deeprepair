@@ -105,13 +105,13 @@ def main():
                                               shuffle = True, num_workers = 1,
                                               pin_memory = True)
     
-    first_loader = torch.utils.data.DataLoader(first_data, batch_size = 3, 
+    first_loader = torch.utils.data.DataLoader(first_data, batch_size = args.batch_size/3,
                                               shuffle = True, num_workers = 0,
                                               pin_memory = False)
-    second_loader = torch.utils.data.DataLoader(second_data, batch_size = 3, 
+    second_loader = torch.utils.data.DataLoader(second_data, batch_size = args.batch_size/3,
                                               shuffle = True, num_workers = 0,
                                               pin_memory = False)
-    third_loader = torch.utils.data.DataLoader(third_data, batch_size = 3, 
+    third_loader = torch.utils.data.DataLoader(third_data, batch_size = args.batch_size/3,
                                               shuffle = True, num_workers = 0,
                                               pin_memory = False)
 
