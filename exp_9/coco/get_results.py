@@ -25,16 +25,20 @@ def draw_bias_graph(pretrain, repair, first, second, third):
     print("pretrain information")
     for i in information:
         acc = i["accuracy"]
-        print(acc)
+#        print(acc)
         nature_accuracy.append(acc)
-        bias.append(compute_bias(i["confusion"], first, second, third))
+        b = compute_bias(i["confusion"], first, second, third)
+        print(b)
+        bias.append(b)
 
     print("repair information")
     for i in information2:
         acc = i["accuracy"]
-        print(acc)
+#        print(acc)
         nature_accuracy.append(acc)
-        bias.append(compute_bias(i["confusion"], first, second, third))
+        b = compute_bias(i["confusion"], first, second, third)
+        print(b)
+        bias.append(b)
 
     import matplotlib.pyplot as plt
 
