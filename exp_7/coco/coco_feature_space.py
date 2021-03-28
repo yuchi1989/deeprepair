@@ -127,8 +127,8 @@ def main():
         print("no pre-trained model found")
         exit()
 
-    train_features_label_confusion = get_features(args, model, criterion, train_loader, optimizer, train_data)
-    np.save(os.path.join(args.groupname + '_train_data.npy'), train_features_label_confusion)
+    #train_features_label_confusion = get_features(args, model, criterion, train_loader, optimizer, train_data)
+    #np.save(os.path.join(args.groupname + '_train_data.npy'), train_features_label_confusion)
     test_features_label_confusion = get_features(args, model, criterion, val_loader, optimizer, val_data)
     np.save(os.path.join(args.groupname + '_test_data.npy'), test_features_label_confusion)
 
@@ -222,6 +222,7 @@ def compute_bias(confusion_matrix, first, second, third):
 
 def get_features(args, model, criterion, val_loader, optimizer, test_data):
     model.eval()
+    res = list()
     feature_data = []
     features = []
     yhats = []
@@ -260,6 +261,7 @@ def get_features(args, model, criterion, val_loader, optimizer, test_data):
 
         object_preds_max = object_preds.data.max(1, keepdim=True)[1]
         object_correct = torch.gather(objects.data, 1, object_preds_max).cpu().sum()
+        res.append((image_ids, object_preds.data.cpu(), objects.data.cpu()))
         features.append(object_preds.data.cpu())
 
 
