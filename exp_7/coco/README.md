@@ -35,5 +35,13 @@ python3 get_results.py --original_model 'global_epoch_confusion.npy' --repaired_
 Results are saved to *coco_bias.pdf*  
 
 
+### Get feature space, labels, predicated labels and confusion matrix
+
+```
+python2 coco_feature_space.py --pretrained original_model/checkpoint.pth.tar --ann_dir '/home/yuchi/data/coco/annotations' --image_dir '/home/yuchi/data/coco/' --groupname original
 
 
+python2 coco_feature_space.py --pretrained fix_model/checkpoint.pth.tar --ann_dir '/home/yuchi/data/coco/annotations' --image_dir '/home/yuchi/data/coco/' --groupname fix_0.2 --ratio 0.2 --replace
+```
+
+Data saved to files "[args.groupname]_train_data.npy" and "[args.groupname]_test_data.npy"

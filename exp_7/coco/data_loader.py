@@ -60,9 +60,6 @@ class CocoObject(data.Dataset):
 
         del self.data
         del self.cocoAPI
-        if self.split == 'train':
-            del self.id2object
-            del self.object2id
             
 
     def __getitem__(self, index):
