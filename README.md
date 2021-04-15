@@ -6,3 +6,4 @@ https://github.com/yuchi1989/deeprepair/tree/master/exp_7/cifar10/confusion
 
 ### COCO prototype  
 https://github.com/yuchi1989/deeprepair/tree/master/exp_7/coco
+https://github.com/yuchi1989/deeprepair/tree/master/exp_9/coco
