@@ -8,3 +8,9 @@ exp_6/coco/global_epoch_confusion.npy
 exp_6/coco/pycocotools/*.pyc
 exp_6/coco/coco_bias_repair/*
 exp_6/coco/*.pdf
+exp_7/coco/*.pdf
+exp_7/coco/coco_confusion_repair_*
+exp_7/coco/original_model/*
+exp_7/coco/*.npy
+exp_7/coco/*.pickle
+exp_7/coco/*.pyc
