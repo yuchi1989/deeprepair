@@ -503,7 +503,8 @@ def train(train_loader, target_train_loader, model, criterion, optimizer, epoch)
                 # print(target[inds_second].size())
                 loss_target = (criterion(output[inds_first], target[inds_first]).mean() + criterion(output[inds_second], target[inds_second]).mean()) / 2
 
-                loss2 = criterion(output, target).mean() + target_weight * loss_target
+                #loss2 = criterion(output, target).mean() + target_weight * loss_target
+                loss2 = (1-target_weight) * criterion(output, target).mean() + target_weight * loss_target
             else:
                 loss2 = criterion(output, target).mean()
 
