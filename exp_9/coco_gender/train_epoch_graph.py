@@ -86,7 +86,7 @@ def main():
                                             pin_memory = True)
 
     # Build the models
-    model = MultilabelObject(args, 80).cuda()
+    model = MultilabelObject(args, 81).cuda()
     criterion = nn.BCEWithLogitsLoss(weight = torch.FloatTensor(train_data.getObjectWeights()), size_average = True).cuda()
 
     def trainable_params():
@@ -316,7 +316,7 @@ def get_confusion(args, epoch, model, criterion, val_loader, optimizer, val_F, s
     score_F.flush()
 
     object_list = []
-    for i in range(80):
+    for i in range(81):
         object_list.append(id2object[i])
     pair_count = {}
     confusion_count = {}
@@ -324,7 +324,7 @@ def get_confusion(args, epoch, model, criterion, val_loader, optimizer, val_F, s
 
 
     for li, yi in zip(labels, yhats):
-        no_objects = [id2object[i] for i in range(80) if id2object[i] not in li]
+        no_objects = [id2object[i] for i in range(81) if id2object[i] not in li]
         for i in li:
             for j in no_objects:
                 if (i, j) in pair_count:

@@ -9,7 +9,7 @@ import torchvision.transforms as transforms
 from pycocotools.coco import COCO
 
 class CocoObject(data.Dataset):
-    def __init__(self, ann_dir, image_dir, split = 'train', transform = None):
+    def __init__(self, ann_dir, image_dir, split = 'train', transform=None, filter=None):
         self.ann_dir = ann_dir
         self.image_dir = image_dir
         self.split = split
@@ -25,11 +25,12 @@ class CocoObject(data.Dataset):
         self.data = json.load(open(ann_path))
         self.image_ids = [elem['id'] for elem in self.data['images']]
         print(type(self.image_ids[0]))
+        '''
         if self.split == 'val':
             self.image_ids = self.image_ids[:10000]
         elif self.split == 'test':
             self.image_ids = self.image_ids[10000:]
-
+        '''
         self.image_path_map = {elem['id']: elem['file_name'] for elem in self.data['images']}
 
 
@@ -99,6 +100,19 @@ class CocoObject(data.Dataset):
             for encoding_id in encoding_ids:
                 self.object_ann[idx, encoding_id] = 1
         print(gender_count)
+        sample_idx = []
+        print(filter)
+        if filter is not None:
+            for idx, image_id in enumerate(self.new_image_ids):
+                if filter in self.id2labels[image_id]:
+                    sample_idx.append(idx)
+            self.new_image_ids = [self.new_image_ids[i] for i in sample_idx]
+            self.object_ann = [self.object_ann[i] for i in sample_idx]
+        del self.data
+        del self.cocoAPI
+        if self.split == 'train':
+            del self.id2object
+            del self.object2id
 
     def __getitem__(self, index):
         image_id = self.new_image_ids[index]
