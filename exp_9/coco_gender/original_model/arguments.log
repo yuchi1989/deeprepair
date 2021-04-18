@@ -1,1 +1,0 @@
-Namespace(ann_dir='/home/yuchi/data/coco/annotations', batch_size=64, crop_size=224, finetune=0, image_dir='/home/yuchi/data/coco/', image_size=256, learning_rate=0.1, log_dir='original_model', num_epochs=15, resume=0, seed=1, start_epoch=1)
