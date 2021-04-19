@@ -2,7 +2,8 @@
 # python3 repair_retrain_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --pretrained ./runs/DeepInspect_1/model_best.pth.tar --expid 0 --checkmodel
 # python3 repair_retrain_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname ResNet50 --epochs 60 --beta 1.0 --cutmix_prob 1.0 --pretrained ./runs/DeepInspect_1/model_best.pth.tar --expid 0 --first 3 --second 5
 
-# python3 repair_confusion_exp_newbn.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4/model_best.pth.tar --expid 0 --lam 0 --extra 256
+# python3 repair_confusion_exp_newbn_softmax.py --net_type resnet --dataset cifar10 --depth 18 --batch_size 128 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet18_2_4/model_best.pth.tar --expid 0 --lam 0 --extra 128 --eta 0.3 --checkmodel
+
 # set extra batch size same as batch size for half half assumption in new batchnorm layer
 import argparse
 import os
@@ -82,6 +83,8 @@ parser.add_argument('--checkmodel', help='Check model accuracy',
                     action='store_true')
 parser.add_argument('--lam', default=0.5, type=float,
                     help='hyperparameter lambda')
+parser.add_argument('--eta', default=0.3, type=float,
+                    help='hyperparameter eta')
 parser.add_argument('--first', default=3, type=int,
                     help='first object index')
 parser.add_argument('--second', default=5, type=int,
@@ -585,14 +588,14 @@ def get_confusion(val_loader, model, criterion, epoch=-1):
 
         output = model(input)
 
-        eta = 0.3
+        eta = args.eta
         #chosen_ classes = torch.tensor([3, 5])
         #other_ classes = torch.tensor([0, 1, 2, 4, 6, 7, 8, 9])
         softmax = torch.nn.Softmax() 
         output = softmax(output)
         output = output.detach().cpu().numpy()
-        chosen_classes = np.array([3,5])
-        other_classes = np.array([0, 1, 2, 4, 6, 7, 8, 9])
+        chosen_classes = np.array([args.first, args.second])
+        other_classes = np.array([i for i in range(10) if i != args.first and i != args.second])
         #output[:, chosen_ classes] = torch.index_select(output, 0, chosen_ classes) - eta
         #output[:, non_chosen_ classes] = torch.index_select(output, 0, other_ classes) + eta
         output[:, chosen_classes] -= eta
