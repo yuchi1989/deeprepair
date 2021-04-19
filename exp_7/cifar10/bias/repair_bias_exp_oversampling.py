@@ -88,6 +88,8 @@ parser.add_argument('--first', default=3, type=int,
                     help='first object index')
 parser.add_argument('--second', default=5, type=int,
                     help='second object index')
+parser.add_argument('--third', default=5, type=int,
+                    help='third object index')
 parser.add_argument('--extra', default=10, type=int,
                     help='extra batch size')
 parser.add_argument('--keeplr', help='set lr 0.001 ',
@@ -98,6 +100,9 @@ parser.add_argument('--replace', help='replace bn layer ',
 
 parser.add_argument('--ratio', default=0.5, type=float,
                     help='target ratio for batchnorm layers')
+
+parser.add_argument('--weight', default=1, type=float,
+                    help='oversampling weight')
 # parser.add_argument('--forward', default=1, type=int,
 #                    help='extra batch size')
 parser.set_defaults(bottleneck=True)
@@ -181,6 +186,17 @@ def set_bn_train(model):  # unfreeze all bn
             #print("set bn")
             module.train()
 
+def compute_confusion(confusion_matrix, first, second):
+    confusion = 0
+    if (first, second) in confusion_matrix:
+        confusion += confusion_matrix[(first, second)]
+    
+    if (second, first) in confusion_matrix:
+        confusion += confusion_matrix[(second, first)]
+    return confusion/2
+
+def compute_bias(confusion_matrix, first, second, third):
+    return abs(compute_confusion(confusion_matrix, first, second) - compute_confusion(confusion_matrix, first, third))
 
 
 
@@ -225,7 +241,10 @@ def main():
             num_samples = sum(class_counts)
             labels = [0, 0,..., 0, 1] #corresponding labels of samples
 
-            class_weights = [1.0, 1.0, 1.0, 0.02, 1.0, 0.02, 1.0, 1.0, 1.0, 1.0]
+            class_weights = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+            class_weights[args.first] = args.weight
+            class_weights[args.second] = args.weight
+            class_weights[args.third] = args.weight
             print(class_weights)
             weights = [class_weights[train_data.targets[i]] for i in range(len(train_data))]
             sampler = WeightedRandomSampler(torch.DoubleTensor(weights), len(train_data))
@@ -283,15 +302,13 @@ def main():
     if args.checkmodel:
         global_epoch_confusion.append({})
         get_confusion(val_loader, model, criterion)
-        # cat->dog confusion
-        log_print(str(args.first) + " -> " + str(args.second))
-        log_print(global_epoch_confusion[-1]
-                  ["confusion"][(args.first, args.second)])
-        # dog->cat confusion
-        log_print(str(args.second) + " -> " + str(args.first))
-        log_print(global_epoch_confusion[-1]
-                  ["confusion"][(args.second, args.first)])
+        confusion_matrix = global_epoch_confusion[-1]["confusion"]
+        print(str((args.first, args.second, args.third)) + " triplet: " + 
+            str(abs(confusion_matrix[(args.first, args.second)] - confusion_matrix[(args.first, args.third)])))
+        print(str((args.first, args.second)) + ": " + str(confusion_matrix[(args.first, args.second)]))
+        print(str((args.first, args.third)) + ": " + str(confusion_matrix[(args.first, args.third)]))
         exit()
+
 
     for epoch in range(0, args.epochs):
         global_epoch_confusion.append({})
