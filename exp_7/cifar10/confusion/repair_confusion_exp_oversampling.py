@@ -98,6 +98,10 @@ parser.add_argument('--replace', help='replace bn layer ',
 
 parser.add_argument('--ratio', default=0.5, type=float,
                     help='target ratio for batchnorm layers')
+
+parser.add_argument('--weight', default=1, type=float,
+                    help='oversampling weight')
+
 # parser.add_argument('--forward', default=1, type=int,
 #                    help='extra batch size')
 parser.set_defaults(bottleneck=True)
@@ -225,7 +229,9 @@ def main():
             num_samples = sum(class_counts)
             labels = [0, 0,..., 0, 1] #corresponding labels of samples
 
-            class_weights = [1.0, 1.0, 1.0, 0.02, 1.0, 0.02, 1.0, 1.0, 1.0, 1.0]
+            class_weights = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+            class_weights[args.first] = args.weight
+            class_weights[args.second] = args.weight
             print(class_weights)
             weights = [class_weights[train_data.targets[i]] for i in range(len(train_data))]
             sampler = WeightedRandomSampler(torch.DoubleTensor(weights), len(train_data))
