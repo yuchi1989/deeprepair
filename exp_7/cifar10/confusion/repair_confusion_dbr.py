@@ -24,6 +24,7 @@ import utils
 import numpy as np
 import random
 import warnings
+from tqdm import tqdm
 
 warnings.filterwarnings("ignore")
 
@@ -83,15 +84,42 @@ parser.add_argument('--first', default=3, type=int,
                     help='first object index')
 parser.add_argument('--second', default=5, type=int,
                     help='second object index')
+parser.add_argument('--extra', default=10, type=int,
+                    help='extra batch size')
 parser.add_argument('--keeplr', help='set lr 0.001 ',
     action='store_true')
+parser.add_argument('--forward', default=1, type=int,
+                    help='extra batch size')
 parser.set_defaults(bottleneck=True)
-parser.set_defaults(verbose=True)
+parser.set_defaults(verbose=False)
 
 best_loss = 100
 best_err1 = 100
 best_err5 = 100
 global_epoch_confusion = []
+
+
+def log_print(var):
+    print("logging filter: " + str(var))
+
+
+def set_bn_eval(module):
+    if isinstance(module, torch.nn.modules.batchnorm._BatchNorm):
+        module.eval()
+
+def set_bn_train(module):
+    if isinstance(module, torch.nn.modules.batchnorm._BatchNorm):
+        module.train()
+
+
+
+def get_dataset_from_specific_classes(target_dataset, first , second):
+    first_indices = np.where(np.array(target_dataset.targets) == first)[0]
+    second_indices = np.where(np.array(target_dataset.targets) == second)[0]
+    target_idx = np.hstack([first_indices, second_indices])
+    target_dataset.targets = np.array(target_dataset.targets)[target_idx]
+    target_dataset.data = target_dataset.data[target_idx]
+    return target_dataset
 
 
 def main():
@@ -134,52 +162,18 @@ def main():
                                  transform=transform_test),
                 batch_size=args.batch_size, shuffle=True, num_workers=args.workers, pin_memory=True)
             numberofclass = 10
+
+            target_train_dataset = datasets.CIFAR10('../data', train=True, download=True, transform=transform_train)
+            target_train_dataset = get_dataset_from_specific_classes(target_train_dataset, args.first, args.second)
+            target_test_dataset = datasets.CIFAR10('../data', train=False, download=True, transform=transform_test)
+            target_test_dataset = get_dataset_from_specific_classes(target_test_dataset, args.first, args.second)
+            target_train_loader = torch.utils.data.DataLoader(target_train_dataset, batch_size=args.extra, shuffle=True, 
+                                        num_workers=args.workers, pin_memory=True)
+            target_val_loader = torch.utils.data.DataLoader(target_test_dataset, batch_size=args.extra, shuffle=True, 
+                                        num_workers=args.workers, pin_memory=True)
+
         else:
             raise Exception('unknown dataset: {}'.format(args.dataset))
-
-    elif args.dataset == 'imagenet':
-        traindir = os.path.join('/home/data/ILSVRC/train')
-        valdir = os.path.join('/home/data/ILSVRC/val')
-        normalize = transforms.Normalize(mean=[0.485, 0.456, 0.406],
-                                         std=[0.229, 0.224, 0.225])
-
-        jittering = utils.ColorJitter(brightness=0.4, contrast=0.4,
-                                      saturation=0.4)
-        lighting = utils.Lighting(alphastd=0.1,
-                                  eigval=[0.2175, 0.0188, 0.0045],
-                                  eigvec=[[-0.5675, 0.7192, 0.4009],
-                                          [-0.5808, -0.0045, -0.8140],
-                                          [-0.5836, -0.6948, 0.4203]])
-
-        train_dataset = datasets.ImageFolder(
-            traindir,
-            transforms.Compose([
-                transforms.RandomResizedCrop(224),
-                transforms.RandomHorizontalFlip(),
-                transforms.ToTensor(),
-                jittering,
-                lighting,
-                normalize,
-            ]))
-
-        train_sampler = None
-
-        train_loader = torch.utils.data.DataLoader(
-            train_dataset, batch_size=args.batch_size, shuffle=(
-                train_sampler is None),
-            num_workers=args.workers, pin_memory=True, sampler=train_sampler)
-
-        val_loader = torch.utils.data.DataLoader(
-            datasets.ImageFolder(valdir, transforms.Compose([
-                transforms.Resize(256),
-                transforms.CenterCrop(224),
-                transforms.ToTensor(),
-                normalize,
-            ])),
-            batch_size=args.batch_size, shuffle=False,
-            num_workers=args.workers, pin_memory=True)
-        numberofclass = 1000
-
     else:
         raise Exception('unknown dataset: {}'.format(args.dataset))
 
@@ -202,7 +196,7 @@ def main():
         model.load_state_dict(checkpoint['state_dict'])
         print("=> loaded checkpoint '{}'".format(args.pretrained))
 
-    print(model)
+    # print(model)
     print('the number of model parameters: {}'.format(
         sum([p.data.nelement() for p in model.parameters()])))
 
@@ -221,9 +215,11 @@ def main():
         global_epoch_confusion.append({})
         get_confusion(val_loader, model, criterion)
         # cat->dog confusion
-        print(global_epoch_confusion[-1]["confusion"][(args.first, args.second)])
+        log_print(str(args.first) + " -> " + str(args.second))
+        log_print(global_epoch_confusion[-1]["confusion"][(args.first, args.second)])
         # dog->cat confusion
-        print(global_epoch_confusion[-1]["confusion"][(args.second, args.first)])
+        log_print(str(args.second) + " -> " + str(args.first))
+        log_print(global_epoch_confusion[-1]["confusion"][(args.second, args.first)])
         exit()
 
     for epoch in range(0, args.epochs):
@@ -231,35 +227,38 @@ def main():
         adjust_learning_rate(optimizer, epoch)
 
         # train for one epoch
-        train_loss = train(train_loader, model, criterion, optimizer, epoch)
+        train(train_loader, target_train_loader, model, criterion, optimizer, epoch)
 
         # evaluate on validation set
-        err1, err5, val_loss = validate(val_loader, model, criterion, epoch)
+        err1, err5, val_loss = validate(val_loader, target_val_loader, model, criterion, epoch)
 
         # remember best prec@1 and save checkpoint
-        
-        is_best = val_loss <= best_loss
-        best_loss = min(val_loss, best_loss)
-        if is_best:
-            best_err5 = err5
-            best_err1 = err1
 
-        print('Current best accuracy (top-1 and 5 error):', best_err1, best_err5)
-        save_checkpoint({
-            'epoch': epoch,
-            'arch': args.net_type,
-            'state_dict': model.state_dict(),
-            'best_err1': best_err1,
-            'best_err5': best_err5,
-            'optimizer': optimizer.state_dict(),
-        }, is_best)
+        if epoch // (args.epochs * 0.75):
+            is_best = err1 <= best_err1
+            best_err1 = min(err1, best_err1)
+            if is_best:
+                best_err5 = err5
+                best_err1 = err1
+
+            print('Current best accuracy (top-1 and 5 error):', best_err1, best_err5)
+            save_checkpoint({
+                'epoch': epoch,
+                'arch': args.net_type,
+                'state_dict': model.state_dict(),
+                'best_err1': best_err1,
+                'best_err5': best_err5,
+                'optimizer': optimizer.state_dict(),
+            }, is_best)
 
 
         get_confusion(val_loader, model, criterion, epoch)
         # cat->dog confusion
-        print(global_epoch_confusion[-1]["confusion"][(args.first, args.second)])
+        log_print(str(args.first) + " -> " + str(args.second))
+        log_print(global_epoch_confusion[-1]["confusion"][(args.first, args.second)])
         # dog->cat confusion
-        print(global_epoch_confusion[-1]["confusion"][(args.second, args.first)])
+        log_print(str(args.second) + " -> " + str(args.first))
+        log_print(global_epoch_confusion[-1]["confusion"][(args.second, args.first)])
 
     print('Best accuracy (top-1 and 5 error):', best_err1, best_err5)
     directory = "runs/%s/" % (args.expname)
@@ -268,7 +267,7 @@ def main():
     epoch_confusions = 'runs/%s/' % (args.expname) + \
         'epoch_confusion_' + args.expid
     np.save(epoch_confusions, global_epoch_confusion)
-
+    log_print("")
     # output best model accuracy and confusion
     repaired_model = 'runs/%s/' % (args.expname) + 'model_best.pth.tar'
     if os.path.isfile(repaired_model):
@@ -277,12 +276,15 @@ def main():
         model.load_state_dict(checkpoint['state_dict'])
         get_confusion(val_loader, model, criterion)
         # dog->cat confusion
-        print(global_epoch_confusion[-1]["confusion"][(args.first, args.second)])
+        log_print(str(args.first) + " -> " + str(args.second))
+        log_print(global_epoch_confusion[-1]["confusion"][(args.first, args.second)])
         # cat->dog confusion
-        print(global_epoch_confusion[-1]["confusion"][(args.second, args.first)])
+        log_print(str(args.second) + " -> " + str(args.first))
+        log_print(global_epoch_confusion[-1]["confusion"][(args.second, args.first)])
 
 
-def train(train_loader, model, criterion, optimizer, epoch):
+
+def train(train_loader, target_train_loader, model, criterion, optimizer, epoch):
     batch_time = AverageMeter()
     data_time = AverageMeter()
     losses = AverageMeter()
@@ -294,14 +296,23 @@ def train(train_loader, model, criterion, optimizer, epoch):
 
     end = time.time()
     current_LR = get_learning_rate(optimizer)[0]
-    for i, (input, target) in enumerate(train_loader):
+    extra_iterator = iter(target_train_loader)
+    t = tqdm(train_loader, desc = 'Train %d' % epoch)
+    for i, (input, target) in enumerate(t):
         # measure data loading time
         data_time.update(time.time() - end)
-
+        try:
+            (target_input, target_target) = next(extra_iterator)
+        except StopIteration:
+            extra_iterator = iter(target_train_loader)
+            (target_input, target_target) = next(extra_iterator)
+        #input = torch.cat([input, target_input])
+        #target = torch.cat([target, target_target])
         input = input.cuda()
         target = target.cuda()
-        target_copy = target.cpu().numpy()
-        output2 = model(input)
+        target_copy = target_target.cpu().numpy()
+        for _ in range(args.forward):
+            target_output = model(target_input)
         r = np.random.rand(1)
         if args.beta > 0 and r < args.cutmix_prob:
             # generate mixed sample
@@ -322,6 +333,7 @@ def train(train_loader, model, criterion, optimizer, epoch):
                 criterion(output, target_b).mean() * (1. - lam)
             id3 = []
             id5 = []
+
             for j in range(len(input)):
                 if (target_copy[j]) == args.first:
                     id3.append(j)
@@ -331,17 +343,20 @@ def train(train_loader, model, criterion, optimizer, epoch):
             m = nn.Softmax(dim=1)
 
             p_dist = torch.dist(torch.mean(
-                m(output2)[id3], 0), torch.mean(m(output2)[id5], 0), 2)
-            loss2 = loss - args.lam*p_dist
+                m(output)[id3], 0), torch.mean(m(output)[id5], 0), 2)
+
+            p_dist = 0
+            loss2 = loss - args.lam * p_dist
         else:
             # compute output
             output = model(input)
             #_, top1_output = output.max(1)
             #yhats = top1_output.cpu().data.numpy()
             # print(yhats[:5])
+            #target_output = model(input)
             id3 = []
             id5 = []
-            for j in range(len(input)):
+            for j in range(len(target_input)):
                 if (target_copy[j]) == args.first:
                     id3.append(j)
                 elif (target_copy[j]) == args.second:
@@ -352,21 +367,19 @@ def train(train_loader, model, criterion, optimizer, epoch):
             m = nn.Softmax(dim=1)
             if len(id3) == 0 or len(id5) == 0:
                 p_dist = 0
+                print("not enough sample")
+                print(len(id3))
+                print(len(id5))
             else:
                 p_dist = torch.dist(torch.mean(
-                    m(output)[id3], 0), torch.mean(m(output)[id5], 0), 2)
+                    m(target_output)[id3], 0), torch.mean(m(target_output)[id5], 0), 2)
             #print(criterion(output, target).mean())
             # print(p_dist)
-
             #loss2 = criterion(output, target).mean() + p_dist
             #loss2 = criterion(output, target).mean()
             loss2 = criterion(output, target).mean() - args.lam*p_dist
-        # measure accuracy and record loss
-        err1, err5 = accuracy(output.data, target, topk=(1, 5))
 
         losses.update(loss2.item(), input.size(0))
-        top1.update(err1.item(), input.size(0))
-        top5.update(err5.item(), input.size(0))
 
         # compute gradient and do SGD step
         optimizer.zero_grad()
@@ -376,7 +389,8 @@ def train(train_loader, model, criterion, optimizer, epoch):
         # measure elapsed time
         batch_time.update(time.time() - end)
         end = time.time()
-
+        t.set_postfix(loss = losses.avg)
+        
         if i % args.print_freq == 0 and args.verbose == True:
             print('Epoch: [{0}/{1}][{2}/{3}]\t'
                   'LR: {LR:.6f}\t'
@@ -413,7 +427,7 @@ def rand_bbox(size, lam):
     return bbx1, bby1, bbx2, bby2
 
 
-def validate(val_loader, model, criterion, epoch):
+def validate(val_loader, target_val_loader, model, criterion, epoch):
     batch_time = AverageMeter()
     losses = AverageMeter()
     top1 = AverageMeter()
@@ -423,33 +437,16 @@ def validate(val_loader, model, criterion, epoch):
     model.eval()
 
     end = time.time()
-    for i, (input, target) in enumerate(val_loader):
+    t = tqdm(val_loader, desc = 'Val %d' % epoch)
+    for i, (input, target) in enumerate(t):
         target = target.cuda()
-        target_copy = target.cpu().numpy()
         output = model(input)
         loss = criterion(output, target)
-        id3 = []
-        id5 = []
-        for j in range(len(input)):
-            if (target_copy[j]) == args.first:
-                id3.append(j)
-            elif (target_copy[j]) == args.second:
-                id5.append(j)
-        # print(output.shape)
-        # print(output[id3].shape)
-        # print((torch.sum(output[id3],0)/len(id3)).shape)
-        m = nn.Softmax(dim=1)
-        if len(id3) == 0 or len(id5) == 0:
-            p_dist = 0
-        else:
-            p_dist = torch.dist(torch.mean(
-                m(output)[id3], 0), torch.mean(m(output)[id5], 0), 2)
-        loss2 = loss.mean() - args.lam*p_dist
         # measure accuracy and record loss
         err1, err5 = accuracy(output.data, target, topk=(1, 5))
 
-        losses.update(loss2.item(), input.size(0))
-
+        losses.update(loss.mean().item(), input.size(0))
+        t.set_postfix(loss = losses.avg)
         top1.update(err1.item(), input.size(0))
         top5.update(err5.item(), input.size(0))
 
@@ -525,13 +522,13 @@ def get_confusion(val_loader, model, criterion, epoch=-1):
         epoch, args.epochs, top1=top1, top5=top5, loss=losses))
 
     acc = 100.*correct/total
-    print(acc)
+    log_print(acc)
 
     correct = 0
     for i in range(len(labels)):
         if labels[i] == yhats[i]:
             correct += 1
-    print(correct*1.0/len(labels))
+    log_print(correct*1.0/len(labels))
 
     labels_list = []
     for i in range(10):
@@ -557,6 +554,17 @@ def get_confusion(val_loader, model, criterion, epoch=-1):
     global_epoch_confusion[-1]["confusion"] = type1confusion
     global_epoch_confusion[-1]["accuracy"] = acc
 
+    dog_cat_sum = 0
+    dog_cat_acc = 0
+    for i in range(len(yhats)):
+
+        if args.first == labels[i] or args.second == labels[i]:
+            dog_cat_sum += 1
+            if labels[i] == yhats[i]:
+                dog_cat_acc += 1
+    global_epoch_confusion[-1]["dogcatacc"] = dog_cat_acc/dog_cat_sum
+    log_print("pair accuracy: " + str(global_epoch_confusion[-1]["dogcatacc"]))
+    
     return top1.avg, top5.avg, losses.avg
 
 
@@ -628,7 +636,7 @@ def accuracy(output, target, topk=(1,)):
 
     res = []
     for k in topk:
-        correct_k = correct[:k].view(-1).float().sum(0, keepdim=True)
+        correct_k = correct[:k].reshape(-1).float().sum(0, keepdim=True)
         wrong_k = batch_size - correct_k
         res.append(wrong_k.mul_(100.0 / batch_size))
 
