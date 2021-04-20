@@ -16,7 +16,7 @@
 
 ## Paper experiments
 ### [COCO](https://github.com/yuchi1989/deeprepair/tree/master/exp_9/coco) experiments
-### [COCO confusion](https://github.com/yuchi1989/deeprepair/tree/master/exp_9/coco/confusion) experiments  
+### [COCO confusion](https://github.com/yuchi1989/deeprepair/tree/master/exp_9/coco) experiments  
   
 #### [orig](https://github.com/yuchi1989/deeprepair/blob/master/exp_9/coco/train_epoch_graph.py):    
 
@@ -52,7 +52,7 @@ python2 repair_confusion_exp_newbn_softmax.py --data_file original_test_data.npy
 python2 repair_confusion_dbr.py --pretrained original_model/model_best.pth.tar --log_dir coco_confusion_repair --first "person" --second "bus"
 ```
 
-### [COCO bias](https://github.com/yuchi1989/deeprepair/tree/master/exp_9/coco/bias) experiments  
+### [COCO bias](https://github.com/yuchi1989/deeprepair/tree/master/exp_9/coco) experiments  
   
 #### [orig](https://github.com/yuchi1989/deeprepair/blob/master/exp_9/coco/train_epoch_graph.py):    
 
@@ -89,7 +89,7 @@ python2 repair_bias_dbr.py --pretrained original_model/model_best.pth.tar --log_
 ```
 
 ### [COCO gender](https://github.com/yuchi1989/deeprepair/tree/master/exp_9/coco_gender) experiments
-### [COCO gender confusion](https://github.com/yuchi1989/deeprepair/tree/master/exp_9/coco_gender/confusion) experiments  
+### [COCO gender confusion](https://github.com/yuchi1989/deeprepair/tree/master/exp_9/coco_gender) experiments  
   
 #### [orig](https://github.com/yuchi1989/deeprepair/blob/master/exp_9/coco_gender/train_epoch_graph.py):    
 
@@ -125,7 +125,7 @@ python2 repair_confusion_exp_newbn_softmax.py --data_file original_test_data.npy
 python2 repair_confusion_dbr.py --pretrained original_model/model_best.pth.tar --log_dir coco_gender_confusion_repair --first "woman" --second "bus"
 ```
 
-### [COCO gender bias](https://github.com/yuchi1989/deeprepair/tree/master/exp_9/coco_gender/bias) experiments  
+### [COCO gender bias](https://github.com/yuchi1989/deeprepair/tree/master/exp_9/coco_gender) experiments  
   
 #### [orig](https://github.com/yuchi1989/deeprepair/blob/master/exp_9/coco_gender/train_epoch_graph.py):    
 
