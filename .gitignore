@@ -14,3 +14,5 @@ exp_7/coco/original_model/*
 exp_7/coco/*.npy
 exp_7/coco/*.pickle
 exp_7/coco/*.pyc
+exp_9/coco_gender/original_model
+exp_9/coco_gender/*.npy
