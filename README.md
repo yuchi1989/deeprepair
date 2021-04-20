@@ -45,10 +45,10 @@ python2 repair_confusion_bn.py --pretrained original_model/model_best.pth.tar --
 ```
 
 ```
-#### [w-dbr](https://github.com/yuchi1989/deeprepair/blob/master/exp_6/coco/repair_confusion.py):  
+#### [w-dbr](https://github.com/yuchi1989/deeprepair/blob/master/exp_9/coco/repair_confusion_dbr.py):  
   
 ```
-python2 repair_confusion.py --pretrained original_model/model_best.pth.tar --log_dir coco_confusion_repair --first "person" --second "bus"
+python2 repair_confusion_dbr.py --pretrained original_model/model_best.pth.tar --log_dir coco_confusion_repair --first "person" --second "bus"
 ```
 
 ### [COCO bias](https://github.com/yuchi1989/deeprepair/tree/master/exp_9/coco/bias) experiments  
@@ -80,10 +80,10 @@ python2 repair_bias_bn.py --pretrained original_model/model_best.pth.tar --log_d
 ```
 
 ```
-#### [w-dbr](https://github.com/yuchi1989/deeprepair/blob/master/exp_6/coco/repair_bias.py):  
+#### [w-dbr](https://github.com/yuchi1989/deeprepair/blob/master/exp_9/coco/repair_bias_dbr.py):  
   
 ```
-python2 repair_bias.py --pretrained original_model/model_best.pth.tar --log_dir coco_bias_repair --first "bus" --second "person" --third "clock"
+python2 repair_bias_dbr.py --pretrained original_model/model_best.pth.tar --log_dir coco_bias_repair --first "bus" --second "person" --third "clock"
 ```
 
 ### [COCO gender](https://github.com/yuchi1989/deeprepair/tree/master/exp_9/coco_gender) experiments
@@ -116,10 +116,10 @@ python2 repair_confusion_bn.py --pretrained original_model/model_best.pth.tar --
 ```
 
 ```
-#### [w-dbr](https://github.com/yuchi1989/deeprepair/blob/master/exp_9/coco_gender/repair_confusion.py):  
+#### [w-dbr](https://github.com/yuchi1989/deeprepair/blob/master/exp_9/coco_gender/repair_confusion_dbr.py):  
   
 ```
-python2 repair_confusion.py --pretrained original_model/model_best.pth.tar --log_dir coco_confusion_repair --first "woman" --second "bus"
+python2 repair_confusion_dbr.py --pretrained original_model/model_best.pth.tar --log_dir coco_confusion_repair --first "woman" --second "bus"
 ```
 
 ### [COCO gender bias](https://github.com/yuchi1989/deeprepair/tree/master/exp_9/coco_gender/bias) experiments  
@@ -151,10 +151,10 @@ python2 repair_bias_bn.py --pretrained original_model/model_best.pth.tar --log_d
 ```
 
 ```
-#### [w-dbr](https://github.com/yuchi1989/deeprepair/blob/master/exp_9/coco_gender/repair_bias.py):  
+#### [w-dbr](https://github.com/yuchi1989/deeprepair/blob/master/exp_9/coco_gender/repair_bias_dbr.py):  
   
 ```
-python2 repair_bias.py --pretrained original_model/model_best.pth.tar --log_dir coco_bias_repair --first "bowl" --second "woman" --third "man"
+python2 repair_bias_dbr.py --pretrained original_model/model_best.pth.tar --log_dir coco_bias_repair --first "bowl" --second "woman" --third "man"
 ```  
 
 ### [CIFAR-10 confusion](https://github.com/yuchi1989/deeprepair/tree/master/exp_7/cifar10/confusion) experiments  
