@@ -83,12 +83,14 @@ parser.add_argument('--checkmodel', help='Check model accuracy',
                     action='store_true')
 parser.add_argument('--lam', default=0.5, type=float,
                     help='hyperparameter lambda')
-parser.add_argument('--eta', default=0.3, type=float,
+parser.add_argument('--eta', default=1, type=float,
                     help='hyperparameter eta')
 parser.add_argument('--first', default=3, type=int,
                     help='first object index')
 parser.add_argument('--second', default=5, type=int,
                     help='second object index')
+parser.add_argument('--third', default=5, type=int,
+                    help='third object index')
 parser.add_argument('--extra', default=10, type=int,
                     help='extra batch size')
 parser.add_argument('--keeplr', help='set lr 0.001 ',
@@ -190,6 +192,18 @@ def get_dataset_from_specific_classes(target_dataset, first, second):
     target_dataset.targets = np.array(target_dataset.targets)[target_idx]
     target_dataset.data = target_dataset.data[target_idx]
     return target_dataset
+
+def compute_confusion(confusion_matrix, first, second):
+    confusion = 0
+    if (first, second) in confusion_matrix:
+        confusion += confusion_matrix[(first, second)]
+    
+    if (second, first) in confusion_matrix:
+        confusion += confusion_matrix[(second, first)]
+    return confusion/2
+
+def compute_bias(confusion_matrix, first, second, third):
+    return abs(compute_confusion(confusion_matrix, first, second) - compute_confusion(confusion_matrix, first, third))
 
 
 def main():
@@ -302,14 +316,11 @@ def main():
     if args.checkmodel:
         global_epoch_confusion.append({})
         get_confusion(val_loader, model, criterion)
-        # cat->dog confusion
-        log_print(str(args.first) + " -> " + str(args.second))
-        log_print(global_epoch_confusion[-1]
-                  ["confusion"][(args.first, args.second)])
-        # dog->cat confusion
-        log_print(str(args.second) + " -> " + str(args.first))
-        log_print(global_epoch_confusion[-1]
-                  ["confusion"][(args.second, args.first)])
+        confusion_matrix = global_epoch_confusion[-1]["confusion"]
+        print(str((args.first, args.second, args.third)) + " triplet: " + 
+            str(abs(confusion_matrix[(args.first, args.second)] - confusion_matrix[(args.first, args.third)])))
+        print(str((args.first, args.second)) + ": " + str(confusion_matrix[(args.first, args.second)]))
+        print(str((args.first, args.third)) + ": " + str(confusion_matrix[(args.first, args.third)]))
         exit()
 
     for epoch in range(0, args.epochs):
@@ -345,14 +356,14 @@ def main():
             }, is_best)
 
         get_confusion(val_loader, model, criterion, epoch)
-        # cat->dog confusion
-        log_print(str(args.first) + " -> " + str(args.second))
-        log_print(global_epoch_confusion[-1]
-                  ["confusion"][(args.first, args.second)])
-        # dog->cat confusion
-        log_print(str(args.second) + " -> " + str(args.first))
-        log_print(global_epoch_confusion[-1]
-                  ["confusion"][(args.second, args.first)])
+        confusion_matrix = global_epoch_confusion[-1]["confusion"]
+        #print("loss: " + str(global_epoch_confusion[-1]["loss"]))
+        first_second = compute_confusion(confusion_matrix, args.first, args.second)
+        first_third = compute_confusion(confusion_matrix, args.first, args.third)
+        print(str((args.first, args.second, args.third)) + " triplet: " + 
+            str(compute_bias(confusion_matrix, args.first, args.second, args.third)))
+        print(str((args.first, args.second)) + ": " + str(first_second))
+        print(str((args.first, args.third)) + ": " + str(first_third))
 
     print('Best accuracy (top-1 and 5 error):', best_err1, best_err5)
     directory = "runs/%s/" % (args.expname)
@@ -369,14 +380,14 @@ def main():
         checkpoint = torch.load(repaired_model)
         model.load_state_dict(checkpoint['state_dict'])
         get_confusion(val_loader, model, criterion)
-        # dog->cat confusion
-        log_print(str(args.first) + " -> " + str(args.second))
-        log_print(global_epoch_confusion[-1]
-                  ["confusion"][(args.first, args.second)])
-        # cat->dog confusion
-        log_print(str(args.second) + " -> " + str(args.first))
-        log_print(global_epoch_confusion[-1]
-                  ["confusion"][(args.second, args.first)])
+        confusion_matrix = global_epoch_confusion[-1]["confusion"]
+        #print("loss: " + str(global_epoch_confusion[-1]["loss"]))
+        first_second = compute_confusion(confusion_matrix, args.first, args.second)
+        first_third = compute_confusion(confusion_matrix, args.first, args.third)
+        print(str((args.first, args.second, args.third)) + " triplet: " + 
+            str(compute_bias(confusion_matrix, args.first, args.second, args.third)))
+        print(str((args.first, args.second)) + ": " + str(first_second))
+        print(str((args.first, args.third)) + ": " + str(first_third))
 
 
 def train(train_loader, target_train_loader, model, criterion, optimizer, epoch):
@@ -563,11 +574,12 @@ def get_confusion(val_loader, model, criterion, epoch=-1):
         softmax = torch.nn.Softmax() 
         output = softmax(output)
         output = output.detach().cpu().numpy()
-        chosen_classes = np.array([args.first, args.second])
-        other_classes = np.array([i for i in range(10) if i != args.first and i != args.second])
+        chosen_classes = np.array([args.second])
+        other_classes = np.array([args.third])
         #output[:, chosen_ classes] = torch.index_select(output, 0, chosen_ classes) - eta
         #output[:, non_chosen_ classes] = torch.index_select(output, 0, other_ classes) + eta
         output[:, chosen_classes] *= eta
+        output[:, other_classes] /= eta
         output = torch.from_numpy(output)
         output = torch.clamp(output, 0, 1).cuda()
 

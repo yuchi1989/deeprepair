@@ -2,8 +2,7 @@
 # python3 repair_retrain_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --pretrained ./runs/DeepInspect_1/model_best.pth.tar --expid 0 --checkmodel
 # python3 repair_retrain_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname ResNet50 --epochs 60 --beta 1.0 --cutmix_prob 1.0 --pretrained ./runs/DeepInspect_1/model_best.pth.tar --expid 0 --first 3 --second 5
 
-# python3 repair_confusion_exp_newbn_softmax.py --net_type resnet --dataset cifar10 --depth 18 --batch_size 128 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet18_2_4/model_best.pth.tar --expid 0 --lam 0 --extra 128 --eta 0.3 --checkmodel
-
+# python3 repair_confusion_exp_newbn.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4/model_best.pth.tar --expid 0 --lam 0 --extra 256
 # set extra batch size same as batch size for half half assumption in new batchnorm layer
 import argparse
 import os
@@ -83,12 +82,12 @@ parser.add_argument('--checkmodel', help='Check model accuracy',
                     action='store_true')
 parser.add_argument('--lam', default=0.5, type=float,
                     help='hyperparameter lambda')
-parser.add_argument('--eta', default=0.3, type=float,
-                    help='hyperparameter eta')
 parser.add_argument('--first', default=3, type=int,
                     help='first object index')
 parser.add_argument('--second', default=5, type=int,
                     help='second object index')
+parser.add_argument('--third', default=5, type=int,
+                    help='third object index')
 parser.add_argument('--extra', default=10, type=int,
                     help='extra batch size')
 parser.add_argument('--keeplr', help='set lr 0.001 ',
@@ -183,13 +182,26 @@ def set_bn_train(model):  # unfreeze all bn
             module.train()
 
 
-def get_dataset_from_specific_classes(target_dataset, first, second):
-    first_indices = np.where(np.array(target_dataset.targets) == first)[0]
-    second_indices = np.where(np.array(target_dataset.targets) == second)[0]
-    target_idx = np.hstack([first_indices, second_indices])
+def get_dataset_from_specific_classes(target_dataset, first):
+    target_idx = np.where(np.array(target_dataset.targets) == first)[0]
+    #second_indices = np.where(np.array(target_dataset.targets) == second)[0]
+    #target_idx = np.hstack([first_indices, second_indices])
     target_dataset.targets = np.array(target_dataset.targets)[target_idx]
     target_dataset.data = target_dataset.data[target_idx]
     return target_dataset
+
+def compute_confusion(confusion_matrix, first, second):
+    confusion = 0
+    if (first, second) in confusion_matrix:
+        confusion += confusion_matrix[(first, second)]
+    
+    if (second, first) in confusion_matrix:
+        confusion += confusion_matrix[(second, first)]
+    return confusion/2
+
+def compute_bias(confusion_matrix, first, second, third):
+    return abs(compute_confusion(confusion_matrix, first, second) - compute_confusion(confusion_matrix, first, third))
+
 
 
 def main():
@@ -240,7 +252,7 @@ def main():
             target_test_dataset = datasets.CIFAR10(
                 '../data', train=False, download=True, transform=transform_test)
             target_test_dataset = get_dataset_from_specific_classes(
-                target_test_dataset, args.first, args.second)
+                target_test_dataset, args.second)
             target_train_loader = torch.utils.data.DataLoader(target_train_dataset, batch_size=args.extra, shuffle=True,
                                                               num_workers=args.workers, pin_memory=True)
             target_val_loader = torch.utils.data.DataLoader(target_test_dataset, batch_size=args.extra, shuffle=True,
@@ -302,14 +314,11 @@ def main():
     if args.checkmodel:
         global_epoch_confusion.append({})
         get_confusion(val_loader, model, criterion)
-        # cat->dog confusion
-        log_print(str(args.first) + " -> " + str(args.second))
-        log_print(global_epoch_confusion[-1]
-                  ["confusion"][(args.first, args.second)])
-        # dog->cat confusion
-        log_print(str(args.second) + " -> " + str(args.first))
-        log_print(global_epoch_confusion[-1]
-                  ["confusion"][(args.second, args.first)])
+        confusion_matrix = global_epoch_confusion[-1]["confusion"]
+        print(str((args.first, args.second, args.third)) + " triplet: " + 
+            str(abs(confusion_matrix[(args.first, args.second)] - confusion_matrix[(args.first, args.third)])))
+        print(str((args.first, args.second)) + ": " + str(confusion_matrix[(args.first, args.second)]))
+        print(str((args.first, args.third)) + ": " + str(confusion_matrix[(args.first, args.third)]))
         exit()
 
     for epoch in range(0, args.epochs):
@@ -345,14 +354,14 @@ def main():
             }, is_best)
 
         get_confusion(val_loader, model, criterion, epoch)
-        # cat->dog confusion
-        log_print(str(args.first) + " -> " + str(args.second))
-        log_print(global_epoch_confusion[-1]
-                  ["confusion"][(args.first, args.second)])
-        # dog->cat confusion
-        log_print(str(args.second) + " -> " + str(args.first))
-        log_print(global_epoch_confusion[-1]
-                  ["confusion"][(args.second, args.first)])
+        confusion_matrix = global_epoch_confusion[-1]["confusion"]
+        #print("loss: " + str(global_epoch_confusion[-1]["loss"]))
+        first_second = compute_confusion(confusion_matrix, args.first, args.second)
+        first_third = compute_confusion(confusion_matrix, args.first, args.third)
+        print(str((args.first, args.second, args.third)) + " triplet: " + 
+            str(compute_bias(confusion_matrix, args.first, args.second, args.third)))
+        print(str((args.first, args.second)) + ": " + str(first_second))
+        print(str((args.first, args.third)) + ": " + str(first_third))
 
     print('Best accuracy (top-1 and 5 error):', best_err1, best_err5)
     directory = "runs/%s/" % (args.expname)
@@ -369,14 +378,14 @@ def main():
         checkpoint = torch.load(repaired_model)
         model.load_state_dict(checkpoint['state_dict'])
         get_confusion(val_loader, model, criterion)
-        # dog->cat confusion
-        log_print(str(args.first) + " -> " + str(args.second))
-        log_print(global_epoch_confusion[-1]
-                  ["confusion"][(args.first, args.second)])
-        # cat->dog confusion
-        log_print(str(args.second) + " -> " + str(args.first))
-        log_print(global_epoch_confusion[-1]
-                  ["confusion"][(args.second, args.first)])
+        confusion_matrix = global_epoch_confusion[-1]["confusion"]
+        #print("loss: " + str(global_epoch_confusion[-1]["loss"]))
+        first_second = compute_confusion(confusion_matrix, args.first, args.second)
+        first_third = compute_confusion(confusion_matrix, args.first, args.third)
+        print(str((args.first, args.second, args.third)) + " triplet: " + 
+            str(compute_bias(confusion_matrix, args.first, args.second, args.third)))
+        print(str((args.first, args.second)) + ": " + str(first_second))
+        print(str((args.first, args.third)) + ": " + str(first_third))
 
 
 def train(train_loader, target_train_loader, model, criterion, optimizer, epoch):
@@ -556,22 +565,6 @@ def get_confusion(val_loader, model, criterion, epoch=-1):
         target = target.cuda()
 
         output = model(input)
-
-        eta = args.eta
-        #chosen_ classes = torch.tensor([3, 5])
-        #other_ classes = torch.tensor([0, 1, 2, 4, 6, 7, 8, 9])
-        softmax = torch.nn.Softmax() 
-        output = softmax(output)
-        output = output.detach().cpu().numpy()
-        chosen_classes = np.array([args.first, args.second])
-        other_classes = np.array([i for i in range(10) if i != args.first and i != args.second])
-        #output[:, chosen_ classes] = torch.index_select(output, 0, chosen_ classes) - eta
-        #output[:, non_chosen_ classes] = torch.index_select(output, 0, other_ classes) + eta
-        output[:, chosen_classes] *= eta
-        output = torch.from_numpy(output)
-        output = torch.clamp(output, 0, 1).cuda()
-
-        #output = softmax(output)
         _, top1_output = output.max(1)
         total += target.size(0)
         correct += top1_output.eq(target).sum().item()
