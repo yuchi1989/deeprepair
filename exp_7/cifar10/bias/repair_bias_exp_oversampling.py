@@ -343,14 +343,14 @@ def main():
             }, is_best)
 
         get_confusion(val_loader, model, criterion, epoch)
-        # cat->dog confusion
-        log_print(str(args.first) + " -> " + str(args.second))
-        log_print(global_epoch_confusion[-1]
-                  ["confusion"][(args.first, args.second)])
-        # dog->cat confusion
-        log_print(str(args.second) + " -> " + str(args.first))
-        log_print(global_epoch_confusion[-1]
-                  ["confusion"][(args.second, args.first)])
+        confusion_matrix = global_epoch_confusion[-1]["confusion"]
+        #print("loss: " + str(global_epoch_confusion[-1]["loss"]))
+        first_second = compute_confusion(confusion_matrix, args.first, args.second)
+        first_third = compute_confusion(confusion_matrix, args.first, args.third)
+        print(str((args.first, args.second, args.third)) + " triplet: " + 
+            str(compute_bias(confusion_matrix, args.first, args.second, args.third)))
+        print(str((args.first, args.second)) + ": " + str(first_second))
+        print(str((args.first, args.third)) + ": " + str(first_third))
 
     print('Best accuracy (top-1 and 5 error):', best_err1, best_err5)
     directory = "runs/%s/" % (args.expname)
@@ -367,14 +367,14 @@ def main():
         checkpoint = torch.load(repaired_model)
         model.load_state_dict(checkpoint['state_dict'])
         get_confusion(val_loader, model, criterion)
-        # dog->cat confusion
-        log_print(str(args.first) + " -> " + str(args.second))
-        log_print(global_epoch_confusion[-1]
-                  ["confusion"][(args.first, args.second)])
-        # cat->dog confusion
-        log_print(str(args.second) + " -> " + str(args.first))
-        log_print(global_epoch_confusion[-1]
-                  ["confusion"][(args.second, args.first)])
+        confusion_matrix = global_epoch_confusion[-1]["confusion"]
+        #print("loss: " + str(global_epoch_confusion[-1]["loss"]))
+        first_second = compute_confusion(confusion_matrix, args.first, args.second)
+        first_third = compute_confusion(confusion_matrix, args.first, args.third)
+        print(str((args.first, args.second, args.third)) + " triplet: " + 
+            str(compute_bias(confusion_matrix, args.first, args.second, args.third)))
+        print(str((args.first, args.second)) + ": " + str(first_second))
+        print(str((args.first, args.third)) + ": " + str(first_third))
 
 
 def train(train_loader, model, criterion, optimizer, epoch):

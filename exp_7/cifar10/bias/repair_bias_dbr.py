@@ -84,6 +84,8 @@ parser.add_argument('--first', default=3, type=int,
                     help='first object index')
 parser.add_argument('--second', default=5, type=int,
                     help='second object index')
+parser.add_argument('--third', default=5, type=int,
+                    help='third object index')
 parser.add_argument('--extra', default=10, type=int,
                     help='extra batch size')
 parser.add_argument('--keeplr', help='set lr 0.001 ',
@@ -214,12 +216,11 @@ def main():
     if args.checkmodel:
         global_epoch_confusion.append({})
         get_confusion(val_loader, model, criterion)
-        # cat->dog confusion
-        log_print(str(args.first) + " -> " + str(args.second))
-        log_print(global_epoch_confusion[-1]["confusion"][(args.first, args.second)])
-        # dog->cat confusion
-        log_print(str(args.second) + " -> " + str(args.first))
-        log_print(global_epoch_confusion[-1]["confusion"][(args.second, args.first)])
+        confusion_matrix = global_epoch_confusion[-1]["confusion"]
+        print(str((args.first, args.second, args.third)) + " triplet: " + 
+            str(abs(confusion_matrix[(args.first, args.second)] - confusion_matrix[(args.first, args.third)])))
+        print(str((args.first, args.second)) + ": " + str(confusion_matrix[(args.first, args.second)]))
+        print(str((args.first, args.third)) + ": " + str(confusion_matrix[(args.first, args.third)]))
         exit()
 
     for epoch in range(0, args.epochs):
@@ -253,12 +254,14 @@ def main():
 
 
         get_confusion(val_loader, model, criterion, epoch)
-        # cat->dog confusion
-        log_print(str(args.first) + " -> " + str(args.second))
-        log_print(global_epoch_confusion[-1]["confusion"][(args.first, args.second)])
-        # dog->cat confusion
-        log_print(str(args.second) + " -> " + str(args.first))
-        log_print(global_epoch_confusion[-1]["confusion"][(args.second, args.first)])
+        confusion_matrix = global_epoch_confusion[-1]["confusion"]
+        #print("loss: " + str(global_epoch_confusion[-1]["loss"]))
+        first_second = compute_confusion(confusion_matrix, args.first, args.second)
+        first_third = compute_confusion(confusion_matrix, args.first, args.third)
+        print(str((args.first, args.second, args.third)) + " triplet: " + 
+            str(compute_bias(confusion_matrix, args.first, args.second, args.third)))
+        print(str((args.first, args.second)) + ": " + str(first_second))
+        print(str((args.first, args.third)) + ": " + str(first_third))
 
     print('Best accuracy (top-1 and 5 error):', best_err1, best_err5)
     directory = "runs/%s/" % (args.expname)
@@ -275,12 +278,14 @@ def main():
         checkpoint = torch.load(repaired_model)
         model.load_state_dict(checkpoint['state_dict'])
         get_confusion(val_loader, model, criterion)
-        # dog->cat confusion
-        log_print(str(args.first) + " -> " + str(args.second))
-        log_print(global_epoch_confusion[-1]["confusion"][(args.first, args.second)])
-        # cat->dog confusion
-        log_print(str(args.second) + " -> " + str(args.first))
-        log_print(global_epoch_confusion[-1]["confusion"][(args.second, args.first)])
+        confusion_matrix = global_epoch_confusion[-1]["confusion"]
+        #print("loss: " + str(global_epoch_confusion[-1]["loss"]))
+        first_second = compute_confusion(confusion_matrix, args.first, args.second)
+        first_third = compute_confusion(confusion_matrix, args.first, args.third)
+        print(str((args.first, args.second, args.third)) + " triplet: " + 
+            str(compute_bias(confusion_matrix, args.first, args.second, args.third)))
+        print(str((args.first, args.second)) + ": " + str(first_second))
+        print(str((args.first, args.third)) + ": " + str(first_third))
 
 
 
@@ -356,28 +361,30 @@ def train(train_loader, target_train_loader, model, criterion, optimizer, epoch)
             #target_output = model(input)
             id3 = []
             id5 = []
-            for j in range(len(target_input)):
+            id1 = []
+            for j in range(len(input)):
                 if (target_copy[j]) == args.first:
                     id3.append(j)
                 elif (target_copy[j]) == args.second:
                     id5.append(j)
-            # print(output.shape)
-            # print(output[id3].shape)
-            # print((torch.sum(output[id3],0)/len(id3)).shape)
+                elif (target_copy[j]) == args.third:
+                    id1.append(j)
+
             m = nn.Softmax(dim=1)
-            if len(id3) == 0 or len(id5) == 0:
-                p_dist = 0
-                print("not enough sample")
-                print(len(id3))
-                print(len(id5))
+            if len(id3) == 0 or len(id5) == 0 or len(id1) == 0:
+                diff_dist = 0
             else:
-                p_dist = torch.dist(torch.mean(
-                    m(target_output)[id3], 0), torch.mean(m(target_output)[id5], 0), 2)
+                p_dist1 = torch.dist(torch.mean(
+                    m(output)[id3], 0), torch.mean(m(output)[id5], 0), 2)
+                p_dist2 = torch.dist(torch.mean(
+                    m(output)[id3], 0), torch.mean(m(output)[id1], 0), 2)
+                diff_dist = torch.abs(p_dist1 - p_dist2)
             #print(criterion(output, target).mean())
             # print(p_dist)
+
             #loss2 = criterion(output, target).mean() + p_dist
             #loss2 = criterion(output, target).mean()
-            loss2 = criterion(output, target).mean() - args.lam*p_dist
+            loss2 = criterion(output, target).mean() + args.lam*diff_dist
 
         losses.update(loss2.item(), input.size(0))
 
