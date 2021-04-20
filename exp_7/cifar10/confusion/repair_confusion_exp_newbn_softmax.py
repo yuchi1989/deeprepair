@@ -444,37 +444,6 @@ def train(train_loader, target_train_loader, model, criterion, optimizer, epoch)
         else:
             # compute output
             output = model(input)
-            #_, top1_output = output.max(1)
-            #yhats = top1_output.cpu().data.numpy()
-            # print(yhats[:5])
-            #target_output = model(input)
-            '''
-            id3 = []
-            id5 = []
-            for j in range(len(target_input)):
-                if (target_copy[j]) == args.first:
-                    id3.append(j)
-                elif (target_copy[j]) == args.second:
-                    id5.append(j)
-            '''
-            # print(output.shape)
-            # print(output[id3].shape)
-            # print((torch.sum(output[id3],0)/len(id3)).shape)
-            '''
-            m = nn.Softmax(dim=1)
-            if len(id3) == 0 or len(id5) == 0:
-                p_dist = 0
-                print("not enough sample")
-                print(len(id3))
-                print(len(id5))
-            else:
-                p_dist = torch.dist(torch.mean(
-                    m(target_output)[id3], 0), torch.mean(m(target_output)[id5], 0), 2)
-            '''
-            #print(criterion(output, target).mean())
-            # print(p_dist)
-            #loss2 = criterion(output, target).mean() + p_dist
-            #loss2 = criterion(output, target).mean()
             loss2 = criterion(output[:output.size(
                 0) // 2], target[:target.size(0) // 2]).mean()  # - args.lam*p_dist
 
@@ -598,8 +567,7 @@ def get_confusion(val_loader, model, criterion, epoch=-1):
         other_classes = np.array([i for i in range(10) if i != args.first and i != args.second])
         #output[:, chosen_ classes] = torch.index_select(output, 0, chosen_ classes) - eta
         #output[:, non_chosen_ classes] = torch.index_select(output, 0, other_ classes) + eta
-        output[:, chosen_classes] -= eta
-        output[:, other_classes] += eta
+        output[:, chosen_classes] *= eta
         output = torch.from_numpy(output)
         output = torch.clamp(output, 0, 1).cuda()
 
