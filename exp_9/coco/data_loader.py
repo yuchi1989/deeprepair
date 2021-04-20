@@ -38,6 +38,7 @@ class CocoObject(data.Dataset):
         with open('object2id.pickle', 'wb') as handle:
             pickle.dump(object2id, handle, protocol=pickle.HIGHEST_PROTOCOL)
         self.id2labels = {}
+        self.labels = []
         #generate one-hot encoding objects annotation for every image
         self.object_ann = np.zeros((len(self.image_ids), 80))
         for idx, image_id in enumerate(self.image_ids):
@@ -47,6 +48,7 @@ class CocoObject(data.Dataset):
             category_names = [elem['name'] for elem in self.cocoAPI.loadCats(ids=category_ids)]
             self.id2labels[image_id] = category_names
             encoding_ids = [object2id[name] for name in category_names]
+            self.labels.append(encoding_ids)
             for encoding_id in encoding_ids:
                 self.object_ann[idx, encoding_id] = 1
         sample_idx = []
