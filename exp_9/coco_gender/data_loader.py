@@ -82,6 +82,7 @@ class CocoObject(data.Dataset):
         gender_count["man"] = 0
         gender_count["woman"] = 0
         self.object_ann = np.zeros((len(self.new_image_ids), 81))
+        self.labels = []
         for idx, image_id in enumerate(self.new_image_ids):
             ann_ids = self.cocoAPI.getAnnIds(imgIds = image_id)
             anns = self.cocoAPI.loadAnns(ids = ann_ids)
@@ -97,6 +98,7 @@ class CocoObject(data.Dataset):
                 else:
                     encoding_ids.append(object2id[name])
                     self.id2labels[image_id].append(name)
+            self.labels.append(encoding_ids)
             for encoding_id in encoding_ids:
                 self.object_ann[idx, encoding_id] = 1
         print(gender_count)
@@ -113,6 +115,7 @@ class CocoObject(data.Dataset):
         if self.split == 'train':
             del self.id2object
             del self.object2id
+            del self.labels
 
     def __getitem__(self, index):
         image_id = self.new_image_ids[index]
