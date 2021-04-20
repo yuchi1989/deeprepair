@@ -2,8 +2,7 @@
 # python3 repair_retrain_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --pretrained ./runs/DeepInspect_1/model_best.pth.tar --expid 0 --checkmodel
 # python3 repair_retrain_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname ResNet50 --epochs 60 --beta 1.0 --cutmix_prob 1.0 --pretrained ./runs/DeepInspect_1/model_best.pth.tar --expid 0 --first 3 --second 5
 
-# python3 repair_confusion_exp_newbn_softmax.py --net_type resnet --dataset cifar10 --depth 18 --batch_size 128 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet18_2_4/model_best.pth.tar --expid 0 --lam 0 --extra 128 --eta 0.3 --checkmodel
-
+# python3 repair_confusion_exp_newbn.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4/model_best.pth.tar --expid 0 --lam 0 --extra 256
 # set extra batch size same as batch size for half half assumption in new batchnorm layer
 import argparse
 import os
@@ -83,11 +82,9 @@ parser.add_argument('--checkmodel', help='Check model accuracy',
                     action='store_true')
 parser.add_argument('--lam', default=0.5, type=float,
                     help='hyperparameter lambda')
-parser.add_argument('--eta', default=0.3, type=float,
-                    help='hyperparameter eta')
-parser.add_argument('--first', default=3, type=int,
+parser.add_argument('--first', default=35, type=int,
                     help='first object index')
-parser.add_argument('--second', default=5, type=int,
+parser.add_argument('--second', default=98, type=int,
                     help='second object index')
 parser.add_argument('--extra', default=10, type=int,
                     help='extra batch size')
@@ -99,6 +96,10 @@ parser.add_argument('--replace', help='replace bn layer ',
 
 parser.add_argument('--ratio', default=0.5, type=float,
                     help='target ratio for batchnorm layers')
+
+parser.add_argument('--target_weight', default=0, type=float,
+                    help='extra weights assigned to mistakes on the confusion pair in the loss. It get used when larger than 0.')
+
 # parser.add_argument('--forward', default=1, type=int,
 #                    help='extra batch size')
 parser.set_defaults(bottleneck=True)
@@ -145,7 +146,7 @@ def replace_bn(module):
                 setattr(module, child_name, new_bn)
             else:
                 print('replaced: bn')
-                new_bn = dnnrepair_BatchNorm2d(child.num_features, child.weight, child.bias, child.running_mean, child.running_var, 0, child.eps, child.momentum, child.affine, track_running_stats=True)
+                new_bn = dnnrepair_BatchNorm2d(child.num_features, child.weight, child.bias, child.running_mean, child.running_var, args.ratio, child.eps, child.momentum, child.affine, track_running_stats=True)
                 setattr(module, child_name, new_bn)
         else:
             replace_bn(child)
@@ -456,8 +457,69 @@ def train(train_loader, target_train_loader, model, criterion, optimizer, epoch)
         else:
             # compute output
             output = model(input)
-            loss2 = criterion(output[:output.size(
-                0) // 2], target[:target.size(0) // 2]).mean()  # - args.lam*p_dist
+            #_, top1_output = output.max(1)
+            #yhats = top1_output.cpu().data.numpy()
+            # print(yhats[:5])
+            #target_output = model(input)
+            '''
+            id3 = []
+            id5 = []
+            for j in range(len(target_input)):
+                if (target_copy[j]) == args.first:
+                    id3.append(j)
+                elif (target_copy[j]) == args.second:
+                    id5.append(j)
+            '''
+            # print(output.shape)
+            # print(output[id3].shape)
+            # print((torch.sum(output[id3],0)/len(id3)).shape)
+            '''
+            m = nn.Softmax(dim=1)
+            if len(id3) == 0 or len(id5) == 0:
+                p_dist = 0
+                print("not enough sample")
+                print(len(id3))
+                print(len(id5))
+            else:
+                p_dist = torch.dist(torch.mean(
+                    m(target_output)[id3], 0), torch.mean(m(target_output)[id5], 0), 2)
+            '''
+            #print(criterion(output, target).mean())
+            # print(p_dist)
+            #loss2 = criterion(output, target).mean() + p_dist
+            #loss2 = criterion(output, target).mean()
+
+            # loss2 = criterion(output, target).mean()  # - args.lam*p_dist
+
+            # print(output.size())
+            # print(target.size())
+            # print(args.first)
+            # print(args.second)
+
+            if args.target_weight > 0:
+                target_weight = args.target_weight
+                inds_first_1 = torch.where(target == args.first)
+                inds_first_2 = torch.where(torch.argmax(output, dim=1) == args.second)
+                inds_first = np.intersect1d(inds_first_1[0].cpu(), inds_first_2[0].cpu())
+                inds_first = torch.from_numpy(inds_first).cuda()
+
+                inds_second_1 = torch.where(target == args.second)
+                inds_second_2 = torch.where(torch.argmax(output, dim=1) == args.first)
+                inds_second = np.intersect1d(inds_second_1[0].cpu(), inds_second_2[0].cpu())
+                inds_second = torch.from_numpy(inds_second).cuda()
+
+
+                # print(output[inds_first].size())
+                # print(target[inds_first].size())
+                # print(output[inds_second].size())
+                # print(target[inds_second].size())
+                loss_target = (criterion(output[inds_first], target[inds_first]).mean() + criterion(output[inds_second], target[inds_second]).mean()) / 2
+
+                #loss2 = criterion(output, target).mean() + target_weight * loss_target
+                loss2 = (1-target_weight) * criterion(output, target).mean() + target_weight * loss_target
+            else:
+                loss2 = criterion(output, target).mean()
+
 
         losses.update(loss2.item(), input.size(0))
 
@@ -568,22 +630,6 @@ def get_confusion(val_loader, model, criterion, epoch=-1):
         target = target.cuda()
 
         output = model(input)
-
-        eta = args.eta
-        #chosen_ classes = torch.tensor([3, 5])
-        #other_ classes = torch.tensor([0, 1, 2, 4, 6, 7, 8, 9])
-        softmax = torch.nn.Softmax() 
-        output = softmax(output)
-        output = output.detach().cpu().numpy()
-        chosen_classes = np.array([args.first, args.second])
-        other_classes = np.array([i for i in range(100) if i != args.first and i != args.second])
-        #output[:, chosen_ classes] = torch.index_select(output, 0, chosen_ classes) - eta
-        #output[:, non_chosen_ classes] = torch.index_select(output, 0, other_ classes) + eta
-        output[:, chosen_classes] *= eta
-        output = torch.from_numpy(output)
-        output = torch.clamp(output, 0, 1).cuda()
-
-        #output = softmax(output)
         _, top1_output = output.max(1)
         total += target.size(0)
         correct += top1_output.eq(target).sum().item()
