@@ -24,10 +24,10 @@
 python2 train_epoch_graph.py --log_dir original_model --ann_dir '/local/shared/coco/annotations' --image_dir '/local/shared/coco/'
 ```
 
-#### [w-aug](https://github.com/yuchi1989/deeprepair/blob/master/exp_7/cifar10/confusion/repair_confusion_exp_oversampling.py):  
+#### [w-aug](https://github.com/yuchi1989/deeprepair/blob/master/exp_9/coco/repair_confusion_oversampling.py):  
   
 ```
-
+python2 repair_confusion_oversampling.py --pretrained original_model/model_best.pth.tar --log_dir coco_confusion_repair --first "person" --second "bus" --ann_dir '/local/shared/coco/annotations' --image_dir '/local/shared/coco/' --weight 2
 ```
 
 #### [w-bn](https://github.com/yuchi1989/deeprepair/blob/master/exp_9/coco/repair_confusion_bn.py):  
@@ -59,10 +59,10 @@ python2 repair_confusion_dbr.py --pretrained original_model/model_best.pth.tar -
 python2 train_epoch_graph.py --log_dir original_model --ann_dir '/local/shared/coco/annotations' --image_dir '/local/shared/coco/' 
 ```
 
-#### [w-aug](https://github.com/yuchi1989/deeprepair/blob/master/exp_7/cifar10/bias/repair_bias_exp_oversampling.py):  
+#### [w-aug](https://github.com/yuchi1989/deeprepair/blob/master/exp_9/coco/repair_bias_oversampling.py):  
   
 ```
-
+python2 repair_bias_oversampling.py --pretrained original_model/model_best.pth.tar --log_dir coco_confusion_repair --first "bus" --second "person" --third "clock" --ann_dir '/local/shared/coco/annotations' --image_dir '/local/shared/coco/' --weight 2
 ```
 
 #### [w-bn](https://github.com/yuchi1989/deeprepair/blob/master/exp_9/coco/repair_bias_bn.py):  
@@ -95,16 +95,16 @@ python2 repair_bias_dbr.py --pretrained original_model/model_best.pth.tar --log_
 python2 train_epoch_graph.py --log_dir original_model --ann_dir '/local/shared/coco/annotations' --image_dir '/local/shared/coco/'
 ```
 
-#### [w-aug](https://github.com/yuchi1989/deeprepair/blob/master/exp_7/cifar10/confusion/repair_confusion_exp_oversampling.py):  
+#### [w-aug](https://github.com/yuchi1989/deeprepair/blob/master/exp_9/coco_gender/repair_confusion_oversampling.py):  
   
 ```
-
+python2 repair_confusion_oversampling.py --pretrained original_model/model_best.pth.tar --log_dir coco_gender_confusion_repair --first "bus" --second "person" --ann_dir '/local/shared/coco/annotations' --image_dir '/local/shared/coco/' --weight 2
 ```
 
 #### [w-bn](https://github.com/yuchi1989/deeprepair/blob/master/exp_9/coco_gender/repair_confusion_bn.py):  
   
 ```
-python2 repair_confusion_bn.py --pretrained original_model/model_best.pth.tar --log_dir coco_confusion_repair --first "woman" --second "bus" --ann_dir '/local/shared/coco/annotations' --image_dir '/local/shared/coco/' --replace --ratio 0.5
+python2 repair_confusion_bn.py --pretrained original_model/model_best.pth.tar --log_dir coco_gender_confusion_repair --first "woman" --second "bus" --ann_dir '/local/shared/coco/annotations' --image_dir '/local/shared/coco/' --replace --ratio 0.5
 ```
 
 #### [w-os](https://github.com/yuchi1989/deeprepair/blob/master/exp_7/cifar10/confusion/repair_confusion_exp_newbn_softmax.py): 
@@ -119,7 +119,7 @@ python2 repair_confusion_bn.py --pretrained original_model/model_best.pth.tar --
 #### [w-dbr](https://github.com/yuchi1989/deeprepair/blob/master/exp_9/coco_gender/repair_confusion_dbr.py):  
   
 ```
-python2 repair_confusion_dbr.py --pretrained original_model/model_best.pth.tar --log_dir coco_confusion_repair --first "woman" --second "bus"
+python2 repair_confusion_dbr.py --pretrained original_model/model_best.pth.tar --log_dir coco_gender_confusion_repair --first "woman" --second "bus"
 ```
 
 ### [COCO gender bias](https://github.com/yuchi1989/deeprepair/tree/master/exp_9/coco_gender/bias) experiments  
@@ -130,16 +130,16 @@ python2 repair_confusion_dbr.py --pretrained original_model/model_best.pth.tar -
 python2 train_epoch_graph.py --log_dir original_model --ann_dir '/local/shared/coco/annotations' --image_dir '/local/shared/coco/' 
 ```
 
-#### [w-aug](https://github.com/yuchi1989/deeprepair/blob/master/exp_7/cifar10/bias/repair_bias_exp_oversampling.py):  
+#### [w-aug](https://github.com/yuchi1989/deeprepair/blob/master/exp_9/coco_gender/repair_bias_oversampling.py):  
   
 ```
-
+python2 repair_bias_oversampling.py --pretrained original_model/model_best.pth.tar --log_dir coco_gender_bias_repair --first "bowl" --second "woman" --third "man" --ann_dir '/local/shared/coco/annotations' --image_dir '/local/shared/coco/' --weight 2
 ```
 
 #### [w-bn](https://github.com/yuchi1989/deeprepair/blob/master/exp_9/coco_gender/repair_bias_bn.py):  
   
 ```
-python2 repair_bias_bn.py --pretrained original_model/model_best.pth.tar --log_dir coco_bias_repair --first "bowl" --second "woman" --third "man" --ann_dir '/local/shared/coco/annotations' --image_dir '/local/shared/coco/' --replace --ratio 0.5
+python2 repair_bias_bn.py --pretrained original_model/model_best.pth.tar --log_dir coco_gender_bias_repair --first "bowl" --second "woman" --third "man" --ann_dir '/local/shared/coco/annotations' --image_dir '/local/shared/coco/' --replace --ratio 0.5
 ```
 
 #### [w-os](https://github.com/yuchi1989/deeprepair/blob/master/exp_7/cifar10/bias/repair_bias_exp_newbn_softmax.py): 
