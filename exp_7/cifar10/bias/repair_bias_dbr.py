@@ -86,7 +86,7 @@ parser.add_argument('--second', default=5, type=int,
                     help='second object index')
 parser.add_argument('--third', default=5, type=int,
                     help='third object index')
-parser.add_argument('--extra', default=10, type=int,
+parser.add_argument('--extra', default=15, type=int,
                     help='extra batch size')
 parser.add_argument('--keeplr', help='set lr 0.001 ',
     action='store_true')
@@ -115,10 +115,11 @@ def set_bn_train(module):
 
 
 
-def get_dataset_from_specific_classes(target_dataset, first , second):
+def get_dataset_from_specific_classes(target_dataset, first, second, third):
     first_indices = np.where(np.array(target_dataset.targets) == first)[0]
     second_indices = np.where(np.array(target_dataset.targets) == second)[0]
-    target_idx = np.hstack([first_indices, second_indices])
+    third_indices = np.where(np.array(target_dataset.targets) == third)[0]
+    target_idx = np.hstack([first_indices, second_indices, third_indices])
     target_dataset.targets = np.array(target_dataset.targets)[target_idx]
     target_dataset.data = target_dataset.data[target_idx]
     return target_dataset
@@ -168,7 +169,7 @@ def main():
             target_train_dataset = datasets.CIFAR10('../data', train=True, download=True, transform=transform_train)
             target_train_dataset = get_dataset_from_specific_classes(target_train_dataset, args.first, args.second)
             target_test_dataset = datasets.CIFAR10('../data', train=False, download=True, transform=transform_test)
-            target_test_dataset = get_dataset_from_specific_classes(target_test_dataset, args.first, args.second)
+            target_test_dataset = get_dataset_from_specific_classes(target_test_dataset, args.first, args.second, args.third)
             target_train_loader = torch.utils.data.DataLoader(target_train_dataset, batch_size=args.extra, shuffle=True, 
                                         num_workers=args.workers, pin_memory=True)
             target_val_loader = torch.utils.data.DataLoader(target_test_dataset, batch_size=args.extra, shuffle=True, 
