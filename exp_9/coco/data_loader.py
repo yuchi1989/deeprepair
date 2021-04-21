@@ -65,7 +65,7 @@ class CocoObject(data.Dataset):
         if self.split == 'train':
             del self.id2object
             del self.object2id
-            
+
 
     def __getitem__(self, index):
         image_id = self.image_ids[index]

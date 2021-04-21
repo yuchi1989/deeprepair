@@ -137,13 +137,15 @@ for i in range(features.shape[0]):
     yhat = []
     feature = features[i]
     # confusion
-    if feature[target_class_1] > 0.5 and feature[target_class_2] > 0.5:
-        feature[target_class_1] *= eta
-        feature[target_class_2] *= eta
-    if mode == 'bias':
-        if feature[target_class_1] > 0.5 and feature[target_class_3] > 0.5:
+    if mode == 'confusion':
+        if feature[target_class_1] > 0.5 and feature[target_class_2] > 0.5:
             feature[target_class_1] *= eta
             feature[target_class_2] *= eta
+    elif mode == 'bias':
+        if (feature[target_class_1] > 0.5 and feature[target_class_2] > 0.5) or (feature[target_class_1] > 0.5 and feature[target_class_3] > 0.5):
+            feature[target_class_1] *= eta
+            feature[target_class_2] *= eta
+            feature[target_class_3] *= eta
 
     for j, f in enumerate(feature):
         if f > 0.5:

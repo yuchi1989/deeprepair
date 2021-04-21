@@ -1,4 +1,4 @@
-#python2 repair_confusion_exp_weighted_loss.py --pretrained original_model/model_best.pth.tar --log_dir coco_confusion_repair --first "person" --second "bus" --ann_dir '../../../coco/annotations' --image_dir '../../../coco/' --weight 1 --target_weight 0.5
+#python2 repair_confusion_exp_weighted_loss.py --pretrained original_model/model_best.pth.tar --log_dir coco_confusion_repair --first "person" --second "bus" --ann_dir '../../../coco/annotations' --image_dir '../../../coco/' --weight 1 --target_weight 0.5 --class_num 80
 import math, os, random, json, pickle, sys, pdb
 import string, shutil, time, argparse
 import numpy as np
@@ -233,12 +233,12 @@ def train(args, epoch, model, criterion, train_loader, optimizer, train_F, score
             inds_second = inds[inds_second]
             inds_second_cuda = torch.from_numpy(inds_second).cuda()
 
-            print()
-            print('objects_np[0]', objects_np[0])
-
-            print('np.sum(objects_np[:,id1] > 0.5)', np.sum(objects_np[:,id1] > 0.5), 'np.sum(objects_np[:, id2] <= 0.5)', np.sum(objects_np[:, id2] <= 0.5), 'np.sum(object_preds_np[:, id1] > 0.5)', np.sum(object_preds_np[:, id1] > 0.5), 'np.sum(object_preds_np[:, id2] > 0.5)', np.sum(object_preds_np[:, id2] > 0.5))
-
-            print('np.sum(objects_np[:, id2] > 0.5)', np.sum(objects_np[:, id2] > 0.5), 'np.sum(objects_np[:,id1] <= 0.5)', np.sum(objects_np[:,id1] <= 0.5), 'np.sum(object_preds_np[:, id2] > 0.5)', np.sum(object_preds_np[:, id2] > 0.5), 'np.sum(object_preds_np[:, id1] > 0.5)', np.sum(object_preds_np[:, id1] > 0.5))
+            # print()
+            # print('objects_np[0]', objects_np[0])
+            #
+            # print('np.sum(objects_np[:,id1] > 0.5)', np.sum(objects_np[:,id1] > 0.5), 'np.sum(objects_np[:, id2] <= 0.5)', np.sum(objects_np[:, id2] <= 0.5), 'np.sum(object_preds_np[:, id1] > 0.5)', np.sum(object_preds_np[:, id1] > 0.5), 'np.sum(object_preds_np[:, id2] > 0.5)', np.sum(object_preds_np[:, id2] > 0.5))
+            #
+            # print('np.sum(objects_np[:, id2] > 0.5)', np.sum(objects_np[:, id2] > 0.5), 'np.sum(objects_np[:,id1] <= 0.5)', np.sum(objects_np[:,id1] <= 0.5), 'np.sum(object_preds_np[:, id2] > 0.5)', np.sum(object_preds_np[:, id2] > 0.5), 'np.sum(object_preds_np[:, id1] > 0.5)', np.sum(object_preds_np[:, id1] > 0.5))
 
             use_loss_target = False
             loss_target = None
@@ -254,16 +254,16 @@ def train(args, epoch, model, criterion, train_loader, optimizer, train_F, score
                 loss_target = (loss_target_1 + loss_target_2) / 2
 
 
-            print('len(inds_first)', len(inds_first), 'len(inds_second)', len(inds_second))
+            # print('len(inds_first)', len(inds_first), 'len(inds_second)', len(inds_second))
 
             if use_loss_target:
                 loss2 = (1-target_weight) * loss + target_weight * loss_target
 
-                print('loss_target.detach().cpu().numpy()', loss_target.detach().cpu().numpy())
+                # print('loss_target.detach().cpu().numpy()', loss_target.detach().cpu().numpy())
             else:
                 loss2 = loss
 
-            print('loss.detach().cpu().numpy()', loss.detach().cpu().numpy())
+            # print('loss.detach().cpu().numpy()', loss.detach().cpu().numpy())
         else:
             loss2 = loss
 

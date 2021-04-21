@@ -30,3 +30,12 @@ exp_9/coco/coco_bias_repair_bn
 exp_9/coco/coco_bias_repair_dbr
 exp_9/coco/coco_bias_repair_loss
 exp_9/coco/*.npy
+exp_9/coco_gender/coco_confusion_repair_aug
+exp_9/coco_gender/coco_confusion_repair_bn
+exp_9/coco_gender/coco_confusion_repair_dbr
+exp_9/coco_gender/coco_confusion_repair_loss
+exp_9/coco_gender/coco_confusion_repair
+exp_9/coco_gender/coco_bias_repair_aug
+exp_9/coco_gender/coco_bias_repair_bn
+exp_9/coco_gender/coco_bias_repair_dbr
+exp_9/coco_gender/coco_bias_repair_loss
