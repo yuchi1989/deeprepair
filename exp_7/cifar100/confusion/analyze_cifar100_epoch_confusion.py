@@ -1,3 +1,4 @@
+import argparse
 import numpy as np
 
 def get_cifar100_labels():
@@ -86,7 +87,16 @@ def draw_graph():
 
 
 if __name__ == '__main__':
-    top_confusions("./log/cifar100_resnet_1_epoch_confusion.npy", 3)
+
+    parser = argparse.ArgumentParser(
+        description='Cutmix PyTorch CIFAR-10, CIFAR-100 and ImageNet-1k Training')
+    parser.add_argument('--npy', default='', type=str,
+                        help='epoch confusion')
+    
+    args = parser.parse_args()
+
+    top_confusions(args.npy, 3)
+
     '''
     meta = get_cifar100_labels()
     print(meta["fine_label_names"][35])

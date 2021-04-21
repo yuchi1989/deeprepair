@@ -579,7 +579,6 @@ def get_confusion(val_loader, model, criterion, epoch=-1):
         #output[:, chosen_ classes] = torch.index_select(output, 0, chosen_ classes) - eta
         #output[:, non_chosen_ classes] = torch.index_select(output, 0, other_ classes) + eta
         output[:, chosen_classes] *= eta
-        output[:, other_classes] /= eta
         output = torch.from_numpy(output)
         output = torch.clamp(output, 0, 1).cuda()
 
