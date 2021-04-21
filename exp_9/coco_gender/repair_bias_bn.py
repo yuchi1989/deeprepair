@@ -322,45 +322,8 @@ def train(args, epoch, model, criterion, train_loader, optimizer, train_F, score
         optimizer.zero_grad()
 
         object_preds = model(images)
-        loss = criterion(object_preds, objects).mean()
-        
-        m = nn.Softmax(dim=1)
-        firstid = []
-        secondid = []
-        thirdid = []
+        loss2 = criterion(object_preds, objects).mean()
 
-        for j in range(len(labels)):
-            if args.first in (labels[j]):# and "bus" not in (labels[j]):
-                firstid.append(j)
-            if args.second in (labels[j]):# and "person" not in (labels[j]):
-                secondid.append(j)
-            if args.third in (labels[j]):# and "person" not in (labels[j]):
-                thirdid.append(j)
-        #print(len(labels))
-        #print(object_preds.shape)
-        if args.debug:
-            print(len(firstid))
-            print(len(secondid))
-            print(len(thirdid))
-        if len(firstid) == 0 or len(secondid) == 0 or len(thirdid) == 0:
-            diff_dist = 0
-            print("not enough sample")
-        else:
-            p_dist1 = torch.dist(torch.mean(m(object_preds)[firstid],0), torch.mean(m(object_preds)[secondid],0),2)
-            p_dist2 = torch.dist(torch.mean(m(object_preds)[firstid],0), torch.mean(m(object_preds)[thirdid],0),2)
-            diff_dist = torch.abs(p_dist1 - p_dist2)
-
-        #print(len(firstid))
-        #print(len(thirdid))
-        '''
-        if len(firstid) == 0 or len(thirdid) == 0:
-            p_dist2 = 0
-        else:
-            p_dist2 = torch.dist(torch.mean(m(object_preds)[firstid],0), torch.mean(m(object_preds)[thirdid],0),2)
-        '''
-
-        #print(p_dist)
-        loss2 = loss + args.lam * diff_dist
         loss_logger.update(loss2.item())
         object_preds_max = object_preds.data.max(1, keepdim=True)[1]
         object_correct = torch.gather(objects.data, 1, object_preds_max).cpu().sum()

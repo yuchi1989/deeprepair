@@ -89,12 +89,12 @@ def main():
     # Data samplers.
     train_data = CocoObject(ann_dir = args.ann_dir, image_dir = args.image_dir, 
         split = 'train', transform = train_transform)
-    first_data = CocoObject(ann_dir = args.ann_dir, image_dir = args.image_dir, 
-        split = 'train', transform = train_transform, filter=args.first)
+    #first_data = CocoObject(ann_dir = args.ann_dir, image_dir = args.image_dir, 
+        #split = 'train', transform = train_transform, filter=args.first)
     second_data = CocoObject(ann_dir = args.ann_dir, image_dir = args.image_dir, 
         split = 'train', transform = train_transform, filter=args.second)
-    third_data = CocoObject(ann_dir = args.ann_dir, image_dir = args.image_dir, 
-        split = 'train', transform = train_transform, filter=args.third)
+    #third_data = CocoObject(ann_dir = args.ann_dir, image_dir = args.image_dir, 
+        #split = 'train', transform = train_transform, filter=args.third)
 
     val_data = CocoObject(ann_dir = args.ann_dir, image_dir = args.image_dir, 
         split = 'val', transform = val_transform)
@@ -105,15 +105,15 @@ def main():
                                               shuffle = True, num_workers = 1,
                                               pin_memory = True)
     
-    first_loader = torch.utils.data.DataLoader(first_data, batch_size = args.batch_size/3,
+    #first_loader = torch.utils.data.DataLoader(first_data, batch_size = args.batch_size/3,
+    #                                          shuffle = True, num_workers = 0,
+    #                                          pin_memory = False)
+    second_loader = torch.utils.data.DataLoader(second_data, batch_size = args.batch_size,
                                               shuffle = True, num_workers = 0,
                                               pin_memory = False)
-    second_loader = torch.utils.data.DataLoader(second_data, batch_size = args.batch_size/3,
-                                              shuffle = True, num_workers = 0,
-                                              pin_memory = False)
-    third_loader = torch.utils.data.DataLoader(third_data, batch_size = args.batch_size/3,
-                                              shuffle = True, num_workers = 0,
-                                              pin_memory = False)
+    #third_loader = torch.utils.data.DataLoader(third_data, batch_size = args.batch_size/3,
+    #                                          shuffle = True, num_workers = 0,
+    #                                          pin_memory = False)
 
     val_loader = torch.utils.data.DataLoader(val_data, batch_size = args.batch_size, 
                                             shuffle = False, num_workers = 0,
@@ -267,7 +267,7 @@ def compute_confusion(confusion_matrix, first, second):
 def compute_bias(confusion_matrix, first, second, third):
     return abs(compute_confusion(confusion_matrix, first, second) - compute_confusion(confusion_matrix, first, third))
 
-def train(args, epoch, model, criterion, train_loader, optimizer, train_F, score_F, train_data, first_loader, second_loader, third_loader):
+def train(args, epoch, model, criterion, train_loader, optimizer, train_F, score_F, train_data, second_loader):
     id2labels = train_data.id2labels
     
     image_ids = train_data.image_ids
@@ -282,31 +282,33 @@ def train(args, epoch, model, criterion, train_loader, optimizer, train_F, score
 
     res = list()
     end = time.time()
-    first_iterator = iter(first_loader)
+    #first_iterator = iter(first_loader)
     second_iterator = iter(second_loader)
-    third_iterator = iter(third_loader)
+    #third_iterator = iter(third_loader)
     t = tqdm(train_loader, desc = 'Train %d' % epoch)
     for batch_idx, (images, objects, image_ids) in enumerate(t):
+        '''
         try:
             (images1, objects1, image_ids1) = next(first_iterator)
         except StopIteration:
             first_iterator = iter(first_loader)
             (images1, objects1, image_ids1) = next(first_iterator)
-
+        '''
         try:
             (images2, objects2, image_ids2) = next(second_iterator)
         except StopIteration:
             second_iterator = iter(second_loader)
             (images2, objects2, image_ids2) = next(second_iterator)
-        
+        '''
         try:
             (images3, objects3, image_ids3) = next(third_iterator)
         except StopIteration:
             third_iterator = iter(third_loader)
             (images3, objects3, image_ids3) = next(third_iterator)
-        images = torch.cat([images, images1, images2, images3])
-        objects = torch.cat([objects, objects1, objects2, objects3])
-        image_ids = torch.cat([image_ids, image_ids1, image_ids2, image_ids3])
+        '''
+        images = torch.cat([images, images2])
+        objects = torch.cat([objects, objects2])
+        image_ids = torch.cat([image_ids, image_ids2])
         # if batch_idx == 100: break # constrain epoch size
         labels = []
         for i in range(len(image_ids)):
@@ -322,45 +324,8 @@ def train(args, epoch, model, criterion, train_loader, optimizer, train_F, score
         optimizer.zero_grad()
 
         object_preds = model(images)
-        loss = criterion(object_preds, objects).mean()
-        
-        m = nn.Softmax(dim=1)
-        firstid = []
-        secondid = []
-        thirdid = []
+        loss2 = criterion(object_preds, objects).mean()
 
-        for j in range(len(labels)):
-            if args.first in (labels[j]):# and "bus" not in (labels[j]):
-                firstid.append(j)
-            if args.second in (labels[j]):# and "person" not in (labels[j]):
-                secondid.append(j)
-            if args.third in (labels[j]):# and "person" not in (labels[j]):
-                thirdid.append(j)
-        #print(len(labels))
-        #print(object_preds.shape)
-        if args.debug:
-            print(len(firstid))
-            print(len(secondid))
-            print(len(thirdid))
-        if len(firstid) == 0 or len(secondid) == 0 or len(thirdid) == 0:
-            diff_dist = 0
-            print("not enough sample")
-        else:
-            p_dist1 = torch.dist(torch.mean(m(object_preds)[firstid],0), torch.mean(m(object_preds)[secondid],0),2)
-            p_dist2 = torch.dist(torch.mean(m(object_preds)[firstid],0), torch.mean(m(object_preds)[thirdid],0),2)
-            diff_dist = torch.abs(p_dist1 - p_dist2)
-
-        #print(len(firstid))
-        #print(len(thirdid))
-        '''
-        if len(firstid) == 0 or len(thirdid) == 0:
-            p_dist2 = 0
-        else:
-            p_dist2 = torch.dist(torch.mean(m(object_preds)[firstid],0), torch.mean(m(object_preds)[thirdid],0),2)
-        '''
-
-        #print(p_dist)
-        loss2 = loss + args.lam * diff_dist
         loss_logger.update(loss2.item())
         object_preds_max = object_preds.data.max(1, keepdim=True)[1]
         object_correct = torch.gather(objects.data, 1, object_preds_max).cpu().sum()
