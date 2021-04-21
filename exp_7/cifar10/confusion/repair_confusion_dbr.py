@@ -306,11 +306,11 @@ def train(train_loader, target_train_loader, model, criterion, optimizer, epoch)
         except StopIteration:
             extra_iterator = iter(target_train_loader)
             (target_input, target_target) = next(extra_iterator)
-        #input = torch.cat([input, target_input])
-        #target = torch.cat([target, target_target])
+        input = torch.cat([input, target_input])
+        target = torch.cat([target, target_target])
         input = input.cuda()
         target = target.cuda()
-        target_copy = target_target.cpu().numpy()
+        target_copy = target.cpu().numpy()
 
         r = np.random.rand(1)
         if args.beta > 0 and r < args.cutmix_prob:
@@ -348,15 +348,16 @@ def train(train_loader, target_train_loader, model, criterion, optimizer, epoch)
             loss2 = loss - args.lam * p_dist
         else:
             # compute output
-            target_output = model(target_input)
+
             output = model(input)
+            #target_output = model(target_input)
             #_, top1_output = output.max(1)
             #yhats = top1_output.cpu().data.numpy()
             # print(yhats[:5])
             
             id3 = []
             id5 = []
-            for j in range(len(target_input)):
+            for j in range(len(input)):
                 if (target_copy[j]) == args.first:
                     id3.append(j)
                 elif (target_copy[j]) == args.second:
@@ -372,7 +373,7 @@ def train(train_loader, target_train_loader, model, criterion, optimizer, epoch)
                 print(len(id5))
             else:
                 p_dist = torch.dist(torch.mean(
-                    m(target_output)[id3], 0), torch.mean(m(target_output)[id5], 0), 2)
+                    m(output)[id3], 0), torch.mean(m(output)[id5], 0), 2)
             #print(criterion(output, target).mean())
             # print(p_dist)
             #loss2 = criterion(output, target).mean() + p_dist
