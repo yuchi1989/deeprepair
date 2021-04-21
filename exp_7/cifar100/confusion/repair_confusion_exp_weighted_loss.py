@@ -457,66 +457,40 @@ def train(train_loader, target_train_loader, model, criterion, optimizer, epoch)
         else:
             # compute output
             output = model(input)
-            #_, top1_output = output.max(1)
-            #yhats = top1_output.cpu().data.numpy()
-            # print(yhats[:5])
-            #target_output = model(input)
-            '''
-            id3 = []
-            id5 = []
-            for j in range(len(target_input)):
-                if (target_copy[j]) == args.first:
-                    id3.append(j)
-                elif (target_copy[j]) == args.second:
-                    id5.append(j)
-            '''
-            # print(output.shape)
-            # print(output[id3].shape)
-            # print((torch.sum(output[id3],0)/len(id3)).shape)
-            '''
-            m = nn.Softmax(dim=1)
-            if len(id3) == 0 or len(id5) == 0:
-                p_dist = 0
-                print("not enough sample")
-                print(len(id3))
-                print(len(id5))
-            else:
-                p_dist = torch.dist(torch.mean(
-                    m(target_output)[id3], 0), torch.mean(m(target_output)[id5], 0), 2)
-            '''
-            #print(criterion(output, target).mean())
-            # print(p_dist)
-            #loss2 = criterion(output, target).mean() + p_dist
-            #loss2 = criterion(output, target).mean()
 
-            # loss2 = criterion(output, target).mean()  # - args.lam*p_dist
+            def get_target_loss(target, output, ind1, ind2):
+                inds_first_1 = torch.where(target == ind1)
+                inds_first_2 = torch.where(torch.argmax(output, dim=1) == ind2)
+                inds_first = np.intersect1d(inds_first_1[0].cpu(), inds_first_2[0].cpu())
+                inds_first_cuda = torch.from_numpy(inds_first).cuda()
 
-            # print(output.size())
-            # print(target.size())
-            # print(args.first)
-            # print(args.second)
+                inds_second_1 = torch.where(target == ind2)
+                inds_second_2 = torch.where(torch.argmax(output, dim=1) == ind1)
+                inds_second = np.intersect1d(inds_second_1[0].cpu(), inds_second_2[0].cpu())
+                inds_second_cuda = torch.from_numpy(inds_second).cuda()
+
+                use_loss_target = False
+                if len(inds_first) > 0 and len(inds_second) > 0:
+                    loss_target = (criterion(output[inds_first], target[inds_first]).mean() + criterion(output[inds_second], target[inds_second]).mean()) / 2
+                    use_loss_target = True
+                elif len(inds_first) > 0:
+                    loss_target = criterion(output[inds_first], target[inds_first]).mean()
+                    use_loss_target = True
+                elif len(inds_second) > 0:
+                    loss_target = criterion(output[inds_second], target[inds_second]).mean()
+                    use_loss_target = True
+
+                return loss_target, use_loss_target
 
             if args.target_weight > 0:
                 target_weight = args.target_weight
-                inds_first_1 = torch.where(target == args.first)
-                inds_first_2 = torch.where(torch.argmax(output, dim=1) == args.second)
-                inds_first = np.intersect1d(inds_first_1[0].cpu(), inds_first_2[0].cpu())
-                inds_first = torch.from_numpy(inds_first).cuda()
 
-                inds_second_1 = torch.where(target == args.second)
-                inds_second_2 = torch.where(torch.argmax(output, dim=1) == args.first)
-                inds_second = np.intersect1d(inds_second_1[0].cpu(), inds_second_2[0].cpu())
-                inds_second = torch.from_numpy(inds_second).cuda()
+                loss_target, use_loss_target = get_target_loss(target, output, args.first, args.second)
 
-
-                # print(output[inds_first].size())
-                # print(target[inds_first].size())
-                # print(output[inds_second].size())
-                # print(target[inds_second].size())
-                loss_target = (criterion(output[inds_first], target[inds_first]).mean() + criterion(output[inds_second], target[inds_second]).mean()) / 2
-
-                #loss2 = criterion(output, target).mean() + target_weight * loss_target
-                loss2 = (1-target_weight) * criterion(output, target).mean() + target_weight * loss_target
+                if use_loss_target:
+                    loss2 = (1-target_weight) * criterion(output, target).mean() + target_weight * loss_target
+                else:
+                    loss2 = criterion(output, target).mean()
             else:
                 loss2 = criterion(output, target).mean()
 

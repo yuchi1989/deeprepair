@@ -236,7 +236,7 @@ def main():
                 batch_size=args.batch_size, shuffle=True, num_workers=args.workers, pin_memory=True)
             numberofclass = 10
 
-            
+
         else:
             raise Exception('unknown dataset: {}'.format(args.dataset))
     else:
@@ -294,7 +294,7 @@ def main():
         global_epoch_confusion.append({})
         get_confusion(val_loader, model, criterion)
         confusion_matrix = global_epoch_confusion[-1]["confusion"]
-        print(str((args.first, args.second, args.third)) + " triplet: " + 
+        print(str((args.first, args.second, args.third)) + " triplet: " +
             str(abs(confusion_matrix[(args.first, args.second)] - confusion_matrix[(args.first, args.third)])))
         print(str((args.first, args.second)) + ": " + str(confusion_matrix[(args.first, args.second)]))
         print(str((args.first, args.third)) + ": " + str(confusion_matrix[(args.first, args.third)]))
@@ -305,7 +305,7 @@ def main():
         adjust_learning_rate(optimizer, epoch)
 
         # train for one epoch
-        train(train_loader, 
+        train(train_loader,
               model, criterion, optimizer, epoch)
 
         # evaluate on validation set
@@ -337,7 +337,7 @@ def main():
         #print("loss: " + str(global_epoch_confusion[-1]["loss"]))
         first_second = compute_confusion(confusion_matrix, args.first, args.second)
         first_third = compute_confusion(confusion_matrix, args.first, args.third)
-        print(str((args.first, args.second, args.third)) + " triplet: " + 
+        print(str((args.first, args.second, args.third)) + " triplet: " +
             str(compute_bias(confusion_matrix, args.first, args.second, args.third)))
         print(str((args.first, args.second)) + ": " + str(first_second))
         print(str((args.first, args.third)) + ": " + str(first_third))
@@ -362,7 +362,7 @@ def main():
         #print("loss: " + str(global_epoch_confusion[-1]["loss"]))
         first_second = compute_confusion(confusion_matrix, args.first, args.second)
         first_third = compute_confusion(confusion_matrix, args.first, args.third)
-        print(str((args.first, args.second, args.third)) + " triplet: " + 
+        print(str((args.first, args.second, args.third)) + " triplet: " +
             str(compute_bias(confusion_matrix, args.first, args.second, args.third)))
         print(str((args.first, args.second)) + ": " + str(first_second))
         print(str((args.first, args.third)) + ": " + str(first_third))
@@ -371,7 +371,7 @@ def compute_confusion(confusion_matrix, first, second):
     confusion = 0
     if (first, second) in confusion_matrix:
         confusion += confusion_matrix[(first, second)]
-    
+
     if (second, first) in confusion_matrix:
         confusion += confusion_matrix[(second, first)]
     return confusion/2
@@ -397,8 +397,8 @@ def train(train_loader, model, criterion, optimizer, epoch):
     for i, (input, target) in enumerate(t):
         # measure data loading time
         data_time.update(time.time() - end)
-        
-        
+
+
         input = input.cuda()
         target = target.cuda()
 
@@ -441,27 +441,50 @@ def train(train_loader, model, criterion, optimizer, epoch):
             # compute output
             output = model(input)
 
+            def get_target_loss(target, output, ind1, ind2):
+                inds_first_1 = torch.where(target == ind1)
+                inds_first_2 = torch.where(torch.argmax(output, dim=1) == ind2)
+                inds_first = np.intersect1d(inds_first_1[0].cpu(), inds_first_2[0].cpu())
+                inds_first_cuda = torch.from_numpy(inds_first).cuda()
+
+                inds_second_1 = torch.where(target == ind2)
+                inds_second_2 = torch.where(torch.argmax(output, dim=1) == ind1)
+                inds_second = np.intersect1d(inds_second_1[0].cpu(), inds_second_2[0].cpu())
+                inds_second_cuda = torch.from_numpy(inds_second).cuda()
+
+                use_loss_target = False
+                if len(inds_first) > 0 and len(inds_second) > 0:
+                    loss_target = (criterion(output[inds_first], target[inds_first]).mean() + criterion(output[inds_second], target[inds_second]).mean()) / 2
+                    use_loss_target = True
+                elif len(inds_first) > 0:
+                    loss_target = criterion(output[inds_first], target[inds_first]).mean()
+                    use_loss_target = True
+                elif len(inds_second) > 0:
+                    loss_target = criterion(output[inds_second], target[inds_second]).mean()
+                    use_loss_target = True
+
+                return loss_target, use_loss_target
+
             if args.target_weight > 0:
                 target_weight = args.target_weight
-                inds_first_1 = torch.where(target == args.first)
-                inds_first_2 = torch.where(torch.argmax(output, dim=1) == args.second)
-                inds_first = np.intersect1d(inds_first_1[0].cpu(), inds_first_2[0].cpu())
-                inds_first = torch.from_numpy(inds_first).cuda()
 
-                inds_second_1 = torch.where(target == args.second)
-                inds_second_2 = torch.where(torch.argmax(output, dim=1) == args.first)
-                inds_second = np.intersect1d(inds_second_1[0].cpu(), inds_second_2[0].cpu())
-                inds_second = torch.from_numpy(inds_second).cuda()
+                loss_target1, use_loss_target1 = get_target_loss(target, output, args.first, args.second)
+                loss_target2, use_loss_target2 = get_target_loss(target, output, args.first, args.third)
 
+                loss_target = None
+                use_loss_target = use_loss_target1 or use_loss_target2
 
-                # print(output[inds_first].size())
-                # print(target[inds_first].size())
-                # print(output[inds_second].size())
-                # print(target[inds_second].size())
-                loss_target = (criterion(output[inds_first], target[inds_first]).mean() + criterion(output[inds_second], target[inds_second]).mean()) / 2
+                if use_loss_target1 and use_loss_target2:
+                    loss_target = (loss_target1 + loss_target2) / 2
+                elif use_loss_target1:
+                    loss_target = loss_target1
+                elif use_loss_target2:
+                    loss_target = loss_target2
 
-                #loss2 = criterion(output, target).mean() + target_weight * loss_target
-                loss2 = (1-target_weight) * criterion(output, target).mean() + target_weight * loss_target
+                if use_loss_target:
+                    loss2 = (1-target_weight) * criterion(output, target).mean() + target_weight * loss_target
+                else:
+                    loss2 = criterion(output, target).mean()
             else:
                 loss2 = criterion(output, target).mean()
 
