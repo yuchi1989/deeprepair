@@ -9,16 +9,16 @@ parser.add_argument("--data_file", type=str, default='original_test_data.npy ')
 parser.add_argument("--eta", type=float, default=0.1)
 parser.add_argument("--eta2", type=float, default=1)
 parser.add_argument("--mode", type=str, default='confusion')
-parser.add_argument("--first", type=str, default='handbag')
-parser.add_argument("--second", type=str, default='woman')
-parser.add_argument("--third", type=str, default='man')
+parser.add_argument("--first", type=str, default='bus')
+parser.add_argument("--second", type=str, default='person')
+parser.add_argument("--third", type=str, default='clock')
 
 
 
 args = parser.parse_args()
 
 id2object = {
- 0: 'man',
+ 0: 'person',
  1: 'bicycle',
  2: 'car',
  3: 'motorcycle',
@@ -97,8 +97,7 @@ id2object = {
  76: 'scissors',
  77: 'teddy bear',
  78: 'hair drier',
- 79: 'toothbrush',
- 80: 'woman'}
+ 79: 'toothbrush'}
 
 
 m = len(id2object)
