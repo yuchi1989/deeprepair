@@ -88,7 +88,7 @@ def main():
         split = 'val', transform = val_transform)
     
 
-    weights = [args.weight for i in range(len(train_data.labels)) if args.first in train_data.labels[i] or args.second in train_data.labels[i] else 1.0]
+    weights = [args.weight if args.first in train_data.labels[i] or args.second in train_data.labels[i] else 1.0 for i in range(len(train_data.labels)) ]
     sampler = WeightedRandomSampler(torch.DoubleTensor(weights), len(train_data.labels))
 
     # Data loaders / batch assemblers.
@@ -129,7 +129,7 @@ def main():
     for epoch in range(args.start_epoch, args.num_epochs + 1):
         global_epoch_confusion.append({})
         adjust_learning_rate(optimizer, epoch)
-        train(args, epoch, model, criterion, train_loader, optimizer, train_F, score_F, train_data, first_loader, second_loader)
+        train(args, epoch, model, criterion, train_loader, optimizer, train_F, score_F, train_data)
         current_performance = get_confusion(args, epoch, model, criterion, val_loader, optimizer, val_F, score_F, val_data)
         is_best = current_performance > best_performance
         best_performance = max(current_performance, best_performance)
@@ -167,7 +167,7 @@ def compute_confusion(confusion_matrix, first, second):
 def compute_bias(confusion_matrix, first, second, third):
     return abs(compute_confusion(confusion_matrix, first, second) - compute_confusion(confusion_matrix, first, third))
 
-def train(args, epoch, model, criterion, train_loader, optimizer, train_F, score_F, train_data, first_loader, second_loader):
+def train(args, epoch, model, criterion, train_loader, optimizer, train_F, score_F, train_data):
     id2labels = train_data.id2labels
 
     image_ids = train_data.image_ids
