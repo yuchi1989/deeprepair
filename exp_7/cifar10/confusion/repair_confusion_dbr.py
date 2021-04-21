@@ -311,8 +311,7 @@ def train(train_loader, target_train_loader, model, criterion, optimizer, epoch)
         input = input.cuda()
         target = target.cuda()
         target_copy = target_target.cpu().numpy()
-        for _ in range(args.forward):
-            target_output = model(target_input)
+
         r = np.random.rand(1)
         if args.beta > 0 and r < args.cutmix_prob:
             # generate mixed sample
@@ -353,7 +352,7 @@ def train(train_loader, target_train_loader, model, criterion, optimizer, epoch)
             #_, top1_output = output.max(1)
             #yhats = top1_output.cpu().data.numpy()
             # print(yhats[:5])
-            #target_output = model(input)
+            target_output = model(target_input)
             id3 = []
             id5 = []
             for j in range(len(target_input)):
