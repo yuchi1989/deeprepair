@@ -22,6 +22,7 @@
 
 ```
 python2 train_epoch_graph.py --log_dir original_model --ann_dir '/local/shared/coco/annotations' --image_dir '/local/shared/coco/'
+python2 get_original_confusion.py --pretrained original_model/model_best.pth.tar --log_dir coco_confusion_repair_aug --first "person" --second "bus" --ann_dir '/local/shared/coco/annotations' --image_dir '/local/shared/coco/'
 ```
 
 #### [w-aug](https://github.com/yuchi1989/deeprepair/blob/master/exp_9/coco/repair_confusion_exp_weighted_loss.py):  
@@ -58,6 +59,7 @@ python2 repair_confusion_dbr.py --pretrained original_model/model_best.pth.tar -
 
 ```
 python2 train_epoch_graph.py --log_dir original_model --ann_dir '/local/shared/coco/annotations' --image_dir '/local/shared/coco/'
+python2 get_original_bias.py --pretrained original_model/model_best.pth.tar --log_dir coco_confusion_repair_aug --first "bus" --second "person" --third "clock" --ann_dir '/local/shared/coco/annotations' --image_dir '/local/shared/coco/'
 ```
 
 #### [w-aug](https://github.com/yuchi1989/deeprepair/blob/master/exp_9/coco/repair_bias_exp_weighted_loss.py):  
