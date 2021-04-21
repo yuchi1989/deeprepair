@@ -348,11 +348,12 @@ def train(train_loader, target_train_loader, model, criterion, optimizer, epoch)
             loss2 = loss - args.lam * p_dist
         else:
             # compute output
+            target_output = model(target_input)
             output = model(input)
             #_, top1_output = output.max(1)
             #yhats = top1_output.cpu().data.numpy()
             # print(yhats[:5])
-            target_output = model(target_input)
+            
             id3 = []
             id5 = []
             for j in range(len(target_input)):
