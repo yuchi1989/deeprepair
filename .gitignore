@@ -20,3 +20,8 @@ exp_9/coco/coco_confusion_repair
 exp_9/coco/*.pyc
 exp_9/coco/*.pickle
 exp_9/coco/original_model
+exp_9/coco/coco_confusion_repair_aug
+exp_9/coco/coco_confusion_repair_bn
+exp_9/coco/coco_confusion_repair_dbr
+exp_9/coco/coco_confusion_repair_weighted
+exp_9/coco/coco_confusion_repair

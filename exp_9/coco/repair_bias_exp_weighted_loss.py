@@ -264,7 +264,7 @@ def train(args, epoch, model, criterion, train_loader, optimizer, train_F, score
             if len(inds_first) > 0 and len(inds_second) > 0:
                 loss_target = (loss_target_1 + loss_target_2) / 2
 
-            print('len(inds_first)', len(inds_first), 'len(inds_second)', len(inds_second))
+            # print('len(inds_first)', len(inds_first), 'len(inds_second)', len(inds_second))
 
             return use_loss_target, loss_target
 
@@ -304,11 +304,11 @@ def train(args, epoch, model, criterion, train_loader, optimizer, train_F, score
             if use_loss_target:
                 loss2 = (1-target_weight) * loss + target_weight * loss_target
 
-                print('loss_target.detach().cpu().numpy()', loss_target.detach().cpu().numpy())
+                # print('loss_target.detach().cpu().numpy()', loss_target.detach().cpu().numpy())
             else:
                 loss2 = loss
 
-            print('loss.detach().cpu().numpy()', loss.detach().cpu().numpy())
+            # print('loss.detach().cpu().numpy()', loss.detach().cpu().numpy())
         else:
             loss2 = loss
 
