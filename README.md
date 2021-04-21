@@ -240,7 +240,13 @@ python3 repair_bias_dbr.py --net_type resnet --dataset cifar10 --depth 18 --batc
 
 ```
 python3 train_baseline_cifar100.py --net_type resnet --dataset cifar100 --depth 34 --batch_size 256 --lr 0.1 --expname cifar100_resnet34 --epochs 300 --beta 1.0 --cutmix_prob 0
+
+# top confusion pairs
+python3 analyze_cifar100_epoch_confusion.py --npy "../runs/cifar100_resnet34/epoch_confusion.npy" 
+
 python3 repair_confusion_exp_newbn.py --net_type resnet --dataset cifar100 --depth 34 --batch_size 128 --lr 0.1 --expname cifar10_resnet34_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar100_resnet34/model_best.pth.tar --expid 0 --lam 0 --extra 128 --checkmodel  
+
+
 ```
 
 #### [w-aug](https://github.com/yuchi1989/deeprepair/blob/master/exp_7/cifar100/confusion/repair_confusion_exp_oversampling.py):  
