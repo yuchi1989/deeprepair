@@ -16,3 +16,7 @@ exp_7/coco/*.pickle
 exp_7/coco/*.pyc
 exp_9/coco_gender/original_model
 exp_9/coco_gender/*.npy
+exp_9/coco/coco_confusion_repair
+exp_9/coco/*.pyc
+exp_9/coco/*.pickle
+exp_9/coco/original_model
