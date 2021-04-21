@@ -89,11 +89,11 @@ def main():
     # Data samplers.
     train_data = CocoObject(ann_dir = args.ann_dir, image_dir = args.image_dir, 
         split = 'train', transform = train_transform)
-    #first_data = CocoObject(ann_dir = args.ann_dir, image_dir = args.image_dir, 
+    first_data = CocoObject(ann_dir = args.ann_dir, image_dir = args.image_dir, 
         #split = 'train', transform = train_transform, filter=args.first)
     second_data = CocoObject(ann_dir = args.ann_dir, image_dir = args.image_dir, 
         split = 'train', transform = train_transform, filter=args.second)
-    #third_data = CocoObject(ann_dir = args.ann_dir, image_dir = args.image_dir, 
+    third_data = CocoObject(ann_dir = args.ann_dir, image_dir = args.image_dir, 
         #split = 'train', transform = train_transform, filter=args.third)
 
     val_data = CocoObject(ann_dir = args.ann_dir, image_dir = args.image_dir, 
@@ -105,15 +105,15 @@ def main():
                                               shuffle = True, num_workers = 1,
                                               pin_memory = True)
     
-    #first_loader = torch.utils.data.DataLoader(first_data, batch_size = args.batch_size/3,
-    #                                          shuffle = True, num_workers = 0,
-    #                                          pin_memory = False)
-    second_loader = torch.utils.data.DataLoader(second_data, batch_size = args.batch_size,
+    first_loader = torch.utils.data.DataLoader(first_data, batch_size = args.batch_size/3,
                                               shuffle = True, num_workers = 0,
                                               pin_memory = False)
-    #third_loader = torch.utils.data.DataLoader(third_data, batch_size = args.batch_size/3,
-    #                                          shuffle = True, num_workers = 0,
-    #                                          pin_memory = False)
+    second_loader = torch.utils.data.DataLoader(second_data, batch_size = args.batch_size/3,
+                                              shuffle = True, num_workers = 0,
+                                              pin_memory = False)
+    third_loader = torch.utils.data.DataLoader(third_data, batch_size = args.batch_size/3,
+                                              shuffle = True, num_workers = 0,
+                                              pin_memory = False)
 
     val_loader = torch.utils.data.DataLoader(val_data, batch_size = args.batch_size, 
                                             shuffle = False, num_workers = 0,
@@ -287,28 +287,24 @@ def train(args, epoch, model, criterion, train_loader, optimizer, train_F, score
     #third_iterator = iter(third_loader)
     t = tqdm(train_loader, desc = 'Train %d' % epoch)
     for batch_idx, (images, objects, image_ids) in enumerate(t):
-        '''
         try:
             (images1, objects1, image_ids1) = next(first_iterator)
         except StopIteration:
             first_iterator = iter(first_loader)
             (images1, objects1, image_ids1) = next(first_iterator)
-        '''
         try:
             (images2, objects2, image_ids2) = next(second_iterator)
         except StopIteration:
             second_iterator = iter(second_loader)
             (images2, objects2, image_ids2) = next(second_iterator)
-        '''
         try:
             (images3, objects3, image_ids3) = next(third_iterator)
         except StopIteration:
             third_iterator = iter(third_loader)
             (images3, objects3, image_ids3) = next(third_iterator)
-        '''
-        images = torch.cat([images, images2])
-        objects = torch.cat([objects, objects2])
-        image_ids = torch.cat([image_ids, image_ids2])
+        images = torch.cat([images, images1, images2, images3])
+        objects = torch.cat([objects, objects1, objects2, objects3])
+        image_ids = torch.cat([image_ids, image_ids1, image_ids2, image_ids3])
         # if batch_idx == 100: break # constrain epoch size
         labels = []
         for i in range(len(image_ids)):
@@ -342,7 +338,7 @@ def train(args, epoch, model, criterion, train_loader, optimizer, train_F, score
         # Print log info
         t.set_postfix(loss = loss_logger.avg)
 
-        train_F.write('{},{},{}\n'.format(epoch, loss.item(), object_correct))
+        train_F.write('{},{},{}\n'.format(epoch, loss2.item(), object_correct))
         train_F.flush()
 
     # compute mean average precision score for object classifier
