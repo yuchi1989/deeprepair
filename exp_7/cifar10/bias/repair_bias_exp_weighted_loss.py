@@ -236,19 +236,7 @@ def main():
                 batch_size=args.batch_size, shuffle=True, num_workers=args.workers, pin_memory=True)
             numberofclass = 10
 
-            target_train_dataset = datasets.CIFAR10(
-                '../data', train=True, download=True, transform=transform_train)
-            target_train_dataset = get_dataset_from_specific_classes(
-                target_train_dataset, args.first, args.second)
-            target_test_dataset = datasets.CIFAR10(
-                '../data', train=False, download=True, transform=transform_test)
-            target_test_dataset = get_dataset_from_specific_classes(
-                target_test_dataset, args.first, args.second)
-            target_train_loader = torch.utils.data.DataLoader(target_train_dataset, batch_size=args.extra, shuffle=True,
-                                                              num_workers=args.workers, pin_memory=True)
-            target_val_loader = torch.utils.data.DataLoader(target_test_dataset, batch_size=args.extra, shuffle=True,
-                                                            num_workers=args.workers, pin_memory=True)
-
+            
         else:
             raise Exception('unknown dataset: {}'.format(args.dataset))
     else:
@@ -317,12 +305,12 @@ def main():
         adjust_learning_rate(optimizer, epoch)
 
         # train for one epoch
-        train(train_loader, target_train_loader,
+        train(train_loader, 
               model, criterion, optimizer, epoch)
 
         # evaluate on validation set
         err1, err5, val_loss = validate(
-            val_loader, target_val_loader, model, criterion, epoch)
+            val_loader, model, criterion, epoch)
 
         # remember best prec@1 and save checkpoint
 
@@ -392,7 +380,7 @@ def compute_bias(confusion_matrix, first, second, third):
     return abs(compute_confusion(confusion_matrix, first, second) - compute_confusion(confusion_matrix, first, third))
 
 
-def train(train_loader, target_train_loader, model, criterion, optimizer, epoch):
+def train(train_loader, model, criterion, optimizer, epoch):
     batch_time = AverageMeter()
     data_time = AverageMeter()
     losses = AverageMeter()
@@ -409,16 +397,11 @@ def train(train_loader, target_train_loader, model, criterion, optimizer, epoch)
     for i, (input, target) in enumerate(t):
         # measure data loading time
         data_time.update(time.time() - end)
-        try:
-            (target_input, target_target) = next(extra_iterator)
-        except StopIteration:
-            extra_iterator = iter(target_train_loader)
-            (target_input, target_target) = next(extra_iterator)
-        input = torch.cat([input, target_input])
-        target = torch.cat([target, target_target])
+        
+        
         input = input.cuda()
         target = target.cuda()
-        target_copy = target_target.cpu().numpy()
+
 
         r = np.random.rand(1)
         if args.beta > 0 and r < args.cutmix_prob:
@@ -531,7 +514,7 @@ def rand_bbox(size, lam):
     return bbx1, bby1, bbx2, bby2
 
 
-def validate(val_loader, target_val_loader, model, criterion, epoch):
+def validate(val_loader, model, criterion, epoch):
     batch_time = AverageMeter()
     losses = AverageMeter()
     top1 = AverageMeter()

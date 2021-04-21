@@ -3,7 +3,7 @@ import numpy as np
 
 def get_cifar100_labels():
     import pickle
-    with open("/home/yuchi/Downloads/cifar-100-python/meta", "rb") as metafile:
+    with open("/home/yuchi/data/cifar-100-python/meta", "rb") as metafile:
         meta = pickle.load(metafile, encoding='latin1')
     return meta
 
@@ -97,13 +97,15 @@ if __name__ == '__main__':
 
     top_confusions(args.npy, 3)
 
-    '''
+
     meta = get_cifar100_labels()
+    for i in range(100):
+        print(meta["fine_label_names"][i])
     print(meta["fine_label_names"][35])
     print(meta["fine_label_names"][98])
-    print(meta["fine_label_names"][47])
-    print(meta["fine_label_names"][52])
-    print(meta["fine_label_names"][11])
-    print(meta["fine_label_names"][46])
-    '''
+    #print(meta["fine_label_names"][47])
+    #print(meta["fine_label_names"][52])
+    #print(meta["fine_label_names"][11])
+    #print(meta["fine_label_names"][46])
+
     #draw_graph()
