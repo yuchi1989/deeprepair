@@ -470,6 +470,7 @@ def train(train_loader, target_train_loader, model, criterion, optimizer, epoch)
                 inds_second_cuda = torch.from_numpy(inds_second).cuda()
 
                 use_loss_target = False
+                loss_target = None
                 if len(inds_first) > 0 and len(inds_second) > 0:
                     loss_target = (criterion(output[inds_first], target[inds_first]).mean() + criterion(output[inds_second], target[inds_second]).mean()) / 2
                     use_loss_target = True
