@@ -2,14 +2,14 @@ import argparse
 import numpy as np
 from sklearn.metrics import average_precision_score
 
-# repair_confusion_exp_newbn_softmax.py --data_file original_test_data.npy --eta 0.8 --mode confusion
+# python repair_confusion_exp_newbn_softmax.py --data_file original_test_data.npy --eta 0.8 --mode bias --first skis --second woman --third man
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--data_file", type=str, default='original_test_data.npy ')
 parser.add_argument("--eta", type=float, default=0.1)
 parser.add_argument("--eta2", type=float, default=1)
 parser.add_argument("--mode", type=str, default='confusion')
-parser.add_argument("--first", type=str, default='handbag')
+parser.add_argument("--first", type=str, default='skis')
 parser.add_argument("--second", type=str, default='woman')
 parser.add_argument("--third", type=str, default='man')
 

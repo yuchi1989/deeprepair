@@ -304,11 +304,11 @@ def train(args, epoch, model, criterion, train_loader, optimizer, train_F, score
             if use_loss_target:
                 loss2 = (1-target_weight) * loss + target_weight * loss_target
 
-                print('loss_target.detach().cpu().numpy()', loss_target.detach().cpu().numpy())
+                # print('loss_target.detach().cpu().numpy()', loss_target.detach().cpu().numpy())
             else:
                 loss2 = loss
 
-            print('loss.detach().cpu().numpy()', loss.detach().cpu().numpy())
+            # print('loss.detach().cpu().numpy()', loss.detach().cpu().numpy())
         else:
             loss2 = loss
 
