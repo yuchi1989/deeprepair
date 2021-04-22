@@ -267,7 +267,7 @@ python3 repair_confusion_exp_weighted_loss.py --net_type resnet --dataset cifar1
 #### [w-dbr](https://github.com/yuchi1989/deeprepair/blob/master/exp_7/cifar100/confusion/repair_confusion_dbr.py):  
 
 ```
-python3 repair_confusion_dbr.py --net_type resnet --dataset cifar100 --depth 34 --batch_size 256 --lr 0.1 --expname cifar100_resnet34_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar100_resnet34/model_best.pth.tar --expid 0 --first 35 --second 98
+python3 repair_confusion_dbr.py --net_type resnet --dataset cifar100 --depth 34 --batch_size 256 --lr 0.1 --expname cifar100_resnet34_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar100_resnet34/model_best.pth.tar --expid 0 --first 35 --second 98 --lam 0.1
 ```
 
 ### [CIFAR-100 bias](https://github.com/yuchi1989/deeprepair/tree/master/exp_7/cifar100/bias) experiments  
@@ -302,5 +302,5 @@ python3 repair_bias_exp_weighted_loss.py --net_type resnet --dataset cifar100 --
 #### [w-dbr](https://github.com/yuchi1989/deeprepair/blob/master/exp_7/cifar100/bias/repair_bias_dbr.py):  
 
 ```
-python3 repair_bias_dbr.py --net_type resnet --dataset cifar100 --depth 34 --batch_size 256 --lr 0.1 --expname cifar100_resnet34_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar100_resnet34/model_best.pth.tar --expid 0 --first 35 --second 98 --third 2
+python3 repair_bias_dbr.py --net_type resnet --dataset cifar100 --depth 34 --batch_size 256 --lr 0.1 --expname cifar100_resnet34_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar100_resnet34/model_best.pth.tar --expid 0 --first 35 --second 98 --third 2 --lam 0.1
 ```
