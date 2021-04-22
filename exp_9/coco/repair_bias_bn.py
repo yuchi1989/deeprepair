@@ -64,7 +64,7 @@ def main():
 
     if os.path.exists(args.log_dir) and not args.resume:
         print('Path {} exists! and not resuming'.format(args.log_dir))
-        return   
+        return
     if not os.path.exists(args.log_dir): os.makedirs(args.log_dir)
 
     #save all parameters for training
@@ -77,34 +77,34 @@ def main():
     train_transform = transforms.Compose([
         transforms.Scale(args.image_size),
         transforms.RandomCrop(args.crop_size),
-        transforms.RandomHorizontalFlip(), 
-        transforms.ToTensor(), 
+        transforms.RandomHorizontalFlip(),
+        transforms.ToTensor(),
         normalize])
-    val_transform = transforms.Compose([ 
+    val_transform = transforms.Compose([
         transforms.Scale(args.image_size),
-        transforms.CenterCrop(args.crop_size), 
-        transforms.ToTensor(), 
+        transforms.CenterCrop(args.crop_size),
+        transforms.ToTensor(),
         normalize])
 
     # Data samplers.
-    train_data = CocoObject(ann_dir = args.ann_dir, image_dir = args.image_dir, 
+    train_data = CocoObject(ann_dir = args.ann_dir, image_dir = args.image_dir,
         split = 'train', transform = train_transform)
-    #first_data = CocoObject(ann_dir = args.ann_dir, image_dir = args.image_dir, 
+    #first_data = CocoObject(ann_dir = args.ann_dir, image_dir = args.image_dir,
         #split = 'train', transform = train_transform, filter=args.first)
-    second_data = CocoObject(ann_dir = args.ann_dir, image_dir = args.image_dir, 
+    second_data = CocoObject(ann_dir = args.ann_dir, image_dir = args.image_dir,
         split = 'train', transform = train_transform, filter=args.second)
-    #third_data = CocoObject(ann_dir = args.ann_dir, image_dir = args.image_dir, 
+    #third_data = CocoObject(ann_dir = args.ann_dir, image_dir = args.image_dir,
         #split = 'train', transform = train_transform, filter=args.third)
 
-    val_data = CocoObject(ann_dir = args.ann_dir, image_dir = args.image_dir, 
+    val_data = CocoObject(ann_dir = args.ann_dir, image_dir = args.image_dir,
         split = 'val', transform = val_transform)
 
 
     # Data loaders / batch assemblers.
-    train_loader = torch.utils.data.DataLoader(train_data, batch_size = args.batch_size, 
+    train_loader = torch.utils.data.DataLoader(train_data, batch_size = args.batch_size,
                                               shuffle = True, num_workers = 1,
                                               pin_memory = True)
-    
+
     #first_loader = torch.utils.data.DataLoader(first_data, batch_size = args.batch_size/3,
     #                                          shuffle = True, num_workers = 0,
     #                                          pin_memory = False)
@@ -115,7 +115,7 @@ def main():
     #                                          shuffle = True, num_workers = 0,
     #                                          pin_memory = False)
 
-    val_loader = torch.utils.data.DataLoader(val_data, batch_size = args.batch_size, 
+    val_loader = torch.utils.data.DataLoader(val_data, batch_size = args.batch_size,
                                             shuffle = False, num_workers = 0,
                                             pin_memory = True)
 
@@ -143,7 +143,7 @@ def main():
         print("=> loaded checkpoint (epoch {})".format(checkpoint['epoch']))
     else:
         exit()
-        
+
     if args.replace:
         model.to('cpu')
         global glob_bn_count
@@ -160,7 +160,7 @@ def main():
     for epoch in range(args.start_epoch, args.num_epochs + 1):
         global_epoch_confusion.append({})
         adjust_learning_rate(optimizer, epoch)
-        train(args, epoch, model, criterion, train_loader, optimizer, train_F, score_F, train_data, first_loader, second_loader, third_loader)
+        train(args, epoch, model, criterion, train_loader, optimizer, train_F, score_F, train_data, second_loader)
         current_performance = get_confusion(args, epoch, model, criterion, val_loader, optimizer, val_F, score_F, val_data)
         is_best = current_performance > best_performance
         best_performance = max(current_performance, best_performance)
@@ -172,7 +172,7 @@ def main():
         confusion_matrix = global_epoch_confusion[-1]["confusion"]
         first_second = compute_confusion(confusion_matrix, args.first, args.second)
         first_third = compute_confusion(confusion_matrix, args.first, args.third)
-        print(str((args.first, args.second, args.third)) + " triplet: " + 
+        print(str((args.first, args.second, args.third)) + " triplet: " +
             str(compute_bias(confusion_matrix, args.first, args.second, args.third)))
         print(str((args.first, args.second)) + ": " + str(first_second))
         print(str((args.first, args.third)) + ": " + str(first_third))
@@ -182,10 +182,10 @@ def main():
     val_F.close()
     score_F.close()
     np.save(os.path.join(args.log_dir, 'global_epoch_confusion.npy'), global_epoch_confusion)
-    
+
     glob_bn_total = 0
     glob_bn_count = 0
-    
+
 def count_bn_layer(module):
     global glob_bn_total
     for child_name, child in module.named_children():
@@ -259,7 +259,7 @@ def compute_confusion(confusion_matrix, first, second):
     confusion = 0
     if (first, second) in confusion_matrix:
         confusion += confusion_matrix[(first, second)]
-    
+
     if (second, first) in confusion_matrix:
         confusion += confusion_matrix[(second, first)]
     return confusion/2
@@ -269,7 +269,7 @@ def compute_bias(confusion_matrix, first, second, third):
 
 def train(args, epoch, model, criterion, train_loader, optimizer, train_F, score_F, train_data, second_loader):
     id2labels = train_data.id2labels
-    
+
     image_ids = train_data.image_ids
     image_path_map = train_data.image_path_map
     #80 objects
@@ -278,7 +278,7 @@ def train(args, epoch, model, criterion, train_loader, optimizer, train_F, score
     batch_time = AverageMeter()
     data_time = AverageMeter()
     loss_logger = AverageMeter()
-    correct_logger = AverageMeter() 
+    correct_logger = AverageMeter()
 
     res = list()
     end = time.time()
@@ -342,7 +342,7 @@ def train(args, epoch, model, criterion, train_loader, optimizer, train_F, score
         # Print log info
         t.set_postfix(loss = loss_logger.avg)
 
-        train_F.write('{},{},{}\n'.format(epoch, loss.item(), object_correct))
+        train_F.write('{},{},{}\n'.format(epoch, loss2.item(), object_correct))
         train_F.flush()
 
     # compute mean average precision score for object classifier
@@ -389,7 +389,7 @@ def get_confusion(args, epoch, model, criterion, val_loader, optimizer, val_F, s
         for i in range(len(image_ids)):
             yhat = []
             label = id2labels[image_ids.cpu().numpy()[i]]
-            
+
             for j in range(len(object_preds[i])):
                 a = object_preds_c[i][j]
                 if a > 0.5:
@@ -434,7 +434,7 @@ def get_confusion(args, epoch, model, criterion, val_loader, optimizer, val_F, s
     pair_count = {}
     confusion_count = {}
     type2confusion = {}
-    
+
 
     for li, yi in zip(labels, yhats):
         no_objects = [id2object[i] for i in range(80) if id2object[i] not in li]
