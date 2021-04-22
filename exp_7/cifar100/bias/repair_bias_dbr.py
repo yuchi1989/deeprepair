@@ -162,7 +162,7 @@ def main():
             target_test_dataset = datasets.CIFAR100(
                 '../data', train=False, download=True, transform=transform_test)
             target_test_dataset = get_dataset_from_specific_classes(
-                target_test_dataset, args.first, args.second)
+                target_test_dataset, args.first, args.second, args.third)
             target_train_loader = torch.utils.data.DataLoader(target_train_dataset, batch_size=args.extra, shuffle=True,
                                                               num_workers=args.workers, pin_memory=True)
             target_val_loader = torch.utils.data.DataLoader(target_test_dataset, batch_size=args.extra, shuffle=True,
@@ -324,11 +324,11 @@ def train(train_loader, target_train_loader, model, criterion, optimizer, epoch)
         except StopIteration:
             extra_iterator = iter(target_train_loader)
             (target_input, target_target) = next(extra_iterator)
-        #input = torch.cat([input, target_input])
-        #target = torch.cat([target, target_target])
+        input = torch.cat([input, target_input])
+        target = torch.cat([target, target_target])
         input = input.cuda()
         target = target.cuda()
-        target_copy = target_target.cpu().numpy()
+        target_copy = target.cpu().numpy()
         for _ in range(args.forward):
             target_output = model(target_input)
         r = np.random.rand(1)
