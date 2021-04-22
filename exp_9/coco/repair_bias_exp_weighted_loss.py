@@ -96,7 +96,11 @@ def main():
         split = 'val', transform = val_transform)
     object2id = val_data.object2id
 
-    weights = [args.weight if args.first in train_data.labels[i] or args.second in train_data.labels[i] or args.third in train_data.labels[i] else 1.0 for i in range(len(train_data.labels))]
+    first_id = object2id[args.first]
+    second_id = object2id[args.second]
+    third_id = object2id[args.third]
+
+    weights = [args.weight if first_id in train_data.labels[i] or second_id in train_data.labels[i] or third_id in train_data.labels[i] else 1.0 for i in range(len(train_data.labels))]
     sampler = WeightedRandomSampler(torch.DoubleTensor(weights), len(train_data.labels))
 
     # Data loaders / batch assemblers.
