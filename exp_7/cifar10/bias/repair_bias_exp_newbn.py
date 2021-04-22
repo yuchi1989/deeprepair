@@ -182,10 +182,11 @@ def set_bn_train(model):  # unfreeze all bn
             module.train()
 
 
-def get_dataset_from_specific_classes(target_dataset, first):
-    target_idx = np.where(np.array(target_dataset.targets) == first)[0]
-    #second_indices = np.where(np.array(target_dataset.targets) == second)[0]
-    #target_idx = np.hstack([first_indices, second_indices])
+def get_dataset_from_specific_classes(target_dataset, first, second, third):
+    first_indices = np.where(np.array(target_dataset.targets) == first)[0]
+    second_indices = np.where(np.array(target_dataset.targets) == second)[0]
+    third_indices = np.where(np.array(target_dataset.targets) == third)[0]
+    target_idx = np.hstack([first_indices, second_indices, third_indices])
     target_dataset.targets = np.array(target_dataset.targets)[target_idx]
     target_dataset.data = target_dataset.data[target_idx]
     return target_dataset
@@ -248,11 +249,11 @@ def main():
             target_train_dataset = datasets.CIFAR10(
                 '../data', train=True, download=True, transform=transform_train)
             target_train_dataset = get_dataset_from_specific_classes(
-                target_train_dataset, args.second)
+                target_train_dataset, args.first, args.second, args.third)
             target_test_dataset = datasets.CIFAR10(
                 '../data', train=False, download=True, transform=transform_test)
             target_test_dataset = get_dataset_from_specific_classes(
-                target_test_dataset, args.second)
+                target_test_dataset, args.first, args.second, args.third)
             target_train_loader = torch.utils.data.DataLoader(target_train_dataset, batch_size=args.extra, shuffle=True,
                                                               num_workers=args.workers, pin_memory=True)
             target_val_loader = torch.utils.data.DataLoader(target_test_dataset, batch_size=args.extra, shuffle=True,

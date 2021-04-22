@@ -114,6 +114,18 @@ def set_bn_train(module):
         module.train()
 
 
+def compute_confusion(confusion_matrix, first, second):
+    confusion = 0
+    if (first, second) in confusion_matrix:
+        confusion += confusion_matrix[(first, second)]
+    
+    if (second, first) in confusion_matrix:
+        confusion += confusion_matrix[(second, first)]
+    return confusion/2
+
+def compute_bias(confusion_matrix, first, second, third):
+    return abs(compute_confusion(confusion_matrix, first, second) - compute_confusion(confusion_matrix, first, third))
+
 
 def get_dataset_from_specific_classes(target_dataset, first, second, third):
     first_indices = np.where(np.array(target_dataset.targets) == first)[0]
@@ -167,7 +179,7 @@ def main():
             numberofclass = 10
 
             target_train_dataset = datasets.CIFAR10('../data', train=True, download=True, transform=transform_train)
-            target_train_dataset = get_dataset_from_specific_classes(target_train_dataset, args.first, args.second)
+            target_train_dataset = get_dataset_from_specific_classes(target_train_dataset, args.first, args.second, args.third)
             target_test_dataset = datasets.CIFAR10('../data', train=False, download=True, transform=transform_test)
             target_test_dataset = get_dataset_from_specific_classes(target_test_dataset, args.first, args.second, args.third)
             target_train_loader = torch.utils.data.DataLoader(target_train_dataset, batch_size=args.extra, shuffle=True, 
