@@ -113,6 +113,17 @@ def set_bn_train(module):
     if isinstance(module, torch.nn.modules.batchnorm._BatchNorm):
         module.train()
 
+def compute_confusion(confusion_matrix, first, second):
+    confusion = 0
+    if (first, second) in confusion_matrix:
+        confusion += confusion_matrix[(first, second)]
+    
+    if (second, first) in confusion_matrix:
+        confusion += confusion_matrix[(second, first)]
+    return confusion/2
+
+def compute_bias(confusion_matrix, first, second, third):
+    return abs(compute_confusion(confusion_matrix, first, second) - compute_confusion(confusion_matrix, first, third))
 
 
 def get_dataset_from_specific_classes(target_dataset, first, second, third):
