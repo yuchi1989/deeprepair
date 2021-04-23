@@ -7,7 +7,12 @@
 ### [COCO](https://github.com/yuchi1989/deeprepair/tree/master/exp_7/coco ) prototype  
 
 
+## coco get instance
 
+```
+python2 repair_confusion_exp_weighted_loss.py --original original_model/model_best.pth.tar --fix fix_model/model_best.pth.tar --log_dir coco_confusion_repair_aug --first "person" --second "bus" --ann_dir '/local/shared/coco/annotations' --image_dir '/local/shared/coco/'
+python2 repair_confusion_exp_weighted_loss.py --original original_model/model_best.pth.tar --fix fix_model/model_best.pth.tar --log_dir coco_confusion_repair_aug --first "bus" --second "person" --ann_dir '/local/shared/coco/annotations' --image_dir '/local/shared/coco/'
+```
 
 
 
