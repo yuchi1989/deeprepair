@@ -7,10 +7,20 @@
 ### [COCO](https://github.com/yuchi1989/deeprepair/tree/master/exp_7/coco ) prototype  
 
 
+### [coco get instance](https://github.com/yuchi1989/deeprepair/blob/master/exp_9/coco/get_instance.py)
 
+```
+python2 repair_confusion_exp_weighted_loss.py --original original_model/model_best.pth.tar --fix fix_model/model_best.pth.tar --log_dir coco_confusion_repair_aug --first "person" --second "bus" --ann_dir '/local/shared/coco/annotations' --image_dir '/local/shared/coco/'
+python2 repair_confusion_exp_weighted_loss.py --original original_model/model_best.pth.tar --fix fix_model/model_best.pth.tar --log_dir coco_confusion_repair_aug --first "bus" --second "person" --ann_dir '/local/shared/coco/annotations' --image_dir '/local/shared/coco/'
+```
+### [cifar10 get instance](https://github.com/yuchi1989/deeprepair/blob/master/exp_7/cifar10/confusion/cifar10_get_instance.py)
 
+```
+python3 cifar10_get_instance.py --net_type resnet --dataset cifar10 --depth 18 --batch_size 128 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test  --cutmix_prob 0 --original ./runs/cifar10_resnet18_2_4/model_best.pth.tar --fix ./runs/cifar10_resnet_2_4_dogcat_dbr/model_best.pth.tar --expid 0  --checkmodel --first 5 --second 3
 
+python3 cifar10_get_instance.py --net_type resnet --dataset cifar10 --depth 18 --batch_size 128 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test  --cutmix_prob 0 --original ./runs/cifar10_resnet18_2_4/model_best.pth.tar --fix ./runs/cifar10_resnet_2_4_dogcat_dbr/model_best.pth.tar --expid 0  --checkmodel --first 3 --second 5
 
+```
 
 
 
