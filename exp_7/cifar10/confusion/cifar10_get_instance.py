@@ -20,6 +20,7 @@ import torch.utils.data.distributed
 import torchvision.transforms as transforms
 import torchvision.datasets as datasets
 import torchvision.models as models
+import torchvision
 import resnet as RN
 import pyramidnet as PYRM
 import utils
@@ -211,6 +212,9 @@ def main():
             transforms.ToTensor(),
             normalize
         ])
+        transform_test2 = transforms.Compose([
+            transforms.ToTensor(),
+        ])
 
         if args.dataset == 'cifar100':
             train_loader = torch.utils.data.DataLoader(
@@ -230,6 +234,10 @@ def main():
             val_loader = torch.utils.data.DataLoader(
                 datasets.CIFAR10('../data', train=False,
                                  transform=transform_test),
+                batch_size=args.batch_size, shuffle=False, num_workers=args.workers, pin_memory=True)
+            test_loader = torch.utils.data.DataLoader(
+                datasets.CIFAR10('../data', train=False,
+                                 transform=transform_test2),
                 batch_size=args.batch_size, shuffle=False, num_workers=args.workers, pin_memory=True)
             numberofclass = 10
 
@@ -277,7 +285,7 @@ def main():
     # define loss function (criterion) and optimizer
     criterion = nn.CrossEntropyLoss(reduction='none').cuda()
 
-    optimizer = torch.optim.SGD(model.parameters(), args.lr,
+    optimizer = torch.optim.SGD(model2.parameters(), args.lr,
                                 momentum=args.momentum,
                                 weight_decay=args.weight_decay, nesterov=True)
 
@@ -287,7 +295,7 @@ def main():
     # for checking pre-trained model accuracy and confusion
     if args.checkmodel:
         global_epoch_confusion.append({})
-        get_images(val_loader, model1, model2, criterion)
+        get_images(val_loader, test_loader, model1, model2, criterion)
 
         exit()
 
@@ -313,9 +321,9 @@ def rand_bbox(size, lam):
 
 
 
-def get_images(val_loader, model1, model2, criterion, epoch=-1):
+def get_images(val_loader, test_loader, model1, model2, criterion, epoch=-1):
 
-
+    from itertools import cycle
     losses = AverageMeter()
     top1 = AverageMeter()
     top5 = AverageMeter()
@@ -327,6 +335,9 @@ def get_images(val_loader, model1, model2, criterion, epoch=-1):
     yhats = []
     labels = []
     images = []
+    for i, (input, target) in enumerate(test_loader):
+        for i in range(len(input)):
+            images.append(input[i].cpu().data.numpy())
     for i, (input, target) in enumerate(val_loader):
         target = target.cuda()
 
@@ -350,7 +361,7 @@ def get_images(val_loader, model1, model2, criterion, epoch=-1):
         for i in range(len(input)):
             yhats.append(int(top1_output[i].cpu().data.numpy()))
             labels.append(int(target[i].cpu().data.numpy()))
-            images.append(input[i].cpu().data.numpy())
+            #images.append(input2[i].cpu().data.numpy())
 
     model1.eval()
     correct = 0
@@ -382,11 +393,15 @@ def get_images(val_loader, model1, model2, criterion, epoch=-1):
             yhats2.append(int(top1_output[i].cpu().data.numpy()))
             labels2.append(int(target[i].cpu().data.numpy()))
     
-    assert labels = labels2
+    assert labels == labels2
 
-    for y1,l1,y2,l2,img in zip(yhats,labels,yhats2,labels,images)
+    for y1,l1,y2,l2,img in zip(yhats,labels,yhats2,labels,images):
         if l1 == args.first and y1==args.second and y2 == args.first:
-            plt.imshow(np.transpose(np.reshape(img,(3, 32,32)), (1,2,0)))
+            #img = img / 2 + 0.5
+            img = np.transpose(img, (1,2,0))
+            #img = torchvision.utils.make_grid(img)
+            plt.imshow(img)
+            plt.show()
     return
 
 
