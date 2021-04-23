@@ -161,27 +161,27 @@ python2 repair_bias_exp_weighted_loss.py --pretrained original_model/model_best.
 python2 repair_bias_dbr.py --pretrained original_model/model_best.pth.tar --log_dir coco_bias_repair_dbr --first "handbag" --second "woman" --third "man" --ann_dir '/local/shared/coco/annotations' --image_dir '/local/shared/coco/' --lam 0.5
 ```  
 
-### [COCO 2 pair confusion](https://github.com/yuchi1989/deeprepair/tree/master/exp_9/coco) experiments  
+### [COCO 2 pair confusion](https://github.com/yuchi1989/deeprepair/tree/master/exp_9/coco_multipair) experiments  
 
-#### [orig](https://github.com/yuchi1989/deeprepair/blob/master/exp_9/coco/train_epoch_graph.py):    
+#### [orig](https://github.com/yuchi1989/deeprepair/blob/master/exp_9/coco_multipair/get_original_confusion.py):    
 
 ```
 python2 get_original_confusion.py --log_dir original_model --ann_dir '/local/shared/coco/annotations' --image_dir '/local/shared/coco/' --pair1a person --pair1b bus --pair2a mouse --pair2b keyboard
 ```
 
-#### [w-aug](https://github.com/yuchi1989/deeprepair/blob/master/exp_9/coco/repair_confusion_exp_weighted_loss.py):  
+#### [w-aug](https://github.com/yuchi1989/deeprepair/blob/master/exp_9/coco_multipair/repair_confusion_exp_weighted_loss.py):  
 
 ```
 python2 repair_confusion_exp_weighted_loss.py --pretrained original_model/model_best.pth.tar --log_dir coco_confusion_repair_aug  --ann_dir '/local/shared/coco/annotations' --image_dir '/local/shared/coco/' --weight 3 --class_num 80 --pair1a person --pair1b bus --pair2a mouse --pair2b keyboard
 ```
 
-#### [w-bn](https://github.com/yuchi1989/deeprepair/blob/master/exp_9/coco/repair_confusion_bn.py):  
+#### [w-bn](https://github.com/yuchi1989/deeprepair/blob/master/exp_9/coco_multipair/repair_confusion_bn.py):  
 
 ```
 python2 repair_confusion_bn.py --pretrained original_model/model_best.pth.tar --log_dir coco_confusion_repair_bn  --ann_dir '/local/shared/coco/annotations' --image_dir '/local/shared/coco/' --replace --pair1a person --pair1b bus --pair2a mouse --pair2b keyboard --ratio 0.4 
 ```
 
-#### [w-os](https://github.com/yuchi1989/deeprepair/blob/master/exp_9/coco_gender/repair_confusion_exp_newbn_softmax.py):
+#### [w-os](https://github.com/yuchi1989/deeprepair/blob/master/exp_9/coco_multipair/repair_confusion_exp_newbn_softmax.py):
 ```
 python2 coco_feature_space.py --pretrained original_model/checkpoint.pth.tar --ann_dir '/home/yuchi/data/coco/annotations' --image_dir '/home/yuchi/data/coco/' --groupname original
 python2 repair_confusion_exp_newbn_softmax.py --data_file original_test_data.npy --eta 0.8 --mode multipairconfusion --first person --second bus --third mouse --fourth keyboard
@@ -192,7 +192,7 @@ python2 repair_confusion_exp_newbn_softmax.py --data_file original_test_data.npy
 not updated yet  
 python2 repair_confusion_exp_weighted_loss.py --pretrained original_model/model_best.pth.tar --log_dir coco_confusion_repair_loss --first "bus" --second "person" --ann_dir '/local/shared/coco/annotations' --image_dir '/local/shared/coco/' --weight 1 --class_num 80 --target_weight 0.4
 ```
-#### [w-dbr](https://github.com/yuchi1989/deeprepair/blob/master/exp_9/coco/repair_confusion_dbr.py):  
+#### [w-dbr](https://github.com/yuchi1989/deeprepair/blob/master/exp_9/coco_multipair/repair_confusion_dbr.py):  
 
 ```
 python2 repair_confusion_dbr.py --pretrained original_model/model_best.pth.tar --log_dir coco_confusion_repair_dbr  --ann_dir '/local/shared/coco/annotations' --image_dir '/local/shared/coco/' --pair1a person --pair1b bus --pair2a mouse --pair2b keyboard --lam 0.5
