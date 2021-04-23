@@ -104,9 +104,8 @@ def main():
     sampler = WeightedRandomSampler(torch.DoubleTensor(weights), len(train_data.labels))
 
     # Data loaders / batch assemblers.
-    train_loader = torch.utils.data.DataLoader(train_data, batch_size = args.batch_size,
-                                              shuffle = True, num_workers = 1,
-                                              pin_memory = True)
+    train_loader = torch.utils.data.DataLoader(train_data, batch_size = args.batch_size, num_workers = 1,
+                                              pin_memory = True, sampler=sampler)
 
 
 

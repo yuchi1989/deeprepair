@@ -448,7 +448,7 @@ def train(train_loader, model, criterion, optimizer, epoch):
                 elif len(inds_second) > 0:
                     loss_target = criterion(output[inds_second], target[inds_second]).mean()
                     use_loss_target = True
-
+                print('len(inds_first), len(inds_second), loss_target.detach().numpy().cpu()', len(inds_first), len(inds_second), loss_target.detach().numpy().cpu())
                 return loss_target, use_loss_target
 
             if args.target_weight > 0:

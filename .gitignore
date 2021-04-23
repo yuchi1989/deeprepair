@@ -48,3 +48,6 @@ exp_9/coco/coco_bias_repair_aug_3
 exp_9/coco/coco_bias_repair_aug_5
 exp_9/coco/coco_confusion_repair_aug_3
 exp_9/coco/coco_confusion_repair_aug_5
+exp_7/data/*
+exp_7/CutMix-PyTorch
+exp_7/cifar10/cifar10_original_model/*
