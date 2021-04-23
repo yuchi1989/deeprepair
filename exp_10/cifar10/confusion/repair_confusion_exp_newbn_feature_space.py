@@ -2,6 +2,8 @@
 # python3 repair_retrain_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --pretrained ./runs/DeepInspect_1/model_best.pth.tar --expid 0 --checkmodel
 # python3 repair_retrain_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname ResNet50 --epochs 60 --beta 1.0 --cutmix_prob 1.0 --pretrained ./runs/DeepInspect_1/model_best.pth.tar --expid 0 --first 3 --second 5
 
+# python3 repair_confusion_exp_newbn.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4/model_best.pth.tar --expid 0 --lam 0 --extra 256
+# set extra batch size same as batch size for half half assumption in new batchnorm layer
 import argparse
 import os
 import shutil
@@ -20,20 +22,21 @@ import torchvision.datasets as datasets
 import torchvision.models as models
 import resnet as RN
 import pyramidnet as PYRM
+import VGG
 import utils
 import numpy as np
 import random
 import warnings
 from tqdm import tqdm
-
+from newbatchnorm2 import dnnrepair_BatchNorm2d
 warnings.filterwarnings("ignore")
 
 torch.manual_seed(124)
 torch.cuda.manual_seed(124)
 np.random.seed(124)
 random.seed(124)
-#torch.backends.cudnn.enabled=False
-#torch.backends.cudnn.deterministic=True
+# torch.backends.cudnn.enabled=False
+# torch.backends.cudnn.deterministic=True
 
 model_names = sorted(name for name in models.__dict__
                      if name.islower() and not name.startswith("__")
@@ -77,21 +80,27 @@ parser.add_argument(
     '--pretrained', default='/set/your/model/path', type=str, metavar='PATH')
 parser.add_argument('--expid', default="0", type=str, help='experiment id')
 parser.add_argument('--checkmodel', help='Check model accuracy',
-    action='store_true')
+                    action='store_true')
 parser.add_argument('--lam', default=0.5, type=float,
                     help='hyperparameter lambda')
 parser.add_argument('--first', default=3, type=int,
                     help='first object index')
 parser.add_argument('--second', default=5, type=int,
                     help='second object index')
-parser.add_argument('--third', default=5, type=int,
-                    help='third object index')
 parser.add_argument('--extra', default=10, type=int,
                     help='extra batch size')
 parser.add_argument('--keeplr', help='set lr 0.001 ',
-    action='store_true')
-parser.add_argument('--forward', default=1, type=int,
-                    help='extra batch size')
+                    action='store_true')
+
+parser.add_argument('--replace', help='replace bn layer ',
+                    action='store_true')
+
+parser.add_argument('--ratio', default=0.5, type=float,
+                    help='target ratio for batchnorm layers')
+
+parser.add_argument('--groupname', default="", type=str, help='experiment id')
+# parser.add_argument('--forward', default=1, type=int,
+#                    help='extra batch size')
 parser.set_defaults(bottleneck=True)
 parser.set_defaults(verbose=False)
 
@@ -105,36 +114,92 @@ def log_print(var):
     print("logging filter: " + str(var))
 
 
-def set_bn_eval(module):
-    if isinstance(module, torch.nn.modules.batchnorm._BatchNorm):
-        module.eval()
-
-def set_bn_train(module):
-    if isinstance(module, torch.nn.modules.batchnorm._BatchNorm):
-        module.train()
-
-def compute_confusion(confusion_matrix, first, second):
-    confusion = 0
-    if (first, second) in confusion_matrix:
-        confusion += confusion_matrix[(first, second)]
-    
-    if (second, first) in confusion_matrix:
-        confusion += confusion_matrix[(second, first)]
-    return confusion/2
-
-def compute_bias(confusion_matrix, first, second, third):
-    return abs(compute_confusion(confusion_matrix, first, second) - compute_confusion(confusion_matrix, first, third))
+glob_bn_total = 0
+glob_bn_count = 0
 
 
-def get_dataset_from_specific_classes(target_dataset, first, second, third):
+def count_bn_layer(module):
+    global glob_bn_total
+    for child_name, child in module.named_children():
+        if isinstance(child, torch.nn.modules.batchnorm.BatchNorm2d):
+            #setattr(module, child_name, nn.Softplus())
+            glob_bn_total += 1
+        else:
+            count_bn_layer(child)
+
+
+def replace_bn(module):
+    global glob_bn_count
+    global glob_bn_total
+    # go through all attributes of module nn.module (e.g. network or layer) and put batch norms if present
+
+    for child_name, child in module.named_children():
+        if isinstance(child, torch.nn.modules.batchnorm.BatchNorm2d):
+            glob_bn_count += 1
+            if glob_bn_count >= glob_bn_total - 2:  # unfreeze last 3
+                print('replaced: bn')
+                #new_bn = dnnrepair_BatchNorm2d(child.num_features, child.weight, child.bias, child.running_mean, child.running_var, 0.5, child.eps, child.momentum, child.affine, track_running_stats=True)
+                #new_bn = dnnrepair_BatchNorm2d(child.num_features, child.weight, child.bias, child.running_mean, child.running_var, 9/19, child.eps, 0.19, child.affine, track_running_stats=True)
+                #new_bn = dnnrepair_BatchNorm2d(child.num_features, child.weight, child.bias, child.running_mean, child.running_var, 9/19, child.eps, child.momentum, child.affine, track_running_stats=True)
+                new_bn = dnnrepair_BatchNorm2d(child.num_features, child.weight, child.bias, child.running_mean, child.running_var, args.ratio, child.eps, child.momentum, child.affine, track_running_stats=True)
+                setattr(module, child_name, new_bn)
+            else:
+                print('replaced: bn')
+                new_bn = dnnrepair_BatchNorm2d(child.num_features, child.weight, child.bias, child.running_mean, child.running_var, 0, child.eps, child.momentum, child.affine, track_running_stats=True)
+                setattr(module, child_name, new_bn)
+        else:
+            replace_bn(child)
+
+def set_bn_eval(model):
+    global glob_bn_count
+    global glob_bn_total
+    for module in model.modules():
+        if isinstance(module, torch.nn.BatchNorm2d):
+            glob_bn_count += 1
+            if glob_bn_count < glob_bn_total - 2:  # unfreeze last 3
+                # if glob_bn_count < glob_bn_total:# unfreeze last bn
+                # if glob_bn_count != glob_bn_total//2:# unfreeze middle bn
+                # if glob_bn_count != 1: # unfreeze first bn layer
+                # if glob_bn_count < glob_bn_total*2/3:# unfreeze last 1/3
+                # if glob_bn_count > glob_bn_total*1/3:# unfreeze first 1/3
+                # if glob_bn_count > glob_bn_total*2/3 or glob_bn_count < glob_bn_total*1/3: # unfreeze middle 1/3
+                module.eval()
+                if hasattr(module, 'weight'):
+                    module.weight.requires_grad_(False)
+                if hasattr(module, 'bias'):
+                    module.bias.requires_grad_(False)
+            else:
+                module.momentum = 0.5
+
+
+def set_bn_train(model):  # unfreeze all bn
+    for module in model.modules():
+        if isinstance(module, nn.BatchNorm2d):
+            if hasattr(module, 'weight'):
+                module.weight.requires_grad_(True)
+            if hasattr(module, 'bias'):
+                module.bias.requires_grad_(True)
+            #print("set bn")
+            module.train()
+
+
+def get_dataset_from_specific_classes(target_dataset, first, second):
     first_indices = np.where(np.array(target_dataset.targets) == first)[0]
     second_indices = np.where(np.array(target_dataset.targets) == second)[0]
-    third_indices = np.where(np.array(target_dataset.targets) == third)[0]
-    target_idx = np.hstack([first_indices, second_indices, third_indices])
+    target_idx = np.hstack([first_indices, second_indices])
     target_dataset.targets = np.array(target_dataset.targets)[target_idx]
     target_dataset.data = target_dataset.data[target_idx]
     return target_dataset
 
+
+layer_outputs= []
+
+def hook(module, input, output):
+    global layer_outputs
+    output = output.detach().cpu().numpy()
+    output = output.reshape(-1,256)
+    #print(output.shape)
+    layer_outputs.append(output)
 
 def main():
     global args, best_err1, best_err5, global_epoch_confusion, best_loss
@@ -166,18 +231,6 @@ def main():
                                   transform=transform_test),
                 batch_size=args.batch_size, shuffle=True, num_workers=args.workers, pin_memory=True)
             numberofclass = 100
-            target_train_dataset = datasets.CIFAR100(
-                '../data', train=True, download=True, transform=transform_train)
-            target_train_dataset = get_dataset_from_specific_classes(
-                target_train_dataset, args.first, args.second, args.third)
-            target_test_dataset = datasets.CIFAR100(
-                '../data', train=False, download=True, transform=transform_test)
-            target_test_dataset = get_dataset_from_specific_classes(
-                target_test_dataset, args.first, args.second, args.third)
-            target_train_loader = torch.utils.data.DataLoader(target_train_dataset, batch_size=args.extra, shuffle=True,
-                                                              num_workers=args.workers, pin_memory=True)
-            target_val_loader = torch.utils.data.DataLoader(target_test_dataset, batch_size=args.extra, shuffle=True,
-                                                            num_workers=args.workers, pin_memory=True)
         elif args.dataset == 'cifar10':
             train_loader = torch.utils.data.DataLoader(
                 datasets.CIFAR10('../data', train=True,
@@ -189,14 +242,18 @@ def main():
                 batch_size=args.batch_size, shuffle=True, num_workers=args.workers, pin_memory=True)
             numberofclass = 10
 
-            target_train_dataset = datasets.CIFAR10('../data', train=True, download=True, transform=transform_train)
-            target_train_dataset = get_dataset_from_specific_classes(target_train_dataset, args.first, args.second)
-            target_test_dataset = datasets.CIFAR10('../data', train=False, download=True, transform=transform_test)
-            target_test_dataset = get_dataset_from_specific_classes(target_test_dataset, args.first, args.second, args.third)
-            target_train_loader = torch.utils.data.DataLoader(target_train_dataset, batch_size=args.extra, shuffle=True, 
-                                        num_workers=args.workers, pin_memory=True)
-            target_val_loader = torch.utils.data.DataLoader(target_test_dataset, batch_size=args.extra, shuffle=True, 
-                                        num_workers=args.workers, pin_memory=True)
+            target_train_dataset = datasets.CIFAR10(
+                '../data', train=True, download=True, transform=transform_train)
+            target_train_dataset = get_dataset_from_specific_classes(
+                target_train_dataset, args.first, args.second)
+            target_test_dataset = datasets.CIFAR10(
+                '../data', train=False, download=True, transform=transform_test)
+            target_test_dataset = get_dataset_from_specific_classes(
+                target_test_dataset, args.first, args.second)
+            target_train_loader = torch.utils.data.DataLoader(target_train_dataset, batch_size=args.extra, shuffle=True,
+                                                              num_workers=args.workers, pin_memory=True)
+            target_val_loader = torch.utils.data.DataLoader(target_test_dataset, batch_size=args.extra, shuffle=True,
+                                                            num_workers=args.workers, pin_memory=True)
 
         else:
             raise Exception('unknown dataset: {}'.format(args.dataset))
@@ -210,6 +267,8 @@ def main():
     elif args.net_type == 'pyramidnet':
         model = PYRM.PyramidNet(args.dataset, args.depth, args.alpha, numberofclass,
                                 args.bottleneck)
+    elif args.net_type == 'vgg':
+        model = VGG.vgg11_bn()
     else:
         raise Exception(
             'unknown network architecture: {}'.format(args.net_type))
@@ -226,6 +285,20 @@ def main():
     print('the number of model parameters: {}'.format(
         sum([p.data.nelement() for p in model.parameters()])))
 
+    # replace bn layer
+    if args.replace:
+        model.to('cpu')
+        global glob_bn_count
+        global glob_bn_total
+        glob_bn_total = 0
+        glob_bn_count = 0
+        count_bn_layer(model)
+        print("total bn layer: " + str(glob_bn_total))
+        glob_bn_count = 0
+        replace_bn(model)
+        print(model)
+        model = model.cuda()
+
     # define loss function (criterion) and optimizer
     criterion = nn.CrossEntropyLoss(reduction='none').cuda()
 
@@ -239,204 +312,33 @@ def main():
     # for checking pre-trained model accuracy and confusion
     if args.checkmodel:
         global_epoch_confusion.append({})
-        get_confusion(val_loader, model, criterion)
-        confusion_matrix = global_epoch_confusion[-1]["confusion"]
-        print(str((args.first, args.second, args.third)) + " triplet: " + 
-            str(abs(confusion_matrix[(args.first, args.second)] - confusion_matrix[(args.first, args.third)])))
-        print(str((args.first, args.second)) + ": " + str(confusion_matrix[(args.first, args.second)]))
-        print(str((args.first, args.third)) + ": " + str(confusion_matrix[(args.first, args.third)]))
-        exit()
+        repaired_model = 'runs/%s/' % (args.expname) + 'model_best.pth.tar'
+        if os.path.isfile(repaired_model):
+            print("=> loading checkpoint '{}'".format(repaired_model))
+            checkpoint = torch.load(repaired_model)
+            model.load_state_dict(checkpoint['state_dict'])
 
-    for epoch in range(0, args.epochs):
-        global_epoch_confusion.append({})
-        adjust_learning_rate(optimizer, epoch)
-
-        # train for one epoch
-        train(train_loader, target_train_loader, model, criterion, optimizer, epoch)
-
-        # evaluate on validation set
-        err1, err5, val_loss = validate(val_loader, target_val_loader, model, criterion, epoch)
-
-        # remember best prec@1 and save checkpoint
-
-        if epoch // (args.epochs * 0.75):
-            is_best = err1 <= best_err1
-            best_err1 = min(err1, best_err1)
-            if is_best:
-                best_err5 = err5
-                best_err1 = err1
-
-            print('Current best accuracy (top-1 and 5 error):', best_err1, best_err5)
-            save_checkpoint({
-                'epoch': epoch,
-                'arch': args.net_type,
-                'state_dict': model.state_dict(),
-                'best_err1': best_err1,
-                'best_err5': best_err5,
-                'optimizer': optimizer.state_dict(),
-            }, is_best)
-
-
-        get_confusion(val_loader, model, criterion, epoch)
-        confusion_matrix = global_epoch_confusion[-1]["confusion"]
-        #print("loss: " + str(global_epoch_confusion[-1]["loss"]))
-        first_second = compute_confusion(confusion_matrix, args.first, args.second)
-        first_third = compute_confusion(confusion_matrix, args.first, args.third)
-        print(str((args.first, args.second, args.third)) + " triplet: " + 
-            str(compute_bias(confusion_matrix, args.first, args.second, args.third)))
-        print(str((args.first, args.second)) + ": " + str(first_second))
-        print(str((args.first, args.third)) + ": " + str(first_third))
-
-    print('Best accuracy (top-1 and 5 error):', best_err1, best_err5)
-    directory = "runs/%s/" % (args.expname)
-    if not os.path.exists(directory):
-        os.makedirs(directory)
-    epoch_confusions = 'runs/%s/' % (args.expname) + \
-        'epoch_confusion_' + args.expid
-    np.save(epoch_confusions, global_epoch_confusion)
-    log_print("")
-    # output best model accuracy and confusion
-    repaired_model = 'runs/%s/' % (args.expname) + 'model_best.pth.tar'
-    if os.path.isfile(repaired_model):
-        print("=> loading checkpoint '{}'".format(repaired_model))
-        checkpoint = torch.load(repaired_model)
-        model.load_state_dict(checkpoint['state_dict'])
-        get_confusion(val_loader, model, criterion)
-        confusion_matrix = global_epoch_confusion[-1]["confusion"]
-        #print("loss: " + str(global_epoch_confusion[-1]["loss"]))
-        first_second = compute_confusion(confusion_matrix, args.first, args.second)
-        first_third = compute_confusion(confusion_matrix, args.first, args.third)
-        print(str((args.first, args.second, args.third)) + " triplet: " + 
-            str(compute_bias(confusion_matrix, args.first, args.second, args.third)))
-        print(str((args.first, args.second)) + ": " + str(first_second))
-        print(str((args.first, args.third)) + ": " + str(first_third))
-
-
-
-def train(train_loader, target_train_loader, model, criterion, optimizer, epoch):
-    batch_time = AverageMeter()
-    data_time = AverageMeter()
-    losses = AverageMeter()
-    top1 = AverageMeter()
-    top5 = AverageMeter()
-
-    # switch to train mode
-    model.train()
-
-    end = time.time()
-    current_LR = get_learning_rate(optimizer)[0]
-    extra_iterator = iter(target_train_loader)
-    t = tqdm(train_loader, desc = 'Train %d' % epoch)
-    for i, (input, target) in enumerate(t):
-        # measure data loading time
-        data_time.update(time.time() - end)
-        try:
-            (target_input, target_target) = next(extra_iterator)
-        except StopIteration:
-            extra_iterator = iter(target_train_loader)
-            (target_input, target_target) = next(extra_iterator)
-        input = torch.cat([input, target_input])
-        target = torch.cat([target, target_target])
-        input = input.cuda()
-        target = target.cuda()
-        target_copy = target.cpu().numpy()
-        for _ in range(args.forward):
-            target_output = model(target_input)
-        r = np.random.rand(1)
-        if args.beta > 0 and r < args.cutmix_prob:
-            # generate mixed sample
-
-            lam = np.random.beta(args.beta, args.beta)
-            rand_index = torch.randperm(input.size()[0]).cuda()
-            target_a = target
-            target_b = target[rand_index]
-            bbx1, bby1, bbx2, bby2 = rand_bbox(input.size(), lam)
-            input[:, :, bbx1:bbx2, bby1:bby2] = input[rand_index,
-                                                      :, bbx1:bbx2, bby1:bby2]
-            # adjust lambda to exactly match pixel ratio
-            lam = 1 - ((bbx2 - bbx1) * (bby2 - bby1) /
-                       (input.size()[-1] * input.size()[-2]))
-            # compute output
-            output = model(input)
-            loss = criterion(output, target_a).mean() * lam + \
-                criterion(output, target_b).mean() * (1. - lam)
-            id3 = []
-            id5 = []
-
-            for j in range(len(input)):
-                if (target_copy[j]) == args.first:
-                    id3.append(j)
-                elif (target_copy[j]) == args.second:
-                    id5.append(j)
-
-            m = nn.Softmax(dim=1)
-
-            p_dist = torch.dist(torch.mean(
-                m(output)[id3], 0), torch.mean(m(output)[id5], 0), 2)
-
-            p_dist = 0
-            loss2 = loss - args.lam * p_dist
-        else:
-            # compute output
-            output = model(input)
-            #_, top1_output = output.max(1)
-            #yhats = top1_output.cpu().data.numpy()
-            # print(yhats[:5])
-            #target_output = model(input)
-            id3 = []
-            id5 = []
-            id1 = []
-            for j in range(len(input)):
-                if (target_copy[j]) == args.first:
-                    id3.append(j)
-                elif (target_copy[j]) == args.second:
-                    id5.append(j)
-                elif (target_copy[j]) == args.third:
-                    id1.append(j)
-
-            m = nn.Softmax(dim=1)
-            if len(id3) == 0 or len(id5) == 0 or len(id1) == 0:
-                diff_dist = 0
-            else:
-                p_dist1 = torch.dist(torch.mean(
-                    m(output)[id3], 0), torch.mean(m(output)[id5], 0), 2)
-                p_dist2 = torch.dist(torch.mean(
-                    m(output)[id3], 0), torch.mean(m(output)[id1], 0), 2)
-                diff_dist = torch.abs(p_dist1 - p_dist2)
-            #print(criterion(output, target).mean())
-            # print(p_dist)
-
-            #loss2 = criterion(output, target).mean() + p_dist
-            #loss2 = criterion(output, target).mean()
-            loss2 = criterion(output, target).mean() + args.lam*diff_dist
-
-        losses.update(loss2.item(), input.size(0))
-
-        # compute gradient and do SGD step
-        optimizer.zero_grad()
-        loss2.backward()
-        optimizer.step()
-
-        # measure elapsed time
-        batch_time.update(time.time() - end)
-        end = time.time()
-        t.set_postfix(loss = losses.avg)
+            model.module.avgpool.register_forward_hook(hook)
+            labels = get_confusion(val_loader, model, criterion)
+            # dog->cat confusion
+            log_print(str(args.first) + " -> " + str(args.second))
+            log_print(global_epoch_confusion[-1]
+                    ["confusion"][(args.first, args.second)])
+            # cat->dog confusion
+            log_print(str(args.second) + " -> " + str(args.first))
+            log_print(global_epoch_confusion[-1]
+                    ["confusion"][(args.second, args.first)])
         
-        if i % args.print_freq == 0 and args.verbose == True:
-            print('Epoch: [{0}/{1}][{2}/{3}]\t'
-                  'LR: {LR:.6f}\t'
-                  'Time {batch_time.val:.3f} ({batch_time.avg:.3f})\t'
-                  'Data {data_time.val:.3f} ({data_time.avg:.3f})\t'
-                  'Loss {loss.val:.4f} ({loss.avg:.4f})\t'
-                  'Top 1-err {top1.val:.4f} ({top1.avg:.4f})\t'
-                  'Top 5-err {top5.val:.4f} ({top5.avg:.4f})'.format(
-                      epoch, args.epochs, i, len(train_loader), LR=current_LR, batch_time=batch_time,
-                      data_time=data_time, loss=losses, top1=top1, top5=top5))
+        outputs = np.vstack(layer_outputs)
+        print(outputs.shape)
+        labels = np.array(labels)
+        print(labels.shape)
+        np.save(args.groupname + '_outputs.npy', outputs)
+        np.save(args.groupname + '_labels.npy', labels)
 
-    print('* Epoch: [{0}/{1}]\t Top 1-err {top1.avg:.3f}  Top 5-err {top5.avg:.3f}\t Train Loss {loss.avg:.3f}'.format(
-        epoch, args.epochs, top1=top1, top5=top5, loss=losses))
+   
 
-    return losses.avg
+
 
 
 def rand_bbox(size, lam):
@@ -456,47 +358,6 @@ def rand_bbox(size, lam):
     bby2 = np.clip(cy + cut_h // 2, 0, H)
 
     return bbx1, bby1, bbx2, bby2
-
-
-def validate(val_loader, target_val_loader, model, criterion, epoch):
-    batch_time = AverageMeter()
-    losses = AverageMeter()
-    top1 = AverageMeter()
-    top5 = AverageMeter()
-
-    # switch to evaluate mode
-    model.eval()
-
-    end = time.time()
-    t = tqdm(val_loader, desc = 'Val %d' % epoch)
-    for i, (input, target) in enumerate(t):
-        target = target.cuda()
-        output = model(input)
-        loss = criterion(output, target)
-        # measure accuracy and record loss
-        err1, err5 = accuracy(output.data, target, topk=(1, 5))
-
-        losses.update(loss.mean().item(), input.size(0))
-        t.set_postfix(loss = losses.avg)
-        top1.update(err1.item(), input.size(0))
-        top5.update(err5.item(), input.size(0))
-
-        # measure elapsed time
-        batch_time.update(time.time() - end)
-        end = time.time()
-
-        if i % args.print_freq == 0 and args.verbose == True:
-            print('Test (on val set): [{0}/{1}][{2}/{3}]\t'
-                  'Time {batch_time.val:.3f} ({batch_time.avg:.3f})\t'
-                  'Loss {loss.val:.4f} ({loss.avg:.4f})\t'
-                  'Top 1-err {top1.val:.4f} ({top1.avg:.4f})\t'
-                  'Top 5-err {top5.val:.4f} ({top5.avg:.4f})'.format(
-                      epoch, args.epochs, i, len(val_loader), batch_time=batch_time, loss=losses,
-                      top1=top1, top5=top5))
-
-    print('* Epoch: [{0}/{1}]\t Top 1-err {top1.avg:.3f}  Top 5-err {top5.avg:.3f}\t Test Loss {loss.avg:.3f}'.format(
-        epoch, args.epochs, top1=top1, top5=top5, loss=losses))
-    return top1.avg, top5.avg, losses.avg
 
 
 def get_confusion(val_loader, model, criterion, epoch=-1):
@@ -562,7 +423,7 @@ def get_confusion(val_loader, model, criterion, epoch=-1):
     log_print(correct*1.0/len(labels))
 
     labels_list = []
-    for i in range(100):
+    for i in range(10):
         labels_list.append(i)
 
     type1confusion = {}
@@ -595,8 +456,8 @@ def get_confusion(val_loader, model, criterion, epoch=-1):
                 dog_cat_acc += 1
     global_epoch_confusion[-1]["dogcatacc"] = dog_cat_acc/dog_cat_sum
     log_print("pair accuracy: " + str(global_epoch_confusion[-1]["dogcatacc"]))
-    
-    return top1.avg, top5.avg, losses.avg
+
+    return labels
 
 
 def save_checkpoint(state, is_best, filename='checkpoint.pth.tar'):
@@ -608,7 +469,7 @@ def save_checkpoint(state, is_best, filename='checkpoint.pth.tar'):
     if is_best:
         print("saving best model...")
         shutil.copyfile(filename, 'runs/%s/' % (args.expname) +
-                         'model_best.pth.tar')
+                        'model_best.pth.tar')
 
 
 class AverageMeter(object):

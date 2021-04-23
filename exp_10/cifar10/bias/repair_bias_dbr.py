@@ -20,6 +20,7 @@ import torchvision.datasets as datasets
 import torchvision.models as models
 import resnet as RN
 import pyramidnet as PYRM
+import VGG
 import utils
 import numpy as np
 import random
@@ -86,7 +87,7 @@ parser.add_argument('--second', default=5, type=int,
                     help='second object index')
 parser.add_argument('--third', default=5, type=int,
                     help='third object index')
-parser.add_argument('--extra', default=10, type=int,
+parser.add_argument('--extra', default=15, type=int,
                     help='extra batch size')
 parser.add_argument('--keeplr', help='set lr 0.001 ',
     action='store_true')
@@ -112,6 +113,7 @@ def set_bn_eval(module):
 def set_bn_train(module):
     if isinstance(module, torch.nn.modules.batchnorm._BatchNorm):
         module.train()
+
 
 def compute_confusion(confusion_matrix, first, second):
     confusion = 0
@@ -166,18 +168,6 @@ def main():
                                   transform=transform_test),
                 batch_size=args.batch_size, shuffle=True, num_workers=args.workers, pin_memory=True)
             numberofclass = 100
-            target_train_dataset = datasets.CIFAR100(
-                '../data', train=True, download=True, transform=transform_train)
-            target_train_dataset = get_dataset_from_specific_classes(
-                target_train_dataset, args.first, args.second, args.third)
-            target_test_dataset = datasets.CIFAR100(
-                '../data', train=False, download=True, transform=transform_test)
-            target_test_dataset = get_dataset_from_specific_classes(
-                target_test_dataset, args.first, args.second, args.third)
-            target_train_loader = torch.utils.data.DataLoader(target_train_dataset, batch_size=args.extra, shuffle=True,
-                                                              num_workers=args.workers, pin_memory=True)
-            target_val_loader = torch.utils.data.DataLoader(target_test_dataset, batch_size=args.extra, shuffle=True,
-                                                            num_workers=args.workers, pin_memory=True)
         elif args.dataset == 'cifar10':
             train_loader = torch.utils.data.DataLoader(
                 datasets.CIFAR10('../data', train=True,
@@ -190,7 +180,7 @@ def main():
             numberofclass = 10
 
             target_train_dataset = datasets.CIFAR10('../data', train=True, download=True, transform=transform_train)
-            target_train_dataset = get_dataset_from_specific_classes(target_train_dataset, args.first, args.second)
+            target_train_dataset = get_dataset_from_specific_classes(target_train_dataset, args.first, args.second, args.third)
             target_test_dataset = datasets.CIFAR10('../data', train=False, download=True, transform=transform_test)
             target_test_dataset = get_dataset_from_specific_classes(target_test_dataset, args.first, args.second, args.third)
             target_train_loader = torch.utils.data.DataLoader(target_train_dataset, batch_size=args.extra, shuffle=True, 
@@ -210,6 +200,8 @@ def main():
     elif args.net_type == 'pyramidnet':
         model = PYRM.PyramidNet(args.dataset, args.depth, args.alpha, numberofclass,
                                 args.bottleneck)
+    elif args.net_type == 'vgg':
+        model = VGG.vgg11_bn()
     else:
         raise Exception(
             'unknown network architecture: {}'.format(args.net_type))
@@ -340,8 +332,7 @@ def train(train_loader, target_train_loader, model, criterion, optimizer, epoch)
         input = input.cuda()
         target = target.cuda()
         target_copy = target.cpu().numpy()
-        for _ in range(args.forward):
-            target_output = model(target_input)
+
         r = np.random.rand(1)
         if args.beta > 0 and r < args.cutmix_prob:
             # generate mixed sample
@@ -364,9 +355,9 @@ def train(train_loader, target_train_loader, model, criterion, optimizer, epoch)
             id5 = []
 
             for j in range(len(input)):
-                if (target_copy[j]) == args.first:
+                if (target[j]) == args.first:
                     id3.append(j)
-                elif (target_copy[j]) == args.second:
+                elif (target[j]) == args.second:
                     id5.append(j)
 
             m = nn.Softmax(dim=1)
@@ -379,10 +370,11 @@ def train(train_loader, target_train_loader, model, criterion, optimizer, epoch)
         else:
             # compute output
             output = model(input)
+            #target_output = model(target_input)
             #_, top1_output = output.max(1)
             #yhats = top1_output.cpu().data.numpy()
             # print(yhats[:5])
-            #target_output = model(input)
+            
             id3 = []
             id5 = []
             id1 = []
@@ -562,7 +554,7 @@ def get_confusion(val_loader, model, criterion, epoch=-1):
     log_print(correct*1.0/len(labels))
 
     labels_list = []
-    for i in range(100):
+    for i in range(10):
         labels_list.append(i)
 
     type1confusion = {}

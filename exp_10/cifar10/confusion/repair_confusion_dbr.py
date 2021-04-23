@@ -20,6 +20,7 @@ import torchvision.datasets as datasets
 import torchvision.models as models
 import resnet as RN
 import pyramidnet as PYRM
+import VGG
 import utils
 import numpy as np
 import random
@@ -84,8 +85,6 @@ parser.add_argument('--first', default=3, type=int,
                     help='first object index')
 parser.add_argument('--second', default=5, type=int,
                     help='second object index')
-parser.add_argument('--third', default=5, type=int,
-                    help='third object index')
 parser.add_argument('--extra', default=10, type=int,
                     help='extra batch size')
 parser.add_argument('--keeplr', help='set lr 0.001 ',
@@ -113,24 +112,12 @@ def set_bn_train(module):
     if isinstance(module, torch.nn.modules.batchnorm._BatchNorm):
         module.train()
 
-def compute_confusion(confusion_matrix, first, second):
-    confusion = 0
-    if (first, second) in confusion_matrix:
-        confusion += confusion_matrix[(first, second)]
-    
-    if (second, first) in confusion_matrix:
-        confusion += confusion_matrix[(second, first)]
-    return confusion/2
-
-def compute_bias(confusion_matrix, first, second, third):
-    return abs(compute_confusion(confusion_matrix, first, second) - compute_confusion(confusion_matrix, first, third))
 
 
-def get_dataset_from_specific_classes(target_dataset, first, second, third):
+def get_dataset_from_specific_classes(target_dataset, first , second):
     first_indices = np.where(np.array(target_dataset.targets) == first)[0]
     second_indices = np.where(np.array(target_dataset.targets) == second)[0]
-    third_indices = np.where(np.array(target_dataset.targets) == third)[0]
-    target_idx = np.hstack([first_indices, second_indices, third_indices])
+    target_idx = np.hstack([first_indices, second_indices])
     target_dataset.targets = np.array(target_dataset.targets)[target_idx]
     target_dataset.data = target_dataset.data[target_idx]
     return target_dataset
@@ -166,18 +153,6 @@ def main():
                                   transform=transform_test),
                 batch_size=args.batch_size, shuffle=True, num_workers=args.workers, pin_memory=True)
             numberofclass = 100
-            target_train_dataset = datasets.CIFAR100(
-                '../data', train=True, download=True, transform=transform_train)
-            target_train_dataset = get_dataset_from_specific_classes(
-                target_train_dataset, args.first, args.second, args.third)
-            target_test_dataset = datasets.CIFAR100(
-                '../data', train=False, download=True, transform=transform_test)
-            target_test_dataset = get_dataset_from_specific_classes(
-                target_test_dataset, args.first, args.second, args.third)
-            target_train_loader = torch.utils.data.DataLoader(target_train_dataset, batch_size=args.extra, shuffle=True,
-                                                              num_workers=args.workers, pin_memory=True)
-            target_val_loader = torch.utils.data.DataLoader(target_test_dataset, batch_size=args.extra, shuffle=True,
-                                                            num_workers=args.workers, pin_memory=True)
         elif args.dataset == 'cifar10':
             train_loader = torch.utils.data.DataLoader(
                 datasets.CIFAR10('../data', train=True,
@@ -192,7 +167,7 @@ def main():
             target_train_dataset = datasets.CIFAR10('../data', train=True, download=True, transform=transform_train)
             target_train_dataset = get_dataset_from_specific_classes(target_train_dataset, args.first, args.second)
             target_test_dataset = datasets.CIFAR10('../data', train=False, download=True, transform=transform_test)
-            target_test_dataset = get_dataset_from_specific_classes(target_test_dataset, args.first, args.second, args.third)
+            target_test_dataset = get_dataset_from_specific_classes(target_test_dataset, args.first, args.second)
             target_train_loader = torch.utils.data.DataLoader(target_train_dataset, batch_size=args.extra, shuffle=True, 
                                         num_workers=args.workers, pin_memory=True)
             target_val_loader = torch.utils.data.DataLoader(target_test_dataset, batch_size=args.extra, shuffle=True, 
@@ -210,6 +185,8 @@ def main():
     elif args.net_type == 'pyramidnet':
         model = PYRM.PyramidNet(args.dataset, args.depth, args.alpha, numberofclass,
                                 args.bottleneck)
+    elif args.net_type == 'vgg':
+        model = VGG.vgg11_bn()
     else:
         raise Exception(
             'unknown network architecture: {}'.format(args.net_type))
@@ -240,11 +217,12 @@ def main():
     if args.checkmodel:
         global_epoch_confusion.append({})
         get_confusion(val_loader, model, criterion)
-        confusion_matrix = global_epoch_confusion[-1]["confusion"]
-        print(str((args.first, args.second, args.third)) + " triplet: " + 
-            str(abs(confusion_matrix[(args.first, args.second)] - confusion_matrix[(args.first, args.third)])))
-        print(str((args.first, args.second)) + ": " + str(confusion_matrix[(args.first, args.second)]))
-        print(str((args.first, args.third)) + ": " + str(confusion_matrix[(args.first, args.third)]))
+        # cat->dog confusion
+        log_print(str(args.first) + " -> " + str(args.second))
+        log_print(global_epoch_confusion[-1]["confusion"][(args.first, args.second)])
+        # dog->cat confusion
+        log_print(str(args.second) + " -> " + str(args.first))
+        log_print(global_epoch_confusion[-1]["confusion"][(args.second, args.first)])
         exit()
 
     for epoch in range(0, args.epochs):
@@ -278,14 +256,12 @@ def main():
 
 
         get_confusion(val_loader, model, criterion, epoch)
-        confusion_matrix = global_epoch_confusion[-1]["confusion"]
-        #print("loss: " + str(global_epoch_confusion[-1]["loss"]))
-        first_second = compute_confusion(confusion_matrix, args.first, args.second)
-        first_third = compute_confusion(confusion_matrix, args.first, args.third)
-        print(str((args.first, args.second, args.third)) + " triplet: " + 
-            str(compute_bias(confusion_matrix, args.first, args.second, args.third)))
-        print(str((args.first, args.second)) + ": " + str(first_second))
-        print(str((args.first, args.third)) + ": " + str(first_third))
+        # cat->dog confusion
+        log_print(str(args.first) + " -> " + str(args.second))
+        log_print(global_epoch_confusion[-1]["confusion"][(args.first, args.second)])
+        # dog->cat confusion
+        log_print(str(args.second) + " -> " + str(args.first))
+        log_print(global_epoch_confusion[-1]["confusion"][(args.second, args.first)])
 
     print('Best accuracy (top-1 and 5 error):', best_err1, best_err5)
     directory = "runs/%s/" % (args.expname)
@@ -302,14 +278,12 @@ def main():
         checkpoint = torch.load(repaired_model)
         model.load_state_dict(checkpoint['state_dict'])
         get_confusion(val_loader, model, criterion)
-        confusion_matrix = global_epoch_confusion[-1]["confusion"]
-        #print("loss: " + str(global_epoch_confusion[-1]["loss"]))
-        first_second = compute_confusion(confusion_matrix, args.first, args.second)
-        first_third = compute_confusion(confusion_matrix, args.first, args.third)
-        print(str((args.first, args.second, args.third)) + " triplet: " + 
-            str(compute_bias(confusion_matrix, args.first, args.second, args.third)))
-        print(str((args.first, args.second)) + ": " + str(first_second))
-        print(str((args.first, args.third)) + ": " + str(first_third))
+        # dog->cat confusion
+        log_print(str(args.first) + " -> " + str(args.second))
+        log_print(global_epoch_confusion[-1]["confusion"][(args.first, args.second)])
+        # cat->dog confusion
+        log_print(str(args.second) + " -> " + str(args.first))
+        log_print(global_epoch_confusion[-1]["confusion"][(args.second, args.first)])
 
 
 
@@ -340,8 +314,7 @@ def train(train_loader, target_train_loader, model, criterion, optimizer, epoch)
         input = input.cuda()
         target = target.cuda()
         target_copy = target.cpu().numpy()
-        for _ in range(args.forward):
-            target_output = model(target_input)
+
         r = np.random.rand(1)
         if args.beta > 0 and r < args.cutmix_prob:
             # generate mixed sample
@@ -378,37 +351,37 @@ def train(train_loader, target_train_loader, model, criterion, optimizer, epoch)
             loss2 = loss - args.lam * p_dist
         else:
             # compute output
+
             output = model(input)
+            #target_output = model(target_input)
             #_, top1_output = output.max(1)
             #yhats = top1_output.cpu().data.numpy()
             # print(yhats[:5])
-            #target_output = model(input)
+            
             id3 = []
             id5 = []
-            id1 = []
             for j in range(len(input)):
                 if (target_copy[j]) == args.first:
                     id3.append(j)
                 elif (target_copy[j]) == args.second:
                     id5.append(j)
-                elif (target_copy[j]) == args.third:
-                    id1.append(j)
-
+            # print(output.shape)
+            # print(output[id3].shape)
+            # print((torch.sum(output[id3],0)/len(id3)).shape)
             m = nn.Softmax(dim=1)
-            if len(id3) == 0 or len(id5) == 0 or len(id1) == 0:
-                diff_dist = 0
+            if len(id3) == 0 or len(id5) == 0:
+                p_dist = 0
+                print("not enough sample")
+                print(len(id3))
+                print(len(id5))
             else:
-                p_dist1 = torch.dist(torch.mean(
+                p_dist = torch.dist(torch.mean(
                     m(output)[id3], 0), torch.mean(m(output)[id5], 0), 2)
-                p_dist2 = torch.dist(torch.mean(
-                    m(output)[id3], 0), torch.mean(m(output)[id1], 0), 2)
-                diff_dist = torch.abs(p_dist1 - p_dist2)
             #print(criterion(output, target).mean())
             # print(p_dist)
-
             #loss2 = criterion(output, target).mean() + p_dist
             #loss2 = criterion(output, target).mean()
-            loss2 = criterion(output, target).mean() + args.lam*diff_dist
+            loss2 = criterion(output, target).mean() - args.lam*p_dist
 
         losses.update(loss2.item(), input.size(0))
 
@@ -562,7 +535,7 @@ def get_confusion(val_loader, model, criterion, epoch=-1):
     log_print(correct*1.0/len(labels))
 
     labels_list = []
-    for i in range(100):
+    for i in range(10):
         labels_list.append(i)
 
     type1confusion = {}
