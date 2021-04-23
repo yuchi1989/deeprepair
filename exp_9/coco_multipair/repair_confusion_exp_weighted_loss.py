@@ -223,18 +223,7 @@ def train(args, epoch, model, criterion, train_loader, optimizer, train_F, score
         def sigmoid(z):
             return 1/(1 + np.exp(-z))
 
-        if args.target_weight > 0:
-            target_weight = args.target_weight
-
-
-            objects_np = objects.detach().cpu().numpy()
-            object_preds_np = object_preds.detach().cpu().numpy()
-            objects_np = sigmoid(objects_np)
-            object_preds_np = sigmoid(object_preds_np)
-
-            id1 = object2id[args.pair1a]
-            id2 = object2id[args.pair1b]
-
+        def get_loss_target(objects_np, object_preds_np, id1, id2):
             inds = np.arange(objects_np.shape[0])
             inds_first = (objects_np[:,id1] > 0.5) & (objects_np[:, id2] <= 0.5) & (object_preds_np[:, id1] > 0.5) & (object_preds_np[:, id2] > 0.5)
             inds_first = inds[inds_first]
@@ -245,12 +234,6 @@ def train(args, epoch, model, criterion, train_loader, optimizer, train_F, score
             inds_second = inds[inds_second]
             inds_second_cuda = torch.from_numpy(inds_second).cuda()
 
-            # print()
-            # print('objects_np[0]', objects_np[0])
-            #
-            # print('np.sum(objects_np[:,id1] > 0.5)', np.sum(objects_np[:,id1] > 0.5), 'np.sum(objects_np[:, id2] <= 0.5)', np.sum(objects_np[:, id2] <= 0.5), 'np.sum(object_preds_np[:, id1] > 0.5)', np.sum(object_preds_np[:, id1] > 0.5), 'np.sum(object_preds_np[:, id2] > 0.5)', np.sum(object_preds_np[:, id2] > 0.5))
-            #
-            # print('np.sum(objects_np[:, id2] > 0.5)', np.sum(objects_np[:, id2] > 0.5), 'np.sum(objects_np[:,id1] <= 0.5)', np.sum(objects_np[:,id1] <= 0.5), 'np.sum(object_preds_np[:, id2] > 0.5)', np.sum(object_preds_np[:, id2] > 0.5), 'np.sum(object_preds_np[:, id1] > 0.5)', np.sum(object_preds_np[:, id1] > 0.5))
 
             use_loss_target = False
             loss_target = None
@@ -265,13 +248,41 @@ def train(args, epoch, model, criterion, train_loader, optimizer, train_F, score
             if len(inds_first) > 0 and len(inds_second) > 0:
                 loss_target = (loss_target_1 + loss_target_2) / 2
 
+            return loss_target, use_loss_target
 
-            # print('len(inds_first)', len(inds_first), 'len(inds_second)', len(inds_second))
+        if args.target_weight > 0:
+            target_weight = args.target_weight
+
+
+            objects_np = objects.detach().cpu().numpy()
+            object_preds_np = object_preds.detach().cpu().numpy()
+            objects_np = sigmoid(objects_np)
+            object_preds_np = sigmoid(object_preds_np)
+
+            id1 = object2id[args.pair1a]
+            id2 = object2id[args.pair1b]
+            id3 = object2id[args.pair2a]
+            id4 = object2id[args.pair2b]
+
+            loss_target1, use_loss_target1 = get_loss_target(objects_np, object_preds_np, id1, id2)
+
+            loss_target2, use_loss_target2 = get_loss_target(objects_np, object_preds_np, id3, id4)
+
+            use_loss_target = use_loss_target1 or use_loss_target2
+            loss_target = None
+            if use_loss_target1 and use_loss_target2:
+                loss_target = (loss_target1 + loss_target2) / 2
+            elif use_loss_target1:
+                loss_target = loss_target1
+            elif use_loss_target2:
+                loss_target = loss_target2
+
+
 
             if use_loss_target:
                 loss2 = (1-target_weight) * loss + target_weight * loss_target
 
-                # print('loss_target.detach().cpu().numpy()', loss_target.detach().cpu().numpy())
+
             else:
                 loss2 = loss
 

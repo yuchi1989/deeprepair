@@ -147,9 +147,10 @@ for i in range(features.shape[0]):
             feature[target_class_2] *= eta
             feature[target_class_3] *= eta
     elif mode == 'multipairconfusion':
-        if (feature[target_class_1] > 0.5 and feature[target_class_2] > 0.5) or (feature[target_class_1] > 0.5 and feature[target_class_3] > 0.5 and feature[target_class_4] > 0.5):
+        if (feature[target_class_1] > 0.5 and feature[target_class_2] > 0.5):
             feature[target_class_1] *= eta
             feature[target_class_2] *= eta
+        if (feature[target_class_3] > 0.5 and feature[target_class_4] > 0.5):
             feature[target_class_3] *= eta
             feature[target_class_4] *= eta
 

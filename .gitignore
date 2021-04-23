@@ -48,6 +48,14 @@ exp_9/coco/coco_bias_repair_aug_3
 exp_9/coco/coco_bias_repair_aug_5
 exp_9/coco/coco_confusion_repair_aug_3
 exp_9/coco/coco_confusion_repair_aug_5
+exp_9/coco_multipair/coco_2pair_confusion_repair_aug
+exp_9/coco_multipair/coco_2pair_confusion_repair_bn
+exp_9/coco_multipair/coco_2pair_confusion_repair_dbr
+exp_9/coco_multipair/coco_2pair_confusion_repair_loss
+exp_9/coco_multipair/original_model
 exp_7/data/*
+exp_9/coco_multipair/*.npy
+exp_9/coco_multipair/*.pyc
+exp_9/coco_multipair/*.pickle
 exp_7/CutMix-PyTorch
 exp_7/cifar10/cifar10_original_model/*
