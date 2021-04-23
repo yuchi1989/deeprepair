@@ -39,7 +39,7 @@ exp_9/coco_gender/coco_bias_repair_aug
 exp_9/coco_gender/coco_bias_repair_bn
 exp_9/coco_gender/coco_bias_repair_dbr
 exp_9/coco_gender/coco_bias_repair_loss
-
+.DS_Store
 exp_9/coco_gender/coco_bias_repair_aug_3
 exp_9/coco_gender/coco_bias_repair_aug_5
 exp_9/coco_gender/coco_confusion_repair_aug_3
@@ -48,3 +48,6 @@ exp_9/coco/coco_bias_repair_aug_3
 exp_9/coco/coco_bias_repair_aug_5
 exp_9/coco/coco_confusion_repair_aug_3
 exp_9/coco/coco_confusion_repair_aug_5
+
+
+
