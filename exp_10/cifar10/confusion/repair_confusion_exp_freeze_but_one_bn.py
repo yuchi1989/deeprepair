@@ -20,6 +20,7 @@ import torchvision.datasets as datasets
 import torchvision.models as models
 import resnet as RN
 import pyramidnet as PYRM
+import VGG
 import utils
 import numpy as np
 import random
