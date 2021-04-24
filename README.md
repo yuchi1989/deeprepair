@@ -10,9 +10,17 @@
 ### [coco get instance](https://github.com/yuchi1989/deeprepair/blob/master/exp_9/coco/get_instance.py)
 
 ```
-python2 repair_confusion_exp_weighted_loss.py --original original_model/model_best.pth.tar --fix fix_model/model_best.pth.tar --log_dir coco_confusion_repair_aug --first "person" --second "bus" --ann_dir '/local/shared/coco/annotations' --image_dir '/local/shared/coco/'
-python2 repair_confusion_exp_weighted_loss.py --original original_model/model_best.pth.tar --fix fix_model/model_best.pth.tar --log_dir coco_confusion_repair_aug --first "bus" --second "person" --ann_dir '/local/shared/coco/annotations' --image_dir '/local/shared/coco/'
+python2 get_instance.py --original original_model/model_best.pth.tar --fix fix_model/model_best.pth.tar --log_dir coco_confusion_repair_aug --first "person" --second "bus" --ann_dir '/local/shared/coco/annotations' --image_dir '/local/shared/coco/'
+python2 get_instance.py --original original_model/model_best.pth.tar --fix fix_model/model_best.pth.tar --log_dir coco_confusion_repair_aug --first "bus" --second "person" --ann_dir '/local/shared/coco/annotations' --image_dir '/local/shared/coco/'
 ```
+
+### [coco gender get instance bias](https://github.com/yuchi1989/deeprepair/blob/master/exp_9/coco_gender/get_instance_coco_gender_bias.py)
+
+```
+python2 get_instance_coco_gender_bias.py --original original_model/model_best.pth.tar --fix fix_model/model_best.pth.tar --log_dir coco_confusion_repair_aug --first "skis" --second "man" --third "woman" --ann_dir '/local/shared/coco/annotations' --image_dir '/local/shared/coco/'
+```
+
+
 ### [cifar10 get instance](https://github.com/yuchi1989/deeprepair/blob/master/exp_7/cifar10/confusion/cifar10_get_instance.py)
 
 ```
