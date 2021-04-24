@@ -293,7 +293,6 @@ def main():
         log_print(str(args.second) + " -> " + str(args.first))
         log_print(global_epoch_confusion[-1]["confusion"][(args.second, args.first)])
 
-    print('Repair Confusion Freeze But One Best accuracy (top-1 and 5 error):', best_err1, best_err5, file=open("output.txt", "a"))
     directory = "runs/%s/" % (args.expname)
     if not os.path.exists(directory):
         os.makedirs(directory)
@@ -309,11 +308,12 @@ def main():
         model.load_state_dict(checkpoint['state_dict'])
         get_confusion(val_loader, model, criterion)
         # dog->cat confusion
-        log_print(str(args.first) + " -> " + str(args.second))
-        log_print(global_epoch_confusion[-1]["confusion"][(args.first, args.second)])
+        print(str(args.first) + " -> " + str(args.second), file=open("output.txt", "a"))
+        print(global_epoch_confusion[-1]["confusion"][(args.first, args.second)], file=open("output.txt", "a"))
         # cat->dog confusion
-        log_print(str(args.second) + " -> " + str(args.first))
-        log_print(global_epoch_confusion[-1]["confusion"][(args.second, args.first)])
+        print(str(args.second) + " -> " + str(args.first), file=open("output.txt", "a"))
+        print(global_epoch_confusion[-1]["confusion"][(args.second, args.first)])
+        print(os.path.basename(__file__), best_err1, best_err5, file=open("output.txt", "a"))
 
 
 
