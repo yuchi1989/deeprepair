@@ -340,10 +340,11 @@ def main():
         #print("loss: " + str(global_epoch_confusion[-1]["loss"]))
         first_second = compute_confusion(confusion_matrix, args.first, args.second)
         first_third = compute_confusion(confusion_matrix, args.first, args.third)
+        print(os.path.basename(__file__), best_err1, best_err5, file=open("output.txt", "a"))
         print(str((args.first, args.second, args.third)) + " triplet: " +
-            str(compute_bias(confusion_matrix, args.first, args.second, args.third)))
-        print(str((args.first, args.second)) + ": " + str(first_second))
-        print(str((args.first, args.third)) + ": " + str(first_third))
+            str(compute_bias(confusion_matrix, args.first, args.second, args.third)), file=open("output.txt", "a"))
+        print(str((args.first, args.second)) + ": " + str(first_second), file=open("output.txt", "a"))
+        print(str((args.first, args.third)) + ": " + str(first_third), file=open("output.txt", "a"))
 
 
     print('Repair Bias NewBN Weighted Loss accuracy (top-1 and 5 error):', best_err1, best_err5, file=open("output.txt", "a"))

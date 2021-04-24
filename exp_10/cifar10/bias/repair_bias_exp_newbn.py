@@ -367,7 +367,6 @@ def main():
         print(str((args.first, args.second)) + ": " + str(first_second))
         print(str((args.first, args.third)) + ": " + str(first_third))
 
-    print('Repair Bias NewBN Best accuracy (top-1 and 5 error):', best_err1, best_err5, file=open("output.txt", "a"))
     directory = "runs/%s/" % (args.expname)
     if not os.path.exists(directory):
         os.makedirs(directory)
@@ -386,10 +385,11 @@ def main():
         #print("loss: " + str(global_epoch_confusion[-1]["loss"]))
         first_second = compute_confusion(confusion_matrix, args.first, args.second)
         first_third = compute_confusion(confusion_matrix, args.first, args.third)
-        print(str((args.first, args.second, args.third)) + " triplet: " + 
-            str(compute_bias(confusion_matrix, args.first, args.second, args.third)))
-        print(str((args.first, args.second)) + ": " + str(first_second))
-        print(str((args.first, args.third)) + ": " + str(first_third))
+        print(os.path.basename(__file__), best_err1, best_err5, file=open("output.txt", "a"))
+        print(str((args.first, args.second, args.third)) + " triplet: " +
+            str(compute_bias(confusion_matrix, args.first, args.second, args.third)), file=open("output.txt", "a"))
+        print(str((args.first, args.second)) + ": " + str(first_second), file=open("output.txt", "a"))
+        print(str((args.first, args.third)) + ": " + str(first_third), file=open("output.txt", "a"))
 
 
 def train(train_loader, target_train_loader, model, criterion, optimizer, epoch):
