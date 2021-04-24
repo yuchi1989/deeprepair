@@ -344,7 +344,7 @@ def main():
         log_print(global_epoch_confusion[-1]
                   ["confusion"][(args.second, args.first)])
 
-    print('Best accuracy (top-1 and 5 error):', best_err1, best_err5)
+    print('Repair Confusion Oversampling Best accuracy (top-1 and 5 error):', best_err1, best_err5, file=open("output.txt", "a"))
     directory = "runs/%s/" % (args.expname)
     if not os.path.exists(directory):
         os.makedirs(directory)

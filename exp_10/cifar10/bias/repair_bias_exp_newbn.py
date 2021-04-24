@@ -367,7 +367,7 @@ def main():
         print(str((args.first, args.second)) + ": " + str(first_second))
         print(str((args.first, args.third)) + ": " + str(first_third))
 
-    print('Best accuracy (top-1 and 5 error):', best_err1, best_err5)
+    print('Repair Bias NewBN Best accuracy (top-1 and 5 error):', best_err1, best_err5, file=open("output.txt", "a"))
     directory = "runs/%s/" % (args.expname)
     if not os.path.exists(directory):
         os.makedirs(directory)
