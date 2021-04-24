@@ -23,9 +23,10 @@ from model import MultilabelObject
 from itertools import cycle
 from newbatchnorm2 import dnnrepair_BatchNorm2d
 
-global_epoch_confusion = []
+
+epoch = 1
 def main():
-    global global_epoch_confusion
+
     parser = argparse.ArgumentParser()
     parser.add_argument('--log_dir', type=str, default='log' ,
                         help='path for saving trained models and log info')
@@ -66,7 +67,7 @@ def main():
 
     if os.path.exists(args.log_dir) and not args.resume:
         print('Path {} exists! and not resuming'.format(args.log_dir))
-        return   
+        return
     if not os.path.exists(args.log_dir): os.makedirs(args.log_dir)
 
     #save all parameters for training
@@ -79,33 +80,33 @@ def main():
     train_transform = transforms.Compose([
         transforms.Scale(args.image_size),
         transforms.RandomCrop(args.crop_size),
-        transforms.RandomHorizontalFlip(), 
-        transforms.ToTensor(), 
+        transforms.RandomHorizontalFlip(),
+        transforms.ToTensor(),
         normalize])
-    val_transform = transforms.Compose([ 
+    val_transform = transforms.Compose([
         transforms.Scale(args.image_size),
-        transforms.CenterCrop(args.crop_size), 
-        transforms.ToTensor(), 
+        transforms.CenterCrop(args.crop_size),
+        transforms.ToTensor(),
         normalize])
     # Data samplers.
-    train_data = CocoObject(ann_dir = args.ann_dir, image_dir = args.image_dir, 
+    train_data = CocoObject(ann_dir = args.ann_dir, image_dir = args.image_dir,
         split = 'train', transform = train_transform)
-    val_data = CocoObject(ann_dir = args.ann_dir, image_dir = args.image_dir, 
+    val_data = CocoObject(ann_dir = args.ann_dir, image_dir = args.image_dir,
         split = 'val', transform = val_transform)
-    
 
 
-    val_loader = torch.utils.data.DataLoader(val_data, batch_size = args.batch_size, 
+
+    val_loader = torch.utils.data.DataLoader(val_data, batch_size = args.batch_size,
                                             shuffle = False, num_workers = 0,
                                             pin_memory = True)
     # Build the models
     model1 = MultilabelObject(args, 80).cuda()
     model2 = MultilabelObject(args, 80).cuda()
-    
+
     criterion = nn.BCEWithLogitsLoss(weight = torch.FloatTensor(train_data.getObjectWeights()), size_average = True, reduction='None').cuda()
 
     def trainable_params():
-        for param in model.parameters():
+        for param in model1.parameters():
             if param.requires_grad:
                 yield param
 
@@ -130,9 +131,9 @@ def main():
         print("=> loaded checkpoint (epoch {})".format(checkpoint['epoch']))
     else:
         exit()
-    
-    image_set1 = get_confusion(args, epoch, model1, criterion, val_loader, optimizer, val_F, score_F, val_data)
-    image_set2 = get_fix(args, epoch, model2, criterion, val_loader, optimizer, val_F, score_F, val_data)
+
+    image_set1 = get_confusion(args, epoch, model1, criterion, val_loader, optimizer, val_data)
+    image_set2 = get_fix(args, epoch, model2, criterion, val_loader, optimizer, val_data)
 
 
     for i in image_set1:
@@ -144,7 +145,7 @@ def compute_confusion(confusion_matrix, first, second):
     confusion = 0
     if (first, second) in confusion_matrix:
         confusion += confusion_matrix[(first, second)]
-    
+
     if (second, first) in confusion_matrix:
         confusion += confusion_matrix[(second, first)]
     return confusion/2
@@ -155,9 +156,8 @@ def compute_bias(confusion_matrix, first, second, third):
 
 
 
-def get_confusion(args, epoch, model, criterion, val_loader, optimizer, val_F, score_F, test_data):
-    global global_epoch_confusion
-    global_epoch_confusion[-1]["epoch"] = epoch
+def get_confusion(args, epoch, model, criterion, val_loader, optimizer, test_data):
+
     model.eval()
     batch_time = AverageMeter()
     data_time = AverageMeter()
@@ -168,7 +168,7 @@ def get_confusion(args, epoch, model, criterion, val_loader, optimizer, val_F, s
     end = time.time()
     yhats = []
     labels = []
-    images = []
+    images_list = []
     image_ids = test_data.image_ids
     image_path_map = test_data.image_path_map
     #80 objects
@@ -191,14 +191,14 @@ def get_confusion(args, epoch, model, criterion, val_loader, optimizer, val_F, s
         for i in range(len(image_ids)):
             yhat = []
             label = id2labels[image_ids.cpu().numpy()[i]]
-            
+
             for j in range(len(object_preds[i])):
                 a = object_preds_c[i][j]
                 if a > 0.5:
                     yhat.append(id2object[j])
             yhats.append(yhat)
             labels.append(label)
-            images.append(image_ids.cpu().numpy()[i])
+            images_list.append(image_ids.cpu().numpy()[i])
         '''
         m = nn.Sigmoid()
         object_preds_r = m(object_preds)
@@ -218,22 +218,17 @@ def get_confusion(args, epoch, model, criterion, val_loader, optimizer, val_F, s
         # Print log info
         t.set_postfix(loss = loss_logger.avg)
 
-    val_F.write('{},{},{}\n'.format(epoch, loss_logger.avg, correct_logger.avg))
-    val_F.flush()
-
     # compute mean average precision score for object classifier
     preds_object   = torch.cat([entry[1] for entry in res], 0)
     targets_object = torch.cat([entry[2] for entry in res], 0)
     eval_score_object = average_precision_score(targets_object.numpy(), preds_object.numpy())
     print('\nmean average precision of object classifier on test data is {}\n'.format(eval_score_object))
-    score_F.write('{},{},{}\n'.format(epoch, 'test', eval_score_object))
-    score_F.flush()
 
-    
+
     image_set = []
-    for li, yi, imgi in zip(labels, yhats, images):
+    for li, yi, imgi in zip(labels, yhats, images_list):
         if args.first in li and args.second not in li and args.second in yi and args.first in yi:
-            image_set.append(self.image_path_map[imgi])
+            image_set.append(image_path_map[imgi])
 
     return image_set
 
@@ -241,9 +236,8 @@ def get_confusion(args, epoch, model, criterion, val_loader, optimizer, val_F, s
 
 
 
-    def get_confusion(args, epoch, model, criterion, val_loader, optimizer, val_F, score_F, test_data):
-    global global_epoch_confusion
-    global_epoch_confusion[-1]["epoch"] = epoch
+def get_fix(args, epoch, model, criterion, val_loader, optimizer, test_data):
+
     model.eval()
     batch_time = AverageMeter()
     data_time = AverageMeter()
@@ -277,7 +271,7 @@ def get_confusion(args, epoch, model, criterion, val_loader, optimizer, val_F, s
         for i in range(len(image_ids)):
             yhat = []
             label = id2labels[image_ids.cpu().numpy()[i]]
-            
+
             for j in range(len(object_preds[i])):
                 a = object_preds_c[i][j]
                 if a > 0.5:
@@ -304,22 +298,18 @@ def get_confusion(args, epoch, model, criterion, val_loader, optimizer, val_F, s
         # Print log info
         t.set_postfix(loss = loss_logger.avg)
 
-    val_F.write('{},{},{}\n'.format(epoch, loss_logger.avg, correct_logger.avg))
-    val_F.flush()
-
     # compute mean average precision score for object classifier
     preds_object   = torch.cat([entry[1] for entry in res], 0)
     targets_object = torch.cat([entry[2] for entry in res], 0)
     eval_score_object = average_precision_score(targets_object.numpy(), preds_object.numpy())
     print('\nmean average precision of object classifier on test data is {}\n'.format(eval_score_object))
-    score_F.write('{},{},{}\n'.format(epoch, 'test', eval_score_object))
-    score_F.flush()
 
-    
+
+
     image_set = []
     for li, yi, imgi in zip(labels, yhats, images):
         if args.first in li and args.second not in li and args.second not in yi and args.first in yi:
-            image_set.append(self.image_path_map[imgi])
+            image_set.append(image_path_map[imgi])
 
     return image_set
 
@@ -342,14 +332,14 @@ class AverageMeter(object):
 
 def adjust_learning_rate(optimizer, epoch):
     """Sets the learning rate to the initial LR decayed by 10 every 30 epochs"""
-    global global_epoch_confusion
+
     if epoch <= 16:
         lr = 0.0001
     else:
         lr = 0.00001
     for param_group in optimizer.param_groups:
         param_group['lr'] = lr
-    global_epoch_confusion[-1]["lr"] = lr
+
 
 def get_learning_rate(optimizer):
     lr = []
