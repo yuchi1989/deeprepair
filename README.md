@@ -22,6 +22,15 @@ python3 cifar10_get_instance.py --net_type resnet --dataset cifar10 --depth 18 -
 
 ```
 
+### [cifar100 get instance](https://github.com/yuchi1989/deeprepair/blob/master/exp_7/cifar10/confusion/cifar10_get_instance.py)
+
+```
+python3 cifar10_get_instance.py --net_type resnet --dataset cifar100 --depth 34 --batch_size 128 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test  --cutmix_prob 0 --original ./runs/cifar100_resnet34/model_best.pth.tar --fix ./runs/cifar100_resnet34_oversampling/model_best.pth.tar --expid 0  --checkmodel --first 35 --second 98
+
+python3 cifar10_get_instance.py --net_type resnet --dataset cifar100 --depth 34 --batch_size 128 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test  --cutmix_prob 0 --original ./runs/cifar100_resnet34/model_best.pth.tar --fix ./runs/cifar100_resnet34_oversampling/model_best.pth.tar --expid 0  --checkmodel --first 98 --second 35
+
+```
+
 
 
 ## Paper experiments
