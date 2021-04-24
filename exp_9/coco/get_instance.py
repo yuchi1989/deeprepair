@@ -248,7 +248,7 @@ def get_fix(args, epoch, model, criterion, val_loader, optimizer, test_data):
     end = time.time()
     yhats = []
     labels = []
-    images = []
+    images_list = []
     image_ids = test_data.image_ids
     image_path_map = test_data.image_path_map
     #80 objects
@@ -278,7 +278,7 @@ def get_fix(args, epoch, model, criterion, val_loader, optimizer, test_data):
                     yhat.append(id2object[j])
             yhats.append(yhat)
             labels.append(label)
-            images.append(image_ids.cpu().numpy()[i])
+            images_list.append(image_ids.cpu().numpy()[i])
         '''
         m = nn.Sigmoid()
         object_preds_r = m(object_preds)
@@ -307,7 +307,7 @@ def get_fix(args, epoch, model, criterion, val_loader, optimizer, test_data):
 
 
     image_set = []
-    for li, yi, imgi in zip(labels, yhats, images):
+    for li, yi, imgi in zip(labels, yhats, images_list):
         if args.first in li and args.second not in li and args.second not in yi and args.first in yi:
             image_set.append(image_path_map[imgi])
 
