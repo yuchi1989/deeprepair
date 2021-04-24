@@ -631,6 +631,8 @@ def get_confusion(val_loader, model, criterion, epoch=-1):
     global_epoch_confusion[-1]["dogcatacc"] = dog_cat_acc/dog_cat_sum
     log_print("pair accuracy: " + str(global_epoch_confusion[-1]["dogcatacc"]))
 
+    np.save(args.expname + '_yhats.npy', yhats)
+    np.save(args.expname + '_labels.npy', labels)
     return top1.avg, top5.avg, losses.avg
 
 

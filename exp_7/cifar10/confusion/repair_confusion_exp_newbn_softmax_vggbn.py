@@ -2,7 +2,8 @@
 # python3 repair_retrain_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --pretrained ./runs/DeepInspect_1/model_best.pth.tar --expid 0 --checkmodel
 # python3 repair_retrain_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname ResNet50 --epochs 60 --beta 1.0 --cutmix_prob 1.0 --pretrained ./runs/DeepInspect_1/model_best.pth.tar --expid 0 --first 3 --second 5
 
-# python3 repair_confusion_exp_newbn.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4/model_best.pth.tar --expid 0 --lam 0 --extra 256
+# python3 repair_confusion_exp_newbn_softmax.py --net_type resnet --dataset cifar10 --depth 18 --batch_size 128 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet18_2_4/model_best.pth.tar --expid 0 --lam 0 --extra 128 --eta 0.3 --checkmodel
+
 # set extra batch size same as batch size for half half assumption in new batchnorm layer
 import argparse
 import os
@@ -28,6 +29,61 @@ import random
 import warnings
 from tqdm import tqdm
 from newbatchnorm2 import dnnrepair_BatchNorm2d
+import math
+class VGG(nn.Module):
+    '''
+    VGG model 
+    '''
+    def __init__(self, features):
+        super(VGG, self).__init__()
+        self.features = features
+        self.classifier = nn.Sequential(
+            nn.Dropout(),
+            nn.Linear(512, 512),
+            nn.ReLU(True),
+            nn.Dropout(),
+            nn.Linear(512, 512),
+            nn.ReLU(True),
+            nn.Linear(512, 10),
+        )
+         # Initialize weights
+        for m in self.modules():
+            if isinstance(m, nn.Conv2d):
+                n = m.kernel_size[0] * m.kernel_size[1] * m.out_channels
+                m.weight.data.normal_(0, math.sqrt(2. / n))
+                m.bias.data.zero_()
+    def forward(self, x):
+        x = self.features(x)
+        x = x.view(x.size(0), -1)
+        x = self.classifier(x)
+        return x
+def vgg_make_layers(cfg, batch_norm=False):
+    layers = []
+    in_channels = 3
+    for v in cfg:
+        if v == 'M':
+            layers += [nn.MaxPool2d(kernel_size=2, stride=2)]
+        else:
+            conv2d = nn.Conv2d(in_channels, v, kernel_size=3, padding=1)
+            if batch_norm:
+                layers += [conv2d, nn.BatchNorm2d(v), nn.ReLU(inplace=True)]
+            else:
+                layers += [conv2d, nn.ReLU(inplace=True)]
+            in_channels = v
+    return nn.Sequential(*layers)
+cfg = {
+    'A': [64, 'M', 128, 'M', 256, 256, 'M', 512, 512, 'M', 512, 512, 'M'],
+    'B': [64, 64, 'M', 128, 128, 'M', 256, 256, 'M', 512, 512, 'M', 512, 512, 'M'],
+    'D': [64, 64, 'M', 128, 128, 'M', 256, 256, 256, 'M', 512, 512, 512, 'M', 512, 512, 512, 'M'],
+    'E': [64, 64, 'M', 128, 128, 'M', 256, 256, 256, 256, 'M', 512, 512, 512, 512, 'M', 
+          512, 512, 512, 512, 'M'],
+}
+def vgg11():
+    """VGG 11-layer model (configuration "A")"""
+    return VGG(vgg_make_layers(cfg['A']))
+def vgg11_bn():
+    """VGG 11-layer model (configuration "A") with batch normalization"""
+    return VGG(vgg_make_layers(cfg['A'], batch_norm=True))
 warnings.filterwarnings("ignore")
 
 torch.manual_seed(124)
@@ -82,6 +138,8 @@ parser.add_argument('--checkmodel', help='Check model accuracy',
                     action='store_true')
 parser.add_argument('--lam', default=0.5, type=float,
                     help='hyperparameter lambda')
+parser.add_argument('--eta', default=0.3, type=float,
+                    help='hyperparameter eta')
 parser.add_argument('--first', default=3, type=int,
                     help='first object index')
 parser.add_argument('--second', default=5, type=int,
@@ -248,16 +306,8 @@ def main():
     else:
         raise Exception('unknown dataset: {}'.format(args.dataset))
 
-    print("=> creating model '{}'".format(args.net_type))
-    if args.net_type == 'resnet':
-        model = RN.ResNet(args.dataset, args.depth,
-                          numberofclass, args.bottleneck)  # for ResNet
-    elif args.net_type == 'pyramidnet':
-        model = PYRM.PyramidNet(args.dataset, args.depth, args.alpha, numberofclass,
-                                args.bottleneck)
-    else:
-        raise Exception(
-            'unknown network architecture: {}'.format(args.net_type))
+    print("=> creating model vggbn ")
+    model = vgg11_bn()
 
     model = torch.nn.DataParallel(model).cuda()
 
@@ -441,7 +491,6 @@ def train(train_loader, target_train_loader, model, criterion, optimizer, epoch)
         else:
             # compute output
             output = model(input)
-            
             loss2 = criterion(output[:output.size(
                 0) // 2], target[:target.size(0) // 2]).mean()  # - args.lam*p_dist
 
@@ -554,6 +603,22 @@ def get_confusion(val_loader, model, criterion, epoch=-1):
         target = target.cuda()
 
         output = model(input)
+
+        eta = args.eta
+        #chosen_ classes = torch.tensor([3, 5])
+        #other_ classes = torch.tensor([0, 1, 2, 4, 6, 7, 8, 9])
+        softmax = torch.nn.Softmax() 
+        output = softmax(output)
+        output = output.detach().cpu().numpy()
+        chosen_classes = np.array([args.first, args.second])
+        other_classes = np.array([i for i in range(10) if i != args.first and i != args.second])
+        #output[:, chosen_ classes] = torch.index_select(output, 0, chosen_ classes) - eta
+        #output[:, non_chosen_ classes] = torch.index_select(output, 0, other_ classes) + eta
+        output[:, chosen_classes] *= eta
+        output = torch.from_numpy(output)
+        output = torch.clamp(output, 0, 1).cuda()
+
+        #output = softmax(output)
         _, top1_output = output.max(1)
         total += target.size(0)
         correct += top1_output.eq(target).sum().item()
