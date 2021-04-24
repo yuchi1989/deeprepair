@@ -2,8 +2,7 @@
 # python3 repair_retrain_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --pretrained ./runs/DeepInspect_1/model_best.pth.tar --expid 0 --checkmodel
 # python3 repair_retrain_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname ResNet50 --epochs 60 --beta 1.0 --cutmix_prob 1.0 --pretrained ./runs/DeepInspect_1/model_best.pth.tar --expid 0 --first 3 --second 5
 
-# python3 repair_confusion_exp_newbn_softmax.py --net_type resnet --dataset cifar10 --depth 18 --batch_size 128 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet18_2_4/model_best.pth.tar --expid 0 --lam 0 --extra 128 --eta 0.3 --checkmodel
-
+# python3 repair_confusion_exp_newbn.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4/model_best.pth.tar --expid 0 --lam 0 --extra 256
 # set extra batch size same as batch size for half half assumption in new batchnorm layer
 import argparse
 import os
@@ -138,8 +137,6 @@ parser.add_argument('--checkmodel', help='Check model accuracy',
                     action='store_true')
 parser.add_argument('--lam', default=0.5, type=float,
                     help='hyperparameter lambda')
-parser.add_argument('--eta', default=1, type=float,
-                    help='hyperparameter eta')
 parser.add_argument('--first', default=3, type=int,
                     help='first object index')
 parser.add_argument('--second', default=5, type=int,
@@ -240,10 +237,11 @@ def set_bn_train(model):  # unfreeze all bn
             module.train()
 
 
-def get_dataset_from_specific_classes(target_dataset, first, second):
+def get_dataset_from_specific_classes(target_dataset, first, second, third):
     first_indices = np.where(np.array(target_dataset.targets) == first)[0]
     second_indices = np.where(np.array(target_dataset.targets) == second)[0]
-    target_idx = np.hstack([first_indices, second_indices])
+    third_indices = np.where(np.array(target_dataset.targets) == third)[0]
+    target_idx = np.hstack([first_indices, second_indices, third_indices])
     target_dataset.targets = np.array(target_dataset.targets)[target_idx]
     target_dataset.data = target_dataset.data[target_idx]
     return target_dataset
@@ -259,6 +257,7 @@ def compute_confusion(confusion_matrix, first, second):
 
 def compute_bias(confusion_matrix, first, second, third):
     return abs(compute_confusion(confusion_matrix, first, second) - compute_confusion(confusion_matrix, first, third))
+
 
 
 def main():
@@ -305,11 +304,11 @@ def main():
             target_train_dataset = datasets.CIFAR10(
                 '../data', train=True, download=True, transform=transform_train)
             target_train_dataset = get_dataset_from_specific_classes(
-                target_train_dataset, args.first, args.second)
+                target_train_dataset, args.first, args.second, args.third)
             target_test_dataset = datasets.CIFAR10(
                 '../data', train=False, download=True, transform=transform_test)
             target_test_dataset = get_dataset_from_specific_classes(
-                target_test_dataset, args.first, args.second)
+                target_test_dataset, args.first, args.second, args.third)
             target_train_loader = torch.utils.data.DataLoader(target_train_dataset, batch_size=args.extra, shuffle=True,
                                                               num_workers=args.workers, pin_memory=True)
             target_val_loader = torch.utils.data.DataLoader(target_test_dataset, batch_size=args.extra, shuffle=True,
@@ -614,22 +613,6 @@ def get_confusion(val_loader, model, criterion, epoch=-1):
         target = target.cuda()
 
         output = model(input)
-
-        eta = args.eta
-        #chosen_ classes = torch.tensor([3, 5])
-        #other_ classes = torch.tensor([0, 1, 2, 4, 6, 7, 8, 9])
-        softmax = torch.nn.Softmax() 
-        output = softmax(output)
-        output = output.detach().cpu().numpy()
-        chosen_classes = np.array([args.first, args.second, args.third])
-        other_classes = np.array([args.third])
-        #output[:, chosen_ classes] = torch.index_select(output, 0, chosen_ classes) - eta
-        #output[:, non_chosen_ classes] = torch.index_select(output, 0, other_ classes) + eta
-        output[:, chosen_classes] *= eta
-        output = torch.from_numpy(output)
-        output = torch.clamp(output, 0, 1).cuda()
-
-        #output = softmax(output)
         _, top1_output = output.max(1)
         total += target.size(0)
         correct += top1_output.eq(target).sum().item()

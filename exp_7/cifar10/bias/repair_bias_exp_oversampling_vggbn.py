@@ -2,8 +2,7 @@
 # python3 repair_retrain_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --pretrained ./runs/DeepInspect_1/model_best.pth.tar --expid 0 --checkmodel
 # python3 repair_retrain_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname ResNet50 --epochs 60 --beta 1.0 --cutmix_prob 1.0 --pretrained ./runs/DeepInspect_1/model_best.pth.tar --expid 0 --first 3 --second 5
 
-# python3 repair_confusion_exp_newbn_softmax.py --net_type resnet --dataset cifar10 --depth 18 --batch_size 128 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet18_2_4/model_best.pth.tar --expid 0 --lam 0 --extra 128 --eta 0.3 --checkmodel
-
+# python3 repair_confusion_exp_newbn.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4/model_best.pth.tar --expid 0 --lam 0 --extra 256
 # set extra batch size same as batch size for half half assumption in new batchnorm layer
 import argparse
 import os
@@ -29,6 +28,8 @@ import random
 import warnings
 from tqdm import tqdm
 from newbatchnorm2 import dnnrepair_BatchNorm2d
+from torch.utils.data.sampler import Sampler
+from torch.utils.data.sampler import WeightedRandomSampler
 import math
 class VGG(nn.Module):
     '''
@@ -138,8 +139,6 @@ parser.add_argument('--checkmodel', help='Check model accuracy',
                     action='store_true')
 parser.add_argument('--lam', default=0.5, type=float,
                     help='hyperparameter lambda')
-parser.add_argument('--eta', default=1, type=float,
-                    help='hyperparameter eta')
 parser.add_argument('--first', default=3, type=int,
                     help='first object index')
 parser.add_argument('--second', default=5, type=int,
@@ -156,6 +155,9 @@ parser.add_argument('--replace', help='replace bn layer ',
 
 parser.add_argument('--ratio', default=0.5, type=float,
                     help='target ratio for batchnorm layers')
+
+parser.add_argument('--weight', default=1, type=float,
+                    help='oversampling weight')
 # parser.add_argument('--forward', default=1, type=int,
 #                    help='extra batch size')
 parser.set_defaults(bottleneck=True)
@@ -239,15 +241,6 @@ def set_bn_train(model):  # unfreeze all bn
             #print("set bn")
             module.train()
 
-
-def get_dataset_from_specific_classes(target_dataset, first, second):
-    first_indices = np.where(np.array(target_dataset.targets) == first)[0]
-    second_indices = np.where(np.array(target_dataset.targets) == second)[0]
-    target_idx = np.hstack([first_indices, second_indices])
-    target_dataset.targets = np.array(target_dataset.targets)[target_idx]
-    target_dataset.data = target_dataset.data[target_idx]
-    return target_dataset
-
 def compute_confusion(confusion_matrix, first, second):
     confusion = 0
     if (first, second) in confusion_matrix:
@@ -259,6 +252,7 @@ def compute_confusion(confusion_matrix, first, second):
 
 def compute_bias(confusion_matrix, first, second, third):
     return abs(compute_confusion(confusion_matrix, first, second) - compute_confusion(confusion_matrix, first, third))
+
 
 
 def main():
@@ -292,29 +286,33 @@ def main():
                 batch_size=args.batch_size, shuffle=True, num_workers=args.workers, pin_memory=True)
             numberofclass = 100
         elif args.dataset == 'cifar10':
+            train_data = datasets.CIFAR10('../data', train=True,
+                                 download=True, transform=transform_train)
+            print(train_data.targets[:30])
+            print(train_data.targets[:30])
+            print(len(train_data))
+            
+            class_counts = [9.0, 1.0]
+            num_samples = sum(class_counts)
+            labels = [0, 0,..., 0, 1] #corresponding labels of samples
+
+            class_weights = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+            class_weights[args.first] = args.weight
+            class_weights[args.second] = args.weight
+            class_weights[args.third] = args.weight
+            print(class_weights)
+            weights = [class_weights[train_data.targets[i]] for i in range(len(train_data))]
+            sampler = WeightedRandomSampler(torch.DoubleTensor(weights), len(train_data))
             train_loader = torch.utils.data.DataLoader(
-                datasets.CIFAR10('../data', train=True,
-                                 download=True, transform=transform_train),
-                batch_size=args.batch_size, shuffle=True, num_workers=args.workers, pin_memory=True)
+                train_data,
+                batch_size=args.batch_size, shuffle=False, num_workers=args.workers, pin_memory=True, sampler=sampler)
             val_loader = torch.utils.data.DataLoader(
                 datasets.CIFAR10('../data', train=False,
                                  transform=transform_test),
                 batch_size=args.batch_size, shuffle=True, num_workers=args.workers, pin_memory=True)
             numberofclass = 10
 
-            target_train_dataset = datasets.CIFAR10(
-                '../data', train=True, download=True, transform=transform_train)
-            target_train_dataset = get_dataset_from_specific_classes(
-                target_train_dataset, args.first, args.second)
-            target_test_dataset = datasets.CIFAR10(
-                '../data', train=False, download=True, transform=transform_test)
-            target_test_dataset = get_dataset_from_specific_classes(
-                target_test_dataset, args.first, args.second)
-            target_train_loader = torch.utils.data.DataLoader(target_train_dataset, batch_size=args.extra, shuffle=True,
-                                                              num_workers=args.workers, pin_memory=True)
-            target_val_loader = torch.utils.data.DataLoader(target_test_dataset, batch_size=args.extra, shuffle=True,
-                                                            num_workers=args.workers, pin_memory=True)
-
+            
         else:
             raise Exception('unknown dataset: {}'.format(args.dataset))
     else:
@@ -335,19 +333,7 @@ def main():
     print('the number of model parameters: {}'.format(
         sum([p.data.nelement() for p in model.parameters()])))
 
-    # replace bn layer
-    if args.replace:
-        model.to('cpu')
-        global glob_bn_count
-        global glob_bn_total
-        glob_bn_total = 0
-        glob_bn_count = 0
-        count_bn_layer(model)
-        print("total bn layer: " + str(glob_bn_total))
-        glob_bn_count = 0
-        replace_bn(model)
-        print(model)
-        model = model.cuda()
+
 
     # define loss function (criterion) and optimizer
     criterion = nn.CrossEntropyLoss(reduction='none').cuda()
@@ -370,17 +356,18 @@ def main():
         print(str((args.first, args.third)) + ": " + str(confusion_matrix[(args.first, args.third)]))
         exit()
 
+
     for epoch in range(0, args.epochs):
         global_epoch_confusion.append({})
         adjust_learning_rate(optimizer, epoch)
 
         # train for one epoch
-        train(train_loader, target_train_loader,
+        train(train_loader,
               model, criterion, optimizer, epoch)
 
         # evaluate on validation set
         err1, err5, val_loss = validate(
-            val_loader, target_val_loader, model, criterion, epoch)
+            val_loader, model, criterion, epoch)
 
         # remember best prec@1 and save checkpoint
 
@@ -437,7 +424,7 @@ def main():
         print(str((args.first, args.third)) + ": " + str(first_third))
 
 
-def train(train_loader, target_train_loader, model, criterion, optimizer, epoch):
+def train(train_loader, model, criterion, optimizer, epoch):
     batch_time = AverageMeter()
     data_time = AverageMeter()
     losses = AverageMeter()
@@ -449,21 +436,13 @@ def train(train_loader, target_train_loader, model, criterion, optimizer, epoch)
 
     end = time.time()
     current_LR = get_learning_rate(optimizer)[0]
-    extra_iterator = iter(target_train_loader)
+
     t = tqdm(train_loader, desc='Train %d' % epoch)
     for i, (input, target) in enumerate(t):
         # measure data loading time
         data_time.update(time.time() - end)
-        try:
-            (target_input, target_target) = next(extra_iterator)
-        except StopIteration:
-            extra_iterator = iter(target_train_loader)
-            (target_input, target_target) = next(extra_iterator)
-        input = torch.cat([input, target_input])
-        target = torch.cat([target, target_target])
         input = input.cuda()
         target = target.cuda()
-        target_copy = target_target.cpu().numpy()
 
         r = np.random.rand(1)
         if args.beta > 0 and r < args.cutmix_prob:
@@ -502,8 +481,8 @@ def train(train_loader, target_train_loader, model, criterion, optimizer, epoch)
         else:
             # compute output
             output = model(input)
-            loss2 = criterion(output[:output.size(
-                0) // 2], target[:target.size(0) // 2]).mean()  # - args.lam*p_dist
+            loss2 = criterion(output, target).mean()
+
 
         losses.update(loss2.item(), input.size(0))
 
@@ -553,7 +532,7 @@ def rand_bbox(size, lam):
     return bbx1, bby1, bbx2, bby2
 
 
-def validate(val_loader, target_val_loader, model, criterion, epoch):
+def validate(val_loader, model, criterion, epoch):
     batch_time = AverageMeter()
     losses = AverageMeter()
     top1 = AverageMeter()
@@ -614,22 +593,6 @@ def get_confusion(val_loader, model, criterion, epoch=-1):
         target = target.cuda()
 
         output = model(input)
-
-        eta = args.eta
-        #chosen_ classes = torch.tensor([3, 5])
-        #other_ classes = torch.tensor([0, 1, 2, 4, 6, 7, 8, 9])
-        softmax = torch.nn.Softmax() 
-        output = softmax(output)
-        output = output.detach().cpu().numpy()
-        chosen_classes = np.array([args.first, args.second, args.third])
-        other_classes = np.array([args.third])
-        #output[:, chosen_ classes] = torch.index_select(output, 0, chosen_ classes) - eta
-        #output[:, non_chosen_ classes] = torch.index_select(output, 0, other_ classes) + eta
-        output[:, chosen_classes] *= eta
-        output = torch.from_numpy(output)
-        output = torch.clamp(output, 0, 1).cuda()
-
-        #output = softmax(output)
         _, top1_output = output.max(1)
         total += target.size(0)
         correct += top1_output.eq(target).sum().item()
