@@ -6,19 +6,107 @@
 
 ### [COCO](https://github.com/yuchi1989/deeprepair/tree/master/exp_7/coco ) prototype  
 
+### [cifar10_vgg_bn confusion](https://github.com/yuchi1989/deeprepair/blob/master/exp_7/cifar10/confusion/train_baseline_vggbn.py)
+```
+python3 train_baseline_vggbn.py  --dataset cifar10 --depth 18 --batch_size 256 --lr 0.1 --expname cifar10_vggbn_2_4 --epochs 300 --beta 1.0 --cutmix_prob 0
+```
+#### [orig](https://github.com/yuchi1989/deeprepair/blob/master/exp_7/cifar10/confusion/train_baseline.py):    
 
+```
+python3 train_baseline_vggbn.py  --dataset cifar10 --depth 18 --batch_size 256 --lr 0.1 --expname cifar10_vggbn_2_4 --epochs 300 --beta 1.0 --cutmix_prob 0
+python3 repair_confusion_exp_newbn_vggbn.py --dataset cifar10 --depth 18 --batch_size 128 --lr 0.1 --expname cifar10_vggbn --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_vggbn_2_4/model_best.pth.tar --expid 0 --lam 0 --extra 128 --checkmodel  
+```
+
+#### [w-aug](https://github.com/yuchi1989/deeprepair/blob/master/exp_7/cifar10/confusion/repair_confusion_exp_oversampling_vggbn.py):  
+
+```
+python3 repair_confusion_exp_oversampling_vggbn.py --net_type resnet --dataset cifar10 --depth 18 --batch_size 128 --lr 0.1 --expname cifar10_vggbn_oversampling --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_vggbn_2_4/model_best.pth.tar --expid 0 --lam 0 --extra 128 --first 3 --second 5 --weight 2.0
+```
+
+#### [w-bn](https://github.com/yuchi1989/deeprepair/blob/master/exp_7/cifar10/confusion/repair_confusion_exp_newbn_vggbn.py):  
+
+```
+python3 repair_confusion_exp_newbn_vggbn.py --net_type resnet --dataset cifar10 --depth 18 --batch_size 128 --lr 0.1 --expname cifar10_vggbn_newbn --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_vggbn_2_4/model_best.pth.tar --expid 0 --lam 0 --extra 128 --replace --first 3 --second 5 --ratio 0.4  
+```
+
+#### [w-os](https://github.com/yuchi1989/deeprepair/blob/master/exp_7/cifar10/confusion/repair_confusion_exp_newbn_softmax_vggbn.py):
+```
+python3 repair_confusion_exp_newbn_softmax_vggbn.py --net_type resnet --dataset cifar10 --depth 18 --batch_size 128 --lr 0.1 --expname cifar10_vggbn_softmax --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_vggbn_2_4/model_best.pth.tar --expid 0 --lam 0 --extra 128 --eta 0.1 --checkmodel --first 3 --second 5
+```
+
+#### [w-loss](https://github.com/yuchi1989/deeprepair/blob/master/exp_7/cifar10/confusion/repair_confusion_exp_weighted_loss_vggbn.py):
+```
+python3 repair_confusion_exp_weighted_loss_vggbn.py --net_type resnet --dataset cifar10 --depth 18 --batch_size 128 --lr 0.1 --expname cifar10_vggbn_loss --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_vggbn_2_4/model_best.pth.tar --expid 0 --lam 0 --extra 128 --first 3 --second 5 --target_weight 0.4
+```
+#### [w-dbr](https://github.com/yuchi1989/deeprepair/blob/master/exp_7/cifar10/confusion/repair_confusion_dbr_vggbn.py):  
+
+```
+python3 repair_confusion_dbr_vggbn.py --net_type resnet --dataset cifar10 --depth 18 --batch_size 256 --lr 0.1 --expname cifar10_vggbn_dbr --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_vggbn_2_4/model_best.pth.tar --expid 0 --first 3 --second 5 --lam 0.5
+```
+
+### [cifar10_vgg_bn bias](https://github.com/yuchi1989/deeprepair/blob/master/exp_7/cifar10/confusion/train_baseline_vggbn.py)
+
+#### [orig](https://github.com/yuchi1989/deeprepair/blob/master/exp_7/cifar10/bias/repair_bias_exp_newbn_vggbn.py):    
+
+```
+python3 repair_bias_exp_newbn_vggbn.py --dataset cifar10 --depth 18 --batch_size 128 --lr 0.1 --expname cifar10_vggbn --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_vggbn_2_4/model_best.pth.tar --expid 0 --lam 0 --extra 128 --checkmodel   --first 3 --second 5 --third 2
+```
+
+#### [w-aug](https://github.com/yuchi1989/deeprepair/blob/master/exp_7/cifar10/confusion/repair_bias_exp_oversampling_vggbn.py):  
+
+```
+python3 repair_bias_exp_oversampling_vggbn.py --net_type resnet --dataset cifar10 --depth 18 --batch_size 128 --lr 0.1 --expname cifar10_bias_vggbn_oversampling --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_vggbn_2_4/model_best.pth.tar --expid 0 --lam 0 --extra 128 --first 3 --second 5 --third 2 --weight 2.0
+```
+
+#### [w-bn](https://github.com/yuchi1989/deeprepair/blob/master/exp_7/cifar10/bias/repair_bias_exp_newbn_vggbn.py):  
+
+```
+python3 repair_bias_exp_newbn_vggbn.py --net_type resnet --dataset cifar10 --depth 18 --batch_size 128 --lr 0.1 --expname cifar10_bias_vggbn_newbn --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_vggbn_2_4/model_best.pth.tar --expid 0 --lam 0 --extra 128 --replace --first 3 --second 5 --third 2 --ratio 0.4  
+```
+
+#### [w-os](https://github.com/yuchi1989/deeprepair/blob/master/exp_7/cifar10/bias/repair_bias_exp_newbn_softmax_vggbn.py):
+```
+python3 repair_bias_exp_newbn_softmax_vggbn.py --net_type resnet --dataset cifar10 --depth 18 --batch_size 128 --lr 0.1 --expname cifar10_bias_vggbn_softmax --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_vggbn_2_4/model_best.pth.tar --expid 0 --lam 0 --extra 128 --eta 0.1 --checkmodel --first 3 --second 5 --third 2
+```
+
+#### [w-loss](https://github.com/yuchi1989/deeprepair/blob/master/exp_7/cifar10/bias/repair_bias_exp_weighted_loss_vggbn.py):
+```
+python3 repair_bias_exp_weighted_loss_vggbn.py --net_type resnet --dataset cifar10 --depth 18 --batch_size 128 --lr 0.1 --expname cifar10_bias_vggbn_loss --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_vggbn_2_4/model_best.pth.tar --expid 0 --lam 0 --extra 128 --first 3 --second 5 --third 2 --target_weight 0.4
+```
+#### [w-dbr](https://github.com/yuchi1989/deeprepair/blob/master/exp_7/cifar10/bias/repair_bias_dbr_vggbn.py):  
+
+```
+python3 repair_bias_dbr_vggbn.py --net_type resnet --dataset cifar10 --depth 18 --batch_size 256 --lr 0.1 --expname cifar10_bias_vggbn_dbr --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_vggbn_2_4/model_best.pth.tar --expid 0 --first 3 --second 5 --third 2 --lam 0.5
+```
 ### [coco get instance](https://github.com/yuchi1989/deeprepair/blob/master/exp_9/coco/get_instance.py)
 
 ```
-python2 repair_confusion_exp_weighted_loss.py --original original_model/model_best.pth.tar --fix fix_model/model_best.pth.tar --log_dir coco_confusion_repair_aug --first "person" --second "bus" --ann_dir '/local/shared/coco/annotations' --image_dir '/local/shared/coco/'
-python2 repair_confusion_exp_weighted_loss.py --original original_model/model_best.pth.tar --fix fix_model/model_best.pth.tar --log_dir coco_confusion_repair_aug --first "bus" --second "person" --ann_dir '/local/shared/coco/annotations' --image_dir '/local/shared/coco/'
+python2 get_instance.py --original original_model/model_best.pth.tar --fix fix_model/model_best.pth.tar --log_dir coco_confusion_repair_aug --first "person" --second "bus" --ann_dir '/local/shared/coco/annotations' --image_dir '/local/shared/coco/'
+python2 get_instance.py --original original_model/model_best.pth.tar --fix fix_model/model_best.pth.tar --log_dir coco_confusion_repair_aug --first "bus" --second "person" --ann_dir '/local/shared/coco/annotations' --image_dir '/local/shared/coco/'
 ```
+
+### [coco gender get instance bias](https://github.com/yuchi1989/deeprepair/blob/master/exp_9/coco_gender/get_instance_coco_gender_bias.py)
+
+```
+python2 get_instance_coco_gender_bias.py --original original_model/model_best.pth.tar --fix fix_model/model_best.pth.tar --log_dir coco_confusion_repair_aug --first "skis" --second "man" --third "woman" --ann_dir '/local/shared/coco/annotations' --image_dir '/local/shared/coco/'
+```
+
+
 ### [cifar10 get instance](https://github.com/yuchi1989/deeprepair/blob/master/exp_7/cifar10/confusion/cifar10_get_instance.py)
 
 ```
 python3 cifar10_get_instance.py --net_type resnet --dataset cifar10 --depth 18 --batch_size 128 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test  --cutmix_prob 0 --original ./runs/cifar10_resnet18_2_4/model_best.pth.tar --fix ./runs/cifar10_resnet_2_4_dogcat_dbr/model_best.pth.tar --expid 0  --checkmodel --first 5 --second 3
 
 python3 cifar10_get_instance.py --net_type resnet --dataset cifar10 --depth 18 --batch_size 128 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test  --cutmix_prob 0 --original ./runs/cifar10_resnet18_2_4/model_best.pth.tar --fix ./runs/cifar10_resnet_2_4_dogcat_dbr/model_best.pth.tar --expid 0  --checkmodel --first 3 --second 5
+
+```
+
+### [cifar100 get instance](https://github.com/yuchi1989/deeprepair/blob/master/exp_7/cifar10/confusion/cifar10_get_instance.py)
+
+```
+python3 cifar10_get_instance.py --net_type resnet --dataset cifar100 --depth 34 --batch_size 128 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test  --cutmix_prob 0 --original ./runs/cifar100_resnet34/model_best.pth.tar --fix ./runs/cifar100_resnet34_oversampling/model_best.pth.tar --expid 0  --checkmodel --first 35 --second 98
+
+python3 cifar10_get_instance.py --net_type resnet --dataset cifar100 --depth 34 --batch_size 128 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test  --cutmix_prob 0 --original ./runs/cifar100_resnet34/model_best.pth.tar --fix ./runs/cifar100_resnet34_oversampling/model_best.pth.tar --expid 0  --checkmodel --first 98 --second 35
 
 ```
 

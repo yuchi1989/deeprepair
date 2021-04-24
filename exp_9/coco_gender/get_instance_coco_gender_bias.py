@@ -49,6 +49,8 @@ def main():
                         help='first object index')
     parser.add_argument('--second', default="bus", type=str,
                         help='second object index')
+    parser.add_argument('--third', default="bus", type=str,
+                        help='second object index')
     parser.add_argument(
     '--original', default='/set/your/model/path', type=str, metavar='PATH')
 
@@ -100,8 +102,8 @@ def main():
                                             shuffle = False, num_workers = 0,
                                             pin_memory = True)
     # Build the models
-    model1 = MultilabelObject(args, 80).cuda()
-    model2 = MultilabelObject(args, 80).cuda()
+    model1 = MultilabelObject(args, 81).cuda()
+    model2 = MultilabelObject(args, 81).cuda()
 
     criterion = nn.BCEWithLogitsLoss(weight = torch.FloatTensor(train_data.getObjectWeights()), size_average = True, reduction='None').cuda()
 
@@ -224,10 +226,10 @@ def get_confusion(args, epoch, model, criterion, val_loader, optimizer, test_dat
     eval_score_object = average_precision_score(targets_object.numpy(), preds_object.numpy())
     print('\nmean average precision of object classifier on test data is {}\n'.format(eval_score_object))
 
-
+    #first: skis, second: man, third: woman
     image_set = []
     for li, yi, imgi in zip(labels, yhats, images_list):
-        if args.first in li and args.second not in li and args.second in yi and args.first in yi:
+        if args.first in li and args.third in li and args.second not in li and args.first in yi and args.second in yi and args.third not in yi:
             image_set.append(image_path_map[imgi])
 
     return image_set
@@ -305,10 +307,10 @@ def get_fix(args, epoch, model, criterion, val_loader, optimizer, test_data):
     print('\nmean average precision of object classifier on test data is {}\n'.format(eval_score_object))
 
 
-
+    #first: skis, second: man, third: woman
     image_set = []
     for li, yi, imgi in zip(labels, yhats, images_list):
-        if args.first in li and args.second not in li and args.second not in yi and args.first in yi:
+        if args.first in li and args.third in li and args.second not in li and args.first in yi and args.third in yi and args.second not in yi:
             image_set.append(image_path_map[imgi])
 
     return image_set

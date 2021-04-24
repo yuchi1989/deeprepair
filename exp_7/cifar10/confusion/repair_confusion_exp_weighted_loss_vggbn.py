@@ -28,6 +28,61 @@ import random
 import warnings
 from tqdm import tqdm
 from newbatchnorm2 import dnnrepair_BatchNorm2d
+import math
+class VGG(nn.Module):
+    '''
+    VGG model 
+    '''
+    def __init__(self, features):
+        super(VGG, self).__init__()
+        self.features = features
+        self.classifier = nn.Sequential(
+            nn.Dropout(),
+            nn.Linear(512, 512),
+            nn.ReLU(True),
+            nn.Dropout(),
+            nn.Linear(512, 512),
+            nn.ReLU(True),
+            nn.Linear(512, 10),
+        )
+         # Initialize weights
+        for m in self.modules():
+            if isinstance(m, nn.Conv2d):
+                n = m.kernel_size[0] * m.kernel_size[1] * m.out_channels
+                m.weight.data.normal_(0, math.sqrt(2. / n))
+                m.bias.data.zero_()
+    def forward(self, x):
+        x = self.features(x)
+        x = x.view(x.size(0), -1)
+        x = self.classifier(x)
+        return x
+def vgg_make_layers(cfg, batch_norm=False):
+    layers = []
+    in_channels = 3
+    for v in cfg:
+        if v == 'M':
+            layers += [nn.MaxPool2d(kernel_size=2, stride=2)]
+        else:
+            conv2d = nn.Conv2d(in_channels, v, kernel_size=3, padding=1)
+            if batch_norm:
+                layers += [conv2d, nn.BatchNorm2d(v), nn.ReLU(inplace=True)]
+            else:
+                layers += [conv2d, nn.ReLU(inplace=True)]
+            in_channels = v
+    return nn.Sequential(*layers)
+cfg = {
+    'A': [64, 'M', 128, 'M', 256, 256, 'M', 512, 512, 'M', 512, 512, 'M'],
+    'B': [64, 64, 'M', 128, 128, 'M', 256, 256, 'M', 512, 512, 'M', 512, 512, 'M'],
+    'D': [64, 64, 'M', 128, 128, 'M', 256, 256, 256, 'M', 512, 512, 512, 'M', 512, 512, 512, 'M'],
+    'E': [64, 64, 'M', 128, 128, 'M', 256, 256, 256, 256, 'M', 512, 512, 512, 512, 'M', 
+          512, 512, 512, 512, 'M'],
+}
+def vgg11():
+    """VGG 11-layer model (configuration "A")"""
+    return VGG(vgg_make_layers(cfg['A']))
+def vgg11_bn():
+    """VGG 11-layer model (configuration "A") with batch normalization"""
+    return VGG(vgg_make_layers(cfg['A'], batch_norm=True))
 warnings.filterwarnings("ignore")
 
 torch.manual_seed(124)
@@ -82,13 +137,9 @@ parser.add_argument('--checkmodel', help='Check model accuracy',
                     action='store_true')
 parser.add_argument('--lam', default=0.5, type=float,
                     help='hyperparameter lambda')
-parser.add_argument('--pair1a', default=3, type=int,
+parser.add_argument('--first', default=3, type=int,
                     help='first object index')
-parser.add_argument('--pair1b', default=5, type=int,
-                    help='second object index')
-parser.add_argument('--pair2a', default=3, type=int,
-                    help='first object index')
-parser.add_argument('--pair2b', default=5, type=int,
+parser.add_argument('--second', default=5, type=int,
                     help='second object index')
 parser.add_argument('--extra', default=10, type=int,
                     help='extra batch size')
@@ -244,16 +295,8 @@ def main():
     else:
         raise Exception('unknown dataset: {}'.format(args.dataset))
 
-    print("=> creating model '{}'".format(args.net_type))
-    if args.net_type == 'resnet':
-        model = RN.ResNet(args.dataset, args.depth,
-                          numberofclass, args.bottleneck)  # for ResNet
-    elif args.net_type == 'pyramidnet':
-        model = PYRM.PyramidNet(args.dataset, args.depth, args.alpha, numberofclass,
-                                args.bottleneck)
-    else:
-        raise Exception(
-            'unknown network architecture: {}'.format(args.net_type))
+    print("=> creating model vggbn ")
+    model = vgg11_bn()
 
     model = torch.nn.DataParallel(model).cuda()
 
@@ -296,21 +339,13 @@ def main():
         global_epoch_confusion.append({})
         get_confusion(val_loader, model, criterion)
         # cat->dog confusion
-        log_print(str(args.pair1a) + " -> " + str(args.pair1b))
+        log_print(str(args.first) + " -> " + str(args.second))
         log_print(global_epoch_confusion[-1]
-                  ["confusion"][(args.pair1a, args.pair1b)])
+                  ["confusion"][(args.first, args.second)])
         # dog->cat confusion
-        log_print(str(args.pair1b) + " -> " + str(args.pair1a))
+        log_print(str(args.second) + " -> " + str(args.first))
         log_print(global_epoch_confusion[-1]
-                  ["confusion"][(args.pair1b, args.pair1a)])
-        # cat->dog confusion
-        log_print(str(args.pair2a) + " -> " + str(args.pair2b))
-        log_print(global_epoch_confusion[-1]
-                  ["confusion"][(args.pair2a, args.pair2b)])
-        # dog->cat confusion
-        log_print(str(args.pair2b) + " -> " + str(args.pair2a))
-        log_print(global_epoch_confusion[-1]
-                  ["confusion"][(args.pair2b, args.pair2a)])
+                  ["confusion"][(args.second, args.first)])
         exit()
 
     for epoch in range(0, args.epochs):
@@ -347,21 +382,13 @@ def main():
 
         get_confusion(val_loader, model, criterion, epoch)
         # cat->dog confusion
-        log_print(str(args.pair1a) + " -> " + str(args.pair1b))
+        log_print(str(args.first) + " -> " + str(args.second))
         log_print(global_epoch_confusion[-1]
-                  ["confusion"][(args.pair1a, args.pair1b)])
+                  ["confusion"][(args.first, args.second)])
         # dog->cat confusion
-        log_print(str(args.pair1b) + " -> " + str(args.pair1a))
+        log_print(str(args.second) + " -> " + str(args.first))
         log_print(global_epoch_confusion[-1]
-                  ["confusion"][(args.pair1b, args.pair1a)])
-        # cat->dog confusion
-        log_print(str(args.pair2a) + " -> " + str(args.pair2b))
-        log_print(global_epoch_confusion[-1]
-                  ["confusion"][(args.pair2a, args.pair2b)])
-        # dog->cat confusion
-        log_print(str(args.pair2b) + " -> " + str(args.pair2a))
-        log_print(global_epoch_confusion[-1]
-                  ["confusion"][(args.pair2b, args.pair2a)])
+                  ["confusion"][(args.second, args.first)])
 
     print('Best accuracy (top-1 and 5 error):', best_err1, best_err5)
     directory = "runs/%s/" % (args.expname)
@@ -379,21 +406,14 @@ def main():
         model.load_state_dict(checkpoint['state_dict'])
         get_confusion(val_loader, model, criterion)
         # dog->cat confusion
-        log_print(str(args.pair1a) + " -> " + str(args.pair1b))
+        log_print(str(args.first) + " -> " + str(args.second))
         log_print(global_epoch_confusion[-1]
-                  ["confusion"][(args.pair1a, args.pair1b)])
+                  ["confusion"][(args.first, args.second)])
         # cat->dog confusion
-        log_print(str(args.pair1b) + " -> " + str(args.pair1a))
+        log_print(str(args.second) + " -> " + str(args.first))
         log_print(global_epoch_confusion[-1]
-                  ["confusion"][(args.pair1b, args.pair1a)])
-        # dog->cat confusion
-        log_print(str(args.pair2a) + " -> " + str(args.pair2b))
-        log_print(global_epoch_confusion[-1]
-                  ["confusion"][(args.pair2a, args.pair2b)])
-        # cat->dog confusion
-        log_print(str(args.pair2b) + " -> " + str(args.pair2a))
-        log_print(global_epoch_confusion[-1]
-                  ["confusion"][(args.pair2b, args.pair2a)])
+                  ["confusion"][(args.second, args.first)])
+
 
 def train(train_loader, model, criterion, optimizer, epoch):
     batch_time = AverageMeter()
@@ -437,9 +457,9 @@ def train(train_loader, model, criterion, optimizer, epoch):
             id5 = []
 
             for j in range(len(input)):
-                if (target_copy[j]) == args.pair1a:
+                if (target_copy[j]) == args.first:
                     id3.append(j)
-                elif (target_copy[j]) == args.pair1b:
+                elif (target_copy[j]) == args.second:
                     id5.append(j)
 
             m = nn.Softmax(dim=1)
@@ -481,16 +501,8 @@ def train(train_loader, model, criterion, optimizer, epoch):
             if args.target_weight > 0:
                 target_weight = args.target_weight
 
-                loss_target1, use_loss_target1 = get_target_loss(target, output, args.pair1a, args.pair1b)
-                loss_target2, use_loss_target2 = get_target_loss(target, output, args.pair2a, args.pair2b)
+                loss_target, use_loss_target = get_target_loss(target, output, args.first, args.second)
 
-                use_loss_target = use_loss_target1 or use_loss_target2
-                if use_loss_target1 and use_loss_target2:
-                    loss_target = (loss_target1 + loss_target2) / 2
-                elif use_loss_target1:
-                    loss_target = loss_target1
-                elif use_loss_target2:
-                    loss_target = loss_target2
                 if use_loss_target:
                     loss2 = (1-target_weight) * criterion(output, target).mean() + target_weight * loss_target
                 else:
@@ -678,7 +690,7 @@ def get_confusion(val_loader, model, criterion, epoch=-1):
     dog_cat_acc = 0
     for i in range(len(yhats)):
 
-        if args.pair1a == labels[i] or args.pair1b == labels[i]:
+        if args.first == labels[i] or args.second == labels[i]:
             dog_cat_sum += 1
             if labels[i] == yhats[i]:
                 dog_cat_acc += 1
