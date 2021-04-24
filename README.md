@@ -6,7 +6,7 @@
 
 ### [COCO](https://github.com/yuchi1989/deeprepair/tree/master/exp_7/coco ) prototype  
 
-### [cifar10_vgg_bn](https://github.com/yuchi1989/deeprepair/blob/master/exp_7/cifar10/confusion/train_baseline_vggbn.py)
+### [cifar10_vgg_bn confusion](https://github.com/yuchi1989/deeprepair/blob/master/exp_7/cifar10/confusion/train_baseline_vggbn.py)
 ```
 python3 train_baseline_vggbn.py  --dataset cifar10 --depth 18 --batch_size 256 --lr 0.1 --expname cifar10_vggbn_2_4 --epochs 300 --beta 1.0 --cutmix_prob 0
 ```
