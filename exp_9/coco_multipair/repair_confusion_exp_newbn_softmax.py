@@ -12,7 +12,7 @@ parser.add_argument("--mode", type=str, default='confusion')
 parser.add_argument("--first", type=str, default='bus')
 parser.add_argument("--second", type=str, default='person')
 parser.add_argument("--third", type=str, default='clock')
-
+parser.add_argument("--fourth", type=str, default='clock')
 
 
 args = parser.parse_args()
@@ -112,7 +112,7 @@ mode = args.mode
 target_class_1 = object2id[args.first]
 target_class_2 = object2id[args.second]
 target_class_3 = object2id[args.third]
-
+target_class_4 = object2id[args.fourth]
 
 features = np.concatenate(np_original["features"])
 
@@ -146,6 +146,13 @@ for i in range(features.shape[0]):
             feature[target_class_1] *= eta
             feature[target_class_2] *= eta
             feature[target_class_3] *= eta
+    elif mode == 'multipairconfusion':
+        if (feature[target_class_1] > 0.5 and feature[target_class_2] > 0.5):
+            feature[target_class_1] *= eta
+            feature[target_class_2] *= eta
+        if (feature[target_class_3] > 0.5 and feature[target_class_4] > 0.5):
+            feature[target_class_3] *= eta
+            feature[target_class_4] *= eta
 
     for j, f in enumerate(feature):
         if f > 0.5:
@@ -197,10 +204,18 @@ print('mean average precision:', eval_score_object)
 conf12 = type2confusion[(args.first, args.second)]
 conf21 = type2confusion[(args.second, args.first)]
 if args.mode == 'confusion':
-    print('confusion:', conf12+conf21/2, conf12, conf21)
+    print('confusion:', conf12+conf21, conf12, conf21)
 elif args.mode == 'bias':
     conf13 = type2confusion[(args.first, args.third)]
     conf31 = type2confusion[(args.third, args.first)]
-    print('confusion12:', conf12+conf21/2, conf12, conf21)
-    print('confusion13:', conf13+conf31/2, conf13, conf31)
-    print('bias:', np.abs((conf12+conf21)-(conf13+conf31))/2)
+    print('confusion12:', conf12+conf21, conf12, conf21)
+    print('confusion13:', conf13+conf31, conf13, conf31)
+    print('bias:', np.abs((conf12+conf21)-(conf13+conf31)))
+elif args.mode == 'multipairconfusion':
+    conf12 = type2confusion[(args.first, args.second)]
+    conf21 = type2confusion[(args.second, args.first)]
+    conf34 = type2confusion[(args.third, args.fourth)]
+    conf43 = type2confusion[(args.fourth, args.third)]
+    print('confusion12:', conf12+conf21, conf12, conf21)
+    print('confusion34:', conf34+conf43, conf34, conf43)
+    print('total:', np.abs((conf12+conf21)+(conf34+conf43)))

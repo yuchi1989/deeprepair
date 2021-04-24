@@ -1,4 +1,4 @@
-#python2 repair_bias_exp_weighted_loss.py --pretrained original_model/model_best.pth.tar --log_dir coco_confusion_repair --first "bus" --second "person" --third "clock" --ann_dir '../../../coco/annotations' --image_dir '../../../coco/' --weight 2 --target_weight 0.5
+#python2 repair_bias_exp_weighted_loss.py --pretrained original_model/model_best.pth.tar --log_dir coco_confusion_repair --first "bus" --second "person" --third "clock" --ann_dir '../../../coco/annotations' --image_dir '../../../coco/' --weight 2 --target_weight 0.5 --class_num 80
 import math, os, random, json, pickle, sys, pdb
 import string, shutil, time, argparse
 import numpy as np
@@ -100,14 +100,13 @@ def main():
     second_id = object2id[args.second]
     third_id = object2id[args.third]
 
-    # print(first_id, second_id, third_id, train_data.labels)
     weights = [args.weight if first_id in train_data.labels[i] or second_id in train_data.labels[i] or third_id in train_data.labels[i] else 1.0 for i in range(len(train_data.labels))]
-    print('np.mean(weights)', np.mean(weights))
     sampler = WeightedRandomSampler(torch.DoubleTensor(weights), len(train_data.labels))
 
     # Data loaders / batch assemblers.
-    train_loader = torch.utils.data.DataLoader(train_data, batch_size = args.batch_size, num_workers = 1,
-                                              pin_memory = True, sampler=sampler)
+    train_loader = torch.utils.data.DataLoader(train_data, batch_size = args.batch_size,
+                                              shuffle = True, num_workers = 1,
+                                              pin_memory = True)
 
 
 
@@ -269,7 +268,7 @@ def train(args, epoch, model, criterion, train_loader, optimizer, train_F, score
             if len(inds_first) > 0 and len(inds_second) > 0:
                 loss_target = (loss_target_1 + loss_target_2) / 2
 
-            print('len(inds_first)', len(inds_first), 'len(inds_second)', len(inds_second))
+            # print('len(inds_first)', len(inds_first), 'len(inds_second)', len(inds_second))
 
             return use_loss_target, loss_target
 

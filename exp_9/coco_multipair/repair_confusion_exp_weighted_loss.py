@@ -1,4 +1,4 @@
-#python2 repair_bias_exp_weighted_loss.py --pretrained original_model/model_best.pth.tar --log_dir coco_confusion_repair --first "bus" --second "person" --third "clock" --ann_dir '../../../coco/annotations' --image_dir '../../../coco/' --weight 2 --target_weight 0.5
+#python2 repair_confusion_exp_weighted_loss.py --pretrained original_model/model_best.pth.tar --log_dir coco_confusion_repair --first "person" --second "bus" --ann_dir '../../../coco/annotations' --image_dir '../../../coco/' --weight 1 --target_weight 0.5 --class_num 80
 import math, os, random, json, pickle, sys, pdb
 import string, shutil, time, argparse
 import numpy as np
@@ -43,12 +43,15 @@ def main():
     parser.add_argument('--learning_rate', type=float, default=0.1)
     parser.add_argument('--lam', default=0.5, type=float,
                     help='hyperparameter lambda')
-    parser.add_argument('--first', default="person", type=str,
+    parser.add_argument('--pair1a', default="person", type=str,
                         help='first object index')
-    parser.add_argument('--second', default="clock", type=str,
+    parser.add_argument('--pair1b', default="bus", type=str,
                         help='second object index')
-    parser.add_argument('--third', default="bus", type=str,
-                        help='third object index')
+
+    parser.add_argument('--pair2a', default="person", type=str,
+                        help='first object index')
+    parser.add_argument('--pair2b', default="bus", type=str,
+                        help='second object index')
     parser.add_argument(
     '--pretrained', default='/set/your/model/path', type=str, metavar='PATH')
     parser.add_argument('--debug', help='Check model accuracy',
@@ -59,6 +62,7 @@ def main():
                 help='target_weight')
     parser.add_argument('--class_num', default=81, type=int,
                 help='81:coco_gender;80:coco')
+
     args = parser.parse_args()
 
     torch.manual_seed(args.seed)
@@ -87,28 +91,25 @@ def main():
         transforms.CenterCrop(args.crop_size),
         transforms.ToTensor(),
         normalize])
-
     # Data samplers.
     train_data = CocoObject(ann_dir = args.ann_dir, image_dir = args.image_dir,
         split = 'train', transform = train_transform)
-
     val_data = CocoObject(ann_dir = args.ann_dir, image_dir = args.image_dir,
         split = 'val', transform = val_transform)
     object2id = val_data.object2id
 
-    first_id = object2id[args.first]
-    second_id = object2id[args.second]
-    third_id = object2id[args.third]
+    pair1a_id = object2id[args.pair1a]
+    pair1b_id = object2id[args.pair1b]
+    pair2a_id = object2id[args.pair2a]
+    pair2b_id = object2id[args.pair2b]
 
-    # print(first_id, second_id, third_id, train_data.labels)
-    weights = [args.weight if first_id in train_data.labels[i] or second_id in train_data.labels[i] or third_id in train_data.labels[i] else 1.0 for i in range(len(train_data.labels))]
-    print('np.mean(weights)', np.mean(weights))
+    weights = [args.weight if pair1a_id in train_data.labels[i] or pair1b_id in train_data.labels[i] or pair2a_id in train_data.labels[i] or pair2b_id in train_data.labels[i]else 1.0 for i in range(len(train_data.labels)) ]
     sampler = WeightedRandomSampler(torch.DoubleTensor(weights), len(train_data.labels))
 
     # Data loaders / batch assemblers.
-    train_loader = torch.utils.data.DataLoader(train_data, batch_size = args.batch_size, num_workers = 1,
+    train_loader = torch.utils.data.DataLoader(train_data, batch_size = args.batch_size,
+                                              shuffle = False, num_workers = 1,
                                               pin_memory = True, sampler=sampler)
-
 
 
     val_loader = torch.utils.data.DataLoader(val_data, batch_size = args.batch_size,
@@ -140,7 +141,6 @@ def main():
     else:
         exit()
 
-
     for epoch in range(args.start_epoch, args.num_epochs + 1):
         global_epoch_confusion.append({})
         adjust_learning_rate(optimizer, epoch)
@@ -154,13 +154,11 @@ def main():
             'best_performance': best_performance}
         save_checkpoint(args, model_state, is_best, os.path.join(args.log_dir, 'checkpoint.pth.tar'))
         confusion_matrix = global_epoch_confusion[-1]["confusion"]
-        first_second = compute_confusion(confusion_matrix, args.first, args.second)
-        first_third = compute_confusion(confusion_matrix, args.first, args.third)
-        print(str((args.first, args.second, args.third)) + " triplet: " +
-            str(compute_bias(confusion_matrix, args.first, args.second, args.third)))
-        print(str((args.first, args.second)) + ": " + str(first_second))
-        print(str((args.first, args.third)) + ": " + str(first_third))
-        #os.system('python plot.py {} &'.format(args.log_dir))
+        pair1 = compute_confusion(confusion_matrix, args.pair1a, args.pair1b)
+        print(str((args.pair1a, args.pair1b)) + ": " + str(pair1))
+        pair2 = compute_confusion(confusion_matrix, args.pair2a, args.pair2b)
+        print(str((args.pair2a, args.pair2b)) + ": " + str(pair2))
+        print("total: " + str(pair1 + pair2))
 
     train_F.close()
     val_F.close()
@@ -204,6 +202,7 @@ def train(args, epoch, model, criterion, train_loader, optimizer, train_F, score
 
     t = tqdm(train_loader, desc = 'Train %d' % epoch)
     for batch_idx, (images, objects, image_ids) in enumerate(t):
+
         # if batch_idx == 100: break # constrain epoch size
         labels = []
         for i in range(len(image_ids)):
@@ -221,40 +220,20 @@ def train(args, epoch, model, criterion, train_loader, optimizer, train_F, score
         object_preds = model(images)
         loss = criterion(object_preds, objects).mean()
 
-        m = nn.Softmax(dim=1)
-        firstid = []
-        secondid = []
-        thirdid = []
+        def sigmoid(z):
+            return 1/(1 + np.exp(-z))
 
-        for j in range(len(labels)):
-            if args.first in (labels[j]):# and "bus" not in (labels[j]):
-                firstid.append(j)
-            if args.second in (labels[j]):# and "person" not in (labels[j]):
-                secondid.append(j)
-            if args.third in (labels[j]):# and "person" not in (labels[j]):
-                thirdid.append(j)
-        #print(len(labels))
-        #print(object_preds.shape)
-        if args.debug:
-            print(len(firstid))
-            print(len(secondid))
-            print(len(thirdid))
-
-
-
-        #print(p_dist)
-
-        def select_confused_inds(objects_np, object_preds_np, id1, id2):
+        def get_loss_target(objects_np, object_preds_np, id1, id2):
             inds = np.arange(objects_np.shape[0])
             inds_first = (objects_np[:,id1] > 0.5) & (objects_np[:, id2] <= 0.5) & (object_preds_np[:, id1] > 0.5) & (object_preds_np[:, id2] > 0.5)
             inds_first = inds[inds_first]
+            inds_first_cuda = torch.from_numpy(inds_first).cuda()
 
             inds = np.arange(objects_np.shape[0])
             inds_second = (objects_np[:, id2] > 0.5) & (objects_np[:,id1] <= 0.5) & (object_preds_np[:, id2] > 0.5) & (object_preds_np[:, id1] > 0.5)
             inds_second = inds[inds_second]
-
-            inds_first_cuda = torch.from_numpy(inds_first).cuda()
             inds_second_cuda = torch.from_numpy(inds_second).cuda()
+
 
             use_loss_target = False
             loss_target = None
@@ -269,12 +248,7 @@ def train(args, epoch, model, criterion, train_loader, optimizer, train_F, score
             if len(inds_first) > 0 and len(inds_second) > 0:
                 loss_target = (loss_target_1 + loss_target_2) / 2
 
-            print('len(inds_first)', len(inds_first), 'len(inds_second)', len(inds_second))
-
-            return use_loss_target, loss_target
-
-        def sigmoid(z):
-            return 1/(1 + np.exp(-z))
+            return loss_target, use_loss_target
 
         if args.target_weight > 0:
             target_weight = args.target_weight
@@ -285,31 +259,30 @@ def train(args, epoch, model, criterion, train_loader, optimizer, train_F, score
             objects_np = sigmoid(objects_np)
             object_preds_np = sigmoid(object_preds_np)
 
-            id1 = object2id[args.first]
-            id2 = object2id[args.second]
-            id3 = object2id[args.third]
+            id1 = object2id[args.pair1a]
+            id2 = object2id[args.pair1b]
+            id3 = object2id[args.pair2a]
+            id4 = object2id[args.pair2b]
 
+            loss_target1, use_loss_target1 = get_loss_target(objects_np, object_preds_np, id1, id2)
 
+            loss_target2, use_loss_target2 = get_loss_target(objects_np, object_preds_np, id3, id4)
+
+            use_loss_target = use_loss_target1 or use_loss_target2
             loss_target = None
-            use_loss_target = False
-            use_loss_target1, loss_target1 = select_confused_inds(objects_np, object_preds_np, id1, id2)
-
-            use_loss_target2, loss_target2 = select_confused_inds(objects_np, object_preds_np, id1, id3)
-
             if use_loss_target1 and use_loss_target2:
                 loss_target = (loss_target1 + loss_target2) / 2
-                use_loss_target = True
             elif use_loss_target1:
                 loss_target = loss_target1
-                use_loss_target = True
             elif use_loss_target2:
                 loss_target = loss_target2
-                use_loss_target = True
+
+
 
             if use_loss_target:
                 loss2 = (1-target_weight) * loss + target_weight * loss_target
 
-                # print('loss_target.detach().cpu().numpy()', loss_target.detach().cpu().numpy())
+
             else:
                 loss2 = loss
 
