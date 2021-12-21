@@ -457,7 +457,7 @@ def train(train_loader, model, criterion, optimizer, epoch):
                 loss_target, use_loss_target = get_target_loss(target, output, args.first, args.second)
 
                 if use_loss_target:
-                    loss2 = (1-target_weight) * criterion(output, target).mean() + target_weight * loss_target
+                    loss2 = target_weight * criterion(output, target).mean() +  (1-target_weight) * loss_target
                 else:
                     loss2 = criterion(output, target).mean()
             else:

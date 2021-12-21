@@ -307,7 +307,7 @@ def train(args, epoch, model, criterion, train_loader, optimizer, train_F, score
                 use_loss_target = True
 
             if use_loss_target:
-                loss2 = (1-target_weight) * loss + target_weight * loss_target
+                loss2 = target_weight * loss + (1-target_weight) * loss_target
 
                 # print('loss_target.detach().cpu().numpy()', loss_target.detach().cpu().numpy())
             else:

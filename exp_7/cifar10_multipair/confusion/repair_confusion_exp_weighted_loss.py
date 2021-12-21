@@ -492,7 +492,7 @@ def train(train_loader, model, criterion, optimizer, epoch):
                 elif use_loss_target2:
                     loss_target = loss_target2
                 if use_loss_target:
-                    loss2 = (1-target_weight) * criterion(output, target).mean() + target_weight * loss_target
+                    loss2 = target_weight * criterion(output, target).mean() + (1-target_weight) * loss_target
                 else:
                     loss2 = criterion(output, target).mean()
             else:

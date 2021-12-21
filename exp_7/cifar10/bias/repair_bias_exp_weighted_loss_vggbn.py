@@ -31,7 +31,7 @@ from newbatchnorm2 import dnnrepair_BatchNorm2d
 import math
 class VGG(nn.Module):
     '''
-    VGG model 
+    VGG model
     '''
     def __init__(self, features):
         super(VGG, self).__init__()
@@ -74,7 +74,7 @@ cfg = {
     'A': [64, 'M', 128, 'M', 256, 256, 'M', 512, 512, 'M', 512, 512, 'M'],
     'B': [64, 64, 'M', 128, 128, 'M', 256, 256, 'M', 512, 512, 'M', 512, 512, 'M'],
     'D': [64, 64, 'M', 128, 128, 'M', 256, 256, 256, 'M', 512, 512, 512, 'M', 512, 512, 512, 'M'],
-    'E': [64, 64, 'M', 128, 128, 'M', 256, 256, 256, 256, 'M', 512, 512, 512, 512, 'M', 
+    'E': [64, 64, 'M', 128, 128, 'M', 256, 256, 256, 256, 'M', 512, 512, 512, 512, 'M',
           512, 512, 512, 512, 'M'],
 }
 def vgg11():
@@ -531,7 +531,7 @@ def train(train_loader, model, criterion, optimizer, epoch):
                     loss_target = loss_target2
 
                 if use_loss_target:
-                    loss2 = (1-target_weight) * criterion(output, target).mean() + target_weight * loss_target
+                    loss2 = target_weight * criterion(output, target).mean() + (1-target_weight) * loss_target
                 else:
                     loss2 = criterion(output, target).mean()
             else:
