@@ -28,7 +28,7 @@ from tqdm import tqdm
 import math
 class VGG(nn.Module):
     '''
-    VGG model 
+    VGG model
     '''
     def __init__(self, features):
         super(VGG, self).__init__()
@@ -71,7 +71,7 @@ cfg = {
     'A': [64, 'M', 128, 'M', 256, 256, 'M', 512, 512, 'M', 512, 512, 'M'],
     'B': [64, 64, 'M', 128, 128, 'M', 256, 256, 'M', 512, 512, 'M', 512, 512, 'M'],
     'D': [64, 64, 'M', 128, 128, 'M', 256, 256, 256, 'M', 512, 512, 512, 'M', 512, 512, 512, 'M'],
-    'E': [64, 64, 'M', 128, 128, 'M', 256, 256, 256, 256, 'M', 512, 512, 512, 512, 'M', 
+    'E': [64, 64, 'M', 128, 128, 'M', 256, 256, 256, 256, 'M', 512, 512, 512, 512, 'M',
           512, 512, 512, 512, 'M'],
 }
 def vgg11():
@@ -221,9 +221,9 @@ def main():
             target_train_dataset = get_dataset_from_specific_classes(target_train_dataset, args.first, args.second)
             target_test_dataset = datasets.CIFAR10('../data', train=False, download=True, transform=transform_test)
             target_test_dataset = get_dataset_from_specific_classes(target_test_dataset, args.first, args.second)
-            target_train_loader = torch.utils.data.DataLoader(target_train_dataset, batch_size=args.extra, shuffle=True, 
+            target_train_loader = torch.utils.data.DataLoader(target_train_dataset, batch_size=args.extra, shuffle=True,
                                         num_workers=args.workers, pin_memory=True)
-            target_val_loader = torch.utils.data.DataLoader(target_test_dataset, batch_size=args.extra, shuffle=True, 
+            target_val_loader = torch.utils.data.DataLoader(target_test_dataset, batch_size=args.extra, shuffle=True,
                                         num_workers=args.workers, pin_memory=True)
 
         else:
@@ -391,7 +391,7 @@ def train(train_loader, target_train_loader, model, criterion, optimizer, epoch)
                 m(output)[id3], 0), torch.mean(m(output)[id5], 0), 2)
 
             p_dist = 0
-            loss2 = loss - args.lam * p_dist
+            loss2 = args.lam * loss - (1 - args.lam) * p_dist
         else:
             # compute output
 
@@ -400,7 +400,7 @@ def train(train_loader, target_train_loader, model, criterion, optimizer, epoch)
             #_, top1_output = output.max(1)
             #yhats = top1_output.cpu().data.numpy()
             # print(yhats[:5])
-            
+
             id3 = []
             id5 = []
             for j in range(len(input)):
@@ -420,11 +420,9 @@ def train(train_loader, target_train_loader, model, criterion, optimizer, epoch)
             else:
                 p_dist = torch.dist(torch.mean(
                     m(output)[id3], 0), torch.mean(m(output)[id5], 0), 2)
-            #print(criterion(output, target).mean())
-            # print(p_dist)
-            #loss2 = criterion(output, target).mean() + p_dist
-            #loss2 = criterion(output, target).mean()
-            loss2 = criterion(output, target).mean() - args.lam*p_dist
+
+            loss = criterion(output, target).mean()
+            loss2 = args.lam * loss - (1 - args.lam) * p_dist
 
         losses.update(loss2.item(), input.size(0))
 
@@ -437,7 +435,7 @@ def train(train_loader, target_train_loader, model, criterion, optimizer, epoch)
         batch_time.update(time.time() - end)
         end = time.time()
         t.set_postfix(loss = losses.avg)
-        
+
         if i % args.print_freq == 0 and args.verbose == True:
             print('Epoch: [{0}/{1}][{2}/{3}]\t'
                   'LR: {LR:.6f}\t'
@@ -611,7 +609,7 @@ def get_confusion(val_loader, model, criterion, epoch=-1):
                 dog_cat_acc += 1
     global_epoch_confusion[-1]["dogcatacc"] = dog_cat_acc/dog_cat_sum
     log_print("pair accuracy: " + str(global_epoch_confusion[-1]["dogcatacc"]))
-    
+
     return top1.avg, top5.avg, losses.avg
 
 

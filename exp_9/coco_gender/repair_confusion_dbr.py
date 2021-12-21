@@ -245,7 +245,7 @@ def train(args, epoch, model, criterion, train_loader, optimizer, train_F, score
         else:
             p_dist2 = torch.dist(torch.mean(m(object_preds)[firstid],0), torch.mean(m(object_preds)[secondid],0),2)
 
-        loss2 = loss - args.lam * p_dist2
+        loss2 = args.lam * loss - (1 - args.lam) * p_dist2
         loss_logger.update(loss2.item())
         object_preds_max = object_preds.data.max(1, keepdim=True)[1]
         object_correct = torch.gather(objects.data, 1, object_preds_max).cpu().sum()

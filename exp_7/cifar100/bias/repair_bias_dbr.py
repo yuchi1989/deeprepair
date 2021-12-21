@@ -117,7 +117,7 @@ def compute_confusion(confusion_matrix, first, second):
     confusion = 0
     if (first, second) in confusion_matrix:
         confusion += confusion_matrix[(first, second)]
-    
+
     if (second, first) in confusion_matrix:
         confusion += confusion_matrix[(second, first)]
     return confusion/2
@@ -193,9 +193,9 @@ def main():
             target_train_dataset = get_dataset_from_specific_classes(target_train_dataset, args.first, args.second)
             target_test_dataset = datasets.CIFAR10('../data', train=False, download=True, transform=transform_test)
             target_test_dataset = get_dataset_from_specific_classes(target_test_dataset, args.first, args.second, args.third)
-            target_train_loader = torch.utils.data.DataLoader(target_train_dataset, batch_size=args.extra, shuffle=True, 
+            target_train_loader = torch.utils.data.DataLoader(target_train_dataset, batch_size=args.extra, shuffle=True,
                                         num_workers=args.workers, pin_memory=True)
-            target_val_loader = torch.utils.data.DataLoader(target_test_dataset, batch_size=args.extra, shuffle=True, 
+            target_val_loader = torch.utils.data.DataLoader(target_test_dataset, batch_size=args.extra, shuffle=True,
                                         num_workers=args.workers, pin_memory=True)
 
         else:
@@ -241,7 +241,7 @@ def main():
         global_epoch_confusion.append({})
         get_confusion(val_loader, model, criterion)
         confusion_matrix = global_epoch_confusion[-1]["confusion"]
-        print(str((args.first, args.second, args.third)) + " triplet: " + 
+        print(str((args.first, args.second, args.third)) + " triplet: " +
             str(abs(confusion_matrix[(args.first, args.second)] - confusion_matrix[(args.first, args.third)])))
         print(str((args.first, args.second)) + ": " + str(confusion_matrix[(args.first, args.second)]))
         print(str((args.first, args.third)) + ": " + str(confusion_matrix[(args.first, args.third)]))
@@ -282,7 +282,7 @@ def main():
         #print("loss: " + str(global_epoch_confusion[-1]["loss"]))
         first_second = compute_confusion(confusion_matrix, args.first, args.second)
         first_third = compute_confusion(confusion_matrix, args.first, args.third)
-        print(str((args.first, args.second, args.third)) + " triplet: " + 
+        print(str((args.first, args.second, args.third)) + " triplet: " +
             str(compute_bias(confusion_matrix, args.first, args.second, args.third)))
         print(str((args.first, args.second)) + ": " + str(first_second))
         print(str((args.first, args.third)) + ": " + str(first_third))
@@ -306,7 +306,7 @@ def main():
         #print("loss: " + str(global_epoch_confusion[-1]["loss"]))
         first_second = compute_confusion(confusion_matrix, args.first, args.second)
         first_third = compute_confusion(confusion_matrix, args.first, args.third)
-        print(str((args.first, args.second, args.third)) + " triplet: " + 
+        print(str((args.first, args.second, args.third)) + " triplet: " +
             str(compute_bias(confusion_matrix, args.first, args.second, args.third)))
         print(str((args.first, args.second)) + ": " + str(first_second))
         print(str((args.first, args.third)) + ": " + str(first_third))
@@ -403,12 +403,9 @@ def train(train_loader, target_train_loader, model, criterion, optimizer, epoch)
                 p_dist2 = torch.dist(torch.mean(
                     m(output)[id3], 0), torch.mean(m(output)[id1], 0), 2)
                 diff_dist = torch.abs(p_dist1 - p_dist2)
-            #print(criterion(output, target).mean())
-            # print(p_dist)
 
-            #loss2 = criterion(output, target).mean() + p_dist
-            #loss2 = criterion(output, target).mean()
-            loss2 = criterion(output, target).mean() + args.lam*diff_dist
+            loss = criterion(output, target).mean()
+            loss2 = args.lam * loss - (1 - args.lam) * p_dist
 
         losses.update(loss2.item(), input.size(0))
 
@@ -421,7 +418,7 @@ def train(train_loader, target_train_loader, model, criterion, optimizer, epoch)
         batch_time.update(time.time() - end)
         end = time.time()
         t.set_postfix(loss = losses.avg)
-        
+
         if i % args.print_freq == 0 and args.verbose == True:
             print('Epoch: [{0}/{1}][{2}/{3}]\t'
                   'LR: {LR:.6f}\t'
@@ -595,7 +592,7 @@ def get_confusion(val_loader, model, criterion, epoch=-1):
                 dog_cat_acc += 1
     global_epoch_confusion[-1]["dogcatacc"] = dog_cat_acc/dog_cat_sum
     log_print("pair accuracy: " + str(global_epoch_confusion[-1]["dogcatacc"]))
-    
+
     return top1.avg, top5.avg, losses.avg
 
 

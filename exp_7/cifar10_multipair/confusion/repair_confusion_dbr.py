@@ -382,7 +382,7 @@ def train(train_loader, target_train_loader, model, criterion, optimizer, epoch)
                 m(output)[id3], 0), torch.mean(m(output)[id5], 0), 2)
 
             p_dist = 0
-            loss2 = loss - args.lam * p_dist
+            loss2 = args.lam * loss - (1 - args.lam) * p_dist
         else:
             # compute output
 
@@ -391,7 +391,7 @@ def train(train_loader, target_train_loader, model, criterion, optimizer, epoch)
             #_, top1_output = output.max(1)
             #yhats = top1_output.cpu().data.numpy()
             # print(yhats[:5])
-            
+
             id3 = []
             id5 = []
             id4 = []
@@ -431,7 +431,9 @@ def train(train_loader, target_train_loader, model, criterion, optimizer, epoch)
             # print(p_dist)
             #loss2 = criterion(output, target).mean() + p_dist
             #loss2 = criterion(output, target).mean()
-            loss2 = criterion(output, target).mean() - args.lam*p_dist - args.lam*p_dist2
+
+            loss = criterion(output, target).mean()
+            loss2 = args.lam * loss - (1 - args.lam) * (p_dist+p_dist2) / 2
 
         losses.update(loss2.item(), input.size(0))
 
@@ -444,7 +446,7 @@ def train(train_loader, target_train_loader, model, criterion, optimizer, epoch)
         batch_time.update(time.time() - end)
         end = time.time()
         t.set_postfix(loss = losses.avg)
-        
+
         if i % args.print_freq == 0 and args.verbose == True:
             print('Epoch: [{0}/{1}][{2}/{3}]\t'
                   'LR: {LR:.6f}\t'
