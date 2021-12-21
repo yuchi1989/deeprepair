@@ -33,7 +33,7 @@ from torch.utils.data.sampler import WeightedRandomSampler
 import math
 class VGG(nn.Module):
     '''
-    VGG model 
+    VGG model
     '''
     def __init__(self, features):
         super(VGG, self).__init__()
@@ -76,7 +76,7 @@ cfg = {
     'A': [64, 'M', 128, 'M', 256, 256, 'M', 512, 512, 'M', 512, 512, 'M'],
     'B': [64, 64, 'M', 128, 128, 'M', 256, 256, 'M', 512, 512, 'M', 512, 512, 'M'],
     'D': [64, 64, 'M', 128, 128, 'M', 256, 256, 256, 'M', 512, 512, 512, 'M', 512, 512, 512, 'M'],
-    'E': [64, 64, 'M', 128, 128, 'M', 256, 256, 256, 256, 'M', 512, 512, 512, 512, 'M', 
+    'E': [64, 64, 'M', 128, 128, 'M', 256, 256, 256, 256, 'M', 512, 512, 512, 512, 'M',
           512, 512, 512, 512, 'M'],
 }
 def vgg11():
@@ -263,30 +263,21 @@ def main():
             normalize
         ])
 
-        if args.dataset == 'cifar100':
-            train_loader = torch.utils.data.DataLoader(
-                datasets.CIFAR100('../data', train=True,
-                                  download=True, transform=transform_train),
-                batch_size=args.batch_size, shuffle=True, num_workers=args.workers, pin_memory=True)
-            val_loader = torch.utils.data.DataLoader(
-                datasets.CIFAR100('../data', train=False,
-                                  transform=transform_test),
-                batch_size=args.batch_size, shuffle=True, num_workers=args.workers, pin_memory=True)
-            numberofclass = 100
-        elif args.dataset == 'cifar10':
+
+        if args.dataset == 'cifar10':
             train_data = datasets.CIFAR10('../data', train=True,
                                  download=True, transform=transform_train)
             print(train_data.targets[:30])
             print(train_data.targets[:30])
             print(len(train_data))
-            
+
             class_counts = [9.0, 1.0]
             num_samples = sum(class_counts)
             labels = [0, 0,..., 0, 1] #corresponding labels of samples
 
-            class_weights = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
-            class_weights[args.first] = args.weight
-            class_weights[args.second] = args.weight
+            class_weights = [args.weight for _ in range(10)]
+            class_weights[args.first] = 1
+            class_weights[args.second] = 1
             print(class_weights)
             weights = [class_weights[train_data.targets[i]] for i in range(len(train_data))]
             sampler = WeightedRandomSampler(torch.DoubleTensor(weights), len(train_data))
@@ -299,7 +290,7 @@ def main():
                 batch_size=args.batch_size, shuffle=True, num_workers=args.workers, pin_memory=True)
             numberofclass = 10
 
-            
+
         else:
             raise Exception('unknown dataset: {}'.format(args.dataset))
     else:

@@ -211,9 +211,9 @@ def main():
         if args.dataset == 'cifar100':
             train_data = datasets.CIFAR100('../data', train=True,
                                  download=True, transform=transform_train)
-            class_weights = [1.0] * 100
-            class_weights[args.first] = args.weight
-            class_weights[args.second] = args.weight
+            class_weights = [args.weight for _ in range(100)]
+            class_weights[args.first] = 1
+            class_weights[args.second] = 1
             print(class_weights)
             weights = [class_weights[train_data.targets[i]] for i in range(len(train_data))]
             sampler = WeightedRandomSampler(torch.DoubleTensor(weights), len(train_data))
@@ -225,33 +225,6 @@ def main():
                                   transform=transform_test),
                 batch_size=args.batch_size, shuffle=True, num_workers=args.workers, pin_memory=True)
             numberofclass = 100
-        elif args.dataset == 'cifar10':
-            train_data = datasets.CIFAR10('../data', train=True,
-                                 download=True, transform=transform_train)
-            print(train_data.targets[:30])
-            print(train_data.targets[:30])
-            print(len(train_data))
-            
-            class_counts = [9.0, 1.0]
-            num_samples = sum(class_counts)
-            labels = [0, 0,..., 0, 1] #corresponding labels of samples
-
-            class_weights = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
-            class_weights[args.first] = args.weight
-            class_weights[args.second] = args.weight
-            print(class_weights)
-            weights = [class_weights[train_data.targets[i]] for i in range(len(train_data))]
-            sampler = WeightedRandomSampler(torch.DoubleTensor(weights), len(train_data))
-            train_loader = torch.utils.data.DataLoader(
-                train_data,
-                batch_size=args.batch_size, shuffle=False, num_workers=args.workers, pin_memory=True, sampler=sampler)
-            val_loader = torch.utils.data.DataLoader(
-                datasets.CIFAR10('../data', train=False,
-                                 transform=transform_test),
-                batch_size=args.batch_size, shuffle=True, num_workers=args.workers, pin_memory=True)
-            numberofclass = 10
-
-            
         else:
             raise Exception('unknown dataset: {}'.format(args.dataset))
     else:

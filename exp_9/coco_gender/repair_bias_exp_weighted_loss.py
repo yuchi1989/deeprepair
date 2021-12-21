@@ -101,7 +101,7 @@ def main():
     third_id = object2id[args.third]
 
     # print(first_id, second_id, third_id, train_data.labels)
-    weights = [args.weight if first_id in train_data.labels[i] or second_id in train_data.labels[i] or third_id in train_data.labels[i] else 1.0 for i in range(len(train_data.labels))]
+    weights = [1.0 if first_id in train_data.labels[i] or second_id in train_data.labels[i] or third_id in train_data.labels[i] else args.weight for i in range(len(train_data.labels))]
     print('np.mean(weights)', np.mean(weights))
     sampler = WeightedRandomSampler(torch.DoubleTensor(weights), len(train_data.labels))
 

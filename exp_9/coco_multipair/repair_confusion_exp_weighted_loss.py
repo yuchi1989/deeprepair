@@ -103,7 +103,7 @@ def main():
     pair2a_id = object2id[args.pair2a]
     pair2b_id = object2id[args.pair2b]
 
-    weights = [args.weight if pair1a_id in train_data.labels[i] or pair1b_id in train_data.labels[i] or pair2a_id in train_data.labels[i] or pair2b_id in train_data.labels[i]else 1.0 for i in range(len(train_data.labels)) ]
+    weights = [1.0 if pair1a_id in train_data.labels[i] or pair1b_id in train_data.labels[i] or pair2a_id in train_data.labels[i] or pair2b_id in train_data.labels[i]else args.weight for i in range(len(train_data.labels)) ]
     sampler = WeightedRandomSampler(torch.DoubleTensor(weights), len(train_data.labels))
 
     # Data loaders / batch assemblers.

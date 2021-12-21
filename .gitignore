@@ -59,3 +59,4 @@ exp_9/coco_multipair/*.pyc
 exp_9/coco_multipair/*.pickle
 exp_7/CutMix-PyTorch
 exp_7/cifar10/cifar10_original_model/*
+./**/*.pyc
