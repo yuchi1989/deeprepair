@@ -78,8 +78,9 @@ parser.add_argument('--cutmix_prob', default=0, type=float,
 parser.add_argument(
     '--pretrained', default='/set/your/model/path', type=str, metavar='PATH')
 parser.add_argument('--expid', default="0", type=str, help='experiment id')
-parser.add_argument('--checkmodel', help='Check model accuracy',
+parser.add_argument('--checkmodel', help='Check model accuracy and confusion',
                     action='store_true')
+parser.add_argument('--checkmodel_mode', default='target', type=str, help="'target': only print out target pair confusion, 'all': print out all paris confusion.")
 parser.add_argument('--lam', default=0.5, type=float,
                     help='hyperparameter lambda')
 parser.add_argument('--first', default=3, type=int,
@@ -299,15 +300,37 @@ def main():
     if args.checkmodel:
         global_epoch_confusion.append({})
         get_confusion(val_loader, model, criterion)
-        # cat->dog confusion
-        log_print(str(args.first) + " -> " + str(args.second))
-        log_print(global_epoch_confusion[-1]
-                  ["confusion"][(args.first, args.second)])
-        # dog->cat confusion
-        log_print(str(args.second) + " -> " + str(args.first))
-        log_print(global_epoch_confusion[-1]
-                  ["confusion"][(args.second, args.first)])
-        exit()
+        if args.checkmodel_mode == 'target':
+            # cat->dog confusion
+            log_print(str(args.first) + " -> " + str(args.second))
+            log_print(global_epoch_confusion[-1]
+                      ["confusion"][(args.first, args.second)])
+            # dog->cat confusion
+            log_print(str(args.second) + " -> " + str(args.first))
+            log_print(global_epoch_confusion[-1]
+                      ["confusion"][(args.second, args.first)])
+            exit()
+        elif args.checkmodel_mode == 'all':
+            print(global_epoch_confusion[-1]["confusion"])
+            import seaborn as sn
+            import pandas as pd
+            import matplotlib.pyplot as plt
+            arr = [[0 for _ in range(10)] for _ in range(10)]
+            for i in range(10):
+                for j in range(10):
+                    if (i, j) in global_epoch_confusion[-1]["confusion"]:
+                        arr[i][j] = global_epoch_confusion[-1]["confusion"][(i, j)]
+            cifar10_labels = ['airplane', 'automobile', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck']
+            df_cm = pd.DataFrame(arr, index = [i for i in cifar10_labels], columns = [i for i in cifar10_labels])
+            plt.figure(figsize = (10,7))
+            sn.heatmap(df_cm, annot=True, vmin=0, vmax=0.15)
+            plt.savefig('confusion_matrix.pdf')
+            exit()
+
+
+
+        else:
+            print('invalid args.checkmodel_mode:', args.checkmodel_mode)
 
     for epoch in range(0, args.epochs):
         global_epoch_confusion.append({})
@@ -441,7 +464,7 @@ def train(train_loader, target_train_loader, model, criterion, optimizer, epoch)
         else:
             # compute output
             output = model(input)
-            
+
             loss2 = criterion(output[:output.size(
                 0) // 2], target[:target.size(0) // 2]).mean()  # - args.lam*p_dist
 
