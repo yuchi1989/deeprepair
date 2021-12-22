@@ -77,7 +77,7 @@ python2 repair_confusion_exp_weighted_loss.py --pretrained original_model/model_
 #### [w-dbr](https://github.com/yuchi1989/deeprepair/blob/master/exp_9/coco/repair_confusion_dbr.py):  
 
 ```
-python2 repair_confusion_dbr.py --pretrained original_model/model_best.pth.tar --log_dir coco_confusion_repair_dbr --first "person" --second "bus" --ann_dir '/local/shared/coco/annotations' --image_dir '/local/shared/coco/' --lam 0.5
+python2 repair_confusion_dbr.py --pretrained original_model/model_best.pth.tar --log_dir coco_confusion_repair_dbr --first "person" --second "bus" --ann_dir '/local/shared/coco/annotations' --image_dir '/local/shared/coco/' --lam 0.7
 ```
 
 ### [COCO bias](https://github.com/yuchi1989/deeprepair/tree/master/exp_9/coco) experiments  
@@ -113,7 +113,7 @@ python2 repair_bias_exp_weighted_loss.py --pretrained original_model/model_best.
 #### [w-dbr](https://github.com/yuchi1989/deeprepair/blob/master/exp_9/coco/repair_bias_dbr.py):  
 
 ```
-python2 repair_bias_dbr.py --pretrained original_model/model_best.pth.tar --log_dir coco_bias_repair_dbr --first "bus" --second "person" --third "clock" --second "bus" --ann_dir '/local/shared/coco/annotations' --image_dir '/local/shared/coco/' --lam 0.5
+python2 repair_bias_dbr.py --pretrained original_model/model_best.pth.tar --log_dir coco_bias_repair_dbr --first "bus" --second "person" --third "clock" --second "bus" --ann_dir '/local/shared/coco/annotations' --image_dir '/local/shared/coco/' --lam 0.7
 ```
 
 ## [COCO gender](https://github.com/yuchi1989/deeprepair/tree/master/exp_9/coco_gender) experiments
@@ -150,7 +150,7 @@ python2 repair_confusion_exp_weighted_loss.py --pretrained original_model/model_
 #### [w-dbr](https://github.com/yuchi1989/deeprepair/blob/master/exp_9/coco_gender/repair_confusion_dbr.py):  
 
 ```
-python2 repair_confusion_dbr.py --pretrained original_model/model_best.pth.tar --log_dir coco_gender_confusion_repair_dbr --first "handbag" --second "woman" --ann_dir '/local/shared/coco/annotations' --image_dir '/local/shared/coco/' --lam 0.5
+python2 repair_confusion_dbr.py --pretrained original_model/model_best.pth.tar --log_dir coco_gender_confusion_repair_dbr --first "handbag" --second "woman" --ann_dir '/local/shared/coco/annotations' --image_dir '/local/shared/coco/' --lam 0.7
 ```
 
 ### [COCO gender bias](https://github.com/yuchi1989/deeprepair/tree/master/exp_9/coco_gender) experiments  
@@ -186,7 +186,7 @@ python2 repair_bias_exp_weighted_loss.py --pretrained original_model/model_best.
 #### [w-dbr](https://github.com/yuchi1989/deeprepair/blob/master/exp_9/coco_gender/repair_bias_dbr.py):  
 
 ```
-python2 repair_bias_dbr.py --pretrained original_model/model_best.pth.tar --log_dir coco_bias_repair_dbr --first "handbag" --second "woman" --third "man" --ann_dir '/local/shared/coco/annotations' --image_dir '/local/shared/coco/' --lam 0.5
+python2 repair_bias_dbr.py --pretrained original_model/model_best.pth.tar --log_dir coco_bias_repair_dbr --first "handbag" --second "woman" --third "man" --ann_dir '/local/shared/coco/annotations' --image_dir '/local/shared/coco/' --lam 0.7
 ```  
 
 ### [COCO 2 pair confusion](https://github.com/yuchi1989/deeprepair/tree/master/exp_9/coco_multipair) experiments  
@@ -222,7 +222,7 @@ python2 repair_confusion_exp_weighted_loss.py --pretrained original_model/model_
 #### [w-dbr](https://github.com/yuchi1989/deeprepair/blob/master/exp_9/coco_multipair/repair_confusion_dbr.py):  
 
 ```
-python2 repair_confusion_dbr.py --pretrained original_model/model_best.pth.tar --log_dir coco_2pair_confusion_repair_dbr  --ann_dir '/local/shared/coco/annotations' --image_dir '/local/shared/coco/' --pair1a person --pair1b bus --pair2a mouse --pair2b keyboard --lam 0.5 --num_epochs 15
+python2 repair_confusion_dbr.py --pretrained original_model/model_best.pth.tar --log_dir coco_2pair_confusion_repair_dbr  --ann_dir '/local/shared/coco/annotations' --image_dir '/local/shared/coco/' --pair1a person --pair1b bus --pair2a mouse --pair2b keyboard --lam 0.7 --num_epochs 15
 ```
 
 ## [CIFAR-10](https://github.com/yuchi1989/deeprepair/tree/master/exp_7/cifar10) experiments
@@ -259,7 +259,7 @@ python3 repair_confusion_exp_weighted_loss.py --net_type resnet --dataset cifar1
 #### [w-dbr](https://github.com/yuchi1989/deeprepair/blob/master/exp_7/cifar10/confusion/repair_confusion_dbr.py):  
 
 ```
-python3 repair_confusion_dbr.py --net_type resnet --dataset cifar10 --depth 18 --batch_size 256 --lr 0.1 --expname ResNet18 --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet18_2_4/model_best.pth.tar --expid 0 --first 3 --second 5 --lam 0.5
+python3 repair_confusion_dbr.py --net_type resnet --dataset cifar10 --depth 18 --batch_size 256 --lr 0.1 --expname ResNet18 --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet18_2_4/model_best.pth.tar --expid 0 --first 3 --second 5 --lam 0.7
 ```
 
 ### [CIFAR-10 bias](https://github.com/yuchi1989/deeprepair/tree/master/exp_7/cifar10/bias) experiments  
@@ -294,7 +294,7 @@ python3 repair_bias_exp_weighted_loss.py --net_type resnet --dataset cifar10 --d
 #### [w-dbr](https://github.com/yuchi1989/deeprepair/blob/master/exp_7/cifar10/bias/repair_bias_dbr.py):  
 
 ```
-python3 repair_bias_dbr.py --net_type resnet --dataset cifar10 --depth 18 --batch_size 256 --lr 0.1 --expname ResNet18 --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet18_2_4/model_best.pth.tar --expid 0 --first 3 --second 5 --third 2 --lam 0.5
+python3 repair_bias_dbr.py --net_type resnet --dataset cifar10 --depth 18 --batch_size 256 --lr 0.1 --expname ResNet18 --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet18_2_4/model_best.pth.tar --expid 0 --first 3 --second 5 --third 2 --lam 0.7
 ```
 
 
@@ -331,7 +331,7 @@ python3 repair_confusion_exp_weighted_loss.py --net_type resnet --dataset cifar1
 #### [w-dbr](https://github.com/yuchi1989/deeprepair/blob/master/exp_7/cifar10/cifar10_multipair/repair_confusion_dbr.py):  
 
 ```
-python3 repair_confusion_dbr.py --net_type resnet --dataset cifar10 --depth 18 --batch_size 256 --lr 0.1 --expname ResNet18 --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet18_2_4/model_best.pth.tar --expid 0  --pair1a 3 --pair1b 5 --pair2a 1 --pair2b 9 --lam 0.5
+python3 repair_confusion_dbr.py --net_type resnet --dataset cifar10 --depth 18 --batch_size 256 --lr 0.1 --expname ResNet18 --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet18_2_4/model_best.pth.tar --expid 0  --pair1a 3 --pair1b 5 --pair2a 1 --pair2b 9 --lam 0.7
 ```
 
 
@@ -369,7 +369,7 @@ python3 repair_confusion_exp_weighted_loss_vggbn.py --net_type resnet --dataset 
 #### [w-dbr](https://github.com/yuchi1989/deeprepair/blob/master/exp_7/cifar10/confusion/repair_confusion_dbr_vggbn.py):  
 
 ```
-python3 repair_confusion_dbr_vggbn.py --net_type resnet --dataset cifar10 --depth 18 --batch_size 256 --lr 0.1 --expname cifar10_vggbn_dbr --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_vggbn_2_4/model_best.pth.tar --expid 0 --first 3 --second 5 --lam 0.5
+python3 repair_confusion_dbr_vggbn.py --net_type resnet --dataset cifar10 --depth 18 --batch_size 256 --lr 0.1 --expname cifar10_vggbn_dbr --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_vggbn_2_4/model_best.pth.tar --expid 0 --first 3 --second 5 --lam 0.7
 ```
 
 ### [CIFAR-10 VGG-BN bias](https://github.com/yuchi1989/deeprepair/blob/master/exp_7/cifar10/confusion/train_baseline_vggbn.py) experiments
@@ -404,7 +404,7 @@ python3 repair_bias_exp_weighted_loss_vggbn.py --net_type resnet --dataset cifar
 #### [w-dbr](https://github.com/yuchi1989/deeprepair/blob/master/exp_7/cifar10/bias/repair_bias_dbr_vggbn.py):  
 
 ```
-python3 repair_bias_dbr_vggbn.py --net_type resnet --dataset cifar10 --depth 18 --batch_size 256 --lr 0.1 --expname cifar10_bias_vggbn_dbr --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_vggbn_2_4/model_best.pth.tar --expid 0 --first 3 --second 5 --third 2 --lam 0.5
+python3 repair_bias_dbr_vggbn.py --net_type resnet --dataset cifar10 --depth 18 --batch_size 256 --lr 0.1 --expname cifar10_bias_vggbn_dbr --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_vggbn_2_4/model_best.pth.tar --expid 0 --first 3 --second 5 --third 2 --lam 0.7
 ```
 
 
