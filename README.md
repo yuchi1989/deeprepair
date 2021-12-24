@@ -4,7 +4,7 @@
 ## [CIFAR-10](https://github.com/yuchi1989/deeprepair/tree/master/exp_7/cifar10/confusion) prototype  
 
 
-## [COCO](https://github.com/yuchi1989/deeprepair/tree/master/exp_9/coco ) prototype  
+## [COCO](https://github.com/yuchi1989/deeprepair/tree/master/exp_9/coco/confusion_and_bias) prototype  
 
 
 
