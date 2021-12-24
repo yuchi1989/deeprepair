@@ -21,6 +21,9 @@ from torch.utils.data import DataLoader
 from data_loader import CocoObject
 from model import MultilabelObject
 from itertools import cycle
+import sys
+sys.path.append("../../../common")
+sys.path.append("../../../common/CutMix-PyTorch")
 from newbatchnorm2 import dnnrepair_BatchNorm2d
 
 

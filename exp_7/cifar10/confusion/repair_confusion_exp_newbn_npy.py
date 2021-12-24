@@ -20,6 +20,9 @@ import torch.utils.data.distributed
 import torchvision.transforms as transforms
 import torchvision.datasets as datasets
 import torchvision.models as models
+import sys
+sys.path.append("../../../common")
+sys.path.append("../../../common/CutMix-PyTorch")
 import resnet as RN
 import pyramidnet as PYRM
 import utils
@@ -142,7 +145,7 @@ def replace_bn(module):
                 setattr(module, child_name, new_bn)
             else:
                 print('replaced: bn')
-                new_bn = dnnrepair_BatchNorm2d(child.num_features, child.weight, child.bias, child.running_mean, child.running_var, 0, child.eps, child.momentum, child.affine, track_running_stats=True)
+                new_bn = dnnrepair_BatchNorm2d(child.num_features, child.weight, child.bias, child.running_mean, child.running_var, 1, child.eps, child.momentum, child.affine, track_running_stats=True)
                 setattr(module, child_name, new_bn)
         else:
             replace_bn(child)
@@ -441,7 +444,7 @@ def train(train_loader, target_train_loader, model, criterion, optimizer, epoch)
         else:
             # compute output
             output = model(input)
-            
+
             loss2 = criterion(output[:output.size(
                 0) // 2], target[:target.size(0) // 2]).mean()  # - args.lam*p_dist
 

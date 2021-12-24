@@ -20,6 +20,9 @@ import torch.utils.data.distributed
 import torchvision.transforms as transforms
 import torchvision.datasets as datasets
 import torchvision.models as models
+import sys
+sys.path.append("../../../common")
+sys.path.append("../../../common/CutMix-PyTorch")
 import resnet as RN
 import pyramidnet as PYRM
 import utils

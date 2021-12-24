@@ -21,6 +21,9 @@ from torch.utils.data import DataLoader
 from data_loader import CocoObject
 from model import MultilabelObject
 from itertools import cycle
+import sys
+sys.path.append("../../../common")
+sys.path.append("../../../common/CutMix-PyTorch")
 from newbatchnorm2 import dnnrepair_BatchNorm2d
 
 global_epoch_confusion = []
@@ -61,20 +64,20 @@ def main():
     torch.manual_seed(args.seed)
     torch.cuda.manual_seed(args.seed)
 
-  
+
     normalize = transforms.Normalize(mean = [0.485, 0.456, 0.406],
         std = [0.229, 0.224, 0.225])
     # Image preprocessing
     train_transform = transforms.Compose([
         transforms.Scale(args.image_size),
         transforms.RandomCrop(args.crop_size),
-        transforms.RandomHorizontalFlip(), 
-        transforms.ToTensor(), 
+        transforms.RandomHorizontalFlip(),
+        transforms.ToTensor(),
         normalize])
-    val_transform = transforms.Compose([ 
+    val_transform = transforms.Compose([
         transforms.Scale(args.image_size),
-        transforms.CenterCrop(args.crop_size), 
-        transforms.ToTensor(), 
+        transforms.CenterCrop(args.crop_size),
+        transforms.ToTensor(),
         normalize])
     from torchsummary import summary
     # Build the models
@@ -101,9 +104,9 @@ def main():
         best_performance = checkpoint['best_performance']
         model.load_state_dict(checkpoint['state_dict'])
         print("=> loaded checkpoint (epoch {})".format(checkpoint['epoch']))
-    
 
-    
+
+
         current_performance = get_confusion(args, epoch, model, criterion, val_loader, optimizer, val_F, score_F, val_data)
         confusion_matrix = global_epoch_confusion[-1]["confusion"]
         first_second = compute_confusion(confusion_matrix, args.first, args.second)
@@ -127,7 +130,7 @@ def compute_confusion(confusion_matrix, first, second):
     confusion = 0
     if (first, second) in confusion_matrix:
         confusion += confusion_matrix[(first, second)]
-    
+
     if (second, first) in confusion_matrix:
         confusion += confusion_matrix[(second, first)]
     return confusion/2
@@ -173,7 +176,7 @@ def get_confusion(args, epoch, model, criterion, val_loader, optimizer, val_F, s
         for i in range(len(image_ids)):
             yhat = []
             label = id2labels[image_ids.cpu().numpy()[i]]
-            
+
             for j in range(len(object_preds[i])):
                 a = object_preds_c[i][j]
                 if a > 0.5:
@@ -218,7 +221,7 @@ def get_confusion(args, epoch, model, criterion, val_loader, optimizer, val_F, s
     pair_count = {}
     confusion_count = {}
     type2confusion = {}
-    
+
 
     for li, yi in zip(labels, yhats):
         no_objects = [id2object[i] for i in range(80) if id2object[i] not in li]

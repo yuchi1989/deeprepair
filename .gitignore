@@ -63,3 +63,6 @@ exp_7/cifar10/cifar10_original_model/*
 exp_9/*.pdf
 exp_9/coco_gender/*.pyc
 exp_9/coco_gender/pycocotools/*.pyc
+models
+exp_7/cifar10/confusion/runs
+exp_7/cifar10/data
