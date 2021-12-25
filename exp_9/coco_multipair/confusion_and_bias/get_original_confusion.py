@@ -74,6 +74,10 @@ def main():
         return
     if not os.path.exists(args.log_dir): os.makedirs(args.log_dir)
 
+
+    assert os.path.isfile(args.pretrained)
+
+
     #save all parameters for training
     with open(os.path.join(args.log_dir, "arguments.log"), "a") as f:
         f.write(str(args)+'\n')
@@ -134,7 +138,8 @@ def main():
         print("=> loaded checkpoint (epoch {})".format(checkpoint['epoch']))
 
 
-
+        epoch = 0
+        global_epoch_confusion.append({})
         current_performance = get_confusion(args, epoch, model, criterion, val_loader, optimizer, val_F, score_F, val_data)
         confusion_matrix = global_epoch_confusion[-1]["confusion"]
         pair1 = compute_confusion(confusion_matrix, args.pair1a, args.pair1b)
@@ -144,9 +149,10 @@ def main():
         print("total: " + str(pair1 + pair2))
         #os.system('python plot.py {} &'.format(args.log_dir))
 
-    train_F.close()
-    val_F.close()
-    score_F.close()
+        train_F.close()
+        val_F.close()
+        score_F.close()
+    np.save('global_epoch_confusion', global_epoch_confusion)
 
 
 

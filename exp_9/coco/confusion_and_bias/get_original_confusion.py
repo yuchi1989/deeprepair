@@ -73,6 +73,9 @@ def main():
     with open(os.path.join(args.log_dir, "arguments.log"), "a") as f:
         f.write(str(args)+'\n')
 
+
+    assert os.path.isfile(args.pretrained)
+
     normalize = transforms.Normalize(mean = [0.485, 0.456, 0.406],
         std = [0.229, 0.224, 0.225])
     # Image preprocessing
@@ -129,16 +132,18 @@ def main():
         print("=> loaded checkpoint (epoch {})".format(checkpoint['epoch']))
 
 
-
+        epoch = 0
+        global_epoch_confusion.append({})
         current_performance = get_confusion(args, epoch, model, criterion, val_loader, optimizer, val_F, score_F, val_data)
         confusion_matrix = global_epoch_confusion[-1]["confusion"]
         first_second = compute_confusion(confusion_matrix, args.first, args.second)
         print(str((args.first, args.second)) + ": " + str(first_second))
         #os.system('python plot.py {} &'.format(args.log_dir))
 
-    train_F.close()
-    val_F.close()
-    score_F.close()
+        train_F.close()
+        val_F.close()
+        score_F.close()
+    np.save('global_epoch_confusion', global_epoch_confusion)
 
 
 
