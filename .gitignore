@@ -57,15 +57,13 @@ exp_7/data/*
 exp_9/coco_multipair/*.npy
 exp_9/coco_multipair/*.pyc
 exp_9/coco_multipair/*.pickle
-exp_7/CutMix-PyTorch
 exp_7/cifar10/cifar10_original_model/*
-./**/*.pyc
 exp_9/*.pdf
 exp_9/coco_gender/*.pyc
 exp_9/coco_gender/pycocotools/*.pyc
-models
 exp_7/cifar10/confusion/runs
 exp_7/cifar10/data
 exp_9/coco/confusion_and_bias/runs
 exp_9/coco_gender/confusion_and_bias/runs
 exp_9/coco_multipair/confusion_and_bias/runs
+models

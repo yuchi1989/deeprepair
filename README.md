@@ -1,5 +1,15 @@
 # deeprepair
 
+## Environment
+```
+conda create -n myenv1 python=3.8
+conda install pytorch torchvision tqdm scipy
+```
+
+```
+conda create -n myenv2 python=2.7
+conda install pytorch torchvision tqdm scipy
+```
 
 ## [CIFAR-10](https://github.com/yuchi1989/deeprepair/tree/master/exp_7/cifar10/confusion) prototype  
 
