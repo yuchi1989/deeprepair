@@ -66,4 +66,8 @@ exp_7/cifar10/data
 exp_9/coco/confusion_and_bias/runs
 exp_9/coco_gender/confusion_and_bias/runs
 exp_9/coco_multipair/confusion_and_bias/runs
+exp_9/coco/confusion_and_bias/*.pdf
+exp_9/coco/confusion_and_bias/*.pyc
+exp_9/coco/confusion_and_bias/__pycache__
+exp_9/coco/confusion_and_bias/pycocotools/__pycache__
 models
