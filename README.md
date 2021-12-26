@@ -407,29 +407,29 @@ python2 train_epoch_graph.py --log_dir original_model --ann_dir '../../../../coc
 #### [w-aug](https://github.com/yuchi1989/deeprepair/blob/master/exp_9/coco_gender/repair_confusion_exp_weighted_loss.py):  
 
 ```
-python2 repair_confusion_exp_weighted_loss.py --pretrained ../../cocogender_original_model/model_best.pth.tar --log_dir coco_gender_confusion_repair_aug --first "handbag" --second "woman" --ann_dir '../../../../coco/annotations' --image_dir '../../../../coco/' --weight 0.3 --class_num 81
+python2 repair_confusion_exp_weighted_loss.py --pretrained ../../../models/cocogender_original_model/model_best.pth.tar --log_dir coco_gender_confusion_repair_aug --first "handbag" --second "woman" --ann_dir '../../../../coco/annotations' --image_dir '../../../../coco/' --weight 0.3 --class_num 81
 ```
 
 #### [w-bn](https://github.com/yuchi1989/deeprepair/blob/master/exp_9/coco_gender/repair_confusion_bn.py):  
 
 ```
-python2 repair_confusion_bn.py --pretrained ../../cocogender_original_model/model_best.pth.tar --log_dir coco_gender_confusion_repair_bn --first "handbag" --second "woman" --ann_dir '../../../../coco/annotations' --image_dir '../../../../coco/' --replace --ratio 0.4
+python2 repair_confusion_bn.py --pretrained ../../../models/cocogender_original_model/model_best.pth.tar --log_dir coco_gender_confusion_repair_bn --first "handbag" --second "woman" --ann_dir '../../../../coco/annotations' --image_dir '../../../../coco/' --replace --ratio 0.4
 ```
 
 #### [w-os](https://github.com/yuchi1989/deeprepair/blob/master/exp_9/coco_gender/repair_confusion_exp_newbn_softmax.py):
 ```
-python2 coco_feature_space.py --pretrained ../../cocogender_original_model/checkpoint.pth.tar --ann_dir '/home/yuchi/data/coco/annotations' --image_dir '/home/yuchi/data/coco/' --groupname original
+python2 coco_feature_space.py --pretrained ../../../models/cocogender_original_model/model_best.pth.tar --ann_dir '/home/yuchi/data/coco/annotations' --image_dir '/home/yuchi/data/coco/' --groupname original
 python2 repair_confusion_exp_newbn_softmax.py --data_file original_test_data.npy --eta 0.8 --mode confusion --first "handbag" --second "woman"
 ```
 
 #### [w-loss](https://github.com/yuchi1989/deeprepair/blob/master/exp_7/cifar10/confusion/repair_confusion_exp_weighted_loss.py):
 ```
-python2 repair_confusion_exp_weighted_loss.py --pretrained ../../cocogender_original_model/model_best.pth.tar --log_dir coco_gender_confusion_repair_loss --first "handbag" --second "woman" --ann_dir '../../../../coco/annotations' --image_dir '../../../../coco/' --weight 1 --class_num 81 --target_weight 0.4
+python2 repair_confusion_exp_weighted_loss.py --pretrained ../../../models/cocogender_original_model/model_best.pth.tar --log_dir coco_gender_confusion_repair_loss --first "handbag" --second "woman" --ann_dir '../../../../coco/annotations' --image_dir '../../../../coco/' --weight 1 --class_num 81 --target_weight 0.4
 ```
 #### [w-dbr](https://github.com/yuchi1989/deeprepair/blob/master/exp_9/coco_gender/repair_confusion_dbr.py):  
 
 ```
-python2 repair_confusion_dbr.py --pretrained ../../cocogender_original_model/model_best.pth.tar --log_dir coco_gender_confusion_repair_dbr --first "handbag" --second "woman" --ann_dir '../../../../coco/annotations' --image_dir '../../../../coco/' --lam 0.7
+python2 repair_confusion_dbr.py --pretrained ../../../models/cocogender_original_model/model_best.pth.tar --log_dir coco_gender_confusion_repair_dbr --first "handbag" --second "woman" --ann_dir '../../../../coco/annotations' --image_dir '../../../../coco/' --lam 0.7
 ```
 
 ### [COCO gender bias](https://github.com/yuchi1989/deeprepair/tree/master/exp_9/coco_gender) experiments  
@@ -443,29 +443,29 @@ python2 train_epoch_graph.py --log_dir original_model --ann_dir '../../../../coc
 #### [w-aug](https://github.com/yuchi1989/deeprepair/blob/master/exp_9/coco_gender/repair_bias_exp_weighted_loss.py):  
 
 ```
-python2 repair_bias_exp_weighted_loss.py --pretrained ../../cocogender_original_model/model_best.pth.tar --log_dir coco_gender_bias_repair_aug --first "handbag" --second "woman" --third "man" --ann_dir '../../../../coco/annotations' --image_dir '../../../../coco/' --weight 0.3 --class_num 81
+python2 repair_bias_exp_weighted_loss.py --pretrained ../../../models/cocogender_original_model/model_best.pth.tar --log_dir coco_gender_bias_repair_aug --first "handbag" --second "woman" --third "man" --ann_dir '../../../../coco/annotations' --image_dir '../../../../coco/' --weight 0.3 --class_num 81
 ```
 
 #### [w-bn](https://github.com/yuchi1989/deeprepair/blob/master/exp_9/coco_gender/repair_bias_bn.py):  
 
 ```
-python2 repair_bias_bn.py --pretrained ../../cocogender_original_model/model_best.pth.tar --log_dir coco_gender_bias_repair_bn --first "handbag" --second "woman" --third "man" --ann_dir '../../../../coco/annotations' --image_dir '../../../../coco/' --replace --ratio 0.4
+python2 repair_bias_bn.py --pretrained ../../../models/cocogender_original_model/model_best.pth.tar --log_dir coco_gender_bias_repair_bn --first "handbag" --second "woman" --third "man" --ann_dir '../../../../coco/annotations' --image_dir '../../../../coco/' --replace --ratio 0.4
 ```
 
 #### [w-os](https://github.com/yuchi1989/deeprepair/blob/master/exp_9/coco_gender/repair_confusion_exp_newbn_softmax.py):
 ```
-python2 coco_feature_space.py --pretrained ../../cocogender_original_model/checkpoint.pth.tar --ann_dir '/home/yuchi/data/coco/annotations' --image_dir '/home/yuchi/data/coco/' --groupname original
+python2 coco_feature_space.py --pretrained ../../../models/cocogender_original_model/model_best.pth.tar --ann_dir '/home/yuchi/data/coco/annotations' --image_dir '/home/yuchi/data/coco/' --groupname original
 python2 repair_confusion_exp_newbn_softmax.py --data_file original_test_data.npy --eta 0.8 --mode bias --first "handbag" --second "woman" --third "man"
 ```
 
 #### [w-loss](https://github.com/yuchi1989/deeprepair/blob/master/exp_7/cifar10/bias/repair_bias_exp_weighted_loss.py):
 ```
-python2 repair_bias_exp_weighted_loss.py --pretrained ../../cocogender_original_model/model_best.pth.tar --log_dir coco_gender_bias_repair_loss --first "handbag" --second "woman" --third "man" --ann_dir '../../../../coco/annotations' --image_dir '../../../../coco/' --weight 1 --class_num 81 --target_weight 0.4
+python2 repair_bias_exp_weighted_loss.py --pretrained ../../../models/cocogender_original_model/model_best.pth.tar --log_dir coco_gender_bias_repair_loss --first "handbag" --second "woman" --third "man" --ann_dir '../../../../coco/annotations' --image_dir '../../../../coco/' --weight 1 --class_num 81 --target_weight 0.4
 ```
 #### [w-dbr](https://github.com/yuchi1989/deeprepair/blob/master/exp_9/coco_gender/repair_bias_dbr.py):  
 
 ```
-python2 repair_bias_dbr.py --pretrained ../../cocogender_original_model/model_best.pth.tar --log_dir coco_bias_repair_dbr --first "handbag" --second "woman" --third "man" --ann_dir '../../../../coco/annotations' --image_dir '../../../../coco/' --lam 0.7
+python2 repair_bias_dbr.py --pretrained ../../../models/cocogender_original_model/model_best.pth.tar --log_dir coco_bias_repair_dbr --first "handbag" --second "woman" --third "man" --ann_dir '../../../../coco/annotations' --image_dir '../../../../coco/' --lam 0.7
 ```  
 
 ### [COCO 2 pair confusion](https://github.com/yuchi1989/deeprepair/tree/master/exp_9/coco_multipair) experiments  
