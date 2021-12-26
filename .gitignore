@@ -74,3 +74,5 @@ models
 common/CutMix-PyTorch/__pycache__
 common/__pycache__
 exp_7/cifar10/confusion/*.pdf
+exp_9/coco/confusion_and_bias/*.pyc
+exp_9/coco/confusion_and_bias/pycocotools/*.pyc

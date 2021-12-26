@@ -72,6 +72,9 @@ def main():
     with open(os.path.join(args.log_dir, "arguments.log"), "a") as f:
         f.write(str(args)+'\n')
 
+
+    assert os.path.isfile(args.pretrained)
+
     normalize = transforms.Normalize(mean = [0.485, 0.456, 0.406],
         std = [0.229, 0.224, 0.225])
     # Image preprocessing
@@ -139,6 +142,7 @@ def main():
         adjust_learning_rate(optimizer, epoch)
         train(args, epoch, model, criterion, train_loader, optimizer, train_F, score_F, train_data, object2id)
         current_performance = get_confusion(args, epoch, model, criterion, val_loader, optimizer, val_F, score_F, val_data)
+        print('current_performance', current_performance, 'best_performance', best_performance)
         is_best = current_performance > best_performance
         best_performance = max(current_performance, best_performance)
         model_state = {
@@ -160,7 +164,7 @@ def save_checkpoint(args, state, is_best, filename):
     print("saving best model")
     torch.save(state, filename)
     if is_best:
-        shutil.copyfile(filename, os.path.join(args.log_dir, 'model_best_further.pth.tar'))
+        shutil.copyfile(filename, os.path.join(args.log_dir, 'model_best.pth.tar'))
 
 
 def compute_confusion(confusion_matrix, first, second):
