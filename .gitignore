@@ -71,3 +71,5 @@ exp_9/coco/confusion_and_bias/*.pyc
 exp_9/coco/confusion_and_bias/__pycache__
 exp_9/coco/confusion_and_bias/pycocotools/__pycache__
 models
+common/CutMix-PyTorch/__pycache__
+common/__pycache__

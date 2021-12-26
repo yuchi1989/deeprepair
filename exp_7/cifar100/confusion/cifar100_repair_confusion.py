@@ -257,7 +257,7 @@ def main():
         err1, err5, val_loss = validate(val_loader, target_val_loader, model, criterion, epoch)
 
         # remember best prec@1 and save checkpoint
-        if epoch // (args.epochs * 0.75):
+        if epoch >= 0: # save the best model througout the training process
             is_best = err1 <= best_err1
             best_err1 = min(err1, best_err1)
             if is_best:

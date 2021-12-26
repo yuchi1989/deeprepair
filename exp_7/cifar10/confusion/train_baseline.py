@@ -207,6 +207,12 @@ def main():
     cudnn.benchmark = True
     #get_confusion(val_loader, model, criterion)
 
+
+    directory = "runs/%s/" % (args.expname)
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+
+
     for epoch in range(0, args.epochs):
         global_epoch_confusion.append({})
         adjust_learning_rate(optimizer, epoch)
@@ -235,13 +241,15 @@ def main():
 
         # if is_best:
         get_confusion(val_loader, model, criterion, epoch)
+        
+        with open(directory+'/'+'best_errors_of_current_epoch.txt', 'a') as f_out:
+    	    f_out.write(str(epoch)+': '+str(best_err1)+', '+str(best_err5)+'\n')
 
     print('Best accuracy (top-1 and 5 error):', best_err1, best_err5)
-    directory = "runs/%s/" % (args.expname)
-    if not os.path.exists(directory):
-        os.makedirs(directory)
+    
     epoch_confusions = 'runs/%s/' % (args.expname) + \
         'epoch_confusion'
+    
     np.save(epoch_confusions, global_epoch_confusion)
 
 
