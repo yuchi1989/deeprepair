@@ -76,3 +76,7 @@ common/__pycache__
 exp_7/cifar10/confusion/*.pdf
 exp_9/coco/confusion_and_bias/*.pyc
 exp_9/coco/confusion_and_bias/pycocotools/*.pyc
+exp_7/cifar100/confusion/runs
+exp_7/cifar100/data
+exp_9/coco_gender/confusion_and_bias/*.pyc
+exp_9/coco_gender/confusion_and_bias/pycocotools/*.pyc

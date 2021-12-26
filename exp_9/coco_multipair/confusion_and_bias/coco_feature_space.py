@@ -38,7 +38,7 @@ def main():
 
 
     parser.add_argument('--finetune', default=0, type=int)
-    parser.add_argument('--num_epochs', type=int, default=20)
+    parser.add_argument('--num_epochs', type=int, default=18)
     parser.add_argument('--start_epoch', type=int, default=1)
     parser.add_argument('--batch_size', type=int, default=64) # batch size should be smaller if use text
     parser.add_argument('--crop_size', type=int, default=224)
