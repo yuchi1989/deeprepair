@@ -250,7 +250,7 @@ def train(args, epoch, model, criterion, train_loader, optimizer, train_F, score
 
             return loss_target, use_loss_target
 
-        if args.target_weight > 0:
+        if args.target_weight < 1:
             target_weight = args.target_weight
 
 

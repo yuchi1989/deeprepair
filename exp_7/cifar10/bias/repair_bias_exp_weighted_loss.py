@@ -102,8 +102,8 @@ parser.add_argument('--replace', help='replace bn layer ',
 parser.add_argument('--ratio', default=0.5, type=float,
                     help='target ratio for batchnorm layers')
 
-parser.add_argument('--target_weight', default=0, type=float,
-                    help='extra weights assigned to mistakes on the confusion pair in the loss. It get used when larger than 0.')
+parser.add_argument('--target_weight', default=1, type=float,
+                    help='weights assigned to the original loss and 1-target_weight is the weight assigned to mistakes on the confusion pair in the loss. It get used when smaller than 1.')
 
 # parser.add_argument('--forward', default=1, type=int,
 #                    help='extra batch size')
@@ -469,7 +469,7 @@ def train(train_loader, model, criterion, optimizer, epoch):
 
                 return loss_target, use_loss_target
 
-            if args.target_weight > 0:
+            if args.target_weight < 1:
                 target_weight = args.target_weight
 
                 loss_target1, use_loss_target1 = get_target_loss(target, output, args.first, args.second)

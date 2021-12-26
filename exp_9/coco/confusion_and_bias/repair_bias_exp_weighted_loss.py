@@ -274,7 +274,7 @@ def train(args, epoch, model, criterion, train_loader, optimizer, train_F, score
         def sigmoid(z):
             return 1/(1 + np.exp(-z))
 
-        if args.target_weight > 0:
+        if args.target_weight < 1:
             target_weight = args.target_weight
 
 
