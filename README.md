@@ -8,7 +8,7 @@ conda install pytorch torchvision tqdm scipy
 
 ```
 conda create -n myenv2 python=2.7
-conda install pytorch torchvision tqdm scipy
+conda install pytorch torchvision tqdm scipy scikit-learn matplotlib
 ```
 
 ## [CIFAR-10](https://github.com/yuchi1989/deeprepair/tree/master/exp_7/cifar10/confusion) prototype  
