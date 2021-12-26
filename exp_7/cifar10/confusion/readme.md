@@ -1,18 +1,11 @@
 ## reproduce results on cifar10
-### repair state-of-the-art cutmix model
-#### step1: clone cutmix model
-```
-git clone https://github.com/clovaai/CutMix-PyTorch.git
-```
+### train and repair a model (using w-bn as an example)
 
-#### step2: install the necessary environment from https://github.com/clovaai/CutMix-PyTorch
-#### see https://github.com/clovaai/CutMix-PyTorch
-
-#### step3: copy train_baseline.py from src to cutmix folder and train baseline model
+#### step1: train baseline model
 ```
 python3 train_baseline.py --net_type resnet --dataset cifar10 --depth 18 --batch_size 256 --lr 0.1 --expname cifar10_resnet18_2_4 --epochs 300 --beta 1.0 --cutmix_prob 0
 ```
-#### step4: check model cat-dog confusion (copy repair_confusion_exp_newbn.py from src)
+#### step2: check model cat-dog confusion (copy repair_confusion_exp_newbn.py from src)
 ```
 python3 repair_confusion_exp_newbn.py --net_type resnet --dataset cifar10 --depth 18 --batch_size 128 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet18_2_4/model_best.pth.tar --expid 0 --lam 0 --extra 128 --replace --checkmodel
 logging filter: 87.07
@@ -24,7 +17,7 @@ logging filter: 5 -> 3
 logging filter: 0.091
 
 ```
-#### step5: repair model to reduce cat-dog confusion
+#### step3: repair model to reduce cat-dog confusion
 ```
 
 python3 repair_confusion_exp_newbn.py --net_type resnet --dataset cifar10 --depth 18 --batch_size 128 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet18_2_4/model_best.pth.tar --expid 0 --lam 0 --extra 128 --replace --ratio 0.2
@@ -69,7 +62,7 @@ logging filter: 5 -> 3
 logging filter: 0.005
 ```
 
-### plot heatmap of confusion matrix
+### optional: plot heatmap of confusion matrix
 ```
 python3 repair_confusion_exp_newbn.py --net_type resnet --dataset cifar10 --depth 18 --batch_size 128 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet18_2_4/model_best.pth.tar --expid 0 --lam 0 --extra 128 --replace --checkmodel --checkmodel_mode all
 ```
