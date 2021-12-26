@@ -17,22 +17,18 @@ conda install pytorch torchvision tqdm scipy scikit-learn matplotlib
 ## [COCO](https://github.com/yuchi1989/deeprepair/tree/master/exp_9/coco/confusion_and_bias) prototype  
 
 
+## Check Model
+### cifar10
+```
+python3 repair_confusion_exp_newbn.py --net_type resnet --dataset cifar10 --depth 18 --batch_size 128 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet18_2_4/model_best.pth.tar --expid 0 --lam 0 --extra 128 --replace --checkmodel
+```
+
+### cifar100
+```
+python3 repair_confusion_exp_newbn.py --net_type resnet --dataset cifar100 --depth 34 --batch_size 128 --lr 0.1 --expname cifar100 --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar100_resnet34/model_best.pth.tar --expid 0 --lam 0 --extra 128 --replace --checkmodel --first 35 --second 98
+```
 
 ## Get Instance
-### [coco get instance](https://github.com/yuchi1989/deeprepair/blob/master/exp_9/coco/get_instance.py)
-
-```
-python2 get_instance.py --original original_model/model_best.pth.tar --fix fix_model/model_best.pth.tar --log_dir coco_confusion_repair_aug --first "person" --second "bus" --ann_dir '../../../../coco/annotations' --image_dir '../../../../coco/'
-python2 get_instance.py --original original_model/model_best.pth.tar --fix fix_model/model_best.pth.tar --log_dir coco_confusion_repair_aug --first "bus" --second "person" --ann_dir '../../../../coco/annotations' --image_dir '../../../../coco/'
-```
-
-### [coco gender get instance bias](https://github.com/yuchi1989/deeprepair/blob/master/exp_9/coco_gender/get_instance_coco_gender_bias.py)
-
-```
-python2 get_instance_coco_gender_bias.py --original original_model/model_best.pth.tar --fix fix_model/model_best.pth.tar --log_dir coco_confusion_repair_aug --first "skis" --second "man" --third "woman" --ann_dir '../../../../coco/annotations' --image_dir '../../../../coco/'
-```
-
-
 ### [cifar10 get instance](https://github.com/yuchi1989/deeprepair/blob/master/exp_7/cifar10/confusion/cifar10_get_instance.py)
 
 ```
@@ -50,6 +46,22 @@ python3 cifar10_get_instance.py --net_type resnet --dataset cifar100 --depth 34 
 python3 cifar10_get_instance.py --net_type resnet --dataset cifar100 --depth 34 --batch_size 128 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test  --cutmix_prob 0 --original ./runs/cifar100_resnet34/model_best.pth.tar --fix ./runs/cifar100_resnet34_oversampling/model_best.pth.tar --expid 0  --checkmodel --first 98 --second 35
 
 ```
+
+### [coco get instance](https://github.com/yuchi1989/deeprepair/blob/master/exp_9/coco/get_instance.py)
+
+```
+python2 get_instance.py --original original_model/model_best.pth.tar --fix fix_model/model_best.pth.tar --log_dir coco_confusion_repair_aug --first "person" --second "bus" --ann_dir '../../../../coco/annotations' --image_dir '../../../../coco/'
+python2 get_instance.py --original original_model/model_best.pth.tar --fix fix_model/model_best.pth.tar --log_dir coco_confusion_repair_aug --first "bus" --second "person" --ann_dir '../../../../coco/annotations' --image_dir '../../../../coco/'
+```
+
+### [coco gender get instance bias](https://github.com/yuchi1989/deeprepair/blob/master/exp_9/coco_gender/get_instance_coco_gender_bias.py)
+
+```
+python2 get_instance_coco_gender_bias.py --original original_model/model_best.pth.tar --fix fix_model/model_best.pth.tar --log_dir coco_confusion_repair_aug --first "skis" --second "man" --third "woman" --ann_dir '../../../../coco/annotations' --image_dir '../../../../coco/'
+```
+
+
+
 
 
 
