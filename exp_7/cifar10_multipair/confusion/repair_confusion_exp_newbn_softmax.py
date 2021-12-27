@@ -84,7 +84,7 @@ parser.add_argument(
 parser.add_argument('--expid', default="0", type=str, help='experiment id')
 parser.add_argument('--checkmodel', help='Check model accuracy',
                     action='store_true')
-parser.add_argument('--lam', default=0.5, type=float,
+parser.add_argument('--lam', default=1, type=float,
                     help='hyperparameter lambda')
 parser.add_argument('--eta', default=0.3, type=float,
                     help='hyperparameter eta')

@@ -46,7 +46,7 @@ def main():
     parser.add_argument('--image_size', type=int, default=256)
     parser.add_argument('--seed', type=int, default=1)
     parser.add_argument('--learning_rate', type=float, default=0.1)
-    parser.add_argument('--lam', default=0.5, type=float,
+    parser.add_argument('--lam', default=1, type=float,
                     help='hyperparameter lambda')
     parser.add_argument('--first', default="person", type=str,
                         help='first object index')

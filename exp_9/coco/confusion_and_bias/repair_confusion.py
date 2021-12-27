@@ -41,7 +41,7 @@ def main():
     parser.add_argument('--image_size', type=int, default=256)
     parser.add_argument('--seed', type=int, default=1)
     parser.add_argument('--learning_rate', type=float, default=0.1)
-    parser.add_argument('--lam', default=0.5, type=float,
+    parser.add_argument('--lam', default=1, type=float,
                     help='hyperparameter lambda')
     parser.add_argument('--first', default="person", type=str,
                         help='first object index')
@@ -245,7 +245,7 @@ def train(args, epoch, model, criterion, train_loader, optimizer, train_F, score
         else:
             p_dist2 = torch.dist(torch.mean(m(object_preds)[firstid],0), torch.mean(m(object_preds)[secondid],0),2)
 
-        loss2 = loss - args.lam * p_dist2
+        loss2 = args.lam * loss - (1 - args.lam) * p_dist2
         loss_logger.update(loss2.item())
         object_preds_max = object_preds.data.max(1, keepdim=True)[1]
         object_correct = torch.gather(objects.data, 1, object_preds_max).cpu().sum()
