@@ -298,7 +298,7 @@ def main():
     # for checking pre-trained model accuracy and confusion
     if args.checkmodel:
         global_epoch_confusion.append({})
-        get_confusion(val_loader, model, criterion)
+        top1err, _, _ = get_confusion(val_loader, model, criterion)
         if args.checkmodel_mode == 'target':
             # cat->dog confusion
             log_print(str(args.first) + " -> " + str(args.second))
@@ -387,7 +387,7 @@ def main():
         print("=> loading checkpoint '{}'".format(repaired_model))
         checkpoint = torch.load(repaired_model)
         model.load_state_dict(checkpoint['state_dict'])
-        get_confusion(val_loader, model, criterion)
+        top1err, _, _ = get_confusion(val_loader, model, criterion)
         # dog->cat confusion
         log_print(str(args.first) + " -> " + str(args.second))
         log_print(global_epoch_confusion[-1]
@@ -396,6 +396,16 @@ def main():
         log_print(str(args.second) + " -> " + str(args.first))
         log_print(global_epoch_confusion[-1]
                   ["confusion"][(args.second, args.first)])
+
+        accuracy = 100 - top1err
+        v1 = global_epoch_confusion[-1]["confusion"][(args.first, args.second)]
+        v2 = global_epoch_confusion[-1]["confusion"][(args.second, args.first)]
+        v_avg = (v1+v2)/2
+
+        performance_str = '%.2f_%.4f_%.4f_%.4f.txt' % (accuracy, v_avg, v1, v2)
+        performance_file = os.path.join(directory, performance_str)
+        with open(performance_file, 'w') as f_out:
+            pass
 
 
 def train(train_loader, target_train_loader, model, criterion, optimizer, epoch):

@@ -159,6 +159,16 @@ def main():
             str(compute_bias(confusion_matrix, args.first, args.second, args.third)))
         print(str((args.first, args.second)) + ": " + str(first_second))
         print(str((args.first, args.third)) + ": " + str(first_third))
+
+        accuracy = 100 - top1err
+        v1 = first_second
+        v2 = first_third
+        v_bias = compute_bias(confusion_matrix, args.first, args.second, args.third)
+
+        performance_str = '%.2f_%.4f_%.4f_%.4f.txt' % (accuracy, v_bias, v1, v2)
+        performance_file = os.path.join(directory, performance_str)
+        with open(performance_file, 'w') as f_out:
+            pass
         #os.system('python plot.py {} &'.format(args.log_dir))
 
     train_F.close()

@@ -282,7 +282,7 @@ def main():
     # for checking pre-trained model accuracy and confusion
     if args.checkmodel:
         global_epoch_confusion.append({})
-        get_confusion(val_loader, model, criterion)
+        top1err, _, _ = get_confusion(val_loader, model, criterion)
         # dog->cat confusion
         print(global_epoch_confusion[-1]["confusion"][(args.first, args.second)])
         # cat->dog confusion
@@ -337,7 +337,7 @@ def main():
         print("=> loading checkpoint '{}'".format(repaired_model))
         checkpoint = torch.load(repaired_model)
         model.load_state_dict(checkpoint['state_dict'])
-        get_confusion(val_loader, model, criterion)
+        top1err, _, _ = get_confusion(val_loader, model, criterion)
         # dog->cat confusion
         print(global_epoch_confusion[-1]["confusion"][(args.first, args.second)])
         # cat->dog confusion

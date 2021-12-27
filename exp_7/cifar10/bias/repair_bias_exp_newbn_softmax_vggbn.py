@@ -35,7 +35,7 @@ from newbatchnorm2 import dnnrepair_BatchNorm2d
 import math
 class VGG(nn.Module):
     '''
-    VGG model 
+    VGG model
     '''
     def __init__(self, features):
         super(VGG, self).__init__()
@@ -78,7 +78,7 @@ cfg = {
     'A': [64, 'M', 128, 'M', 256, 256, 'M', 512, 512, 'M', 512, 512, 'M'],
     'B': [64, 64, 'M', 128, 128, 'M', 256, 256, 'M', 512, 512, 'M', 512, 512, 'M'],
     'D': [64, 64, 'M', 128, 128, 'M', 256, 256, 256, 'M', 512, 512, 512, 'M', 512, 512, 512, 'M'],
-    'E': [64, 64, 'M', 128, 128, 'M', 256, 256, 256, 256, 'M', 512, 512, 512, 512, 'M', 
+    'E': [64, 64, 'M', 128, 128, 'M', 256, 256, 256, 256, 'M', 512, 512, 512, 512, 'M',
           512, 512, 512, 512, 'M'],
 }
 def vgg11():
@@ -255,7 +255,7 @@ def compute_confusion(confusion_matrix, first, second):
     confusion = 0
     if (first, second) in confusion_matrix:
         confusion += confusion_matrix[(first, second)]
-    
+
     if (second, first) in confusion_matrix:
         confusion += confusion_matrix[(second, first)]
     return confusion/2
@@ -365,9 +365,9 @@ def main():
     # for checking pre-trained model accuracy and confusion
     if args.checkmodel:
         global_epoch_confusion.append({})
-        get_confusion(val_loader, model, criterion)
+        top1err, _, _ = get_confusion(val_loader, model, criterion)
         confusion_matrix = global_epoch_confusion[-1]["confusion"]
-        print(str((args.first, args.second, args.third)) + " triplet: " + 
+        print(str((args.first, args.second, args.third)) + " triplet: " +
             str(abs(confusion_matrix[(args.first, args.second)] - confusion_matrix[(args.first, args.third)])))
         print(str((args.first, args.second)) + ": " + str(confusion_matrix[(args.first, args.second)]))
         print(str((args.first, args.third)) + ": " + str(confusion_matrix[(args.first, args.third)]))
@@ -410,7 +410,7 @@ def main():
         #print("loss: " + str(global_epoch_confusion[-1]["loss"]))
         first_second = compute_confusion(confusion_matrix, args.first, args.second)
         first_third = compute_confusion(confusion_matrix, args.first, args.third)
-        print(str((args.first, args.second, args.third)) + " triplet: " + 
+        print(str((args.first, args.second, args.third)) + " triplet: " +
             str(compute_bias(confusion_matrix, args.first, args.second, args.third)))
         print(str((args.first, args.second)) + ": " + str(first_second))
         print(str((args.first, args.third)) + ": " + str(first_third))
@@ -429,15 +429,24 @@ def main():
         print("=> loading checkpoint '{}'".format(repaired_model))
         checkpoint = torch.load(repaired_model)
         model.load_state_dict(checkpoint['state_dict'])
-        get_confusion(val_loader, model, criterion)
+        top1err, _, _ = get_confusion(val_loader, model, criterion)
         confusion_matrix = global_epoch_confusion[-1]["confusion"]
         #print("loss: " + str(global_epoch_confusion[-1]["loss"]))
         first_second = compute_confusion(confusion_matrix, args.first, args.second)
         first_third = compute_confusion(confusion_matrix, args.first, args.third)
-        print(str((args.first, args.second, args.third)) + " triplet: " + 
+        print(str((args.first, args.second, args.third)) + " triplet: " +
             str(compute_bias(confusion_matrix, args.first, args.second, args.third)))
         print(str((args.first, args.second)) + ": " + str(first_second))
-        print(str((args.first, args.third)) + ": " + str(first_third))
+
+        accuracy = 100 - top1err
+        v1 = first_second
+        v2 = first_third
+        v_bias = compute_bias(confusion_matrix, args.first, args.second, args.third)
+
+        performance_str = '%.2f_%.4f_%.4f_%.4f.txt' % (accuracy, v_bias, v1, v2)
+        performance_file = os.path.join(directory, performance_str)
+        with open(performance_file, 'w') as f_out:
+            pass
 
 
 def train(train_loader, target_train_loader, model, criterion, optimizer, epoch):
@@ -621,7 +630,7 @@ def get_confusion(val_loader, model, criterion, epoch=-1):
         eta = args.eta
         #chosen_ classes = torch.tensor([3, 5])
         #other_ classes = torch.tensor([0, 1, 2, 4, 6, 7, 8, 9])
-        softmax = torch.nn.Softmax() 
+        softmax = torch.nn.Softmax()
         output = softmax(output)
         output = output.detach().cpu().numpy()
         chosen_classes = np.array([args.first, args.second, args.third])
