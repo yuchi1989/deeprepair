@@ -1,6 +1,6 @@
 # original code: https://github.com/dyhan0920/PyramidNet-PyTorch/blob/master/train.py
-# python3 repair_retrain_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --pretrained ./runs/DeepInspect_1/model_best.pth.tar --expid 0 --checkmodel
-# python3 repair_retrain_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname ResNet50 --epochs 60 --beta 1.0 --cutmix_prob 1.0 --pretrained ./runs/DeepInspect_1/model_best.pth.tar --expid 0 --first 3 --second 5
+# python3 repair_retrain_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --pretrained ./runs/DeepInspect_1/model_best.pth.tar --checkmodel
+# python3 repair_retrain_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname ResNet50 --epochs 60 --beta 1.0 --cutmix_prob 1.0 --pretrained ./runs/DeepInspect_1/model_best.pth.tar --first 3 --second 5
 
 import argparse
 import os
@@ -19,8 +19,8 @@ import torchvision.transforms as transforms
 import torchvision.datasets as datasets
 import torchvision.models as models
 import sys
-sys.path.append("../../../common")
-sys.path.append("../../../common/CutMix-PyTorch")
+sys.path.append(os.path.join(os.path.dirname(__file__), "../../../common"))
+sys.path.append(os.path.join(os.path.dirname(__file__), "../../../common/CutMix-PyTorch"))
 import resnet as RN
 import pyramidnet as PYRM
 import utils

@@ -1,8 +1,8 @@
 # original code: https://github.com/dyhan0920/PyramidNet-PyTorch/blob/master/train.py
-# python3 repair_retrain_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --pretrained ./runs/DeepInspect_1/model_best.pth.tar --expid 0 --checkmodel
-# python3 repair_retrain_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname ResNet50 --epochs 60 --beta 1.0 --cutmix_prob 1.0 --pretrained ./runs/DeepInspect_1/model_best.pth.tar --expid 0 --first 3 --second 5
+# python3 repair_retrain_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --pretrained ./runs/DeepInspect_1/model_best.pth.tar --checkmodel
+# python3 repair_retrain_exp.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname ResNet50 --epochs 60 --beta 1.0 --cutmix_prob 1.0 --pretrained ./runs/DeepInspect_1/model_best.pth.tar --first 3 --second 5
 
-# python3 repair_confusion_exp_newbn.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4/model_best.pth.tar --expid 0 --lam 0 --extra 256
+# python3 repair_confusion_exp_newbn.py --net_type resnet --dataset cifar10 --depth 50 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet_2_4/model_best.pth.tar --lam 0 --extra 256
 # set extra batch size same as batch size for half half assumption in new batchnorm layer
 import argparse
 import os
@@ -22,8 +22,8 @@ import torchvision.datasets as datasets
 import torchvision.models as models
 import torchvision
 import sys
-sys.path.append("../../../common")
-sys.path.append("../../../common/CutMix-PyTorch")
+sys.path.append(os.path.join(os.path.dirname(__file__), "../../../common"))
+sys.path.append(os.path.join(os.path.dirname(__file__), "../../../common/CutMix-PyTorch"))
 import resnet as RN
 import pyramidnet as PYRM
 import utils

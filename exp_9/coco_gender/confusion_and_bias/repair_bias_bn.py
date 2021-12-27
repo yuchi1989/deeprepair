@@ -22,8 +22,8 @@ from data_loader import CocoObject
 from model import MultilabelObject
 from itertools import cycle
 import sys
-sys.path.append("../../../common")
-sys.path.append("../../../common/CutMix-PyTorch")
+sys.path.append(os.path.join(os.path.dirname(__file__), "../../../common"))
+sys.path.append(os.path.join(os.path.dirname(__file__), "../../../common/CutMix-PyTorch"))
 from newbatchnorm2 import dnnrepair_BatchNorm2d
 
 global_epoch_confusion = []
