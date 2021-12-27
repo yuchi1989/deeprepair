@@ -65,6 +65,7 @@ def main():
     parser.add_argument('--replace', help='replace bn layer ',
                     action='store_true')
     args = parser.parse_args()
+    assert os.path.isfile(args.pretrained)
 
     torch.manual_seed(args.seed)
     torch.cuda.manual_seed(args.seed)
@@ -75,7 +76,6 @@ def main():
     if not os.path.exists(args.log_dir): os.makedirs(args.log_dir)
 
 
-    assert os.path.isfile(args.pretrained)
 
 
     #save all parameters for training

@@ -16,6 +16,7 @@ parser.add_argument("--fourth", type=str, default='clock')
 
 
 args = parser.parse_args()
+    assert os.path.isfile(args.pretrained)
 
 id2object = {
  0: 'person',

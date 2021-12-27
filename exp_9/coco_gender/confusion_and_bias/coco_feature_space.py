@@ -57,6 +57,7 @@ def main():
                     action='store_true')
     parser.add_argument('--groupname', default="", type=str, help='output file name')
     args = parser.parse_args()
+    assert os.path.isfile(args.pretrained)
 
     torch.manual_seed(args.seed)
     torch.cuda.manual_seed(args.seed)

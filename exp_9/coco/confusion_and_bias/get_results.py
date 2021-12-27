@@ -6,7 +6,7 @@ def compute_confusion(confusion_matrix, first, second):
     confusion = 0
     if (first, second) in confusion_matrix:
         confusion += confusion_matrix[(first, second)]
-    
+
     if (second, first) in confusion_matrix:
         confusion += confusion_matrix[(second, first)]
     return confusion/2
@@ -59,7 +59,7 @@ def draw_bias_graph(pretrain, repair, first, second, third):
 
 def draw_confusion_graph(pretrain, repair, first, second):
     print("draw confusion graph")
-    
+
     information = np.load(pretrain, allow_pickle=True, encoding = 'latin1')
     information2 = np.load(repair, allow_pickle=True, encoding = 'latin1')
     nature_accuracy = []
@@ -111,6 +111,7 @@ if __name__ == '__main__':
     parser.add_argument('--third', default="clock", type=str,
                         help='third object index')
     args = parser.parse_args()
+    assert os.path.isfile(args.pretrained)
     print(args)
     if args.confusion:
         draw_confusion_graph(args.original_model, args.repaired_model, args.first, args.second)

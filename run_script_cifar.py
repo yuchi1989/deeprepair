@@ -1,8 +1,9 @@
 import os
+import time
 from subprocess import PIPE, run
 
 def execute(command):
-    result = run(command, stdout=PIPE, stderr=PIPE, universal_newlines=True, shell=True)
+    result = run(command, universal_newlines=True, shell=True, capture_output=True, text=True)
     # print(result.stdout)
     print(result.stderr)
 
@@ -47,16 +48,16 @@ params = [0.1, 0.3, 0.5, 0.7, 0.9]
 epochs = 60
 verbose = ""
 
-dataset_model_classes = [('cifar10', 'resnet-18', (3, 5, 2))]
-tasks = ['bias']
-methods = ['w-aug', 'w-bn']
-params = [0.1]
-epochs = 2
+dataset_model_classes = [('cifar10', 'vggbn-11', (3, 5, 2)), ('cifar100', 'resnet-34', (98, 35, 11))]
+# tasks = ['confusion']
+# methods = ['w-aug', 'w-loss', 'w-dbr']
+# params = [0.1]
+# epochs = 2
 
 
 with open('tmp_log.txt', 'w') as f_out:
     pass
-
+t0 = time.time()
 for dataset, model, classes in dataset_model_classes:
     first, second, third = classes
 
@@ -69,11 +70,11 @@ for dataset, model, classes in dataset_model_classes:
         vggbn = ''
 
     if model == 'vggbn-11':
-        model_path = '../../../models/cifar10_vggbn_2_4/model_best.pth.tar'
+        model_path = 'models/cifar10_vggbn_2_4/model_best.pth.tar'
     elif model == 'resnet-18':
-        model_path = '../../../models/cifar10_resnet18_2_4/model_best.pth.tar'
+        model_path = 'models/cifar10_resnet18_2_4/model_best.pth.tar'
     elif model == 'resnet-34':
-        model_path = '../../../models/cifar100_resnet34/model_best.pth.tar'
+        model_path = 'models/cifar100_resnet34/model_best.pth.tar'
 
     for task in tasks:
         for method in methods:
@@ -96,4 +97,5 @@ for dataset, model, classes in dataset_model_classes:
                 print('-'*20)
                 with open('tmp_log.txt', 'a') as f_out:
                     f_out.write(cmd+'\n')
+                    f_out.write(str(time.time()-t0)+'\n')
                 execute(cmd)

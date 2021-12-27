@@ -142,6 +142,7 @@ def get_dataset_from_specific_classes(target_dataset, first, second, third):
 def main():
     global args, best_err1, best_err5, global_epoch_confusion, best_loss
     args = parser.parse_args()
+    assert os.path.isfile(args.pretrained)
 
     if args.dataset.startswith('cifar'):
         normalize = transforms.Normalize(mean=[x / 255.0 for x in [125.3, 123.0, 113.9]],
@@ -418,6 +419,7 @@ def train(train_loader, target_train_loader, model, criterion, optimizer, epoch)
                 diff_dist = torch.abs(p_dist1 - p_dist2)
 
             loss = criterion(output, target).mean()
+            p_dist = diff_dist
             loss2 = args.lam * loss - (1 - args.lam) * p_dist
 
         losses.update(loss2.item(), input.size(0))

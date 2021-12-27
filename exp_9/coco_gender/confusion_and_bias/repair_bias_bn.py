@@ -60,6 +60,7 @@ def main():
     parser.add_argument('--ratio', default=0.5, type=float, help='target ratio for batchnorm layers')
     parser.add_argument('--replace', help='replace bn layer ', action='store_true')
     args = parser.parse_args()
+    assert os.path.isfile(args.pretrained)
 
     torch.manual_seed(args.seed)
     torch.cuda.manual_seed(args.seed)

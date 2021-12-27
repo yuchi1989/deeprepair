@@ -94,6 +94,7 @@ if __name__ == '__main__':
                         help='epoch confusion')
     
     args = parser.parse_args()
+    assert os.path.isfile(args.pretrained)
 
     top_confusions(args.npy, 3)
 

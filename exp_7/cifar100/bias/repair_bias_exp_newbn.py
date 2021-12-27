@@ -211,6 +211,7 @@ def compute_bias(confusion_matrix, first, second, third):
 def main():
     global args, best_err1, best_err5, global_epoch_confusion, best_loss
     args = parser.parse_args()
+    assert os.path.isfile(args.pretrained)
 
     if args.dataset.startswith('cifar'):
         normalize = transforms.Normalize(mean=[x / 255.0 for x in [125.3, 123.0, 113.9]],

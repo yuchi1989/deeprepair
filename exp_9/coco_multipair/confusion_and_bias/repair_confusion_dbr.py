@@ -57,6 +57,7 @@ def main():
     parser.add_argument('--debug', help='Check model accuracy',
     action='store_true')
     args = parser.parse_args()
+    assert os.path.isfile(args.pretrained)
 
     torch.manual_seed(args.seed)
     torch.cuda.manual_seed(args.seed)

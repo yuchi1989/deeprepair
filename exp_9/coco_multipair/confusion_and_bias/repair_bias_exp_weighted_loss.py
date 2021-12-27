@@ -60,6 +60,7 @@ def main():
     parser.add_argument('--class_num', default=81, type=int,
                 help='81:coco_gender;80:coco')
     args = parser.parse_args()
+    assert os.path.isfile(args.pretrained)
 
     torch.manual_seed(args.seed)
     torch.cuda.manual_seed(args.seed)

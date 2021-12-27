@@ -54,6 +54,7 @@ def main():
     parser.add_argument('--debug', help='Check model accuracy',
     action='store_true')
     args = parser.parse_args()
+    assert os.path.isfile(args.pretrained)
 
     torch.manual_seed(args.seed)
     torch.cuda.manual_seed(args.seed)
@@ -289,7 +290,7 @@ def train(args, epoch, model, criterion, train_loader, optimizer, train_F, score
         '''
 
         #print(p_dist)
-        loss2 = loss + args.lam * diff_dist
+        loss2 = args.lam * loss - (1 - args.lam) * diff_dist
         loss_logger.update(loss2.item())
         object_preds_max = object_preds.data.max(1, keepdim=True)[1]
         object_correct = torch.gather(objects.data, 1, object_preds_max).cpu().sum()
