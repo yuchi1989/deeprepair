@@ -103,8 +103,8 @@ def main():
 
 
     val_loader = torch.utils.data.DataLoader(val_data, batch_size = args.batch_size,
-                                            shuffle = False, num_workers = 0,
-                                            pin_memory = True)
+                                            shuffle = False, num_workers = 4,
+                                            pin_memory = False)
     # Build the models
     model1 = MultilabelObject(args, 81).cuda()
     model2 = MultilabelObject(args, 81).cuda()

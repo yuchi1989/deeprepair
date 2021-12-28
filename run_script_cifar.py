@@ -14,7 +14,7 @@ method_properties = {
     "filename": "exp_oversampling",
     "replace": "",
     "batch_size": 128,
-    "extra_batch_size": 128,
+    "extra_batch_size": 0,
 },
 'w-bn': {
     "param_name": "ratio",
@@ -28,14 +28,14 @@ method_properties = {
     "filename": "exp_weighted_loss",
     "replace": "",
     "batch_size": 128,
-    "extra_batch_size": 128,
+    "extra_batch_size": 10,
 },
 'w-dbr': {
     "param_name": "lam",
     "filename": "dbr",
     "replace": "",
     "batch_size": 128,
-    "extra_batch_size": 128,
+    "extra_batch_size": 10,
 }
 }
 
@@ -48,9 +48,9 @@ params = [0.1, 0.3, 0.5, 0.7, 0.9]
 epochs = 60
 verbose = ""
 
-dataset_model_classes = [('cifar10', 'vggbn-11', (3, 5, 2)), ('cifar100', 'resnet-34', (98, 35, 11))]
+dataset_model_classes = [('cifar10', 'resnet-18', (3, 5, 2)), ('cifar100', 'resnet-34', (98, 35, 11))]
 # tasks = ['confusion']
-# methods = ['w-aug', 'w-loss', 'w-dbr']
+methods = ['w-loss', 'w-dbr', 'w-bn', 'w-aug']
 # params = [0.1]
 # epochs = 2
 

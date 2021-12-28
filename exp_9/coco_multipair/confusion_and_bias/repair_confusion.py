@@ -93,19 +93,19 @@ def main():
 
     # Data loaders / batch assemblers.
     train_loader = torch.utils.data.DataLoader(train_data, batch_size = args.batch_size,
-                                              shuffle = True, num_workers = 1,
-                                              pin_memory = True)
+                                              shuffle = True, num_workers = 4,
+                                              pin_memory = False)
 
     first_loader = torch.utils.data.DataLoader(first_data, batch_size = 3,
-                                              shuffle = True, num_workers = 0,
+                                              shuffle = True, num_workers = 4,
                                               pin_memory = False)
     second_loader = torch.utils.data.DataLoader(second_data, batch_size = 3,
-                                              shuffle = True, num_workers = 0,
+                                              shuffle = True, num_workers = 4,
                                               pin_memory = False)
 
     val_loader = torch.utils.data.DataLoader(val_data, batch_size = args.batch_size,
-                                            shuffle = False, num_workers = 0,
-                                            pin_memory = True)
+                                            shuffle = False, num_workers = 4,
+                                            pin_memory = False)
     # Build the models
     model = MultilabelObject(args, 80).cuda()
     criterion = nn.BCEWithLogitsLoss(weight = torch.FloatTensor(train_data.getObjectWeights()), size_average = True, reduction='None').cuda()

@@ -79,11 +79,11 @@ def main():
     # Data loaders / batch assemblers.
     train_loader = torch.utils.data.DataLoader(train_data, batch_size = args.batch_size,
                                               shuffle = True, num_workers = 2,
-                                              pin_memory = True)
+                                              pin_memory = False)
 
     val_loader = torch.utils.data.DataLoader(val_data, batch_size = args.batch_size,
                                             shuffle = False, num_workers = 2,
-                                            pin_memory = True)
+                                            pin_memory = False)
 
     # Build the models
     model = MultilabelObject(args, 81).cuda()
