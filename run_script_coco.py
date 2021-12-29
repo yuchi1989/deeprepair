@@ -64,9 +64,11 @@ for dataset, model, classes in dataset_model_classes:
     if model == 'coco':
         model_path = 'models/coco_original_model/model_best.pth.tar'
         class_num = 80
-    elif model == 'cocogender':
+    elif model == 'coco_gender':
         model_path = 'models/cocogender_original_model/model_best.pth.tar'
         class_num = 81
+    else:
+        raise
 
     for task in tasks:
         for method in methods:
