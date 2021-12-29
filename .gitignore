@@ -83,3 +83,5 @@ exp_9/coco_gender/confusion_and_bias/pycocotools/*.pyc
 runs
 tmp_log.txt
 tmp_log_coco.txt
+common/*.pyc
+*.pickle
