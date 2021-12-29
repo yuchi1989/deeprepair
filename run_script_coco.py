@@ -87,7 +87,7 @@ for dataset, model, classes in dataset_model_classes:
                 print('-'*20)
                 print(cmd)
                 print('-'*20)
-                with open('tmp_log.txt', 'a') as f_out:
+                with open('tmp_log_coco.txt', 'a') as f_out:
                     f_out.write(cmd+'\n')
                     f_out.write(str(time.time()-t0)+'\n')
                 execute(cmd)
