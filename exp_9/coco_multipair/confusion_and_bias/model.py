@@ -2,6 +2,8 @@ import pdb
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+import torch.multiprocessing
+torch.multiprocessing.set_sharing_strategy('file_system')
 import torchvision.models as models
 from torch.autograd import Variable
 import torch.nn.utils

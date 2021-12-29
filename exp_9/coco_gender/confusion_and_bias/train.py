@@ -7,6 +7,8 @@ from sklearn.metrics import roc_auc_score
 from tqdm import tqdm as tqdm
 
 import torch.nn.functional as F
+import torch.multiprocessing
+torch.multiprocessing.set_sharing_strategy('file_system')
 import torch, torchvision
 import torch.nn as nn
 import torchvision.datasets as dset
