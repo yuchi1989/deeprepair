@@ -78,7 +78,7 @@ for dataset, model, classes in dataset_model_classes:
                 filepath = os.path.join('exp_9', dataset, 'confusion_and_bias', 'repair_'+task+'_'+filename+'.py')
                 expname = 'runs/'+dataset+'_'+task+'_'+method+'_'+str(param)
 
-                cmd = f"python2 {filepath} --pretrained {model_path} --log_dir {expname} --first {first} --second {second} --ann_dir '../coco/annotations' --image_dir '../coco/' --class_num {class_num} --{param_name} {param}"+replace
+                cmd = f"python2 {filepath} --pretrained {model_path} --log_dir {expname} --first {first} --second {second} --ann_dir '../coco/annotations' --num_epochs {epochs} --image_dir '../coco/' --class_num {class_num} --{param_name} {param}"+replace
 
                 if task == 'bias':
                     cmd += ' --third '+str(third)

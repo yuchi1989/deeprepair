@@ -17,9 +17,9 @@ class CocoObject(data.Dataset):
 
         if self.split == 'train':
             ann_path = os.path.join(self.ann_dir, "instances_train2014.json")
-            gender_file = "train_0.data"
+            gender_file = os.path.join(os.path.dirname(__file__),"train_0.data")
         else:
-            gender_file = "val_0.data"
+            gender_file = os.path.join(os.path.dirname(__file__),"val_0.data")
             ann_path = os.path.join(self.ann_dir, "instances_val2014.json")
         self.cocoAPI = COCO(ann_path)
         self.data = json.load(open(ann_path))
