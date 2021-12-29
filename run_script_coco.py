@@ -45,14 +45,14 @@ dataset_model_classes = [('coco', 'coco', ("bus", "person", "clock")), ('coco_ge
 tasks = ['confusion', 'bias']
 methods = ['w-aug', 'w-bn', 'w-loss', 'w-dbr']
 params = [0.1, 0.3, 0.5, 0.7, 0.9]
-epochs = 6
+epochs = 18
 verbose = ""
 
 dataset_model_classes = [('coco', 'coco', ("bus", "person", "clock")), ('coco_gender', 'coco_gender', ("handbag", "woman", "man"))]
 tasks = ['confusion']
 methods = ['w-aug']
 params = [0.1]
-epochs = 1
+epochs = 13
 
 
 with open('tmp_log_coco.txt', 'w') as f_out:
