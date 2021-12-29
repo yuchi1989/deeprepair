@@ -162,7 +162,7 @@ def main():
         print(str((args.first, args.second)) + ": " + str(first_second))
         print(str((args.first, args.third)) + ": " + str(first_third))
 
-        accuracy = 100 - top1err
+        accuracy = best_performance
         v1 = first_second
         v2 = first_third
         v_bias = compute_bias(confusion_matrix, args.first, args.second, args.third)

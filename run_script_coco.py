@@ -55,7 +55,7 @@ params = [0.1]
 epochs = 1
 
 
-with open('tmp_log.txt', 'w') as f_out:
+with open('tmp_log_coco.txt', 'w') as f_out:
     pass
 t0 = time.time()
 for dataset, model, classes in dataset_model_classes:
