@@ -189,7 +189,7 @@ python3 repair_confusion_exp_weighted_loss.py --net_type resnet --dataset cifar1
 #### [w-dbr](https://github.com/yuchi1989/deeprepair/blob/master/exp_7/cifar10/cifar10_multipair/repair_confusion_dbr.py):  
 
 ```
-python3 repair_confusion_dbr.py --net_type resnet --dataset cifar10 --depth 18 --batch_size 256 --lr 0.1 cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ../../../models/cifar10_resnet18_2_4/model_best.pth.tar  --pair1a 3 --pair1b 5 --pair2a 1 --pair2b 9 --lam 0.7
+python3 repair_confusion_dbr.py --net_type resnet --dataset cifar10 --depth 18 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ../../../models/cifar10_resnet18_2_4/model_best.pth.tar  --pair1a 3 --pair1b 5 --pair2a 1 --pair2b 9 --lam 0.7
 ```
 
 
