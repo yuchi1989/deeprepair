@@ -168,7 +168,7 @@ def main():
         v1 = first_second
         v2 = first_third
         v_bias = compute_bias(confusion_matrix, args.first, args.second, args.third)
-
+        directory = args.log_dir
         performance_str = '%.2f_%.4f_%.4f_%.4f.txt' % (accuracy, v_bias, v1, v2)
         performance_file = os.path.join(directory, performance_str)
         with open(performance_file, 'w') as f_out:

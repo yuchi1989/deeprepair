@@ -181,7 +181,7 @@ def main():
             str(compute_bias(confusion_matrix, args.first, args.second, args.third)))
         print(str((args.first, args.second)) + ": " + str(first_second))
         print(str((args.first, args.third)) + ": " + str(first_third))
-
+        directory = args.log_dir
         accuracy = best_performance
         v1 = first_second
         v2 = first_third

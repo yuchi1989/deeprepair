@@ -55,6 +55,8 @@ def main():
     '--pretrained', default='/set/your/model/path', type=str, metavar='PATH')
     parser.add_argument('--debug', help='Check model accuracy',
     action='store_true')
+    parser.add_argument('--class_num', default=81, type=int,
+                help='81:coco_gender;80:coco')
     args = parser.parse_args()
     assert os.path.isfile(args.pretrained)
 
@@ -119,7 +121,7 @@ def main():
                                             pin_memory = False)
 
     # Build the models
-    model = MultilabelObject(args, 80).cuda()
+    model = MultilabelObject(args, args.class_num).cuda()
     criterion = nn.BCEWithLogitsLoss(weight = torch.FloatTensor(train_data.getObjectWeights()), size_average = True, reduction='None').cuda()
 
     def trainable_params():
@@ -168,7 +170,7 @@ def main():
         v1 = first_second
         v2 = first_third
         v_bias = compute_bias(confusion_matrix, args.first, args.second, args.third)
-
+        directory = args.log_dir
         performance_str = '%.2f_%.4f_%.4f_%.4f.txt' % (accuracy, v_bias, v1, v2)
         performance_file = os.path.join(directory, performance_str)
         with open(performance_file, 'w') as f_out:
@@ -204,7 +206,7 @@ def train(args, epoch, model, criterion, train_loader, optimizer, train_F, score
 
     image_ids = train_data.image_ids
     image_path_map = train_data.image_path_map
-    #80 objects
+    #args.class_num objects
 
     model.train()
     batch_time = AverageMeter()
@@ -336,7 +338,7 @@ def get_confusion(args, epoch, model, criterion, val_loader, optimizer, val_F, s
     labels = []
     image_ids = test_data.image_ids
     image_path_map = test_data.image_path_map
-    #80 objects
+    #args.class_num objects
     id2object = test_data.id2object
     id2labels = test_data.id2labels
     t = tqdm(val_loader, desc = 'Test %d' % epoch)
@@ -394,7 +396,7 @@ def get_confusion(args, epoch, model, criterion, val_loader, optimizer, val_F, s
     score_F.flush()
 
     object_list = []
-    for i in range(80):
+    for i in range(args.class_num):
         object_list.append(id2object[i])
     type2confusion = {}
 
@@ -404,7 +406,7 @@ def get_confusion(args, epoch, model, criterion, val_loader, optimizer, val_F, s
 
 
     for li, yi in zip(labels, yhats):
-        no_objects = [id2object[i] for i in range(80) if id2object[i] not in li]
+        no_objects = [id2object[i] for i in range(args.class_num) if id2object[i] not in li]
         for i in li:
             for j in no_objects:
                 if (i, j) in pair_count:

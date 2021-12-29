@@ -147,7 +147,14 @@ def main():
         save_checkpoint(args, model_state, is_best, os.path.join(args.log_dir, 'checkpoint.pth.tar'))
         confusion_matrix = global_epoch_confusion[-1]["confusion"]
         first_second = compute_confusion(confusion_matrix, args.first, args.second)
-        print(str((args.first, args.second)) + ": " + str(first_second))
+
+        accuracy = best_performance
+        v_conf = first_second
+        directory = args.log_dir
+        performance_str = '%.2f_%.4f_%.4f_%.4f.txt' % (accuracy, v_conf)
+        performance_file = os.path.join(directory, performance_str)
+        with open(performance_file, 'w') as f_out:
+            pass
         #os.system('python plot.py {} &'.format(args.log_dir))
 
     train_F.close()
