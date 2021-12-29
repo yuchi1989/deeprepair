@@ -49,8 +49,8 @@ epochs = 18
 verbose = ""
 
 dataset_model_classes = [('coco', 'coco', ("bus", "person", "clock")), ('coco_gender', 'coco_gender', ("handbag", "woman", "man"))]
-tasks = ['confusion']
-methods = ['w-aug']
+tasks = ['confusion', 'bias']
+methods = ['w-aug', 'w-bn', 'w-loss', 'w-dbr']
 params = [0.1]
 epochs = 13
 
