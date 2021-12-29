@@ -83,6 +83,7 @@ class CocoObject(data.Dataset):
         gender_count["woman"] = 0
         self.object_ann = np.zeros((len(self.new_image_ids), 81))
         self.labels = []
+        sample_idx = []
         for idx, image_id in enumerate(self.new_image_ids):
             ann_ids = self.cocoAPI.getAnnIds(imgIds = image_id)
             anns = self.cocoAPI.loadAnns(ids = ann_ids)
@@ -101,13 +102,12 @@ class CocoObject(data.Dataset):
             self.labels.append(encoding_ids)
             for encoding_id in encoding_ids:
                 self.object_ann[idx, encoding_id] = 1
+            if filter is not None and filter in self.id2labels[image_id]:
+                sample_idx.append(idx)
+
         print(gender_count)
-        sample_idx = []
         print(filter)
         if filter is not None:
-            for idx, image_id in enumerate(self.new_image_ids):
-                if filter in self.id2labels[image_id]:
-                    sample_idx.append(idx)
             self.new_image_ids = [self.new_image_ids[i] for i in sample_idx]
             self.object_ann = [self.object_ann[i] for i in sample_idx]
         del self.data
