@@ -66,6 +66,8 @@ def main():
                     help='target ratio for batchnorm layers')
     parser.add_argument('--replace', help='replace bn layer ',
                     action='store_true')
+    parser.add_argument('--class_num', default=80, type=int,
+                help='81:coco_gender;80:coco')
     args = parser.parse_args()
     assert os.path.isfile(args.pretrained)
 
@@ -132,7 +134,7 @@ def main():
                                             shuffle = False, num_workers = 4,
                                             pin_memory = False)
     # Build the models
-    model = MultilabelObject(args, 80).cuda()
+    model = MultilabelObject(args, args.class_num).cuda()
 
 
     criterion = nn.BCEWithLogitsLoss(weight = torch.FloatTensor(train_data.getObjectWeights()), size_average = True, reduction='None').cuda()
@@ -288,7 +290,7 @@ def train(args, epoch, model, criterion, train_loader, optimizer, train_F, score
 
     image_ids = train_data.image_ids
     image_path_map = train_data.image_path_map
-    #80 objects
+    #args.class_num objects
 
     model.train()
     batch_time = AverageMeter()
@@ -422,7 +424,7 @@ def get_confusion(args, epoch, model, criterion, val_loader, optimizer, val_F, s
     labels = []
     image_ids = test_data.image_ids
     image_path_map = test_data.image_path_map
-    #80 objects
+    #args.class_num objects
     id2object = test_data.id2object
     id2labels = test_data.id2labels
     t = tqdm(val_loader, desc = 'Test %d' % epoch)
@@ -480,7 +482,7 @@ def get_confusion(args, epoch, model, criterion, val_loader, optimizer, val_F, s
     score_F.flush()
 
     object_list = []
-    for i in range(80):
+    for i in range(args.class_num):
         object_list.append(id2object[i])
     type2confusion = {}
 
@@ -490,7 +492,7 @@ def get_confusion(args, epoch, model, criterion, val_loader, optimizer, val_F, s
 
 
     for li, yi in zip(labels, yhats):
-        no_objects = [id2object[i] for i in range(80) if id2object[i] not in li]
+        no_objects = [id2object[i] for i in range(args.class_num) if id2object[i] not in li]
         for i in li:
             for j in no_objects:
                 if (i, j) in pair_count:

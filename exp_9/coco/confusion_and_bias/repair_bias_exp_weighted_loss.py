@@ -59,7 +59,7 @@ def main():
                     help='oversampling weight')
     parser.add_argument('--target_weight', default=1, type=float,
                 help='target_weight')
-    parser.add_argument('--class_num', default=81, type=int,
+    parser.add_argument('--class_num', default=80, type=int,
                 help='81:coco_gender;80:coco')
     args = parser.parse_args()
     assert os.path.isfile(args.pretrained)

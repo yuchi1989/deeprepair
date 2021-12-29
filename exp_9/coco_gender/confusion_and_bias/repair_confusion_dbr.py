@@ -53,6 +53,8 @@ def main():
     '--pretrained', default='/set/your/model/path', type=str, metavar='PATH')
     parser.add_argument('--debug', help='Check model accuracy',
     action='store_true')
+    parser.add_argument('--class_num', default=81, type=int,
+                help='81:coco_gender;80:coco')
     args = parser.parse_args()
     assert os.path.isfile(args.pretrained)
 
@@ -109,7 +111,7 @@ def main():
                                             shuffle = False, num_workers = 4,
                                             pin_memory = False)
     # Build the models
-    model = MultilabelObject(args, 81).cuda()
+    model = MultilabelObject(args, args.class_num).cuda()
     criterion = nn.BCEWithLogitsLoss(weight = torch.FloatTensor(train_data.getObjectWeights()), size_average = True, reduction='None').cuda()
 
     def trainable_params():
@@ -357,7 +359,7 @@ def get_confusion(args, epoch, model, criterion, val_loader, optimizer, val_F, s
     score_F.flush()
 
     object_list = []
-    for i in range(81):
+    for i in range(args.class_num):
         object_list.append(id2object[i])
     type2confusion = {}
 
@@ -367,7 +369,7 @@ def get_confusion(args, epoch, model, criterion, val_loader, optimizer, val_F, s
 
 
     for li, yi in zip(labels, yhats):
-        no_objects = [id2object[i] for i in range(81) if id2object[i] not in li]
+        no_objects = [id2object[i] for i in range(args.class_num) if id2object[i] not in li]
         for i in li:
             for j in no_objects:
                 if (i, j) in pair_count:

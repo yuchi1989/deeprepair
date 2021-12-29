@@ -55,7 +55,7 @@ def main():
     '--pretrained', default='/set/your/model/path', type=str, metavar='PATH')
     parser.add_argument('--debug', help='Check model accuracy',
     action='store_true')
-    parser.add_argument('--class_num', default=81, type=int,
+    parser.add_argument('--class_num', default=80, type=int,
                 help='81:coco_gender;80:coco')
     args = parser.parse_args()
     assert os.path.isfile(args.pretrained)
