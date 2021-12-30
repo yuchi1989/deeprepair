@@ -168,18 +168,26 @@ def main():
         obj2_count = global_epoch_confusion[-1]["obj2_count"]
         type2confusion = global_epoch_confusion[-1]["confusion"]
 
-        first_i = 0
-        second_i = 0
+        first_i_list = []
+        second_i_list = []
         for (i, j) in type2confusion:
             if i == args.first:
                 if j != args.second:
-                    first_i += type2confusion[(i, j)]
+                    first_i_list.append(type2confusion[(i, j)])
             if i == args.second:
                 if j != args.first:
-                    second_i += type2confusion[(i, j)]
+                    second_i_list.append(type2confusion[(i, j)])
+
+        first_i = np.sum(first_i_list)
+        second_i = np.sum(second_i_list)
+
+        first_i_max = np.max(first_i_list)
+        second_i_max = np.max(second_i_list)
 
         print('obj1_count*first_i:', obj1_count*first_i)
         print('obj2_count*second_i:', obj2_count*second_i)
+        print('obj1_count*first_i_max:', obj1_count*first_i_max)
+        print('obj2_count*second_i_max:', obj2_count*second_i_max)
 
         print('obj1_count*first_second:', obj1_count*type2confusion[(args.first, args.second)])
         print('obj2_count*second_first:', obj2_count*type2confusion[(args.second, args.first)])
