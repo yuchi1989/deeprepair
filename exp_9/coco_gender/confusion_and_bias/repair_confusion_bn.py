@@ -161,7 +161,8 @@ def main():
         model = model.cuda()
     if args.checkmodel:
         global_epoch_confusion.append({})
-        _ = get_confusion(val_loader, model, criterion)
+        epoch = 0
+        _ = get_confusion(args, epoch, model, criterion, val_loader, optimizer, val_F, score_F, val_data)
         obj1_count = global_epoch_confusion[-1]["obj1_count"]
         obj2_count = global_epoch_confusion[-1]["obj2_count"]
         type2confusion = global_epoch_confusion[-1]["confusion"]
