@@ -85,3 +85,4 @@ tmp_log.txt
 tmp_log_coco.txt
 common/*.pyc
 *.pickle
+exp_9/coco/confusion_and_bias/log

@@ -20,27 +20,27 @@ conda install pytorch torchvision tqdm scipy scikit-learn matplotlib
 ## Check Model
 ### cifar10
 ```
-python3 repair_confusion_exp_newbn.py --net_type resnet --dataset cifar10 --depth 18 --batch_size 128 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_resnet18_2_4/model_best.pth.tar --extra 128 --replace --checkmodel
+python3 repair_confusion_exp_newbn.py --net_type resnet --dataset cifar10 --depth 18 --pretrained ../../../models/cifar10_resnet18_2_4/model_best.pth.tar --first 3 --second 5 --checkmodel
 ```
 
 ### cifar10 vgg
 ```
-python3 repair_confusion_exp_newbn_vggbn.py --net_type resnet --dataset cifar10 --depth 18 --batch_size 128 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar10_vggbn_2_4/model_best.pth.tar --extra 128 --replace --checkmodel
+python3 repair_confusion_exp_newbn_vggbn.py --net_type resnet --dataset cifar10 --depth 18 --pretrained ../../../models/cifar10_vggbn_2_4/model_best.pth.tar --first 3 --second 5 --checkmodel
 ```
 
 ### cifar100
 ```
-python3 repair_confusion_exp_newbn.py --net_type resnet --dataset cifar100 --depth 34 --batch_size 128 --lr 0.1 --expname cifar100 --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ./runs/cifar100_resnet34/model_best.pth.tar --extra 128 --replace --checkmodel --first 35 --second 98
+python3 repair_confusion_exp_newbn.py --net_type resnet --dataset cifar100 --depth 34 --pretrained ./runs/cifar100_resnet34/model_best.pth.tar --first 35 --second 98 --checkmodel
 ```
 
 ### coco
 ```
-python2 get_instance.py --original original_model/model_best.pth.tar --fix fix_model/model_best.pth.tar --log_dir coco_confusion_repair_aug --first "person" --second "bus" --ann_dir '../../../../coco/annotations' --image_dir '../../../../coco/'
+python2 repair_confusion_bn.py --pretrained ../../../models/coco_original_model/model_best.pth.tar --ann_dir '../../../../coco/annotations' --image_dir '../../../../coco/' --first "person" --second "bus" --checkmodel
 ```
 
 ### coco gender
 ```
-python2 get_instance_coco_gender_bias.py --original original_model/model_best.pth.tar --fix fix_model/model_best.pth.tar --log_dir coco_confusion_repair_aug --first "skis" --second "man" --third "woman" --ann_dir '../../../../coco/annotations' --image_dir '../../../../coco/'
+python2 repair_confusion_bn.py --pretrained ../../../models/cocogender_original_model/model_best.pth.tar --ann_dir '../../../../coco/annotations' --image_dir '../../../../coco/' --first "handbag" --second "woman" --checkmodel
 ```
 
 

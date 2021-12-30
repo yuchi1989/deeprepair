@@ -309,15 +309,32 @@ def main():
             log_print(str(args.second) + " -> " + str(args.first))
             log_print(global_epoch_confusion[-1]
                       ["confusion"][(args.second, args.first)])
+
+            obj1_count = global_epoch_confusion[-1]["obj1_count"]
+            obj2_count = global_epoch_confusion[-1]["obj2_count"]
+
+            first_i = 0
+            second_i = 0
+            for i in range(numberofclass):
+                if i not in [args.first, args.second]:
+                    first_i += global_epoch_confusion[-1]["confusion"][(args.first, i)]
+                    second_i += global_epoch_confusion[-1]["confusion"][(args.second, i)]
+
+            print('obj1_count*first_i:', obj1_count*first_i)
+            print('obj2_count*second_i:', obj2_count*second_i)
+
+            print('obj1_count*first_second:', obj1_count*global_epoch_confusion[-1]["confusion"][(args.first, args.second)])
+            print('obj2_count*second_first:', obj2_count*global_epoch_confusion[-1]["confusion"][(args.second, args.first)])
             exit()
+
         elif args.checkmodel_mode == 'all':
             print(global_epoch_confusion[-1]["confusion"])
             import seaborn as sn
             import pandas as pd
             import matplotlib.pyplot as plt
-            arr = [[0 for _ in range(10)] for _ in range(10)]
-            for i in range(10):
-                for j in range(10):
+            arr = [[0 for _ in range(numberofclass)] for _ in range(numberofclass)]
+            for i in range(numberofclass):
+                for j in range(numberofclass):
                     if (i, j) in global_epoch_confusion[-1]["confusion"]:
                         arr[i][j] = global_epoch_confusion[-1]["confusion"][(i, j)]
             cifar10_labels = ['airplane', 'automobile', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck']
@@ -326,8 +343,6 @@ def main():
             sn.heatmap(df_cm, annot=True, vmin=0, vmax=0.15)
             plt.savefig('confusion_matrix.pdf')
             exit()
-
-
 
         else:
             print('invalid args.checkmodel_mode:', args.checkmodel_mode)
@@ -650,18 +665,26 @@ def get_confusion(val_loader, model, criterion, epoch=-1):
                     subcount = subcount + 1
 
             type1confusion[(l1, l2)] = c*1.0/subcount
+
     global_epoch_confusion[-1]["confusion"] = type1confusion
     global_epoch_confusion[-1]["accuracy"] = acc
 
+    obj1_count = 0
+    obj2_count = 0
     dog_cat_sum = 0
     dog_cat_acc = 0
     for i in range(len(yhats)):
-
+        if args.first == labels[i]:
+            obj1_count += 1
+        if args.second == labels[i]:
+            obj2_count += 1
         if args.first == labels[i] or args.second == labels[i]:
-            dog_cat_sum += 1
             if labels[i] == yhats[i]:
                 dog_cat_acc += 1
+    dog_cat_sum = obj1_count + obj2_count
     global_epoch_confusion[-1]["dogcatacc"] = dog_cat_acc/dog_cat_sum
+    global_epoch_confusion[-1]["obj1_count"] = obj1_count
+    global_epoch_confusion[-1]["obj2_count"] = obj2_count
     log_print("pair accuracy: " + str(global_epoch_confusion[-1]["dogcatacc"]))
 
     return top1.avg, top5.avg, losses.avg

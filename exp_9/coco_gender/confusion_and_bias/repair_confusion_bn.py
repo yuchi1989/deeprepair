@@ -63,6 +63,8 @@ def main():
                     action='store_true')
     parser.add_argument('--class_num', default=81, type=int,
                 help='81:coco_gender;80:coco')
+    parser.add_argument('--checkmodel', help='Check model accuracy',
+                    action='store_true')
     args = parser.parse_args()
     assert os.path.isfile(args.pretrained)
 
@@ -157,6 +159,30 @@ def main():
         replace_bn(model, args.ratio)
         print(model)
         model = model.cuda()
+    if args.checkmodel:
+        global_epoch_confusion.append({})
+        _ = get_confusion(val_loader, model, criterion)
+        obj1_count = global_epoch_confusion[-1]["obj1_count"]
+        obj2_count = global_epoch_confusion[-1]["obj2_count"]
+        type2confusion = global_epoch_confusion[-1]["confusion"]
+
+        first_i = 0
+        second_i = 0
+        for (i, j) in type2confusion:
+            if i == args.first:
+                if j != args.second:
+                    first_i += type2confusion[(i, j)]
+            if i == args.second:
+                if j != args.first:
+                    second_i += type2confusion[(i, j)]
+
+        print('obj1_count*first_i:', obj1_count*first_i)
+        print('obj2_count*second_i:', obj2_count*second_i)
+
+        print('obj1_count*first_second:', obj1_count*type2confusion[(args.first, args.second)])
+        print('obj2_count*second_first:', obj2_count*type2confusion[(args.second, args.first)])
+        exit()
+
 
     for epoch in range(args.start_epoch, args.num_epochs + 1):
         global_epoch_confusion.append({})
@@ -466,7 +492,8 @@ def get_confusion(args, epoch, model, criterion, val_loader, optimizer, val_F, s
     confusion_count = {}
     type2confusion = {}
 
-
+    obj1_count = 0
+    obj2_count = 0
     for li, yi in zip(labels, yhats):
         no_objects = [id2object[i] for i in range(args.class_num) if id2object[i] not in li]
         for i in li:
@@ -481,6 +508,10 @@ def get_confusion(args, epoch, model, criterion, val_loader, optimizer, val_F, s
                         confusion_count[(i, j)] += 1
                     else:
                         confusion_count[(i, j)] = 1
+            if i == args.first:
+                obj1_count += 1
+            elif i == args.second:
+                obj2_count += 1
 
     for i in object_list:
         for j in object_list:
@@ -489,6 +520,10 @@ def get_confusion(args, epoch, model, criterion, val_loader, optimizer, val_F, s
             type2confusion[(i, j)] = confusion_count[(i, j)]*1.0 / pair_count[(i, j)]
     global_epoch_confusion[-1]["confusion"] = type2confusion
     global_epoch_confusion[-1]["accuracy"] = eval_score_object
+
+    global_epoch_confusion[-1]["pair_count"] = pair_count
+    global_epoch_confusion[-1]["obj1_count"] = obj1_count
+    global_epoch_confusion[-1]["obj2_count"] = obj2_count
 
     return eval_score_object
 
