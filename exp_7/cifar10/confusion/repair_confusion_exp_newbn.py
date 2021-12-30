@@ -325,6 +325,10 @@ def main():
 
             print('obj1_count*first_second:', obj1_count*global_epoch_confusion[-1]["confusion"][(args.first, args.second)])
             print('obj2_count*second_first:', obj2_count*global_epoch_confusion[-1]["confusion"][(args.second, args.first)])
+
+            val_sorted = sorted(global_epoch_confusion[-1]["confusion"].items(), reverse=True, key=lambda x:x[1])
+            print('val_sorted', val_sorted)
+
             exit()
 
         elif args.checkmodel_mode == 'all':

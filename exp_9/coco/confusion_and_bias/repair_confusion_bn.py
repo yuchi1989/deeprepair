@@ -192,6 +192,10 @@ def main():
 
         print('first_second:', type2confusion[(args.first, args.second)] * pair_count[(args.first, args.second)])
         print('second_first:', type2confusion[(args.second, args.first)] * pair_count[(args.second, args.first)])
+
+        val_sorted = sorted(type2confusion.items(), reverse=True, key=lambda x:x[1])
+        print('val_sorted', val_sorted)
+
         exit()
 
 

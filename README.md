@@ -17,7 +17,7 @@ conda install pytorch torchvision tqdm scipy scikit-learn matplotlib
 ## [COCO](https://github.com/yuchi1989/deeprepair/tree/master/exp_9/coco/confusion_and_bias) prototype  
 
 
-## Check Model
+## Check Model Confusion
 ### cifar10
 ```
 python3 repair_confusion_exp_newbn.py --net_type resnet --dataset cifar10 --depth 18 --pretrained ../../../models/cifar10_resnet18_2_4/model_best.pth.tar --first 3 --second 5 --checkmodel
