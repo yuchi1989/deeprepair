@@ -89,7 +89,7 @@ parser.add_argument('--first', default=3, type=int,
                     help='first object index')
 parser.add_argument('--second', default=5, type=int,
                     help='second object index')
-parser.add_argument('--third', default=5, type=int,
+parser.add_argument('--third', default=2, type=int,
                     help='third object index')
 parser.add_argument('--extra', default=10, type=int,
                     help='extra batch size')
@@ -320,10 +320,22 @@ def main():
         global_epoch_confusion.append({})
         top1err, _, _ = get_confusion(val_loader, model, criterion)
         confusion_matrix = global_epoch_confusion[-1]["confusion"]
+
         print(str((args.first, args.second, args.third)) + " triplet: " +
-            str(abs(confusion_matrix[(args.first, args.second)] - confusion_matrix[(args.first, args.third)])))
-        print(str((args.first, args.second)) + ": " + str(confusion_matrix[(args.first, args.second)]))
-        print(str((args.first, args.third)) + ": " + str(confusion_matrix[(args.first, args.third)]))
+            str(compute_bias(confusion_matrix, args.first, args.second, args.third)))
+        print(str((args.first, args.second)) + ": " + str(compute_confusion(confusion_matrix, args.first, args.second)))
+        print(str((args.first, args.third)) + ": " + str(compute_confusion(confusion_matrix, args.first, args.third)))
+
+        bias_dict = {}
+        first, second = args.first, args.second
+        for i in range(numberofclass):
+            if i not in [first, second]:
+                cur_bias = compute_bias(confusion_matrix, first, second, i)
+                if cur_bias > 0:
+                    bias_dict[(first, second, i)] = cur_bias
+        val_sorted = sorted(bias_dict.items(), reverse=True, key=lambda x:x[1])
+        print('val_sorted', val_sorted)
+
         exit()
 
     for epoch in range(0, args.epochs):

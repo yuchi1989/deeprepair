@@ -30,7 +30,7 @@ python3 repair_confusion_exp_newbn_vggbn.py --net_type resnet --dataset cifar10 
 
 ### cifar100
 ```
-python3 repair_confusion_exp_newbn.py --net_type resnet --dataset cifar100 --depth 34 --pretrained ./runs/cifar100_resnet34/model_best.pth.tar --first 35 --second 98 --checkmodel
+python3 repair_confusion_exp_newbn.py --net_type resnet --dataset cifar100 --depth 34 --pretrained ../../../models/cifar100_resnet34/model_best.pth.tar --first 35 --second 98 --checkmodel
 ```
 
 ### coco
@@ -43,6 +43,31 @@ python2 repair_confusion_bn.py --pretrained ../../../models/coco_original_model/
 python2 repair_confusion_bn.py --pretrained ../../../models/cocogender_original_model/model_best.pth.tar --ann_dir '../../../../coco/annotations' --image_dir '../../../../coco/' --first "handbag" --second "woman" --checkmodel
 ```
 
+## Check Model Bias
+### cifar10
+```
+python3 repair_bias_exp_newbn.py --net_type resnet --dataset cifar10 --depth 18 --pretrained ../../../models/cifar10_resnet18_2_4/model_best.pth.tar --first 3 --second 5 --third 2 --checkmodel
+```
+
+### cifar10 vgg
+```
+python3 repair_bias_exp_newbn_vggbn.py --net_type resnet --dataset cifar10 --depth 18 --pretrained ../../../models/cifar10_vggbn_2_4/model_best.pth.tar --first 3 --second 5 --third 2 --checkmodel
+```
+
+### cifar100
+```
+python3 repair_bias_exp_newbn.py --net_type resnet --dataset cifar100 --depth 34 --pretrained ../../../models/cifar100_resnet34/model_best.pth.tar --first 35 --second 98 --third 11 --checkmodel
+```
+
+### coco
+```
+python2 repair_bias_bn.py --pretrained ../../../models/coco_original_model/model_best.pth.tar --ann_dir '../../../../coco/annotations' --image_dir '../../../../coco/' --first "person" --second "bus" --third "clock" --checkmodel
+```
+
+### coco gender
+```
+python2 repair_bias_bn.py --pretrained ../../../models/cocogender_original_model/model_best.pth.tar --ann_dir '../../../../coco/annotations' --image_dir '../../../../coco/' --first "handbag" --second "woman" --third "man" --checkmodel
+```
 
 ## Get Instance
 ### [cifar10 get instance](https://github.com/yuchi1989/deeprepair/blob/master/exp_7/cifar10/confusion/cifar10_get_instance.py)

@@ -87,11 +87,11 @@ parser.add_argument('--checkmodel', help='Check model accuracy',
                     action='store_true')
 parser.add_argument('--lam', default=1, type=float,
                     help='hyperparameter lambda')
-parser.add_argument('--first', default=3, type=int,
+parser.add_argument('--first', default=98, type=int,
                     help='first object index')
-parser.add_argument('--second', default=5, type=int,
+parser.add_argument('--second', default=35, type=int,
                     help='second object index')
-parser.add_argument('--third', default=5, type=int,
+parser.add_argument('--third', default=11, type=int,
                     help='third object index')
 parser.add_argument('--extra', default=10, type=int,
                     help='extra batch size')

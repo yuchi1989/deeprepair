@@ -63,6 +63,7 @@ def main():
     parser.add_argument('--replace', help='replace bn layer ', action='store_true')
     parser.add_argument('--class_num', default=81, type=int,
                 help='81:coco_gender;80:coco')
+    parser.add_argument('--checkmodel', help='Check model accuracy', action='store_true')
     args = parser.parse_args()
     assert os.path.isfile(args.pretrained)
 
@@ -164,6 +165,29 @@ def main():
         print(model)
         model = model.cuda()
 
+    if args.checkmodel:
+        global_epoch_confusion.append({})
+        epoch = 0
+        _ = get_confusion(args, epoch, model, criterion, val_loader, optimizer, val_F, score_F, val_data)
+        confusion_matrix = global_epoch_confusion[-1]["confusion"]
+
+        print(str((args.first, args.second, args.third)) + " triplet: " +
+            str(compute_bias(confusion_matrix, args.first, args.second, args.third)))
+        print(str((args.first, args.second)) + ": " + str(compute_confusion(confusion_matrix, args.first, args.second)))
+        print(str((args.first, args.third)) + ": " + str(compute_confusion(confusion_matrix, args.first, args.third)))
+
+        bias_dict = {}
+        first, second = args.first, args.second
+        for i in range(numberofclass):
+            if i not in [first, second]:
+                cur_bias = compute_bias(confusion_matrix, first, second, i)
+                if cur_bias > 0:
+                    bias_dict[(first, second, i)] = cur_bias
+        val_sorted = sorted(bias_dict.items(), reverse=True, key=lambda x:x[1])
+        print('val_sorted', val_sorted)
+
+        exit()
+        
     for epoch in range(args.start_epoch, args.num_epochs + 1):
         global_epoch_confusion.append({})
         adjust_learning_rate(optimizer, epoch)

@@ -146,7 +146,7 @@ parser.add_argument('--first', default=3, type=int,
                     help='first object index')
 parser.add_argument('--second', default=5, type=int,
                     help='second object index')
-parser.add_argument('--third', default=5, type=int,
+parser.add_argument('--third', default=2, type=int,
                     help='third object index')
 parser.add_argument('--extra', default=10, type=int,
                     help='extra batch size')
