@@ -166,6 +166,7 @@ def main():
         model = model.cuda()
 
     if args.checkmodel:
+        numberofclass = args.class_num
         global_epoch_confusion.append({})
         epoch = 0
         _ = get_confusion(args, epoch, model, criterion, val_loader, optimizer, val_F, score_F, val_data)
@@ -178,7 +179,8 @@ def main():
 
         bias_dict = {}
         first, second = args.first, args.second
-        for i in range(numberofclass):
+        for j in range(numberofclass):
+            i = test_data.id2object[j]
             if i not in [first, second]:
                 cur_bias = compute_bias(confusion_matrix, first, second, i)
                 if cur_bias > 0:
