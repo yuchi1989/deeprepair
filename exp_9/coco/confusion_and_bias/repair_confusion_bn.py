@@ -189,9 +189,12 @@ def main():
         print('second_i:', second_i)
         print('first_i_max:', first_i_max)
         print('second_i_max:', second_i_max)
-
-        print('first_second:', type2confusion[(args.first, args.second)] * pair_count[(args.first, args.second)])
-        print('second_first:', type2confusion[(args.second, args.first)] * pair_count[(args.second, args.first)])
+        if (args.first, args.second) in type2confusion:
+            print('first_second confusion:', type2confusion[(args.first, args.second)])
+            print('first_second:', type2confusion[(args.first, args.second)] * pair_count[(args.first, args.second)])
+        if (args.second, args.first) in type2confusion:
+            print('second_first confusion:', type2confusion[(args.second, args.first)])
+            print('second_first:', type2confusion[(args.second, args.first)] * pair_count[(args.second, args.first)])
 
         confusion = type2confusion
         val_sorted = sorted({k:v for k,v in confusion.items() if v > 0}.items(), reverse=True, key=lambda x:x[1])
