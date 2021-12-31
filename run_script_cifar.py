@@ -48,10 +48,10 @@ params = [0.1, 0.3, 0.5, 0.7, 0.9]
 epochs = 60
 verbose = ""
 
-dataset_model_classes = [('cifar10', 'resnet-18', (3, 5, 2)), ('cifar100', 'resnet-34', (98, 35, 11))]
-# tasks = ['confusion']
-methods = ['w-loss', 'w-dbr', 'w-bn', 'w-aug']
-# params = [0.1]
+dataset_model_classes = [('cifar10', 'resnet-18', (3, 5, 2))]
+tasks = ['confusion']
+methods = ['w-aug']
+params = [0.1, 0.3, 0.5, 0.7, 0.9]
 # epochs = 2
 
 

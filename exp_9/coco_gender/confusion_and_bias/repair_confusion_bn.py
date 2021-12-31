@@ -233,10 +233,11 @@ def main():
         accuracy = best_performance
         v_conf = first_second
         directory = args.log_dir
-        performance_str = '%.2f_%.4f.txt' % (accuracy, v_conf)
+        performance_str = '%.4f_%.4f.txt' % (accuracy, v_conf)
         performance_file = os.path.join(directory, performance_str)
-        with open(performance_file, 'w') as f_out:
-            pass
+        if is_best:
+            with open(performance_file, 'w') as f_out:
+                pass
         #os.system('python plot.py {} &'.format(args.log_dir))
 
     train_F.close()
