@@ -326,8 +326,21 @@ def main():
             print('obj1_count*first_second:', obj1_count*global_epoch_confusion[-1]["confusion"][(args.first, args.second)])
             print('obj2_count*second_first:', obj2_count*global_epoch_confusion[-1]["confusion"][(args.second, args.first)])
 
-            val_sorted = sorted(global_epoch_confusion[-1]["confusion"].items(), reverse=True, key=lambda x:x[1])
+            confusion = global_epoch_confusion[-1]["confusion"]
+            val_sorted = sorted({k:v for k,v in confusion.items() if v > 0}.items(), reverse=True, key=lambda x:x[1])
             print('val_sorted', val_sorted)
+            print('\n'*3)
+
+            balanced_confusion = {}
+            for p in confusion:
+                p2 = (p[1], p[0])
+                if p not in balanced_confusion and p2 not in balanced_confusion:
+                    balanced_confusion[p] = confusion[p]
+                    if p2 in confusion:
+                        balanced_confusion[p] += confusion[p2]
+
+            val_sorted_balanced = sorted({k:v for k,v in balanced_confusion.items() if v > 0}.items(), reverse=True, key=lambda x:x[1])
+            print('val_sorted_balanced', val_sorted_balanced)
 
             exit()
 

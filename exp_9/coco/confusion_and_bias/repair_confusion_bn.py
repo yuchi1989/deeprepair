@@ -193,8 +193,21 @@ def main():
         print('first_second:', type2confusion[(args.first, args.second)] * pair_count[(args.first, args.second)])
         print('second_first:', type2confusion[(args.second, args.first)] * pair_count[(args.second, args.first)])
 
-        val_sorted = sorted(type2confusion.items(), reverse=True, key=lambda x:x[1])
+        confusion = type2confusion
+        val_sorted = sorted({k:v for k,v in confusion.items() if v > 0}.items(), reverse=True, key=lambda x:x[1])
         print('val_sorted', val_sorted)
+        print('\n'*3)
+
+        balanced_confusion = {}
+        for p in confusion:
+            p2 = (p[1], p[0])
+            if p not in balanced_confusion and p2 not in balanced_confusion:
+                balanced_confusion[p] = confusion[p]
+                if p2 in confusion:
+                    balanced_confusion[p] += confusion[p2]
+
+        val_sorted_balanced = sorted({k:v for k,v in balanced_confusion.items() if v > 0}.items(), reverse=True, key=lambda x:x[1])
+        print('val_sorted_balanced', val_sorted_balanced)
 
         exit()
 
