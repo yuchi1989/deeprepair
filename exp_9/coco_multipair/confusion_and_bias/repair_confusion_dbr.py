@@ -136,7 +136,7 @@ def main():
 
     optimizer = torch.optim.Adam(trainable_params(), args.learning_rate, weight_decay = 1e-5)
 
-    best_performance = 0
+
     if os.path.isfile(args.pretrained):
         train_F = open(os.path.join(args.log_dir, 'train.csv'), 'w')
         val_F = open(os.path.join(args.log_dir, 'val.csv'), 'w')
@@ -149,6 +149,7 @@ def main():
         print("=> loaded checkpoint (epoch {})".format(checkpoint['epoch']))
     else:
         exit()
+    best_performance = 0
 
     for epoch in range(args.start_epoch, args.num_epochs + 1):
         global_epoch_confusion.append({})
@@ -168,6 +169,15 @@ def main():
         pair2 = compute_confusion(confusion_matrix, args.pair2a, args.pair2b)
         print(str((args.pair2a, args.pair2b)) + ": " + str(pair2))
         print("total: " + str(pair1 + pair2))
+
+        accuracy = best_performance
+        v_conf = first_second
+        directory = args.log_dir
+        performance_str = '%.4f_%.4f.txt' % (accuracy, v_conf)
+        performance_file = os.path.join(directory, performance_str)
+        if is_best:
+            with open(performance_file, 'w') as f_out:
+                pass
 
     train_F.close()
     val_F.close()
