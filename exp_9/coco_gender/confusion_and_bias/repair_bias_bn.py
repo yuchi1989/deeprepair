@@ -180,7 +180,7 @@ def main():
         bias_dict = {}
         first, second = args.first, args.second
         for j in range(numberofclass):
-            i = test_data.id2object[j]
+            i = val_data.id2object[j]
             if i not in [first, second]:
                 cur_bias = compute_bias(confusion_matrix, first, second, i)
                 if cur_bias > 0:
