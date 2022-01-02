@@ -324,8 +324,16 @@ def main():
     else:
         raise Exception('unknown dataset: {}'.format(args.dataset))
 
-    print("=> creating model vggbn ")
-    model = vgg11_bn()
+    print("=> creating model '{}'".format(args.net_type))
+    if args.net_type == 'resnet':
+        model = RN.ResNet(args.dataset, args.depth,
+                          numberofclass, args.bottleneck)  # for ResNet
+    elif args.net_type == 'pyramidnet':
+        model = PYRM.PyramidNet(args.dataset, args.depth, args.alpha, numberofclass,
+                                args.bottleneck)
+    else:
+        raise Exception(
+            'unknown network architecture: {}'.format(args.net_type))
 
     model = torch.nn.DataParallel(model).cuda()
 
