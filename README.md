@@ -69,6 +69,7 @@ python2 repair_bias_bn.py --pretrained ../../../models/coco_original_model/model
 python2 repair_bias_bn.py --pretrained ../../../models/cocogender_original_model/model_best.pth.tar --ann_dir '../../../../coco/annotations' --image_dir '../../../../coco/' --first "skis" --second "woman" --third "man" --checkmodel
 ```
 
+
 ## Get Instance
 ### [cifar10 get instance](https://github.com/yuchi1989/deeprepair/blob/master/exp_7/cifar10/confusion/cifar10_get_instance.py)
 
@@ -102,8 +103,27 @@ python2 get_instance_coco_gender_bias.py --original original_model/model_best.pt
 ```
 
 
-
-
+## Fine-tuning Model
+### cifar10
+```
+python3 repair_confusion_exp_oversampling.py --net_type resnet --dataset cifar10 --depth 18 --batch_size 128 --lr 0.1 --expname cifar10_resnet_2_4_finetuned --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ../../../models/cifar10_resnet18_2_4/model_best.pth.tar --extra 128 --first 3 --second 5 --weight 1
+```
+### cifar10 vgg
+```
+python3 repair_confusion_exp_oversampling_vggbn.py --net_type resnet --dataset cifar10 --depth 18 --batch_size 128 --lr 0.1 --expname cifar10_vggbn_2_4_finetuned --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ../../../models/cifar10_vggbn_2_4/model_best.pth.tar --extra 128 --first 3 --second 5 --weight 1
+```
+### cifar100
+```
+python3 repair_confusion_exp_oversampling.py --net_type resnet --dataset cifar100 --depth 34 --batch_size 128 --lr 0.1 --expname cifar100_resnet34_finetuned --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ../../../models/cifar100_resnet34/model_best.pth.tar --extra 128 --first 35 --second 98 --weight 1
+```
+### coco
+```
+python2 repair_bias_exp_weighted_loss.py --pretrained ../../../models/coco_original_model/model_best.pth.tar --log_dir coco_original_model_finetuned --first "bus" --second "person" --third "clock" --ann_dir '../../../../coco/annotations' --image_dir '../../../../coco/' --weight 1 --class_num 80
+```
+### coco gender
+```
+python2 repair_confusion_exp_weighted_loss.py --pretrained ../../../models/cocogender_original_model/model_best.pth.tar --log_dir cocogender_original_model_finetuned --first "handbag" --second "woman" --ann_dir '../../../../coco/annotations' --image_dir '../../../../coco/' --weight 1 --class_num 81
+```
 
 
 
