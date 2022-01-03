@@ -98,6 +98,8 @@ def execute_cmd(dataset, model, classes, task, method, param, log_filename, t0, 
         model_path = 'models/cifar10_vggbn_2_4/model_best.pth.tar'
     elif model == 'resnet-18':
         model_path = 'models/cifar10_resnet18_2_4/model_best.pth.tar'
+    elif model == 'mobilenetv2-115':
+        model_path = 'models/cifar10_mobilenetv2/model_best.pth.tar'
     elif model == 'resnet-34':
         model_path = 'models/cifar100_resnet34/model_best.pth.tar'
     else:
