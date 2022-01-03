@@ -119,7 +119,7 @@ if __name__ == '__main__':
             for task in tasks:
                 for method in methods:
                     for param in params:
-                        execute_cmd(dataset, model, classes, task, method, param, log_filename, t0)
+                        execute_cmd(dataset, model, classes, task, method, param, log_filename, t0, 0)
     elif mode == 'specific':
         rep_nums = 4
         log_filename = 'tmp_log_coco_specific.txt'
