@@ -48,28 +48,28 @@ params = [0.1, 0.3, 0.5, 0.7, 0.9]
 epochs = 18
 verbose = ""
 
-dataset_model_classes = [('coco', 'coco', ("bus", "person", "clock")), ('coco_gender', 'coco_gender', ("handbag", "woman", "man"))]
-tasks = ['confusion']
-methods = ['w-aug', 'w-bn', 'w-loss', 'w-dbr']
-params = [0.1, 0.3, 0.5, 0.7, 0.9]
-epochs = 18
-#
-# dataset_model_classes = [('coco', 'coco', ("bus", "person", "clock")), ('coco_gender', 'coco_gender', ("skis", "woman", "man"))]
-# tasks = ['bias']
+# dataset_model_classes = [('coco', 'coco', ("bus", "person", "clock")), ('coco_gender', 'coco_gender', ("handbag", "woman", "man"))]
+# tasks = ['confusion']
 # methods = ['w-aug', 'w-bn', 'w-loss', 'w-dbr']
 # params = [0.1, 0.3, 0.5, 0.7, 0.9]
 # epochs = 18
 
+dataset_model_classes = [('coco', 'coco', ("bus", "person", "clock")), ('coco_gender', 'coco_gender', ("skis", "woman", "man"))]
+tasks = ['bias']
+methods = ['w-aug', 'w-bn', 'w-loss', 'w-dbr']
+params = [0.1, 0.3, 0.5, 0.7, 0.9]
+epochs = 18
+
 
 config_list = [
-('coco', 'coco', ("bus", "person", "clock"), 'confusion', 'w-aug', 0.9),
-('coco', 'coco', ("bus", "person", "clock"), 'confusion', 'w-bn', 0.9),
-('coco', 'coco', ("bus", "person", "clock"), 'confusion', 'w-loss', 0.9),
-('coco', 'coco', ("bus", "person", "clock"), 'confusion', 'w-dbr', 0.9),
-('coco_gender', 'coco_gender', ("handbag", "woman", "man"), 'confusion', 'w-aug', 0.9),
-('coco_gender', 'coco_gender', ("handbag", "woman", "man"), 'confusion', 'w-bn', 0.9),
-('coco_gender', 'coco_gender', ("handbag", "woman", "man"), 'confusion', 'w-loss', 0.9),
-('coco_gender', 'coco_gender', ("handbag", "woman", "man"), 'confusion', 'w-dbr', 0.9),
+('coco', 'coco', ("bus", "person", "clock"), 'bias', 'w-aug', 0.9),
+('coco', 'coco', ("bus", "person", "clock"), 'bias', 'w-bn', 0.7),
+('coco', 'coco', ("bus", "person", "clock"), 'bias', 'w-loss', 0.9),
+('coco', 'coco', ("bus", "person", "clock"), 'bias', 'w-dbr', 0.1),
+('coco_gender', 'coco_gender', ("skis", "woman", "man"), 'bias', 'w-aug', 0.9),
+('coco_gender', 'coco_gender', ("skis", "woman", "man"), 'bias', 'w-bn', 0.9),
+('coco_gender', 'coco_gender', ("skis", "woman", "man"), 'bias', 'w-loss', 0.9),
+('coco_gender', 'coco_gender', ("skis", "woman", "man"), 'bias', 'w-dbr', 0.5),
 ]
 
 
@@ -112,7 +112,7 @@ if __name__ == '__main__':
     mode = 'specific'
     t0 = time.time()
     if mode == 'grid':
-        log_filename = 'tmp_log_coco.txt'
+        log_filename = 'tmp_log_coco_bias.txt'
         with open(log_filename, 'w') as f_out:
             pass
         for dataset, model, classes in dataset_model_classes:
@@ -122,7 +122,7 @@ if __name__ == '__main__':
                         execute_cmd(dataset, model, classes, task, method, param, log_filename, t0)
     elif mode == 'specific':
         rep_nums = 4
-        log_filename = 'tmp_log_coco_specific.txt'
+        log_filename = 'tmp_log_coco_bias_specific.txt'
         with open(log_filename, 'w') as f_out:
             pass
         for rep_num in range(rep_nums):

@@ -16,7 +16,6 @@ parser.add_argument("--third", type=str, default='man')
 
 
 args = parser.parse_args()
-    assert os.path.isfile(args.pretrained)
 
 id2object = {
  0: 'man',
@@ -199,10 +198,10 @@ print('mean average precision:', eval_score_object)
 conf12 = type2confusion[(args.first, args.second)]
 conf21 = type2confusion[(args.second, args.first)]
 if args.mode == 'confusion':
-    print('confusion:', conf12+conf21, conf12, conf21)
+    print('confusion:', (conf12+conf21)/2, conf12, conf21)
 elif args.mode == 'bias':
     conf13 = type2confusion[(args.first, args.third)]
     conf31 = type2confusion[(args.third, args.first)]
-    print('confusion12:', conf12+conf21, conf12, conf21)
-    print('confusion13:', conf13+conf31, conf13, conf31)
-    print('bias:', np.abs((conf12+conf21)-(conf13+conf31)))
+    print('confusion12:', (conf12+conf21)/2, conf12, conf21)
+    print('confusion13:', (conf13+conf31)/2, conf13, conf31)
+    print('bias:', np.abs((conf12+conf21)-(conf13+conf31)) / 2)
