@@ -111,7 +111,11 @@ def execute_cmd(dataset, model, classes, task, method, param, log_filename, t0, 
     extra_batch_size = method_properties[method]["extra_batch_size"]
 
     filepath = os.path.join('exp_7', dataset, task, 'repair_'+task+'_'+filename+vggbn+'.py')
-    expname = dataset+'_'+model+'_'+task+'_'+method+'_'+str(param)
+    subfolder = dataset+'_'+task+'_'+str(first)+'_'+str(second)+'_'+str(third)+'_'+str(rep_num)
+    expdir = os.path.join('runs', subfolder)
+    if not os.path.isdir(expdir):
+        os.mkdir(expdir)
+    expname = os.path.join(subfolder, dataset+'_'+model+'_'+task+'_'+method+'_'+str(param))
 
     cmd = f"python3 {filepath} --net_type {model_type} --dataset {dataset} --depth {model_depth} --expname {expname} --epochs {epochs} --lr 0.1 --beta 1.0 --cutmix_prob 0 --pretrained {model_path} --batch_size {batch_size} --extra {extra_batch_size} --first {first} --second {second} --{param_name} {param}"+replace+verbose
 
