@@ -87,3 +87,4 @@ common/*.pyc
 *.pickle
 exp_9/coco/confusion_and_bias/log
 exp_9/coco_gender/confusion_and_bias/log
+*.txt

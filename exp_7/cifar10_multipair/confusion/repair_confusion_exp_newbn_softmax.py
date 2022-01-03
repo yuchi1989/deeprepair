@@ -299,21 +299,18 @@ def main():
     if args.checkmodel:
         global_epoch_confusion.append({})
         top1err, _, _ = get_confusion(val_loader, model, criterion)
+        confusion_matrix = global_epoch_confusion[-1]["confusion"]
         # cat->dog confusion
         log_print(str(args.pair1a) + " -> " + str(args.pair1b))
-        log_print(global_epoch_confusion[-1]
-                  ["confusion"][(args.pair1a, args.pair1b)])
+        log_print(confusion_matrix[(args.pair1a, args.pair1b)])
         # dog->cat confusion
         log_print(str(args.pair1b) + " -> " + str(args.pair1a))
-        log_print(global_epoch_confusion[-1]
-                  ["confusion"][(args.pair1b, args.pair1a)])
+        log_print(confusion_matrix[(args.pair1b, args.pair1a)])
         log_print(str(args.pair2a) + " -> " + str(args.pair2b))
-        log_print(global_epoch_confusion[-1]
-                  ["confusion"][(args.pair2a, args.pair2b)])
+        log_print(confusion_matrix[(args.pair2a, args.pair2b)])
         # dog->cat confusion
         log_print(str(args.pair2b) + " -> " + str(args.pair2a))
-        log_print(global_epoch_confusion[-1]
-                  ["confusion"][(args.pair2b, args.pair2a)])
+        log_print(confusion_matrix[(args.pair2b, args.pair2a)])
         exit()
 
     for epoch in range(0, args.epochs):
@@ -440,7 +437,7 @@ def get_confusion(val_loader, model, criterion, epoch=-1):
         eta = args.eta
         #chosen_ classes = torch.tensor([3, 5])
         #other_ classes = torch.tensor([0, 1, 2, 4, 6, 7, 8, 9])
-        softmax = torch.nn.Softmax() 
+        softmax = torch.nn.Softmax()
         output = softmax(output)
         output = output.detach().cpu().numpy()
         chosen_classes = np.array([args.pair1a, args.pair1b, args.pair2a, args.pair2b])

@@ -418,7 +418,7 @@ python2 repair_confusion_bn.py --pretrained ../../../models/coco_original_model/
 
 #### [w-os](https://github.com/yuchi1989/deeprepair/blob/master/exp_9/coco_gender/repair_confusion_exp_newbn_softmax.py):
 ```
-python2 coco_feature_space.py --pretrained ../../../models/coco_original_model/checkpoint.pth.tar --ann_dir '/home/yuchi/data/coco/annotations' --image_dir '/home/yuchi/data/coco/' --groupname original
+python2 coco_feature_space.py --pretrained ../../../models/coco_original_model/checkpoint.pth.tar --ann_dir '../../../../coco/annotations' --image_dir '../../../../coco/' --groupname original
 python2 repair_confusion_exp_newbn_softmax.py --data_file original_test_data.npy --eta 0.8 --mode confusion --first "bus" --second "person"
 ```
 
@@ -454,7 +454,7 @@ python2 repair_bias_bn.py --pretrained ../../../models/coco_original_model/model
 
 #### [w-os](https://github.com/yuchi1989/deeprepair/blob/master/exp_9/coco_gender/repair_confusion_exp_newbn_softmax.py):
 ```
-python2 coco_feature_space.py --pretrained ../../../models/coco_original_model/checkpoint.pth.tar --ann_dir '/home/yuchi/data/coco/annotations' --image_dir '/home/yuchi/data/coco/' --groupname original
+python2 coco_feature_space.py --pretrained ../../../models/coco_original_model/checkpoint.pth.tar --ann_dir '../../../../coco/annotations' --image_dir '../../../../data/coco/' --groupname original
 python2 repair_confusion_exp_newbn_softmax.py --data_file original_test_data.npy --eta 0.8 --mode bias --first "bus" --second "person" --third "clock"
 ```
 
@@ -491,7 +491,7 @@ python2 repair_confusion_bn.py --pretrained ../../../models/cocogender_original_
 
 #### [w-os](https://github.com/yuchi1989/deeprepair/blob/master/exp_9/coco_gender/repair_confusion_exp_newbn_softmax.py):
 ```
-python2 coco_feature_space.py --pretrained ../../../models/cocogender_original_model/model_best.pth.tar --ann_dir '/home/yuchi/data/coco/annotations' --image_dir '/home/yuchi/data/coco/' --groupname original
+python2 coco_feature_space.py --pretrained ../../../models/cocogender_original_model/model_best.pth.tar --ann_dir '../../../../coco/annotations' --image_dir '../../../../coco/' --groupname original
 python2 repair_confusion_exp_newbn_softmax.py --data_file original_test_data.npy --eta 0.8 --mode confusion --first "handbag" --second "woman"
 ```
 
@@ -527,7 +527,7 @@ python2 repair_bias_bn.py --pretrained ../../../models/cocogender_original_model
 
 #### [w-os](https://github.com/yuchi1989/deeprepair/blob/master/exp_9/coco_gender/repair_confusion_exp_newbn_softmax.py):
 ```
-python2 coco_feature_space.py --pretrained ../../../models/cocogender_original_model/model_best.pth.tar --ann_dir '/home/yuchi/data/coco/annotations' --image_dir '/home/yuchi/data/coco/' --groupname original
+python2 coco_feature_space.py --pretrained ../../../models/cocogender_original_model/model_best.pth.tar --ann_dir '../../../../coco/annotations' --image_dir '../../../../coco/' --groupname original
 python2 repair_confusion_exp_newbn_softmax.py --data_file original_test_data.npy --eta 0.8 --mode bias --first "skis" --second "woman" --third "man"
 ```
 
@@ -563,7 +563,7 @@ python2 repair_confusion_bn.py --pretrained ../../coco_original_model/model_best
 
 #### [w-os](https://github.com/yuchi1989/deeprepair/blob/master/exp_9/coco_multipair/repair_confusion_exp_newbn_softmax.py):
 ```
-python2 coco_feature_space.py --pretrained ../../coco_original_model/checkpoint.pth.tar --ann_dir '/home/yuchi/data/coco/annotations' --image_dir '/home/yuchi/data/coco/' --groupname original
+python2 coco_feature_space.py --pretrained ../../coco_original_model/checkpoint.pth.tar --ann_dir '../../../../coco/annotations' --image_dir '../../../../coco/' --groupname original
 python2 repair_confusion_exp_newbn_softmax.py --data_file original_test_data.npy --eta 0.8 --mode multipairconfusion --first person --second bus --third mouse --fourth keyboard
 ```
 

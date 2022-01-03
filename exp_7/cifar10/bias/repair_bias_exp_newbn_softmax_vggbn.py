@@ -368,10 +368,12 @@ def main():
         global_epoch_confusion.append({})
         top1err, _, _ = get_confusion(val_loader, model, criterion)
         confusion_matrix = global_epoch_confusion[-1]["confusion"]
+        first_second = compute_confusion(confusion_matrix, args.first, args.second)
+        first_third = compute_confusion(confusion_matrix, args.first, args.third)
         print(str((args.first, args.second, args.third)) + " triplet: " +
-            str(abs(confusion_matrix[(args.first, args.second)] - confusion_matrix[(args.first, args.third)])))
-        print(str((args.first, args.second)) + ": " + str(confusion_matrix[(args.first, args.second)]))
-        print(str((args.first, args.third)) + ": " + str(confusion_matrix[(args.first, args.third)]))
+            str(compute_bias(confusion_matrix, args.first, args.second, args.third)))
+        print(str((args.first, args.second)) + ": " + str(first_second))
+        print(str((args.first, args.third)) + ": " + str(first_third))
         exit()
 
     for epoch in range(0, args.epochs):
