@@ -41,16 +41,16 @@ method_properties = {
 
 
 
-dataset_model_classes = [('cifar10', 'resnet-18', (3, 5, 2)), ('cifar10', 'vggbn-11', (3, 5, 2)), ('cifar100', 'resnet-34', (98, 35, 11))]
+dataset_model_classes = [('cifar10', 'resnet-18', (3, 5, 2)), ('cifar10', 'vggbn-11', (3, 5, 2)), ('cifar10', 'mobilenetv2', (3, 5, 2)), ('cifar100', 'resnet-34', (98, 35, 11))]
 tasks = ['confusion', 'bias']
 methods = ['w-aug', 'w-bn', 'w-loss', 'w-dbr']
 params = [0.1, 0.3, 0.5, 0.7, 0.9]
 epochs = 60
 verbose = ""
 
-dataset_model_classes = [('cifar10', 'resnet-18', (3, 5, 2))]
-tasks = ['confusion']
-methods = ['w-aug']
+dataset_model_classes = [('cifar10', 'mobilenetv2', (3, 5, 2))]
+tasks = ['confusion', 'bias']
+methods = ['w-aug', 'w-bn', 'w-loss', 'w-dbr']
 params = [0.1, 0.3, 0.5, 0.7, 0.9]
 # epochs = 2
 
@@ -131,7 +131,7 @@ def execute_cmd(dataset, model, classes, task, method, param, log_filename, t0, 
 
 if __name__ == '__main__':
     # ['grid', 'specific']
-    mode = 'specific'
+    mode = 'grid'
     t0 = time.time()
     if mode == 'grid':
         log_filename = 'tmp_log.txt'

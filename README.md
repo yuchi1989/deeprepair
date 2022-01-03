@@ -28,6 +28,11 @@ python3 repair_confusion_exp_newbn.py --net_type resnet --dataset cifar10 --dept
 python3 repair_confusion_exp_newbn_vggbn.py --net_type resnet --dataset cifar10 --depth 18 --pretrained ../../../models/cifar10_vggbn_2_4/model_best.pth.tar --first 3 --second 5 --checkmodel
 ```
 
+### cifar10 mobilenetv2
+```
+python3 repair_confusion_exp_newbn.py --net_type mobilenetv2 --dataset cifar10 --pretrained ../../../models/cifar10_mobilenetv2/model_best.pth.tar --first 3 --second 5 --checkmodel
+```
+
 ### cifar100
 ```
 python3 repair_confusion_exp_newbn.py --net_type resnet --dataset cifar100 --depth 34 --pretrained ../../../models/cifar100_resnet34/model_best.pth.tar --first 35 --second 98 --checkmodel
@@ -57,6 +62,11 @@ python3 repair_bias_exp_newbn.py --net_type resnet --dataset cifar10 --depth 18 
 ### cifar10 vgg
 ```
 python3 repair_bias_exp_newbn_vggbn.py --net_type resnet --dataset cifar10 --depth 18 --pretrained ../../../models/cifar10_vggbn_2_4/model_best.pth.tar --first 5 --second 3 --third 2 --checkmodel
+```
+
+### cifar10 mobilenetv2
+```
+python3 repair_bias_exp_newbn.py --net_type mobilenetv2 --dataset cifar10 --pretrained ../../../models/cifar10_mobilenetv2/model_best.pth.tar --first 3 --second 5 --checkmodel
 ```
 
 ### cifar100
