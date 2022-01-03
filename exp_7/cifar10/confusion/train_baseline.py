@@ -41,11 +41,11 @@ model_names = sorted(name for name in models.__dict__
 
 parser = argparse.ArgumentParser(
     description='Cutmix PyTorch CIFAR-10, CIFAR-100 and ImageNet-1k Training')
-parser.add_argument('--net_type', default='pyramidnet', type=str,
+parser.add_argument('--net_type', default='resnet', type=str,
                     help='networktype: resnet, and pyamidnet')
 parser.add_argument('-j', '--workers', default=4, type=int, metavar='N',
                     help='number of data loading workers (default: 4)')
-parser.add_argument('--epochs', default=90, type=int, metavar='N',
+parser.add_argument('--epochs', default=300, type=int, metavar='N',
                     help='number of total epochs to run')
 parser.add_argument('-b', '--batch_size', default=128, type=int,
                     metavar='N', help='mini-batch size (default: 256)')
@@ -181,6 +181,9 @@ def main():
     elif args.net_type == 'pyramidnet':
         model = PYRM.PyramidNet(args.dataset, args.depth, args.alpha, numberofclass,
                                 args.bottleneck)
+    elif args.net_type == 'mobilenetv2':
+        from mobilenetv2 import MobileNetV2
+        model = MobileNetV2()
     else:
         raise Exception(
             'unknown network architecture: {}'.format(args.net_type))

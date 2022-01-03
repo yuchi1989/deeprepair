@@ -250,6 +250,9 @@ def main():
     elif args.net_type == 'pyramidnet':
         model = PYRM.PyramidNet(args.dataset, args.depth, args.alpha, numberofclass,
                                 args.bottleneck)
+    elif args.net_type == 'mobilenetv2':
+        from mobilenetv2 import MobileNetV2
+        model = MobileNetV2()
     else:
         raise Exception(
             'unknown network architecture: {}'.format(args.net_type))

@@ -88,3 +88,4 @@ common/*.pyc
 exp_9/coco/confusion_and_bias/log
 exp_9/coco_gender/confusion_and_bias/log
 *.txt
+exp_7/cifar10/confusion/__pycache__
