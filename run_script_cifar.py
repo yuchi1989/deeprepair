@@ -86,12 +86,20 @@ config_list = [
 
 
 def execute_cmd(dataset, model, classes, task, method, param, log_filename, t0, rep_num):
-    if model == 'coco':
-        model_path = 'models/coco_original_model/model_best.pth.tar'
-        class_num = 80
-    elif model == 'coco_gender':
-        model_path = 'models/cocogender_original_model/model_best.pth.tar'
-        class_num = 81
+    if model == 'vggbn-11':
+        model_type = 'resnet'
+        model_depth = '18'
+        vggbn = '_vggbn'
+    else:
+        model_type, model_depth = model.split('-')
+        vggbn = ''
+
+    if model == 'vggbn-11':
+        model_path = 'models/cifar10_vggbn_2_4/model_best.pth.tar'
+    elif model == 'resnet-18':
+        model_path = 'models/cifar10_resnet18_2_4/model_best.pth.tar'
+    elif model == 'resnet-34':
+        model_path = 'models/cifar100_resnet34/model_best.pth.tar'
     else:
         raise
     first, second, third = classes
@@ -99,21 +107,20 @@ def execute_cmd(dataset, model, classes, task, method, param, log_filename, t0, 
     param_name = method_properties[method]["param_name"]
     filename = method_properties[method]["filename"]
     replace = method_properties[method]["replace"]
+    batch_size = method_properties[method]["batch_size"]
+    extra_batch_size = method_properties[method]["extra_batch_size"]
 
-    filepath = os.path.join('exp_9', dataset, 'confusion_and_bias', 'repair_'+task+'_'+filename+'.py')
-    expdir = os.path.join('runs', dataset+'_'+task+'_'+str(first)+'_'+str(second)+'_'+str(third)+'_'+str(rep_num))
-    if not os.path.isdir(expdir):
-        os.mkdir(expdir)
-    expname = os.path.join(expdir, dataset+'_'+task+'_'+method+'_'+str(param))
+    filepath = os.path.join('exp_7', dataset, task, 'repair_'+task+'_'+filename+vggbn+'.py')
+    expname = dataset+'_'+model+'_'+task+'_'+method+'_'+str(param)
 
-    cmd = f"python2 {filepath} --pretrained {model_path} --log_dir {expname} --first {first} --second {second} --ann_dir '../coco/annotations' --num_epochs {epochs} --image_dir '../coco/' --class_num {class_num} --{param_name} {param}"+replace
+    cmd = f"python3 {filepath} --net_type {model_type} --dataset {dataset} --depth {model_depth} --expname {expname} --epochs {epochs} --lr 0.1 --beta 1.0 --cutmix_prob 0 --pretrained {model_path} --batch_size {batch_size} --extra {extra_batch_size} --first {first} --second {second} --{param_name} {param}"+replace+verbose
 
     if task == 'bias':
         cmd += ' --third '+str(third)
     print('-'*20)
     print(cmd)
     print('-'*20)
-    with open(log_filename, 'a') as f_out:
+    with open('tmp_log.txt', 'a') as f_out:
         f_out.write(cmd+'\n')
         f_out.write(str(time.time()-t0)+'\n')
     execute(cmd)
