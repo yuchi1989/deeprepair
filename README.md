@@ -66,7 +66,7 @@ python3 repair_bias_exp_newbn_vggbn.py --net_type resnet --dataset cifar10 --dep
 
 ### cifar10 mobilenetv2
 ```
-python3 repair_bias_exp_newbn.py --net_type mobilenetv2 --dataset cifar10 --pretrained ../../../models/cifar10_mobilenetv2/model_best.pth.tar --first 3 --second 5 --checkmodel
+python3 repair_bias_exp_newbn.py --net_type mobilenetv2 --dataset cifar10 --pretrained ../../../models/cifar10_mobilenetv2/model_best.pth.tar --first 3 --second 5 --third 2 --checkmodel
 ```
 
 ### cifar100
@@ -126,6 +126,10 @@ python3 repair_confusion_exp_oversampling.py --net_type resnet --dataset cifar10
 ### cifar10 vgg
 ```
 python3 repair_confusion_exp_oversampling_vggbn.py --net_type resnet --dataset cifar10 --depth 18 --batch_size 128 --lr 0.1 --expname cifar10_vggbn_2_4_finetuned --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ../../../models/cifar10_vggbn_2_4/model_best.pth.tar --extra 128 --first 3 --second 5 --weight 1
+```
+### cifar10 mobilenetv2
+```
+python3 repair_confusion_exp_oversampling.py --net_type mobilenetv2 --dataset cifar10 --batch_size 128 --lr 0.1 --expname cifar10_mobilenetv2_finetuned --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ../../../models/cifar10_mobilenetv2/model_best.pth.tar --extra 128 --first 3 --second 5 --weight 1
 ```
 ### cifar100
 ```
@@ -304,6 +308,76 @@ python3 repair_bias_exp_weighted_loss_vggbn.py --net_type resnet --dataset cifar
 ```
 python3 repair_bias_dbr_vggbn.py --net_type resnet --dataset cifar10 --depth 18 --batch_size 256 --lr 0.1 --expname cifar10_bias_vggbn_dbr --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ../../../models/cifar10_vggbn_2_4/model_best.pth.tar --first 3 --second 5 --third 2 --lam 0.7
 ```
+
+
+
+
+
+### [CIFAR-10 MobileNetV2 confusion](https://github.com/yuchi1989/deeprepair/tree/master/exp_7/cifar10/confusion) experiments  
+
+#### [orig](https://github.com/yuchi1989/deeprepair/blob/master/exp_7/cifar10/confusion/train_baseline.py):    
+
+```
+python3 train_baseline.py --net_type mobilenetv2 --dataset cifar10 --batch_size 128 --lr 0.1 --expname cifar10_mobilenetv2 --epochs 300 --beta 1.0 --cutmix_prob 0
+```
+
+#### [w-aug](https://github.com/yuchi1989/deeprepair/blob/master/exp_7/cifar10/confusion/repair_confusion_exp_oversampling.py):  
+
+```
+python3 repair_confusion_exp_oversampling.py --net_type mobilenetv2 --dataset cifar10 --batch_size 128 --lr 0.1 --expname cifar10_mobilenetv2_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ../../../models/cifar10_mobilenetv2/model_best.pth.tar --extra 128 --first 3 --second 5 --weight 0.3
+```
+
+#### [w-bn](https://github.com/yuchi1989/deeprepair/blob/master/exp_7/cifar10/confusion/repair_confusion_exp_newbn.py):  
+
+```
+python3 repair_confusion_exp_newbn.py --net_type mobilenetv2 --dataset cifar10 --batch_size 128 --lr 0.1 --expname cifar10_mobilenetv2_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ../../../models/cifar10_mobilenetv2/model_best.pth.tar --extra 128 --replace --first 3 --second 5 --ratio 0.2  
+```
+
+#### [w-os](https://github.com/yuchi1989/deeprepair/blob/master/exp_7/cifar10/confusion/repair_confusion_exp_newbn_softmax.py):
+```
+python3 repair_confusion_exp_newbn_softmax.py --net_type mobilenetv2 --dataset cifar10 --batch_size 128 --lr 0.1 --expname cifar10_mobilenetv2_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ../../../models/cifar10_mobilenetv2/model_best.pth.tar --extra 128 --eta 0.3 --checkmodel --first 3 --second 5
+```
+
+#### [w-loss](https://github.com/yuchi1989/deeprepair/blob/master/exp_7/cifar10/confusion/repair_confusion_exp_weighted_loss.py):
+```
+python3 repair_confusion_exp_weighted_loss.py --net_type mobilenetv2 --dataset cifar10 --batch_size 128 --lr 0.1 --expname cifar10_mobilenetv2_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ../../../models/cifar10_mobilenetv2/model_best.pth.tar --extra 128 --first 3 --second 5 --target_weight 0.4
+```
+#### [w-dbr](https://github.com/yuchi1989/deeprepair/blob/master/exp_7/cifar10/confusion/repair_confusion_dbr.py):  
+
+```
+python3 repair_confusion_dbr.py --net_type mobilenetv2 --dataset cifar10 --batch_size 256 --lr 0.1 --expname cifar10_mobilenetv2_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ../../../models/cifar10_mobilenetv2/model_best.pth.tar --first 3 --second 5 --lam 0.7
+```
+
+### [CIFAR-10 bias](https://github.com/yuchi1989/deeprepair/tree/master/exp_7/cifar10/bias) experiments  
+
+#### [w-aug](https://github.com/yuchi1989/deeprepair/blob/master/exp_7/cifar10/bias/repair_bias_exp_oversampling.py):  
+
+```
+python3 repair_bias_exp_oversampling.py --net_type mobilenetv2 --dataset cifar10 --batch_size 128 --lr 0.1 --expname cifar10_mobilenetv2_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ../../../models/cifar10_mobilenetv2/model_best.pth.tar --extra 128 --first 3 --second 5 --third 2 --weight 0.3
+```
+
+#### [w-bn](https://github.com/yuchi1989/deeprepair/blob/master/exp_7/cifar10/bias/repair_bias_exp_newbn.py):  
+
+```
+python3 repair_bias_exp_newbn.py --net_type mobilenetv2 --dataset cifar10 --batch_size 128 --lr 0.1 --expname cifar10_mobilenetv2_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ../../../models/cifar10_mobilenetv2/model_best.pth.tar --extra 128 --replace --ratio 0.2 --first 3 --second 5 --third 2
+```
+
+#### [w-os](https://github.com/yuchi1989/deeprepair/blob/master/exp_7/cifar10/bias/repair_bias_exp_newbn_softmax.py):
+```
+python3 repair_bias_exp_newbn_softmax.py --net_type mobilenetv2 --dataset cifar10 --batch_size 128 --lr 0.1 --expname cifar10_mobilenetv2_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ../../../models/cifar10_mobilenetv2/model_best.pth.tar --extra 128 --eta 0.3 --checkmodel --first 3 --second 5 --third 2
+```
+
+#### [w-loss](https://github.com/yuchi1989/deeprepair/blob/master/exp_7/cifar10/bias/repair_bias_exp_weighted_loss.py):
+```
+python3 repair_bias_exp_weighted_loss.py --net_type mobilenetv2 --dataset cifar10 --batch_size 128 --lr 0.1 --expname cifar10_mobilenetv2_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ../../../models/cifar10_mobilenetv2/model_best.pth.tar --extra 128 --first 3 --second 5 --third 2 --target_weight 0.4
+```
+#### [w-dbr](https://github.com/yuchi1989/deeprepair/blob/master/exp_7/cifar10/bias/repair_bias_dbr.py):  
+
+```
+python3 repair_bias_dbr.py --net_type mobilenetv2 --dataset cifar10 --batch_size 256 --lr 0.1 cifar10_mobilenetv2_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ../../../models/cifar10_mobilenetv2/model_best.pth.tar --first 3 --second 5 --third 2 --lam 0.7
+```
+
+
 
 
 
