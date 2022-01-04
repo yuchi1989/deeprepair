@@ -95,7 +95,7 @@ def execute_cmd(dataset, model, classes, task, method, param, log_filename, t0, 
         os.mkdir(expdir)
     expname = os.path.join(expdir, dataset+'_'+task+'_'+method+'_'+str(param))
 
-    cmd = f"python2 {filepath} --pretrained {model_path} --log_dir {expname} --first {first} --second {second} --ann_dir '../coco/annotations' --num_epochs {epochs} --image_dir '../coco/' --seed {rep_num} --class_num {class_num} --{param_name} {param}"+replace
+    cmd = f"python2 {filepath} --pretrained {model_path} --log_dir {expname} --first {first} --second {second} --ann_dir '../coco/annotations' --num_epochs {epochs} --image_dir '../coco/' --seed {rep_num*2} --class_num {class_num} --{param_name} {param}"+replace
 
     if task == 'bias':
         cmd += ' --third '+str(third)
