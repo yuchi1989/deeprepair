@@ -348,7 +348,7 @@ python3 repair_confusion_exp_weighted_loss.py --net_type mobilenetv2 --dataset c
 python3 repair_confusion_dbr.py --net_type mobilenetv2 --dataset cifar10 --batch_size 256 --lr 0.1 --expname cifar10_mobilenetv2_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ../../../models/cifar10_mobilenetv2/model_best.pth.tar --first 3 --second 5 --lam 0.7
 ```
 
-### [CIFAR-10 bias](https://github.com/yuchi1989/deeprepair/tree/master/exp_7/cifar10/bias) experiments  
+### [CIFAR-10 MobileNetV2 bias](https://github.com/yuchi1989/deeprepair/tree/master/exp_7/cifar10/bias) experiments  
 
 #### [w-aug](https://github.com/yuchi1989/deeprepair/blob/master/exp_7/cifar10/bias/repair_bias_exp_oversampling.py):  
 
