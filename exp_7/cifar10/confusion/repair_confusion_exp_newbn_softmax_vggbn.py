@@ -139,6 +139,7 @@ parser.add_argument(
 parser.add_argument('--expid', default="0", type=str, help='experiment id')
 parser.add_argument('--checkmodel', help='Check model accuracy',
                     action='store_true')
+parser.add_argument('--checkmodel_mode', default='target', type=str, help="'target': only print out target pair confusion, 'all': print out all paris confusion.")
 parser.add_argument('--lam', default=1, type=float,
                     help='hyperparameter lambda')
 parser.add_argument('--eta', default=0.3, type=float,
@@ -353,15 +354,69 @@ def main():
     if args.checkmodel:
         global_epoch_confusion.append({})
         top1err, _, _ = get_confusion(val_loader, model, criterion)
-        # cat->dog confusion
-        log_print(str(args.first) + " -> " + str(args.second))
-        log_print(global_epoch_confusion[-1]
-                  ["confusion"][(args.first, args.second)])
-        # dog->cat confusion
-        log_print(str(args.second) + " -> " + str(args.first))
-        log_print(global_epoch_confusion[-1]
-                  ["confusion"][(args.second, args.first)])
-        exit()
+        if args.checkmodel_mode == 'target':
+            # cat->dog confusion
+            log_print(str(args.first) + " -> " + str(args.second))
+            log_print(global_epoch_confusion[-1]
+                      ["confusion"][(args.first, args.second)])
+            # dog->cat confusion
+            log_print(str(args.second) + " -> " + str(args.first))
+            log_print(global_epoch_confusion[-1]
+                      ["confusion"][(args.second, args.first)])
+
+            obj1_count = global_epoch_confusion[-1]["obj1_count"]
+            obj2_count = global_epoch_confusion[-1]["obj2_count"]
+
+            first_i = 0
+            second_i = 0
+            for i in range(numberofclass):
+                if i not in [args.first, args.second]:
+                    first_i += global_epoch_confusion[-1]["confusion"][(args.first, i)]
+                    second_i += global_epoch_confusion[-1]["confusion"][(args.second, i)]
+
+            print('obj1_count*first_i:', obj1_count*first_i)
+            print('obj2_count*second_i:', obj2_count*second_i)
+
+            print('obj1_count*first_second:', obj1_count*global_epoch_confusion[-1]["confusion"][(args.first, args.second)])
+            print('obj2_count*second_first:', obj2_count*global_epoch_confusion[-1]["confusion"][(args.second, args.first)])
+
+            confusion = global_epoch_confusion[-1]["confusion"]
+            val_sorted = sorted({k:v for k,v in confusion.items() if v > 0}.items(), reverse=True, key=lambda x:x[1])
+            print('val_sorted', val_sorted)
+            print('\n'*3)
+
+            balanced_confusion = {}
+            for p in confusion:
+                p2 = (p[1], p[0])
+                if p not in balanced_confusion and p2 not in balanced_confusion:
+                    balanced_confusion[p] = confusion[p]
+                    if p2 in confusion:
+                        balanced_confusion[p] += confusion[p2]
+
+            val_sorted_balanced = sorted({k:v for k,v in balanced_confusion.items() if v > 0}.items(), reverse=True, key=lambda x:x[1])
+            print('val_sorted_balanced', val_sorted_balanced)
+
+            exit()
+
+        elif args.checkmodel_mode == 'all':
+            print(global_epoch_confusion[-1]["confusion"])
+            import seaborn as sn
+            import pandas as pd
+            import matplotlib.pyplot as plt
+            arr = [[0 for _ in range(numberofclass)] for _ in range(numberofclass)]
+            for i in range(numberofclass):
+                for j in range(numberofclass):
+                    if (i, j) in global_epoch_confusion[-1]["confusion"]:
+                        arr[i][j] = global_epoch_confusion[-1]["confusion"][(i, j)]
+            cifar10_labels = ['airplane', 'automobile', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck']
+            df_cm = pd.DataFrame(arr, index = [i for i in cifar10_labels], columns = [i for i in cifar10_labels])
+            plt.figure(figsize = (10,7))
+            sn.heatmap(df_cm, annot=True, vmin=0, vmax=0.15)
+            plt.savefig('confusion_matrix.pdf')
+            exit()
+
+        else:
+            print('invalid args.checkmodel_mode:', args.checkmodel_mode)
 
     for epoch in range(0, args.epochs):
         global_epoch_confusion.append({})
