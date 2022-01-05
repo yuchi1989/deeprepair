@@ -156,8 +156,10 @@ def execute_cmd(dataset, model, classes, task, method, param, log_filename, t0, 
         raise
 
     if dataset in ['cifar10_multipair']:
+        dataset_param = 'cifar10'
         first, second, third, fourth = classes
     else:
+        dataset_param = dataset
         first, second, third = classes
 
     param_name = method_properties[method]["param_name"]
@@ -173,7 +175,7 @@ def execute_cmd(dataset, model, classes, task, method, param, log_filename, t0, 
         os.mkdir(expdir)
     expname = os.path.join(subfolder, dataset+'_'+model+'_'+task+'_'+method+'_'+str(param))
 
-    cmd = f"python3 {filepath} --net_type {model_type} --dataset {dataset} --depth {model_depth} --expname {expname} --epochs {epochs} --lr 0.1 --beta 1.0 --cutmix_prob 0 --pretrained {model_path} --batch_size {batch_size} --extra {extra_batch_size} --{param_name} {param}"+replace+verbose
+    cmd = f"python3 {filepath} --net_type {model_type} --dataset {dataset_param} --depth {model_depth} --expname {expname} --epochs {epochs} --lr 0.1 --beta 1.0 --cutmix_prob 0 --pretrained {model_path} --batch_size {batch_size} --extra {extra_batch_size} --{param_name} {param}"+replace+verbose
 
     if dataset in ['cifar10_multipair']:
         cmd += f' --pair1a {first} --pair1b {second} --pair2a {third} --pair2b {fourth}'
