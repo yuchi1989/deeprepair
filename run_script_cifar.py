@@ -57,30 +57,48 @@ params = [0.1, 0.3, 0.5, 0.7, 0.9]
 
 config_list = [
 ('cifar10', 'resnet-18', (3, 5, 2), 'confusion', 'w-aug', 0.7),
+('cifar10', 'resnet-18', (3, 5, 2), 'confusion', 'w-bn', 0.7),
 ('cifar10', 'resnet-18', (3, 5, 2), 'confusion', 'w-bn', 0.9),
 ('cifar10', 'resnet-18', (3, 5, 2), 'confusion', 'w-loss', 0.9),
 ('cifar10', 'resnet-18', (3, 5, 2), 'confusion', 'w-dbr', 0.9),
+
 ('cifar10', 'vggbn-11', (3, 5, 2), 'confusion', 'w-aug', 0.9),
-('cifar10', 'vggbn-11', (3, 5, 2), 'confusion', 'w-bn', 0.9),
+('cifar10', 'vggbn-11', (3, 5, 2), 'confusion', 'w-bn', 0.7),
 ('cifar10', 'vggbn-11', (3, 5, 2), 'confusion', 'w-loss', 0.9),
-('cifar10', 'vggbn-11', (3, 5, 2), 'confusion', 'w-dbr', 0.7),
-('cifar100', 'resnet-34', (98, 35, 11), 'confusion', 'w-aug', 0.7),
+('cifar10', 'vggbn-11', (3, 5, 2), 'confusion', 'w-dbr', 0.1),
+
+('cifar10', 'mobilenetv2-115', (3, 5, 2), 'confusion', 'w-aug', 0.5),
+('cifar10', 'mobilenetv2-115', (3, 5, 2), 'confusion', 'w-bn', 0.7),
+('cifar10', 'mobilenetv2-115', (3, 5, 2), 'confusion', 'w-loss', 0.9),
+('cifar10', 'mobilenetv2-115', (3, 5, 2), 'confusion', 'w-dbr', 0.9),
+
+('cifar100', 'resnet-34', (98, 35, 11), 'confusion', 'w-aug', 0.3),
 ('cifar100', 'resnet-34', (98, 35, 11), 'confusion', 'w-bn', 0.9),
-('cifar100', 'resnet-34', (98, 35, 11), 'confusion', 'w-loss', 0.7),
+('cifar100', 'resnet-34', (98, 35, 11), 'confusion', 'w-loss', 0.9),
 ('cifar100', 'resnet-34', (98, 35, 11), 'confusion', 'w-dbr', 0.9),
 
+
+
 ('cifar10', 'resnet-18', (3, 5, 2), 'bias', 'w-aug', 0.7),
+('cifar10', 'resnet-18', (3, 5, 2), 'bias', 'w-bn', 0.7),
 ('cifar10', 'resnet-18', (3, 5, 2), 'bias', 'w-bn', 0.9),
 ('cifar10', 'resnet-18', (3, 5, 2), 'bias', 'w-loss', 0.9),
 ('cifar10', 'resnet-18', (3, 5, 2), 'bias', 'w-dbr', 0.9),
-('cifar10', 'vggbn-11', (3, 5, 2), 'bias', 'w-aug', 0.9),
-('cifar10', 'vggbn-11', (3, 5, 2), 'bias', 'w-bn', 0.9),
-('cifar10', 'vggbn-11', (3, 5, 2), 'bias', 'w-loss', 0.7),
+
+('cifar10', 'vggbn-11', (3, 5, 2), 'bias', 'w-aug', 0.7),
+('cifar10', 'vggbn-11', (3, 5, 2), 'bias', 'w-bn', 0.5),
+('cifar10', 'vggbn-11', (3, 5, 2), 'bias', 'w-loss', 0.9),
 ('cifar10', 'vggbn-11', (3, 5, 2), 'bias', 'w-dbr', 0.9),
+
+('cifar10', 'mobilenetv2-115', (3, 5, 2), 'bias', 'w-aug', 0.5),
+('cifar10', 'mobilenetv2-115', (3, 5, 2), 'bias', 'w-bn', 0.5),
+('cifar10', 'mobilenetv2-115', (3, 5, 2), 'bias', 'w-loss', 0.1),
+('cifar10', 'mobilenetv2-115', (3, 5, 2), 'bias', 'w-dbr', 0.9),
+
 ('cifar100', 'resnet-34', (98, 35, 11), 'bias', 'w-aug', 0.7),
 ('cifar100', 'resnet-34', (98, 35, 11), 'bias', 'w-bn', 0.9),
 ('cifar100', 'resnet-34', (98, 35, 11), 'bias', 'w-loss', 0.9),
-('cifar100', 'resnet-34', (98, 35, 11), 'bias', 'w-dbr', 0.9),
+('cifar100', 'resnet-34', (98, 35, 11), 'bias', 'w-dbr', 0.1),
 ]
 
 
@@ -133,7 +151,7 @@ def execute_cmd(dataset, model, classes, task, method, param, log_filename, t0, 
 
 if __name__ == '__main__':
     # ['grid', 'specific']
-    mode = 'grid'
+    mode = 'specific'
     t0 = time.time()
     if mode == 'grid':
         log_filename = 'tmp_log.txt'
