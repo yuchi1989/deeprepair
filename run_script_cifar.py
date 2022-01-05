@@ -56,6 +56,11 @@ params = [0.1, 0.3, 0.5, 0.7, 0.9]
 
 
 config_list = [
+('cifar10', 'resnet-18', (3, 5, 2), 'confusion', 'w-aug', 1.0),
+('cifar10', 'vggbn-11', (3, 5, 2), 'confusion', 'w-aug', 1.0),
+('cifar10', 'mobilenetv2-115', (3, 5, 2), 'confusion', 'w-aug', 1.0),
+('cifar100', 'resnet-34', (98, 35, 11), 'confusion', 'w-aug', 1.0),
+
 ('cifar10', 'resnet-18', (3, 5, 2), 'confusion', 'w-aug', 0.7),
 ('cifar10', 'resnet-18', (3, 5, 2), 'confusion', 'w-bn', 0.7),
 ('cifar10', 'resnet-18', (3, 5, 2), 'confusion', 'w-bn', 0.9),
