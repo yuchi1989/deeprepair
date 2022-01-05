@@ -17,6 +17,13 @@ conda install pytorch torchvision tqdm scipy scikit-learn matplotlib
 ## [COCO](https://github.com/yuchi1989/deeprepair/tree/master/exp_9/coco/confusion_and_bias) prototype  
 
 
+## Draw Heatmap
+### cifar10 vgg
+```
+python3 repair_confusion_exp_newbn_vggbn.py --dataset cifar10 --pretrained ../../../models/cifar10_vggbn_2_4/model_best.pth.tar --first 3 --second 5 --checkmodel --checkmodel_mode all
+```
+
+
 ## Check Model Confusion
 ### cifar10
 ```
