@@ -149,9 +149,9 @@ def execute_cmd(dataset, model, classes, task, method, param, log_filename, t0, 
     cmd = f"python3 {filepath} --net_type {model_type} --dataset {dataset} --depth {model_depth} --expname {expname} --epochs {epochs} --lr 0.1 --beta 1.0 --cutmix_prob 0 --pretrained {model_path} --batch_size {batch_size} --extra {extra_batch_size} --{param_name} {param}"+replace+verbose
 
     if dataset in ['cifar10_multipair']:
-        cmd += f'--pair1a {first} --pair1b {second} --pair2a {third} --pair2b {fourth}'
+        cmd += f' --pair1a {first} --pair1b {second} --pair2a {third} --pair2b {fourth}'
     else:
-        cmd += f'--first {first} --second {second} --third {third}'
+        cmd += f' --first {first} --second {second} --third {third}'
 
     print('-'*20)
     print(cmd)

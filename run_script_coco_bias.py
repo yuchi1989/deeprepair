@@ -73,12 +73,22 @@ verbose = ""
 # ]
 
 config_list = [
-# ('coco', 'coco', ("bus", "person", "clock"), 'bias', 'w-bn', 0.3),
-('coco_gender', 'coco_gender', ("skis", "woman", "man"), 'bias', 'w-dbr', 0.3),
+('coco_multipair', 'coco_multipair', ("person", "bus", "mouse", "keyboard"), 'confusion', 'w-loss', 0.5),
+('coco_multipair', 'coco_multipair', ("person", "bus", "mouse", "keyboard"), 'confusion', 'w-dbr', 0.5),
+
+('coco_multipair', 'coco_multipair', ("person", "bus", "mouse", "keyboard"), 'confusion', 'w-aug', 0.7),
+('coco_multipair', 'coco_multipair', ("person", "bus", "mouse", "keyboard"), 'confusion', 'w-bn', 0.7),
+('coco_multipair', 'coco_multipair', ("person", "bus", "mouse", "keyboard"), 'confusion', 'w-loss', 0.7),
+('coco_multipair', 'coco_multipair', ("person", "bus", "mouse", "keyboard"), 'confusion', 'w-dbr', 0.7),
+
+('coco_multipair', 'coco_multipair', ("person", "bus", "mouse", "keyboard"), 'confusion', 'w-aug', 0.9),
+('coco_multipair', 'coco_multipair', ("person", "bus", "mouse", "keyboard"), 'confusion', 'w-bn', 0.9),
+('coco_multipair', 'coco_multipair', ("person", "bus", "mouse", "keyboard"), 'confusion', 'w-loss', 0.9),
+('coco_multipair', 'coco_multipair', ("person", "bus", "mouse", "keyboard"), 'confusion', 'w-dbr', 0.9),
 ]
 
 def execute_cmd(dataset, model, classes, task, method, param, log_filename, t0, rep_num):
-    if model == 'coco':
+    if model in ['coco', 'coco_multipair']:
         model_path = 'models/coco_original_model/model_best.pth.tar'
         class_num = 80
     elif model == 'coco_gender':
@@ -105,9 +115,9 @@ def execute_cmd(dataset, model, classes, task, method, param, log_filename, t0, 
     cmd = f"python2 {filepath} --pretrained {model_path} --log_dir {expname} --ann_dir '../coco/annotations' --num_epochs {epochs} --image_dir '../coco/' --seed {rep_num*2} --class_num {class_num} --{param_name} {param}"+replace
 
     if dataset in ['coco_multipair']:
-        cmd += f'--pair1a {first} --pair1b {second} --pair2a {third} --pair2b {fourth}'
+        cmd += f' --pair1a {first} --pair1b {second} --pair2a {third} --pair2b {fourth}'
     else:
-        cmd += f'--first {first} --second {second} --third {third}'
+        cmd += f' --first {first} --second {second} --third {third}'
 
     print('-'*20)
     print(cmd)
@@ -131,7 +141,7 @@ if __name__ == '__main__':
                     for param in params:
                         execute_cmd(dataset, model, classes, task, method, param, log_filename, t0, 0)
     elif mode == 'specific':
-        rep_nums = 4
+        rep_nums = 1
         log_filename = 'tmp_log_coco_bias_specific.txt'
         with open(log_filename, 'w') as f_out:
             pass
