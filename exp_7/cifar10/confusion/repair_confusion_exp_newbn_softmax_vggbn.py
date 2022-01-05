@@ -756,21 +756,28 @@ def get_confusion(val_loader, model, criterion, epoch=-1):
     global_epoch_confusion[-1]["confusion"] = type1confusion
     global_epoch_confusion[-1]["accuracy"] = acc
 
+    obj1_count = 0
+    obj2_count = 0
     dog_cat_sum = 0
     dog_cat_acc = 0
     for i in range(len(yhats)):
-
+        if args.first == labels[i]:
+            obj1_count += 1
+        if args.second == labels[i]:
+            obj2_count += 1
         if args.first == labels[i] or args.second == labels[i]:
-            dog_cat_sum += 1
             if labels[i] == yhats[i]:
                 dog_cat_acc += 1
+    dog_cat_sum = obj1_count + obj2_count
     global_epoch_confusion[-1]["dogcatacc"] = dog_cat_acc/dog_cat_sum
+    global_epoch_confusion[-1]["obj1_count"] = obj1_count
+    global_epoch_confusion[-1]["obj2_count"] = obj2_count
     log_print("pair accuracy: " + str(global_epoch_confusion[-1]["dogcatacc"]))
 
     if args.save_npy:
         np.save(args.expname + '_yhats.npy', yhats)
         np.save(args.expname + '_labels.npy', labels)
-        
+
     return top1.avg, top5.avg, losses.avg
 
 
