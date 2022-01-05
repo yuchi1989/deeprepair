@@ -202,7 +202,7 @@ if __name__ == '__main__':
                     for param in params:
                         execute_cmd(dataset, model, classes, task, method, param, log_filename, t0, 0)
     elif mode == 'specific':
-        rep_nums = 4
+        rep_nums = 1
         log_filename = 'tmp_log_coco_specific.txt'
         with open(log_filename, 'w') as f_out:
             pass
