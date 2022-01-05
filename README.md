@@ -17,6 +17,42 @@ conda install pytorch torchvision tqdm scipy scikit-learn matplotlib
 ## [COCO](https://github.com/yuchi1989/deeprepair/tree/master/exp_9/coco/confusion_and_bias) prototype  
 
 
+## Draw 1 VS rest pairwise confusion (cifar10 vgg)
+### Save NPY
+#### orig
+```
+python3 repair_confusion_exp_newbn_vggbn.py --dataset cifar10 --pretrained ../../../models/cifar10_vggbn_2_4/model_best.pth.tar --first 3 --second 5 --checkmodel --expname orig --save_npy
+```
+#### finetune
+```
+python3 repair_confusion_exp_newbn_softmax_vggbn.py --dataset cifar10 --pretrained ../../../runs/cifar10_confusion_3_5_2_1/cifar10_vggbn-11_confusion_w-aug_1.0/model_best.pth.tar --first 3 --second 5 --checkmodel --expname finetune --save_npy
+```
+#### w-aug 0.9
+```
+python3 repair_confusion_exp_newbn_softmax_vggbn.py --dataset cifar10 --pretrained ../../../runs/cifar10_confusion_3_5_2_0/cifar10_vggbn-11_confusion_w-aug_0.9/model_best.pth.tar --first 3 --second 5 --checkmodel --expname w-aug --save_npy
+```
+#### w-bn 0.7
+```
+python3 repair_confusion_exp_newbn_softmax_vggbn.py --dataset cifar10 --pretrained ../../../runs/cifar10_vggbn-11_confusion_w-bn_0.7/model_best.pth.tar --first 3 --second 5 --checkmodel --expname w-bn --save_npy
+```
+#### w-loss 0.9
+```
+python3 repair_confusion_exp_newbn_softmax_vggbn.py --dataset cifar10 --pretrained ../../../runs/cifar10_vggbn-11_confusion_w-loss_0.9/model_best.pth.tar --first 3 --second 5 --checkmodel --expname w-loss --save_npy
+```
+#### w-os 0.001
+```
+python3 repair_confusion_exp_newbn_softmax_vggbn.py --dataset cifar10 --pretrained ../../../models/cifar10_vggbn_2_4/model_best.pth.tar --first 3 --second 5 --checkmodel --eta 0.001  --expname w-os --save_npy
+```
+#### w-dbr 0.1
+```
+python3 repair_confusion_exp_newbn_softmax_vggbn.py --dataset cifar10 --pretrained ../../../runs/cifar10_vggbn-11_confusion_w-dbr_0.1/model_best.pth.tar --first 3 --second 5 --checkmodel --expname w-dbr --save_npy
+```
+
+### Draw 1 VS rest pairwise confusion
+```
+python compute_distribution_cifar.py
+```
+
 ## Draw Heatmap
 ### cifar10 vgg
 ```
