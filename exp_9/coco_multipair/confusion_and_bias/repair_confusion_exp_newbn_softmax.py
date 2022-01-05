@@ -205,18 +205,16 @@ print('mean average precision:', eval_score_object)
 conf12 = type2confusion[(args.first, args.second)]
 conf21 = type2confusion[(args.second, args.first)]
 if args.mode == 'confusion':
-    print('confusion:', conf12+conf21, conf12, conf21)
+    print('confusion:', (conf12+conf21)/2, conf12, conf21)
 elif args.mode == 'bias':
     conf13 = type2confusion[(args.first, args.third)]
     conf31 = type2confusion[(args.third, args.first)]
-    print('confusion12:', conf12+conf21, conf12, conf21)
-    print('confusion13:', conf13+conf31, conf13, conf31)
-    print('bias:', np.abs((conf12+conf21)-(conf13+conf31)))
+    print('confusion12:', (conf12+conf21)/2, conf12, conf21)
+    print('confusion13:', (conf13+conf31)/2, conf13, conf31)
+    print('bias:', np.abs((conf12+conf21)-(conf13+conf31))/2)
 elif args.mode == 'multipairconfusion':
-    conf12 = type2confusion[(args.first, args.second)]
-    conf21 = type2confusion[(args.second, args.first)]
     conf34 = type2confusion[(args.third, args.fourth)]
     conf43 = type2confusion[(args.fourth, args.third)]
-    print('confusion12:', conf12+conf21, conf12, conf21)
-    print('confusion34:', conf34+conf43, conf34, conf43)
-    print('total:', np.abs((conf12+conf21)+(conf34+conf43)))
+    print('confusion12:', (conf12+conf21)/2, conf12, conf21)
+    print('confusion34:', (conf34+conf43)/2, conf34, conf43)
+    print('total:', np.abs((conf12+conf21)+(conf34+conf43))/4)

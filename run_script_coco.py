@@ -41,7 +41,7 @@ method_properties = {
 
 
 
-dataset_model_classes = [('coco', 'coco', ("bus", "person", "clock")), ('coco_gender', 'coco_gender', ("handbag", "woman", "man"))]
+dataset_model_classes = [('coco', 'coco', ("bus", "person", "clock")), ('coco_gender', 'coco_gender', ("handbag", "woman", "man")), ('coco_multipair', 'coco_multipair', ("person", "bus", "mouse", "key"))]
 tasks = ['confusion', 'bias']
 methods = ['w-aug', 'w-bn', 'w-loss', 'w-dbr']
 params = [0.1, 0.3, 0.5, 0.7, 0.9]
@@ -61,15 +61,23 @@ epochs = 18
 # epochs = 18
 
 
+# config_list = [
+# ('coco', 'coco', ("bus", "person", "clock"), 'confusion', 'w-aug', 0.9),
+# ('coco', 'coco', ("bus", "person", "clock"), 'confusion', 'w-bn', 0.9),
+# ('coco', 'coco', ("bus", "person", "clock"), 'confusion', 'w-loss', 0.9),
+# ('coco', 'coco', ("bus", "person", "clock"), 'confusion', 'w-dbr', 0.9),
+# ('coco_gender', 'coco_gender', ("handbag", "woman", "man"), 'confusion', 'w-aug', 0.9),
+# ('coco_gender', 'coco_gender', ("handbag", "woman", "man"), 'confusion', 'w-bn', 0.9),
+# ('coco_gender', 'coco_gender', ("handbag", "woman", "man"), 'confusion', 'w-loss', 0.9),
+# ('coco_gender', 'coco_gender', ("handbag", "woman", "man"), 'confusion', 'w-dbr', 0.9),
+# ]
+
+
 config_list = [
-('coco', 'coco', ("bus", "person", "clock"), 'confusion', 'w-aug', 0.9),
-('coco', 'coco', ("bus", "person", "clock"), 'confusion', 'w-bn', 0.9),
-('coco', 'coco', ("bus", "person", "clock"), 'confusion', 'w-loss', 0.9),
-('coco', 'coco', ("bus", "person", "clock"), 'confusion', 'w-dbr', 0.9),
-('coco_gender', 'coco_gender', ("handbag", "woman", "man"), 'confusion', 'w-aug', 0.9),
-('coco_gender', 'coco_gender', ("handbag", "woman", "man"), 'confusion', 'w-bn', 0.9),
-('coco_gender', 'coco_gender', ("handbag", "woman", "man"), 'confusion', 'w-loss', 0.9),
-('coco_gender', 'coco_gender', ("handbag", "woman", "man"), 'confusion', 'w-dbr', 0.9),
+('coco_multipair', 'coco_multipair', ("person", "bus", "mouse", "key"), 'confusion', 'w-aug', 0.9),
+('coco_multipair', 'coco_multipair', ("person", "bus", "mouse", "key"), 'confusion', 'w-bn', 0.9),
+('coco_multipair', 'coco_multipair', ("person", "bus", "mouse", "key"), 'confusion', 'w-loss', 0.9),
+('coco_multipair', 'coco_multipair', ("person", "bus", "mouse", "key"), 'confusion', 'w-dbr', 0.9),
 ]
 
 
@@ -83,7 +91,11 @@ def execute_cmd(dataset, model, classes, task, method, param, log_filename, t0, 
         class_num = 81
     else:
         raise
-    first, second, third = classes
+
+    if dataset in ['coco_multipair']:
+        first, second, third, fourth = classes
+    else:
+        first, second, third = classes
 
     param_name = method_properties[method]["param_name"]
     filename = method_properties[method]["filename"]
@@ -97,8 +109,11 @@ def execute_cmd(dataset, model, classes, task, method, param, log_filename, t0, 
 
     cmd = f"python2 {filepath} --pretrained {model_path} --log_dir {expname} --first {first} --second {second} --ann_dir '../coco/annotations' --num_epochs {epochs} --image_dir '../coco/' --seed {rep_num*2} --class_num {class_num} --{param_name} {param}"+replace
 
-    if task == 'bias':
-        cmd += ' --third '+str(third)
+    if dataset in ['coco_multipair']:
+        cmd += f'--pair1a {first} --pair1b {second} --pair2a {third} --pair2b {fourth}'
+    else:
+        cmd += f'--first {first} --second {second} --third {third}'
+
     print('-'*20)
     print(cmd)
     print('-'*20)
@@ -126,6 +141,7 @@ if __name__ == '__main__':
         with open(log_filename, 'w') as f_out:
             pass
         for rep_num in range(rep_nums):
+            print('rep_num:', rep_num)
             for dataset, model, classes, task, method, param in config_list:
                 execute_cmd(dataset, model, classes, task, method, param, log_filename, t0, rep_num)
     else:

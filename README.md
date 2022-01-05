@@ -219,13 +219,13 @@ python3 repair_bias_dbr.py --net_type resnet --dataset cifar10 --depth 18 --batc
 #### [w-aug](https://github.com/yuchi1989/deeprepair/blob/master/exp_7/cifar10/cifar10_multipair/repair_confusion_exp_oversampling.py):  
 
 ```
-python3 repair_confusion_exp_oversampling.py --net_type resnet --dataset cifar10 --depth 18 --batch_size 128 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ../../../models/cifar10_resnet18_2_4/model_best.pth.tar --extra 128  --pair1a 3 --pair1b 5 --pair2a 1 --pair2b 9  --weight 0.3.0
+python3 repair_confusion_exp_oversampling.py --net_type resnet --dataset cifar10 --depth 18 --batch_size 128 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ../../../models/cifar10_resnet18_2_4/model_best.pth.tar --extra 128  --pair1a 3 --pair1b 5 --pair2a 1 --pair2b 9  --weight 0.3
 ```
 
 #### [w-bn](https://github.com/yuchi1989/deeprepair/blob/master/exp_7/cifar10/cifar10_multipair/repair_confusion_exp_newbn.py):  
 
 ```
-python3 repair_confusion_exp_newbn.py --net_type resnet --dataset cifar10 --depth 18 --batch_size 128 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ../../../models/cifar10_resnet18_2_4/model_best.pth.tar --extra 128 --replace  --pair1a 3 --pair1b 5 --pair2a 1 --pair2b 9   --ratio 0.4  
+python3 repair_confusion_exp_newbn.py --net_type resnet --dataset cifar10 --depth 18 --batch_size 128 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ../../../models/cifar10_resnet18_2_4/model_best.pth.tar --extra 128 --replace  --pair1a 3 --pair1b 5 --pair2a 1 --pair2b 9   --ratio 0.3
 ```
 
 #### [w-os](https://github.com/yuchi1989/deeprepair/blob/master/exp_7/cifar10/cifar10_multipair/repair_confusion_exp_newbn_softmax.py):
@@ -235,12 +235,12 @@ python3 repair_confusion_exp_newbn_softmax.py --net_type resnet --dataset cifar1
 
 #### [w-loss](https://github.com/yuchi1989/deeprepair/blob/master/exp_7/cifar10/cifar10_multipair/repair_confusion_exp_weighted_loss.py):
 ```
-python3 repair_confusion_exp_weighted_loss.py --net_type resnet --dataset cifar10 --depth 18 --batch_size 128 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ../../../models/cifar10_resnet18_2_4/model_best.pth.tar --extra 128  --pair1a 3 --pair1b 5 --pair2a 1 --pair2b 9   --target_weight 0.4
+python3 repair_confusion_exp_weighted_loss.py --net_type resnet --dataset cifar10 --depth 18 --batch_size 128 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ../../../models/cifar10_resnet18_2_4/model_best.pth.tar --extra 128  --pair1a 3 --pair1b 5 --pair2a 1 --pair2b 9   --target_weight 0.3
 ```
 #### [w-dbr](https://github.com/yuchi1989/deeprepair/blob/master/exp_7/cifar10/cifar10_multipair/repair_confusion_dbr.py):  
 
 ```
-python3 repair_confusion_dbr.py --net_type resnet --dataset cifar10 --depth 18 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ../../../models/cifar10_resnet18_2_4/model_best.pth.tar  --pair1a 3 --pair1b 5 --pair2a 1 --pair2b 9 --lam 0.7
+python3 repair_confusion_dbr.py --net_type resnet --dataset cifar10 --depth 18 --batch_size 256 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ../../../models/cifar10_resnet18_2_4/model_best.pth.tar  --pair1a 3 --pair1b 5 --pair2a 1 --pair2b 9 --lam 0.3
 ```
 
 

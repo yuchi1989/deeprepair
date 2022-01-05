@@ -323,6 +323,20 @@ def main():
         log_print(global_epoch_confusion[-1]
                   ["confusion"][(args.pair2b, args.pair2a)])
 
+        accuracy = 100 - top1err
+        v12 = global_epoch_confusion[-1]["confusion"][(args.pair1a, args.pair1b)]
+        v21 = global_epoch_confusion[-1]["confusion"][(args.pair1b, args.pair1a)]
+        v34 = global_epoch_confusion[-1]["confusion"][(args.pair2a, args.pair2b)]
+        v43 = global_epoch_confusion[-1]["confusion"][(args.pair2b, args.pair2a)]
+        v1 = (v12+v21)/2
+        v2 = (v34+v43)/2
+        v_avg = (v1+v2)/2
+
+        performance_str = '%.2f_%.4f_%.4f_%.4f.txt' % (accuracy, v_avg, v1, v2)
+        performance_file = os.path.join(directory, performance_str)
+        with open(performance_file, 'w') as f_out:
+            pass
+
 
 
 def train(train_loader, target_train_loader, model, criterion, optimizer, epoch):

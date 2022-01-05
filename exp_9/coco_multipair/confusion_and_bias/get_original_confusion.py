@@ -148,7 +148,7 @@ def main():
         print(str((args.pair1a, args.pair1b)) + ": " + str(pair1))
         pair2 = compute_confusion(confusion_matrix, args.pair2a, args.pair2b)
         print(str((args.pair2a, args.pair2b)) + ": " + str(pair2))
-        print("total: " + str(pair1 + pair2))
+        print("average: " + str((pair1 + pair2)/2))
         #os.system('python plot.py {} &'.format(args.log_dir))
 
         train_F.close()

@@ -163,10 +163,10 @@ def main():
         print(str((args.pair1a, args.pair1b)) + ": " + str(pair1))
         pair2 = compute_confusion(confusion_matrix, args.pair2a, args.pair2b)
         print(str((args.pair2a, args.pair2b)) + ": " + str(pair2))
-        print("total: " + str(pair1 + pair2))
+        print("average: " + str((pair1 + pair2)/2))
 
         accuracy = best_performance
-        v_conf = first_second
+        v_conf = (pair1 + pair2)/2
         directory = args.log_dir
         performance_str = '%.4f_%.4f.txt' % (accuracy, v_conf)
         performance_file = os.path.join(directory, performance_str)

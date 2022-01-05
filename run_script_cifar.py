@@ -41,7 +41,7 @@ method_properties = {
 
 
 
-dataset_model_classes = [('cifar10', 'resnet-18', (3, 5, 2)), ('cifar10', 'vggbn-11', (3, 5, 2)), ('cifar10', 'mobilenetv2-115', (3, 5, 2)), ('cifar100', 'resnet-34', (98, 35, 11))]
+dataset_model_classes = [('cifar10', 'resnet-18', (3, 5, 2)), ('cifar10', 'vggbn-11', (3, 5, 2)), ('cifar10', 'mobilenetv2-115', (3, 5, 2)), ('cifar100', 'resnet-34', (98, 35, 11)), ('cifar10_multipair', 'resnet-18', (3, 5, 1, 9))]
 tasks = ['confusion', 'bias']
 methods = ['w-aug', 'w-bn', 'w-loss', 'w-dbr']
 params = [0.1, 0.3, 0.5, 0.7, 0.9]
@@ -127,7 +127,11 @@ def execute_cmd(dataset, model, classes, task, method, param, log_filename, t0, 
         model_path = 'models/cifar100_resnet34/model_best.pth.tar'
     else:
         raise
-    first, second, third = classes
+
+    if dataset in ['cifar10_multipair']:
+        first, second, third, fourth = classes
+    else:
+        first, second, third = classes
 
     param_name = method_properties[method]["param_name"]
     filename = method_properties[method]["filename"]
@@ -142,10 +146,13 @@ def execute_cmd(dataset, model, classes, task, method, param, log_filename, t0, 
         os.mkdir(expdir)
     expname = os.path.join(subfolder, dataset+'_'+model+'_'+task+'_'+method+'_'+str(param))
 
-    cmd = f"python3 {filepath} --net_type {model_type} --dataset {dataset} --depth {model_depth} --expname {expname} --epochs {epochs} --lr 0.1 --beta 1.0 --cutmix_prob 0 --pretrained {model_path} --batch_size {batch_size} --extra {extra_batch_size} --first {first} --second {second} --{param_name} {param}"+replace+verbose
+    cmd = f"python3 {filepath} --net_type {model_type} --dataset {dataset} --depth {model_depth} --expname {expname} --epochs {epochs} --lr 0.1 --beta 1.0 --cutmix_prob 0 --pretrained {model_path} --batch_size {batch_size} --extra {extra_batch_size} --{param_name} {param}"+replace+verbose
 
-    if task == 'bias':
-        cmd += ' --third '+str(third)
+    if dataset in ['cifar10_multipair']:
+        cmd += f'--pair1a {first} --pair1b {second} --pair2a {third} --pair2b {fourth}'
+    else:
+        cmd += f'--first {first} --second {second} --third {third}'
+
     print('-'*20)
     print(cmd)
     print('-'*20)
