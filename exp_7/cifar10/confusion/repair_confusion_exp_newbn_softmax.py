@@ -102,6 +102,8 @@ parser.add_argument('--replace', help='replace bn layer ',
 
 parser.add_argument('--ratio', default=0.5, type=float,
                     help='target ratio for batchnorm layers')
+parser.add_argument('--save_npy', help='save npy for analysis',
+                    action='store_true')
 # parser.add_argument('--forward', default=1, type=int,
 #                    help='extra batch size')
 parser.set_defaults(bottleneck=True)
@@ -664,6 +666,10 @@ def get_confusion(val_loader, model, criterion, epoch=-1):
                 dog_cat_acc += 1
     global_epoch_confusion[-1]["dogcatacc"] = dog_cat_acc/dog_cat_sum
     log_print("pair accuracy: " + str(global_epoch_confusion[-1]["dogcatacc"]))
+
+    if args.save_npy:
+        np.save(args.expname + '_yhats.npy', yhats)
+        np.save(args.expname + '_labels.npy', labels)
 
     return top1.avg, top5.avg, losses.avg
 
