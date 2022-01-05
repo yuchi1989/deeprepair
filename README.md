@@ -53,6 +53,11 @@ python2 repair_confusion_bn.py --pretrained ../../../models/cocogender_original_
 python3 repair_confusion_exp_newbn.py --net_type resnet --dataset cifar10 --depth 18 --batch_size 128 --lr 0.1 --expname cifar10_resnet_2_4_dogcat_test --epochs 60 --beta 1.0 --cutmix_prob 0 --pretrained ../../../models/cifar10_resnet18_2_4/model_best.pth.tar --extra 128 --checkmodel --pair1a 3 --pair1b 5 --pair2a 1 --pair2b 9
 ```
 
+### coco 2 pairs
+```
+python2 repair_confusion_bn.py --pretrained ../../../models/coco_original_model/model_best.pth.tar --ann_dir '../../../../coco/annotations' --image_dir '../../../../coco/' --pair1a "person" --pair1b "bus" --pair2a "mouse" --pair2b "keyboard" --checkmodel
+```
+
 ## Check Model Bias
 ### cifar10
 ```
@@ -613,7 +618,7 @@ python2 repair_confusion_bn.py --pretrained ../../coco_original_model/model_best
 
 #### [w-os](https://github.com/yuchi1989/deeprepair/blob/master/exp_9/coco_multipair/repair_confusion_exp_newbn_softmax.py):
 ```
-python2 coco_feature_space.py --pretrained ../../coco_original_model/checkpoint.pth.tar --ann_dir '../../../../coco/annotations' --image_dir '../../../../coco/' --groupname original
+python2 coco_feature_space.py --pretrained ../../../models/coco_original_model/checkpoint.pth.tar --ann_dir '../../../../coco/annotations' --image_dir '../../../../coco/' --groupname original
 python2 repair_confusion_exp_newbn_softmax.py --data_file original_test_data.npy --eta 0.8 --mode multipairconfusion --first person --second bus --third mouse --fourth keyboard
 ```
 

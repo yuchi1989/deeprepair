@@ -68,6 +68,8 @@ def main():
                     action='store_true')
     parser.add_argument('--class_num', default=80, type=int,
                 help='81:coco_gender;80:coco')
+    parser.add_argument('--checkmodel', help='Check model accuracy',
+                    action='store_true')
     args = parser.parse_args()
     assert os.path.isfile(args.pretrained)
 
@@ -173,6 +175,21 @@ def main():
         replace_bn(model, args.ratio)
         print(model)
         model = model.cuda()
+
+    if args.checkmodel:
+        global_epoch_confusion.append({})
+        epoch = 0
+        _ = get_confusion(args, epoch, model, criterion, val_loader, optimizer, val_F, score_F, val_data)
+        confusion_matrix = global_epoch_confusion[-1]["confusion"]
+
+        pair1 = compute_confusion(confusion_matrix, args.pair1a, args.pair1b)
+        print(str((args.pair1a, args.pair1b)) + ": " + str(pair1))
+        pair2 = compute_confusion(confusion_matrix, args.pair2a, args.pair2b)
+        print(str((args.pair2a, args.pair2b)) + ": " + str(pair2))
+        print("average: " + str((pair1 + pair2)/2))
+
+
+        exit()
 
     for epoch in range(args.start_epoch, args.num_epochs + 1):
         global_epoch_confusion.append({})
@@ -524,6 +541,7 @@ def get_confusion(args, epoch, model, criterion, val_loader, optimizer, val_F, s
     global_epoch_confusion[-1]["confusion"] = type2confusion
     global_epoch_confusion[-1]["accuracy"] = eval_score_object
 
+    global_epoch_confusion[-1]["pair_count"] = pair_count
     return eval_score_object
 
 class AverageMeter(object):

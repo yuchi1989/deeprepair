@@ -74,10 +74,10 @@ epochs = 18
 
 
 config_list = [
-('coco_multipair', 'coco_multipair', ("person", "bus", "mouse", "key"), 'confusion', 'w-aug', 0.9),
-('coco_multipair', 'coco_multipair', ("person", "bus", "mouse", "key"), 'confusion', 'w-bn', 0.9),
-('coco_multipair', 'coco_multipair', ("person", "bus", "mouse", "key"), 'confusion', 'w-loss', 0.9),
-('coco_multipair', 'coco_multipair', ("person", "bus", "mouse", "key"), 'confusion', 'w-dbr', 0.9),
+('coco_multipair', 'coco_multipair', ("person", "bus", "mouse", "keyboard"), 'confusion', 'w-aug', 0.9),
+('coco_multipair', 'coco_multipair', ("person", "bus", "mouse", "keyboard"), 'confusion', 'w-bn', 0.9),
+('coco_multipair', 'coco_multipair', ("person", "bus", "mouse", "keyboard"), 'confusion', 'w-loss', 0.9),
+('coco_multipair', 'coco_multipair', ("person", "bus", "mouse", "keyboard"), 'confusion', 'w-dbr', 0.9),
 ]
 
 
