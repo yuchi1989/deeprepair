@@ -93,3 +93,4 @@ exp_7/cifar10_multipair/data
 exp_9/coco_multipair/confusion_and_bias/pycocotools/*.pyc
 exp_9/coco_multipair/confusion_and_bias/*.pyc
 exp_9/coco_multipair/confusion_and_bias/log
+exp_7/cifar10/confusion/*.npy

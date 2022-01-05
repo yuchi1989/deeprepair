@@ -44,15 +44,15 @@ def get_confusion(predict, labels):
             confusion[(l1, l2)] = c/subcount
     return confusion
 
-original_labels = np.load("original_labels.npy")
-original_outputs = np.load("original_outputs.npy")
-fixed_labels = np.load("fixed_labels.npy")
-fixed_outputs = np.load("fixed_outputs.npy")
-
-original_train_labels = np.load("original_train_labels.npy")
-original_train_outputs = np.load("original_train_outputs.npy")
-fixed_train_labels = np.load("fixed_train_labels.npy")
-fixed_train_outputs = np.load("fixed_train_outputs.npy")
+# original_labels = np.load("original_labels.npy")
+# original_outputs = np.load("original_outputs.npy")
+# fixed_labels = np.load("fixed_labels.npy")
+# fixed_outputs = np.load("fixed_outputs.npy")
+#
+# original_train_labels = np.load("original_train_labels.npy")
+# original_train_outputs = np.load("original_train_outputs.npy")
+# fixed_train_labels = np.load("fixed_train_labels.npy")
+# fixed_train_outputs = np.load("fixed_train_outputs.npy")
 
 
 
@@ -122,36 +122,48 @@ plt.show()
 '''
 
 
+class_num = 3
+start = 0.02
+width = 0.10
+
+if class_num == 3:
+    class_str = 'cats(3)'
+elif class_num == 5:
+    class_str = 'dogs(5)'
 
 confusion_bar = []
-models = ["original", "oversampling", "dbr", "softmax", "newbn"]
+models = ["orig", "finetune", "w-aug", "w-bn", "w-loss", "w-os", "w-dbr"]
 # confusion
 for m in models:
-    labels = np.load("cifar10_" + m + "_labels.npy")
-    yhats = np.load("cifar10_" + m + "_yhats.npy")
+    labels = np.load(m + "_labels.npy")
+    yhats = np.load(m + "_yhats.npy")
     fixed_confusion = get_confusion(yhats, labels)
     confusion_bar.append([0 for _ in range(10)])
     for i in range(10):
-        confusion_bar[-1][i] = fixed_confusion[(3, i)]
+        confusion_bar[-1][i] = fixed_confusion[(class_num, i)]
     print(confusion_bar[-1])
 X = np.arange(10)
 plt.figure(figsize=(10,6), dpi=200)
-plt.bar(X + 0.00, confusion_bar[0], width = 0.15)
-plt.bar(X + 0.15, confusion_bar[1], width = 0.15)
-plt.bar(X + 0.30, confusion_bar[2], width = 0.15)
-plt.bar(X + 0.45, confusion_bar[3], width = 0.15)
-plt.bar(X + 0.60, confusion_bar[4], width = 0.15)
 
-plt.legend(labels=['orig', 'w-aug(5)', 'w-dbr(0.5)', 'w-os(0.001)', 'w-bn(0.4)'], loc='best', framealpha=0.5, prop={'size': 16})
+plt.bar(X + start+width*0, confusion_bar[0], width = width)
+plt.bar(X + start+width*1, confusion_bar[1], width = width)
+plt.bar(X + start+width*2, confusion_bar[2], width = width)
+plt.bar(X + start+width*3, confusion_bar[3], width = width)
+plt.bar(X + start+width*4, confusion_bar[4], width = width)
+plt.bar(X + start+width*5, confusion_bar[5], width = width)
+plt.bar(X + start+width*6, confusion_bar[6], width = width)
+plt.ylim([0, 0.15])
+
+plt.legend(labels=['orig', 'finetune', 'w-aug(0.9)', 'w-bn(0.7)', 'w-loss(0.9)', 'w-os(0.001)', 'w-dbr(0.1)'], loc='best', framealpha=0.5, prop={'size': 16})
 plt.xticks(fontsize=15)
 plt.yticks(fontsize=15)
 
 
 plt.gcf().subplots_adjust(left=0.2, bottom=0.15)
 
-plt.title("Misclassification cats(3) -> others", fontsize=25)
+plt.title("Misclassification "+class_str+" -> others", fontsize=25)
 plt.xlabel("labels", fontsize=22)
 plt.ylabel("Confusion", fontsize=22)
 plt.xticks(X, X)
-plt.savefig('cifar10_3.pdf',bbox_inches='tight', dpi=1200, format='pdf')
-plt.show()
+plt.savefig('cifar10_'+str(class_num)+'.pdf',bbox_inches='tight', dpi=1200, format='pdf')
+# plt.show()
