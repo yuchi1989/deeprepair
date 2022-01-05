@@ -106,6 +106,33 @@ config_list = [
 ('cifar100', 'resnet-34', (98, 35, 11), 'bias', 'w-dbr', 0.1),
 ]
 
+config_list = [
+('cifar10_multipair', 'resnet-18', (3, 5, 1, 9), 'confusion', 'w-aug', 0.1),
+('cifar10_multipair', 'resnet-18', (3, 5, 1, 9), 'confusion', 'w-bn', 0.1),
+('cifar10_multipair', 'resnet-18', (3, 5, 1, 9), 'confusion', 'w-loss', 0.1),
+('cifar10_multipair', 'resnet-18', (3, 5, 1, 9), 'confusion', 'w-dbr', 0.1),
+
+('cifar10_multipair', 'resnet-18', (3, 5, 1, 9), 'confusion', 'w-aug', 0.3),
+('cifar10_multipair', 'resnet-18', (3, 5, 1, 9), 'confusion', 'w-bn', 0.3),
+('cifar10_multipair', 'resnet-18', (3, 5, 1, 9), 'confusion', 'w-loss', 0.3),
+('cifar10_multipair', 'resnet-18', (3, 5, 1, 9), 'confusion', 'w-dbr', 0.3),
+
+('cifar10_multipair', 'resnet-18', (3, 5, 1, 9), 'confusion', 'w-aug', 0.5),
+('cifar10_multipair', 'resnet-18', (3, 5, 1, 9), 'confusion', 'w-bn', 0.5),
+('cifar10_multipair', 'resnet-18', (3, 5, 1, 9), 'confusion', 'w-loss', 0.5),
+('cifar10_multipair', 'resnet-18', (3, 5, 1, 9), 'confusion', 'w-dbr', 0.5),
+
+('cifar10_multipair', 'resnet-18', (3, 5, 1, 9), 'confusion', 'w-aug', 0.7),
+('cifar10_multipair', 'resnet-18', (3, 5, 1, 9), 'confusion', 'w-bn', 0.7),
+('cifar10_multipair', 'resnet-18', (3, 5, 1, 9), 'confusion', 'w-loss', 0.7),
+('cifar10_multipair', 'resnet-18', (3, 5, 1, 9), 'confusion', 'w-dbr', 0.7),
+
+('cifar10_multipair', 'resnet-18', (3, 5, 1, 9), 'confusion', 'w-aug', 0.9),
+('cifar10_multipair', 'resnet-18', (3, 5, 1, 9), 'confusion', 'w-bn', 0.9),
+('cifar10_multipair', 'resnet-18', (3, 5, 1, 9), 'confusion', 'w-loss', 0.9),
+('cifar10_multipair', 'resnet-18', (3, 5, 1, 9), 'confusion', 'w-dbr', 0.9),
+]
+
 
 
 def execute_cmd(dataset, model, classes, task, method, param, log_filename, t0, rep_num):
