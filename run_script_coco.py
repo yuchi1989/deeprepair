@@ -74,18 +74,8 @@ epochs = 18
 
 
 config_list = [
-('coco_multipair', 'coco_multipair', ("person", "bus", "mouse", "keyboard"), 'confusion', 'w-aug', 0.5),
-('coco_multipair', 'coco_multipair', ("person", "bus", "mouse", "keyboard"), 'confusion', 'w-bn', 0.5),
-
-('coco_multipair', 'coco_multipair', ("person", "bus", "mouse", "keyboard"), 'confusion', 'w-aug', 0.1),
-('coco_multipair', 'coco_multipair', ("person", "bus", "mouse", "keyboard"), 'confusion', 'w-bn', 0.1),
-('coco_multipair', 'coco_multipair', ("person", "bus", "mouse", "keyboard"), 'confusion', 'w-loss', 0.1),
-('coco_multipair', 'coco_multipair', ("person", "bus", "mouse", "keyboard"), 'confusion', 'w-dbr', 0.1),
-
-('coco_multipair', 'coco_multipair', ("person", "bus", "mouse", "keyboard"), 'confusion', 'w-aug', 0.3),
-('coco_multipair', 'coco_multipair', ("person", "bus", "mouse", "keyboard"), 'confusion', 'w-bn', 0.3),
-('coco_multipair', 'coco_multipair', ("person", "bus", "mouse", "keyboard"), 'confusion', 'w-loss', 0.3),
-('coco_multipair', 'coco_multipair', ("person", "bus", "mouse", "keyboard"), 'confusion', 'w-dbr', 0.3),
+('coco_multipair', 'coco_multipair', ("person", "bus", "mouse", "keyboard"), 'confusion', 'w-aug', 0.9),
+('coco_multipair', 'coco_multipair', ("person", "bus", "mouse", "keyboard"), 'confusion', 'w-bn', 0.9),
 ]
 
 
@@ -144,7 +134,7 @@ if __name__ == '__main__':
                     for param in params:
                         execute_cmd(dataset, model, classes, task, method, param, log_filename, t0, 0)
     elif mode == 'specific':
-        rep_nums = 1
+        rep_nums = 4
         log_filename = 'tmp_log_coco_specific.txt'
         with open(log_filename, 'w') as f_out:
             pass
