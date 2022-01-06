@@ -55,79 +55,61 @@ params = [0.1, 0.3, 0.5, 0.7, 0.9]
 # epochs = 2
 
 
+# config_list = [
+# ('cifar10', 'resnet-18', (3, 5, 2), 'confusion', 'w-aug', 1.0),
+# ('cifar10', 'vggbn-11', (3, 5, 2), 'confusion', 'w-aug', 1.0),
+# ('cifar10', 'mobilenetv2-115', (3, 5, 2), 'confusion', 'w-aug', 1.0),
+# ('cifar100', 'resnet-34', (98, 35, 11), 'confusion', 'w-aug', 1.0),
+#
+# ('cifar10', 'resnet-18', (3, 5, 2), 'confusion', 'w-aug', 0.7),
+# ('cifar10', 'resnet-18', (3, 5, 2), 'confusion', 'w-bn', 0.7),
+# ('cifar10', 'resnet-18', (3, 5, 2), 'confusion', 'w-bn', 0.9),
+# ('cifar10', 'resnet-18', (3, 5, 2), 'confusion', 'w-loss', 0.9),
+# ('cifar10', 'resnet-18', (3, 5, 2), 'confusion', 'w-dbr', 0.9),
+#
+# ('cifar10', 'vggbn-11', (3, 5, 2), 'confusion', 'w-aug', 0.9),
+# ('cifar10', 'vggbn-11', (3, 5, 2), 'confusion', 'w-bn', 0.7),
+# ('cifar10', 'vggbn-11', (3, 5, 2), 'confusion', 'w-loss', 0.9),
+# ('cifar10', 'vggbn-11', (3, 5, 2), 'confusion', 'w-dbr', 0.1),
+#
+# ('cifar10', 'mobilenetv2-115', (3, 5, 2), 'confusion', 'w-aug', 0.5),
+# ('cifar10', 'mobilenetv2-115', (3, 5, 2), 'confusion', 'w-bn', 0.7),
+# ('cifar10', 'mobilenetv2-115', (3, 5, 2), 'confusion', 'w-loss', 0.9),
+# ('cifar10', 'mobilenetv2-115', (3, 5, 2), 'confusion', 'w-dbr', 0.9),
+#
+# ('cifar100', 'resnet-34', (98, 35, 11), 'confusion', 'w-aug', 0.3),
+# ('cifar100', 'resnet-34', (98, 35, 11), 'confusion', 'w-bn', 0.9),
+# ('cifar100', 'resnet-34', (98, 35, 11), 'confusion', 'w-loss', 0.9),
+# ('cifar100', 'resnet-34', (98, 35, 11), 'confusion', 'w-dbr', 0.9),
+#
+#
+#
+# ('cifar10', 'resnet-18', (3, 5, 2), 'bias', 'w-aug', 0.7),
+# ('cifar10', 'resnet-18', (3, 5, 2), 'bias', 'w-bn', 0.7),
+# ('cifar10', 'resnet-18', (3, 5, 2), 'bias', 'w-bn', 0.9),
+# ('cifar10', 'resnet-18', (3, 5, 2), 'bias', 'w-loss', 0.9),
+# ('cifar10', 'resnet-18', (3, 5, 2), 'bias', 'w-dbr', 0.9),
+#
+# ('cifar10', 'vggbn-11', (3, 5, 2), 'bias', 'w-aug', 0.7),
+# ('cifar10', 'vggbn-11', (3, 5, 2), 'bias', 'w-bn', 0.5),
+# ('cifar10', 'vggbn-11', (3, 5, 2), 'bias', 'w-loss', 0.9),
+# ('cifar10', 'vggbn-11', (3, 5, 2), 'bias', 'w-dbr', 0.9),
+#
+# ('cifar10', 'mobilenetv2-115', (3, 5, 2), 'bias', 'w-aug', 0.5),
+# ('cifar10', 'mobilenetv2-115', (3, 5, 2), 'bias', 'w-bn', 0.5),
+# ('cifar10', 'mobilenetv2-115', (3, 5, 2), 'bias', 'w-loss', 0.1),
+# ('cifar10', 'mobilenetv2-115', (3, 5, 2), 'bias', 'w-dbr', 0.9),
+#
+# ('cifar100', 'resnet-34', (98, 35, 11), 'bias', 'w-aug', 0.7),
+# ('cifar100', 'resnet-34', (98, 35, 11), 'bias', 'w-bn', 0.9),
+# ('cifar100', 'resnet-34', (98, 35, 11), 'bias', 'w-loss', 0.9),
+# ('cifar100', 'resnet-34', (98, 35, 11), 'bias', 'w-dbr', 0.1),
+# ]
+
 config_list = [
-('cifar10', 'resnet-18', (3, 5, 2), 'confusion', 'w-aug', 1.0),
-('cifar10', 'vggbn-11', (3, 5, 2), 'confusion', 'w-aug', 1.0),
-('cifar10', 'mobilenetv2-115', (3, 5, 2), 'confusion', 'w-aug', 1.0),
-('cifar100', 'resnet-34', (98, 35, 11), 'confusion', 'w-aug', 1.0),
-
-('cifar10', 'resnet-18', (3, 5, 2), 'confusion', 'w-aug', 0.7),
-('cifar10', 'resnet-18', (3, 5, 2), 'confusion', 'w-bn', 0.7),
-('cifar10', 'resnet-18', (3, 5, 2), 'confusion', 'w-bn', 0.9),
-('cifar10', 'resnet-18', (3, 5, 2), 'confusion', 'w-loss', 0.9),
-('cifar10', 'resnet-18', (3, 5, 2), 'confusion', 'w-dbr', 0.9),
-
-('cifar10', 'vggbn-11', (3, 5, 2), 'confusion', 'w-aug', 0.9),
-('cifar10', 'vggbn-11', (3, 5, 2), 'confusion', 'w-bn', 0.7),
-('cifar10', 'vggbn-11', (3, 5, 2), 'confusion', 'w-loss', 0.9),
-('cifar10', 'vggbn-11', (3, 5, 2), 'confusion', 'w-dbr', 0.1),
-
-('cifar10', 'mobilenetv2-115', (3, 5, 2), 'confusion', 'w-aug', 0.5),
-('cifar10', 'mobilenetv2-115', (3, 5, 2), 'confusion', 'w-bn', 0.7),
-('cifar10', 'mobilenetv2-115', (3, 5, 2), 'confusion', 'w-loss', 0.9),
-('cifar10', 'mobilenetv2-115', (3, 5, 2), 'confusion', 'w-dbr', 0.9),
-
-('cifar100', 'resnet-34', (98, 35, 11), 'confusion', 'w-aug', 0.3),
-('cifar100', 'resnet-34', (98, 35, 11), 'confusion', 'w-bn', 0.9),
-('cifar100', 'resnet-34', (98, 35, 11), 'confusion', 'w-loss', 0.9),
-('cifar100', 'resnet-34', (98, 35, 11), 'confusion', 'w-dbr', 0.9),
-
-
-
-('cifar10', 'resnet-18', (3, 5, 2), 'bias', 'w-aug', 0.7),
-('cifar10', 'resnet-18', (3, 5, 2), 'bias', 'w-bn', 0.7),
-('cifar10', 'resnet-18', (3, 5, 2), 'bias', 'w-bn', 0.9),
-('cifar10', 'resnet-18', (3, 5, 2), 'bias', 'w-loss', 0.9),
-('cifar10', 'resnet-18', (3, 5, 2), 'bias', 'w-dbr', 0.9),
-
-('cifar10', 'vggbn-11', (3, 5, 2), 'bias', 'w-aug', 0.7),
-('cifar10', 'vggbn-11', (3, 5, 2), 'bias', 'w-bn', 0.5),
-('cifar10', 'vggbn-11', (3, 5, 2), 'bias', 'w-loss', 0.9),
-('cifar10', 'vggbn-11', (3, 5, 2), 'bias', 'w-dbr', 0.9),
-
-('cifar10', 'mobilenetv2-115', (3, 5, 2), 'bias', 'w-aug', 0.5),
-('cifar10', 'mobilenetv2-115', (3, 5, 2), 'bias', 'w-bn', 0.5),
-('cifar10', 'mobilenetv2-115', (3, 5, 2), 'bias', 'w-loss', 0.1),
-('cifar10', 'mobilenetv2-115', (3, 5, 2), 'bias', 'w-dbr', 0.9),
-
-('cifar100', 'resnet-34', (98, 35, 11), 'bias', 'w-aug', 0.7),
-('cifar100', 'resnet-34', (98, 35, 11), 'bias', 'w-bn', 0.9),
-('cifar100', 'resnet-34', (98, 35, 11), 'bias', 'w-loss', 0.9),
-('cifar100', 'resnet-34', (98, 35, 11), 'bias', 'w-dbr', 0.1),
-]
-
-config_list = [
-('cifar10_multipair', 'resnet-18', (3, 5, 1, 9), 'confusion', 'w-aug', 0.1),
-('cifar10_multipair', 'resnet-18', (3, 5, 1, 9), 'confusion', 'w-bn', 0.1),
-('cifar10_multipair', 'resnet-18', (3, 5, 1, 9), 'confusion', 'w-loss', 0.1),
-('cifar10_multipair', 'resnet-18', (3, 5, 1, 9), 'confusion', 'w-dbr', 0.1),
-
-('cifar10_multipair', 'resnet-18', (3, 5, 1, 9), 'confusion', 'w-aug', 0.3),
-('cifar10_multipair', 'resnet-18', (3, 5, 1, 9), 'confusion', 'w-bn', 0.3),
-('cifar10_multipair', 'resnet-18', (3, 5, 1, 9), 'confusion', 'w-loss', 0.3),
-('cifar10_multipair', 'resnet-18', (3, 5, 1, 9), 'confusion', 'w-dbr', 0.3),
-
-('cifar10_multipair', 'resnet-18', (3, 5, 1, 9), 'confusion', 'w-aug', 0.5),
-('cifar10_multipair', 'resnet-18', (3, 5, 1, 9), 'confusion', 'w-bn', 0.5),
-('cifar10_multipair', 'resnet-18', (3, 5, 1, 9), 'confusion', 'w-loss', 0.5),
-('cifar10_multipair', 'resnet-18', (3, 5, 1, 9), 'confusion', 'w-dbr', 0.5),
-
+('cifar10_multipair', 'resnet-18', (3, 5, 1, 9), 'confusion', 'w-aug', 1.0),
 ('cifar10_multipair', 'resnet-18', (3, 5, 1, 9), 'confusion', 'w-aug', 0.7),
-('cifar10_multipair', 'resnet-18', (3, 5, 1, 9), 'confusion', 'w-bn', 0.7),
-('cifar10_multipair', 'resnet-18', (3, 5, 1, 9), 'confusion', 'w-loss', 0.7),
-('cifar10_multipair', 'resnet-18', (3, 5, 1, 9), 'confusion', 'w-dbr', 0.7),
-
-('cifar10_multipair', 'resnet-18', (3, 5, 1, 9), 'confusion', 'w-aug', 0.9),
+('cifar10_multipair', 'resnet-18', (3, 5, 1, 9), 'confusion', 'w-bn', 0.5),
 ('cifar10_multipair', 'resnet-18', (3, 5, 1, 9), 'confusion', 'w-bn', 0.9),
 ('cifar10_multipair', 'resnet-18', (3, 5, 1, 9), 'confusion', 'w-loss', 0.9),
 ('cifar10_multipair', 'resnet-18', (3, 5, 1, 9), 'confusion', 'w-dbr', 0.9),
@@ -183,7 +165,7 @@ def execute_cmd(dataset, model, classes, task, method, param, log_filename, t0, 
         cmd += f' --first {first} --second {second} --third {third}'
 
     print('-'*20)
-    print(cmd)
+    print(rep_num, time.time()-t0, cmd)
     print('-'*20)
     with open('tmp_log.txt', 'a') as f_out:
         f_out.write(cmd+'\n')
@@ -204,7 +186,7 @@ if __name__ == '__main__':
                     for param in params:
                         execute_cmd(dataset, model, classes, task, method, param, log_filename, t0, 0)
     elif mode == 'specific':
-        rep_nums = 1
+        rep_nums = 4
         log_filename = 'tmp_log_coco_specific.txt'
         with open(log_filename, 'w') as f_out:
             pass
