@@ -116,8 +116,7 @@ params = [0.1, 0.3, 0.5, 0.7, 0.9]
 # ]
 
 config_list = [
-('cifar10', 'vggbn-11', (3, 5, 2), 'bias', 'w-aug', 0.3),
-('cifar10', 'vggbn-11', (3, 5, 2), 'bias', 'w-bn', 0.9),
+('cifar100', 'resnet-34', (98, 35, 11), 'bias', 'w-bn', 0.7),
 ]
 
 
