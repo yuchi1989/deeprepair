@@ -122,7 +122,7 @@ plt.show()
 '''
 
 
-class_num = 3
+class_num = 5
 start = 0.02
 width = 0.10
 
@@ -155,8 +155,8 @@ plt.bar(X + start+width*6, confusion_bar[6], width = width)
 plt.ylim([0, 0.15])
 
 plt.legend(labels=['orig', 'finetune', 'w-aug(0.9)', 'w-bn(0.7)', 'w-loss(0.9)', 'w-os(0.001)', 'w-dbr(0.1)'], loc='best', framealpha=0.5, prop={'size': 16})
-plt.xticks(fontsize=15)
-plt.yticks(fontsize=15)
+plt.xticks(X, ['airplane', 'automobile', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck'], fontsize=9)
+plt.yticks(fontsize=9)
 
 
 plt.gcf().subplots_adjust(left=0.2, bottom=0.15)
@@ -164,6 +164,6 @@ plt.gcf().subplots_adjust(left=0.2, bottom=0.15)
 plt.title("Misclassification "+class_str+" -> others", fontsize=25)
 plt.xlabel("labels", fontsize=22)
 plt.ylabel("Confusion", fontsize=22)
-plt.xticks(X, X)
+
 plt.savefig('cifar10_'+str(class_num)+'.pdf',bbox_inches='tight', dpi=1200, format='pdf')
 # plt.show()
